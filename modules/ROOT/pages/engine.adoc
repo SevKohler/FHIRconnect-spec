@@ -1,0 +1,63 @@
+= Requirements of the Engine
+
+:navtitle: 2. Engine
+
+What needs to be done by the engine, the grammar implies. ## Validation
+
+== Resolving of EHR id and patients
+
+== Dynamic type conversion
+
+== Missing references
+
+== Links and references
+
+https://specifications.openehr.org/releases/RM/latest/common.html#++_++locatable++_++class
+
+Automatically add links to identifier for assigner to convert it back ?
+Otherwise this should pinpoint to demopgrahics server.
+
+== Circular dependencies and duplicated conversions
+
+table should also list ehr object links. not only composition Advisable
+to stop at depth of 3 ?! ## Ids and how to ensure deterministic behavior
+
+== Mapping planer
+
+e.g. if specimen is contained as identifier and specimen cluster is in
+the same composition execute specimen cluster first for the mapping.
+
+== mapping fields that are not part of the template
+
+Engine should not execute mappings that are not required by the
+template/kick them out.
+
+== cardinalities
+
+When openEHR 0..++*++ and FHIR 0..++*++ the corresponding iteration is
+to be done. e.g.
+
+[source,yaml]
+----
+  - name: "diagnose"
+    with:
+      fhir: "$resourcePath.diagnosis"
+      openEHR: "$reference"
+      type: "NONE"
+
+----
+
+These can be a list of diagnoses therefore iterate this mapping for each
+of the elements ## context mappings each context mapping has its own
+imports, so its not mixed when cross referencing
+
+== writing into 0..++*++ fields
+
+E.g. mappings from a 0..++*++ dosage that contains a route into the
+openEHR route which is 0..n. Field is added for each cluster again and
+again. if its 0..++*++ append, if its 0..1 overwrite. Mapping to List in
+openEHR should always append to list e.g. /links.
+
+== mappings and multiple codings
+
+codeable concept transform use term mappings vice versa

@@ -1,5 +1,5 @@
 = Introducing the grammar
-:navtitle: Grammar
+:navtitle: 1. Grammar
 # :url-asciidoc-lang: https://projects.eclipse.org/projects/technology.asciidoc
 
 == File structure
