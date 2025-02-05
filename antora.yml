@@ -1,0 +1,13 @@
+name: FHIRconnect
+version: latest
+title: FHIRconnect
+nav:
+  - modules/ROOT/nav.adoc
+
+ext:
+  collector:
+    - clean:
+        - dir: build-foo
+        - dir: build-bar
+    - clean:
+        dir: build-baz

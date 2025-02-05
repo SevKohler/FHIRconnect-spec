@@ -1,0 +1,19 @@
+= FHIRconnect Specification Documentation
+:navtitle: Introduction
+# :url-asciidoc-lang: https://projects.eclipse.org/projects/technology.asciidoc
+
+== About FHIRconnect
+
+
+FHIRconnect is a derivative of YAML and a rework of the draft from
+Betters https://github.com/better-care[FHIRconnect]. It is used to
+bidirectionally map openEHR and FHIR. The aim is to create a mapping
+language the communities can use to transform between the standards.
+
+Apart from the transformation the specification and resulting files
+should also deal as a documentation of how these things are to be
+mapped. So even if vendors do not implement FHIRconnect, they have a
+documentation of how this is should be transformed. This is especially
+important to maintain a consistency between transforming both standards
+throughout institutions.
+

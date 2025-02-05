@@ -1,0 +1,287 @@
+= Introducing the grammar
+:navtitle: Grammar
+# :url-asciidoc-lang: https://projects.eclipse.org/projects/technology.asciidoc
+
+== File structure
+
+Mappings are organized in three type of files. The *model mapping*,
+which is the vanilla mapping describing the transformation between an
+archetype and a un-profiled resource. This is the most basic form of
+mapping that is to be shared and maintained by the communities.
+
+*Extension mappings* are used to extend model mappings by adding,
+overwriting or appending mapping logic to the vanilla model mappings.
+This is required to map between templates and profiles. The model
+mappings act like a sustainable set of base mappings that can be
+extended for a given scope using extension mappings. Extension mappings
+act similar to a String Builder.
+
+*Context mappings* define the import of model mappings and extension
+mappings, what profile is transformed to which template and with what
+mapping file to start. There is one context file required for each
+profile and template mapped. From a developer perspective they act as an
+import and main.
+
+image::FileStructure.drawio.png[]
+
+== The header
+
+The header is contained in each FHIRconnect mapping file. It is
+standardized for both FHIRconnect and
+https://github.com/SevKohler/OMOCL[OMOCL].
+
+An example of a model mapping header:
+
+[source,yaml]
+----
+
+engine: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context
+metadata:
+  name: ACTION.informed_consent.v0  #the name of the mapping
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # What is mapped
+  version: R4
+  openEhrConfig:
+    archetype: ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped
+----
+
+An example of a extension mapping header:
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: extension
+metadata:
+  name:  KDS_anatomical_location
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR
+  version: R4
+  extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended
+----
+
+Example of a context mapping header:
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: context
+metadata:
+  name:  KDS_diagnose.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+----
+
+Naming conventions are here the following: Names of model mappings
+always start with the type of openEHR class (e.g. EVALUATION) and the
+full name and version. Sometimes it happens that two resources can be
+transformed into one archetype, in this case the name of the mapping is
+to be extended with what fhir type to what openEHR archetype
+
+* CLUSTER.medication.v2 (this maps medication-to-medication)
+* CLUSTER.medication.v2.substance-to-medication (this does not map a
+FHIR medication but an FHIR substance)
+
+This allows to separately call this archetype mappings for different use
+cases. The initial one created always stays as `CLUSTER.medication.v2`
+and is to be seen as the default. All future mappings created that also
+map to medication but from another FHIR input have to add a string to
+their name as described above. We deem the first mapping as the default
+one, furthermore we want to prevent dependency problems by renaming the
+file later on. For extension and context mapping names, there is no
+specific style guide since this is a project specific decision users
+have to take.
+
+== Mapping body
+
+In general mappings always act with the idea that we can map the paths
+in openEHR and FHIR against each other. For this
+https://build.fhir.org/fhirpath.html[FHIRpath] and
+https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators[openEHR
+paths] are used. This is also the biggest limitation of these mappings,
+if a correlating representation of a path is missing in one of the
+models it has to be added to the model in FHIR or openEHR, if these
+fields are mandatory.
+
+In general all extension and model mapping files start with the mappings
+key in their body, which is a list that contains a set of named
+mappings.
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: EVALUATION.problem_diagnosis.v1
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+----
+
+In this example we map an fhir path onset on the corresponding openEHR
+path at0077 (date time of the diagnose onset). The data types of the
+fields that are mapped are automatically resolved by the engine. In this
+case it would map an effectiveDateTime into an DV++_++DATE++_++TIME. If
+the engine encounters two data types that are not transformable into
+each other it will not execute the mapping. To find a list which data
+type is mapped to what see chapter ENGINE/ DATA TYPE MAPPINGS !??!?!.
+
+To address specific parts of the models variables are used.
+
+==== Variables
+
+Modeling variables/references are required to create reusable paths:
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Variable |Description
+|`$resource` |Path of the root resource path
+
+|`$fhirRoot` |Points to the parent FHIR path used in the mapping step
+before
+
+|`$archetype` |Path of the root archetype path
+
+|`$openehrRoot` |Points to the parent openEHR path used in the mapping
+step before
+
+|`$composition` |Path of the root composition
+
+|`$reference` |Helper to indicate a skipped path, due to a
+link:#fhir-reference-mapping[Reference Mapping] or a manual mapping
+|===
+
+$resource and $archetype point to the root of resource or archetype.
+Both would be resolved as the following:
+
+[source,yaml]
+----
+...
+mappings:
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset" # "Condition.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"
+----
+
+$composition is used to address elements that are not inside the
+archetype, but part of the surrounding composition that contains it.
+Typically this is used to map elements like the composer etc. pp.
+
+always start the mapping with the mother element that can be iterated if
+its 0..++*++ pointing to the corresponding openEHR 0..++*++ !
+
+FHIR has no composition equivalent so you always start at one profile
+and work from thereon. Which one and how to define ?
+
+DV++_++IDENTIFIER: type, type system {plus} ¨::¨ {plus} value, value
+assigner, assigner
+
+Condition is always on the input NOT on the OUTPUT ! That is super
+important!
+
+== model context and extensions
+
+extension: inclusive, exclusive ## Style guide:
+
+camelcase, ++_++, hierarchy mappings, composition mappings, then the
+rest.
+
+File names model = archetype extension context with .context
+
+== Cardinalities and repeating elements
+
+== Links and references
+
+== Demographics
+
+[source,yaml]
+----
+  - name: "partyIdentifiedComposer"
+    with:
+      fhir: "$resourcePath.recorder"
+      openehr: "$composition/composer" # map PARTY_IDENTIFIED, if ResourceType is PATIENT map PARTY_SELF.
+      # Id is here the Patient/a1-23-213-21 so it can be easily re-tracked, please use internal ID.
+      # also provide the identifier on top since its a list !
+      # so 1x identifier + 1x resource id FHIR
+      # type for the back mapping of the DV_IDENTIFIER is FHIRResource !
+
+  - name: "asserter"
+    with:
+      fhir: "$resourcePath.asserter"
+      openehr: "$composition/context/participations" # map reference to recorder
+    participationsFunction: "asserter" # participations_mode this one has to be done in the mapping and cannot be mapped automatically.
+      #https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_participation_class
+      # rest is similar to composer take Reference check if its not patient if not map identifier list to identifier list + add fhir resource
+      # type for the back mapping of the DV_IDENTIFIER is FHIRResource
+----
+
+Add how this is mapped ## Pathing Path parts are like iterations
+
+[source,yaml]
+----
+  - name: "diagnose"
+    extension: "add"
+    with:
+      fhir: "$resourcePath.diagnosis" #iterate diagnosis in this case
+      openEHR: "$reference"
+      type: "NONE"
+      followedBy:
+        mapping:
+        - name: "referencedDiagnose" # condition reference
+          with:
+            fhir: "condition"
+            openEHR: "$reference"
+          reference:
+            resourceType: "Condition"
+            mappings:
+              - name: "referencedDiagnose"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "$archetypePath/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/links"
+                  type: "REFERENCED_MAPPING"
+                  openehrLink:
+                    meaning: "link to the diagnosis composition"
+                    type: "diagnose"
+        - name: "archetype" # use fields etc. CANT reuse cluster mappings since this is not a clear condition to problem dia mapping
+          with:
+            fhir: "diagnosis.condition.code"
+            openEHR: "/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]"
+----
+
+effective to time -++>++ period start will be taken if its not
+specifically .end used.
+
+== COMPOSITION COMPOSER and EVENT++_++CONTEXT
+
+composition/context/start++_++time will be set with mapping time if
+nothing is provided after that entry level then items If composer is not
+set leave it empty, if not possible set FHIRconnect If subject is not
+speicifed party++_++self
+
+Set start++_++time, subject and composer automatically in engine
+
+== manual mappings mention that people should use fhirConcept maps if possible
+
+== composition layer and why it was not introduced
+
+== duplicated reference {plus} resource in a bundle will generate two compositions.
+
+== context start time and a bundle ofr resources see https://github.com/medblocks/openFHIR/issues/89
