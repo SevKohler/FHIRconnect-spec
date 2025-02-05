@@ -3,10 +3,8 @@ site:
   start_page: project-name::index.adoc
 content:
   sources:
-    - url: https://github.com/SevKohler/FHIRconnect.git
-      branches: 'main'
-      start_path: doc
-
+    - url: .
+      branches: HEAD
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
