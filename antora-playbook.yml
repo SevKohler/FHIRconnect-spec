@@ -9,7 +9,7 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/sevkohler/FHIRconnect/blob/master/modules/uibundle.zip?raw=true
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
 
 
