@@ -1,0 +1,119 @@
+= The basics
+:navtitle:  Basic concepts
+
+== Mapping body
+
+In general mappings always act with the idea that we can map the paths
+in openEHR and FHIR against each other. For this
+https://build.fhir.org/fhirpath.html[FHIRpath] and
+https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators[openEHR
+paths] are used. This is also the biggest limitation of these mappings,
+if a correlating representation of a path is missing in one of the
+models it has to be added to the model in FHIR or openEHR, if these
+fields are mandatory.
+
+In general all extension and model mapping files start with the mappings
+key in their body, which is a list that contains a set of named
+mappings.
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: EVALUATION.problem_diagnosis.v1
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+----
+
+In this example we map an fhir path onset on the corresponding openEHR
+path at0077 (date time of the diagnose onset). The data types of the
+fields that are mapped are automatically resolved by the engine. In this
+case it would map an effectiveDateTime into an DV++_++DATE++_++TIME. If
+the engine encounters two data types that are not transformable into
+each other it will not execute the mapping. To find a list which data
+type is mapped to what see chapter ENGINE/ DATA TYPE MAPPINGS !??!?!.
+
+To address specific parts of the models variables are used.
+
+==== Variables
+
+Modeling variables/references are required to create reusable paths:
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Variable |Description
+|`$resource` |Path of the root resource path
+
+|`$fhirRoot` |Points to the parent FHIR path used in the mapping step
+before
+
+|`$archetype` |Path of the root archetype path
+
+|`$openehrRoot` |Points to the parent openEHR path used in the mapping
+step before
+
+|`$composition` |Path of the root composition
+
+|`$reference` |Helper to indicate a skipped path, due to a
+link:#fhir-reference-mapping[Reference Mapping] or a manual mapping
+|===
+
+$resource and $archetype point to the root of resource or archetype.
+Both would be resolved as the following:
+
+[source,yaml]
+----
+...
+mappings:
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset" # "Condition.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"
+----
+
+$composition is used to address elements that are not inside the
+archetype, but part of the surrounding composition that contains it.
+Typically this is used to map elements like the composer etc. pp.
+
+
+
+FHIR has no composition equivalent so you always start at one profile
+and work from thereon. Which one and how to define ?
+
+DV++_++IDENTIFIER: type, type system {plus} ¨::¨ {plus} value, value
+assigner, assigner
+
+Condition is always on the input NOT on the OUTPUT ! That is super
+important!
+
+
+== Cardinalities and repeating elements
+always start the mapping with the mother element that can be iterated if
+its 0..++*++ pointing to the corresponding openEHR 0..++*++ !
+
+== COMPOSITION COMPOSER and EVENT++_++CONTEXT
+
+composition/context/start++_++time will be set with mapping time if
+nothing is provided after that entry level then items If composer is not
+set leave it empty, if not possible set FHIRconnect If subject is not
+speicifed party++_++self
+
+Set start++_++time, subject and composer automatically in engine
+
+
+== composition layer and why it was not introduced
+
+== context start time and a bundle ofr resources see https://github.com/medblocks/openFHIR/issues/89

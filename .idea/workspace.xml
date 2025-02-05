@@ -5,13 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06d7ebe6-6a58-4e26-8604-e09f1be11d5f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/engine.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/cardinality.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/context-mappings.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/demographics.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/links-and-references.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/manual-mappings.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/model-mappings.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/modules/ROOT/pages/types-of-mappings.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/FileStructure.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics/FileStructure.drawio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/site/FHIRconnect/latest/grammar.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/site/FHIRconnect/latest/grammar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/site/FHIRconnect/latest/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/site/FHIRconnect/latest/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/ROOT/nav.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/nav.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/grammar.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/grammar.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/index.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/index.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/engine.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/engine.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/grammar.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/basics.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +46,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "22",
-    "last_opened_file_path": "/home/severin/repos/FHIRconnect/modules",
+    "last_opened_file_path": "/home/severin/repos/FHIRconnect/modules/ROOT/pages",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -55,9 +61,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/modules/ROOT/pages" />
       <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/modules/ROOT/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -74,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738763290123</updated>
-      <workItem from="1738763291363" duration="9332000" />
+      <workItem from="1738763291363" duration="11296000" />
     </task>
     <servers />
   </component>

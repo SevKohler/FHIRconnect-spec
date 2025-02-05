@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FHIRconnect Specification Documentation :: FHIRconnect</title>
+    <title>Types of mappings :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -61,7 +61,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Grammar</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="types-of-mappings.html">Types of mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -129,47 +129,135 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">FHIRconnect</a></li>
-    <li><a href="index.html">Introduction</a></li>
+    <li>Grammar</li>
+    <li><a href="types-of-mappings.html">Types of mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FHIRconnect Specification Documentation</h1>
+<h1 class="page">Types of mappings</h1>
 <div class="sect1">
-<h2 id="_about_fhirconnect"><a class="anchor" href="#_about_fhirconnect"></a>About FHIRconnect</h2>
+<h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIRconnect is a derivative of YAML and a rework of the draft from
-Betters <a href="https://github.com/better-care">FHIRconnect</a>. It is used to
-bidirectionally map openEHR and FHIR. The aim is to create a mapping
-language the communities can use to transform between the standards.</p>
+<p>Mappings are organized in three type of files. The <strong>model mapping</strong>,
+which is the vanilla mapping describing the transformation between an
+archetype and a un-profiled resource. This is the most basic form of
+mapping that is to be shared and maintained by the communities.</p>
 </div>
 <div class="paragraph">
-<p>Apart from the transformation the specification and resulting files
-should also deal as a documentation of how these things are to be
-mapped. So even if vendors do not implement FHIRconnect, they have a
-documentation of how this is should be transformed. This is especially
-important to maintain a consistency between transforming both standards
-throughout institutions.</p>
+<p><strong>Extension mappings</strong> are used to extend model mappings by adding,
+overwriting or appending mapping logic to the vanilla model mappings.
+This is required to map between templates and profiles. The model
+mappings act like a sustainable set of base mappings that can be
+extended for a given scope using extension mappings. Extension mappings
+act similar to a String Builder.</p>
+</div>
+<div class="paragraph">
+<p><strong>Context mappings</strong> define the import of model mappings and extension
+mappings, what profile is transformed to which template and with what
+mapping file to start. There is one context file required for each
+profile and template mapped. From a developer perspective they act as an
+import and main.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/FileStructure.drawio.png" alt="FileStructure.drawio">
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_disclaimer"><a class="anchor" href="#_disclaimer"></a>DISCLAIMER</h2>
+<h2 id="_the_header"><a class="anchor" href="#_the_header"></a>The header</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:</p>
+<p>The header is contained in each FHIRconnect mapping file. It is
+standardized for both FHIRconnect and
+<a href="https://github.com/SevKohler/OMOCL">OMOCL</a>.</p>
 </div>
 <div class="paragraph">
-<p>WIP</p>
+<p>An example of a model mapping header:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context
+metadata:
+  name: ACTION.informed_consent.v0  #the name of the mapping
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # What is mapped
+  version: R4
+  openEhrConfig:
+    archetype: ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Thanks!</p>
+<p>An example of a extension mapping header:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: extension
+metadata:
+  name:  KDS_anatomical_location
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR
+  version: R4
+  extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example of a context mapping header:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: context
+metadata:
+  name:  KDS_diagnose.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Naming conventions are here the following: Names of model mappings
+always start with the type of openEHR class (e.g. EVALUATION) and the
+full name and version. Sometimes it happens that two resources can be
+transformed into one archetype, in this case the name of the mapping is
+to be extended with what fhir type to what openEHR archetype</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CLUSTER.medication.v2 (this maps medication-to-medication)</p>
+</li>
+<li>
+<p>CLUSTER.medication.v2.substance-to-medication (this does not map a
+FHIR medication but an FHIR substance)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This allows to separately call this archetype mappings for different use
+cases. The initial one created always stays as <code>CLUSTER.medication.v2</code>
+and is to be seen as the default. All future mappings created that also
+map to medication but from another FHIR input have to add a string to
+their name as described above. We deem the first mapping as the default
+one, furthermore we want to prevent dependency problems by renaming the
+file later on. For extension and context mapping names, there is no
+specific style guide since this is a project specific decision users
+have to take.</p>
 </div>
 </div>
 </div>

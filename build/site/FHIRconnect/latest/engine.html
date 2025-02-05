@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FHIRconnect Specification Documentation :: FHIRconnect</title>
+    <title>Requirements of the Engine :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -94,7 +94,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="engine.html">Engine</a>
   </li>
 </ul>
@@ -129,47 +129,121 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">FHIRconnect</a></li>
-    <li><a href="index.html">Introduction</a></li>
+    <li>Engine</li>
+    <li><a href="engine.html">Engine</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/engine.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FHIRconnect Specification Documentation</h1>
-<div class="sect1">
-<h2 id="_about_fhirconnect"><a class="anchor" href="#_about_fhirconnect"></a>About FHIRconnect</h2>
+<h1 class="page">Requirements of the Engine</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIRconnect is a derivative of YAML and a rework of the draft from
-Betters <a href="https://github.com/better-care">FHIRconnect</a>. It is used to
-bidirectionally map openEHR and FHIR. The aim is to create a mapping
-language the communities can use to transform between the standards.</p>
-</div>
-<div class="paragraph">
-<p>Apart from the transformation the specification and resulting files
-should also deal as a documentation of how these things are to be
-mapped. So even if vendors do not implement FHIRconnect, they have a
-documentation of how this is should be transformed. This is especially
-important to maintain a consistency between transforming both standards
-throughout institutions.</p>
+<p>What needs to be done by the engine, the grammar implies. ## Validation</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_disclaimer"><a class="anchor" href="#_disclaimer"></a>DISCLAIMER</h2>
+<h2 id="_resolving_of_ehr_id_and_patients"><a class="anchor" href="#_resolving_of_ehr_id_and_patients"></a>Resolving of EHR id and patients</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dynamic_type_conversion"><a class="anchor" href="#_dynamic_type_conversion"></a>Dynamic type conversion</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_missing_references"><a class="anchor" href="#_missing_references"></a>Missing references</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_links_and_references"><a class="anchor" href="#_links_and_references"></a>Links and references</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:</p>
+<p><a href="https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class" class="bare">https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class</a></p>
 </div>
 <div class="paragraph">
-<p>WIP</p>
+<p>Automatically add links to identifier for assigner to convert it back ?
+Otherwise this should pinpoint to demopgrahics server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_circular_dependencies_and_duplicated_conversions"><a class="anchor" href="#_circular_dependencies_and_duplicated_conversions"></a>Circular dependencies and duplicated conversions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>table should also list ehr object links. not only composition Advisable
+to stop at depth of 3 ?! ## Ids and how to ensure deterministic behavior</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mapping_planer"><a class="anchor" href="#_mapping_planer"></a>Mapping planer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>e.g. if specimen is contained as identifier and specimen cluster is in
+the same composition execute specimen cluster first for the mapping.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mapping_fields_that_are_not_part_of_the_template"><a class="anchor" href="#_mapping_fields_that_are_not_part_of_the_template"></a>mapping fields that are not part of the template</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Engine should not execute mappings that are not required by the
+template/kick them out.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cardinalities"><a class="anchor" href="#_cardinalities"></a>cardinalities</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When openEHR 0..* and FHIR 0..* the corresponding iteration is
+to be done. e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "diagnose"
+    with:
+      fhir: "$resourcePath.diagnosis"
+      openEHR: "$reference"
+      type: "NONE"</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Thanks!</p>
+<p>These can be a list of diagnoses therefore iterate this mapping for each
+of the elements ## context mappings each context mapping has its own
+imports, so its not mixed when cross referencing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_writing_into_0_fields"><a class="anchor" href="#_writing_into_0_fields"></a>writing into 0..* fields</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>E.g. mappings from a 0..* dosage that contains a route into the
+openEHR route which is 0..n. Field is added for each cluster again and
+again. if its 0..* append, if its 0..1 overwrite. Mapping to List in
+openEHR should always append to list e.g. /links.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mappings_and_multiple_codings"><a class="anchor" href="#_mappings_and_multiple_codings"></a>mappings and multiple codings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>codeable concept transform use term mappings vice versa</p>
 </div>
 </div>
 </div>

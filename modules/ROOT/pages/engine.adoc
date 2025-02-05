@@ -1,6 +1,5 @@
 = Requirements of the Engine
-
-:navtitle: 2. Engine
+:navtitle: Engine
 
 What needs to be done by the engine, the grammar implies. ## Validation
 
