@@ -3,11 +3,13 @@ site:
   start_page: project-name::index.adoc
 content:
   sources:
-    - url: .
-      branches: HEAD
+    - url: https://github.com/SevKohler/FHIRconnect.git
+      branches: 'main'
+      start_path: doc
+
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/sevkohler/FHIRconnect/blob/master/modules/uibundle.zip?raw=true
     snapshot: true
 
 
