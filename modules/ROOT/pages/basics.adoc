@@ -43,6 +43,13 @@ encounters two data types that are not transformable into each other, it will no
 Each part starting with `- name: "mappingName"` is called a mapping block, and the children contained
 underneath are called child blocks.
 
+== Top down processing
+The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
+the latter one in the order will overwrite the first one.
+Also, when nesting blocks, the child block will always aim on the path of the father, the idea here is
+that you iterate down the path of an element and step by step map each of the fields contained. More is explained
+later in the FollowedBy chapter.
+
 == Variables
 
 To address specific parts of the models, variables are used.

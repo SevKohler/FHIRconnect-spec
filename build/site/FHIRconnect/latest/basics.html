@@ -68,6 +68,27 @@
     <a class="nav-link" href="basics.html">Basic Concepts</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Conditions.html">Condition</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="SlotArchetypes.html">SlotArchetype</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="Reference.html">Reference</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="manual-mappings.html">manual-mappings.adoc</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="MappingTypes.html">Mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="HierarchyMappings.html">Hierarchy mappings</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-mappings.html">Model mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -78,9 +99,6 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="cardinality.html">Cardinality</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="manual-mappings.html">manual-mappings.adoc</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="links-and-references.html">Links and references</a>
@@ -188,6 +206,18 @@ encounters two data types that are not transformable into each other, it will no
 <div class="paragraph">
 <p>Each part starting with <code>- name: "mappingName"</code> is called a mapping block, and the children contained
 underneath are called child blocks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_top_down_processing"><a class="anchor" href="#_top_down_processing"></a>Top down processing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
+the latter one in the order will overwrite the first one.
+Also, when nesting blocks, the child block will always aim on the path of the father, the idea here is
+that you iterate down the path of an element and step by step map each of the fields contained. More is explained
+later in the FollowedBy chapter.</p>
 </div>
 </div>
 </div>

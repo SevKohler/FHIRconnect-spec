@@ -1,0 +1,202 @@
+= Conditions
+:navtitle: Condition
+
+Conditions are introduced to implement an IF logic for FHIRconnect. This means that the mapping block that has
+a condition is only executed if the parts in the condition are true. There are two types of conditions:
+`openEHRCondition` and `fhirCondition` for each corresponding standard.
+
+Examples:
+[source,yaml]
+----
+- name: "example"
+  with:
+    fhir: "$fhirRoot"
+    openehr: "$archetype"
+  slotArchetype: "EVALUATION.problem_diagnosis.v1"
+  openehrCondition:
+    targetRoot: "$archetype"
+    targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
+    operator: "one of"
+    criteria: "[at0064]"
+----
+
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.location.identifier"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.location.identifier.type"
+      targetAttribute: "coding.code"
+      operator: "one of"
+      criteria: "[room]"
+----
+
+== targetRoot
+
+Each condition has 4 fields. The `targetRoot` describes the root element the condition is applied to.
+Typically, this is the same as the corresponding path in the mapping block. If so, it is executed on the same element.
+In the `fhirCondition` example above, the `location.identifier` is the same in both paths, so if there are 0..n identifiers,
+each of these will have the condition applied and, if true, mapped. Nevertheless, conditions can also be unattached to
+the path contained in the `with:` block and point to a path outside the mapping block. This is sometimes necessary since there can be factors
+that influence the mapping.
+
+[source,yaml]
+----
+  - name: "room"
+    with:
+      fhir: "$resource.location.identifier.value"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.some.otherPath"
+      targetAttribute: "coding.code"
+      operator: "one of"
+      criteria: "[someValue]"
+----
+
+== targetAttribute
+
+The `targetAttribute` is used to specify the path that is outside the relation with the `with:` block to address child elements
+of the root path. The `targetRoot` has some cross-effect with the `with:` block, as explained above, while the `targetAttribute` is
+independent of that. This allows independent access to paths for the condition.
+
+##Often we did not do this very cleanly; we should review the mappings and change them accordingly ##
+
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.location.identifier"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.location.identifier" # same except for type
+      targetAttribute: "type.coding.code" # access child nodes
+      operator: "one of"
+      criteria: "[room]"
+----
+
+== operator
+
+Once we define on which path the condition is to be applied and how it relates (or does not relate) to the `with:` block,
+we need to decide on the operator we want to apply.
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Operators |Description
+|`one of` | checks if the path contains one of the elements contained in `criteria`
+
+|`not of` | checks if the path does not contain one of the elements contained in `criteria`
+
+|`empty` | checks if the path is empty; does not include a `criteria`
+
+|`not empty` | checks if the path is not empty; does not include a `criteria`
+
+|`type` | checks if the element in the path matches the given type in `criteria`
+|===
+
+== criteria
+
+Defines the element that is combined with the operator and checked against the path. `criteria` is not required for
+`empty` or `not empty`. `criteria` is always represented as a list in YAML.
+
+Examples:
+
+=== one of
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.location.identifier"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.location.identifier" # same except for type
+      targetAttribute: "type.coding.code" # access child nodes
+      operator: "one of"
+      criteria: "[room]"
+----
+=== not of
+[source,yaml]
+----
+  - name: "statusCoded"
+    with:
+      fhir: "$resource.verificationStatus.coding"
+      openehr: "$archetype/items[at0004]/value/defining_code"
+    fhirCondition:
+      targetRoot: "$resource.verificationStatus.coding.code"
+      targetAttribute: "value"
+      operator: "not of"
+      criteria: "[entered-in-error]"
+----
+
+=== empty
+[source,yaml]
+----
+  - name: "bodySiteText"
+    with:
+      fhir: "$resource.bodysite.text"
+      openehr: "$archetype/items[at0001]" #Name of body site
+    fhirCondition:
+      targetRoot: "$resource.bodysite"
+      targetAttribute: "coding"
+      operator: "empty"
+----
+
+=== not empty
+[source,yaml]
+----
+  mappings:
+    - name: "period"
+      with:
+        fhir: "onset.as(Period)"
+        openehr: "data[at0001]"
+        type: "NONE"
+      openehrCondition:
+        targetRoot: "$archetype/data[at0001]"
+        targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+        operator: "not empty"
+----
+=== type
+[source,yaml]
+----
+  - name: "bodySiteCoded"
+    with:
+      fhir: "$resource.bodysite"
+      openehr: "$archetype/items[at0001]" #Name of body site
+    openehrCondition:
+      targetRoot: "$archetype"
+      targetAttribute: "items[at0001]"
+      operator: "type"
+      criteria: ["DV_CODED_TEXT"]
+----
+
+== Conditions in the header
+
+There is a special case where a condition can be contained in the header of a file.
+This logic implies that the FHIRconnect mapping for the part of what the file addresses is only executed
+if the given condition is met.
+
+Example:
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name:  CLUSTER.problem_qualifier.v2
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-CLUSTER.problem_qualifier.v2
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+    fhirCondition:
+      targetRoot: "$resource.verificationStatus"
+      targetAttribute: "coding"
+      operator: "one of"
+      criteria: "[entered-in-error]"
+----
+
+Here, we want the mapping into openEHR only to be executed if the `verificationStatus` of the cluster is not `entered-in-error`.
+This is done to prevent wrongly entered data from being mapped into openEHR.

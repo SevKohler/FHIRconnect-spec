@@ -1,11 +1,17 @@
 * Grammar
 ** xref:types-of-mappings.adoc[]
 ** xref:basics.adoc[]
+** xref:Conditions.adoc[]
+** xref:FollowedBy.adoc[]
+** xref:SlotArchetypes.adoc[]
+** xref:Reference.adoc[]
+** xref:manual-mappings.adoc[]
+** xref:MappingTypes.adoc[]
+** xref:HierarchyMappings.adoc[]
 ** xref:model-mappings.adoc[]
 ** xref:extension-mappings.adoc[]
 ** xref:context-mappings.adoc[]
 ** xref:cardinality.adoc[]
-** xref:manual-mappings.adoc[]
 ** xref:links-and-references.adoc[]
 ** xref:demographics.adoc[]
 

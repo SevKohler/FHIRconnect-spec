@@ -1,7 +1,17 @@
 = Model mappings
 :navtitle: Model mappings
 
-== How
+== HOW
+
+
+== Conditions
+
+== SlotArchetypes
+
+== FollowedBy
+
+== Manual mappings
+
 with
 fhir
 openEHR

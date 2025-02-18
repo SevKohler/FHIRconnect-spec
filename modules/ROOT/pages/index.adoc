@@ -8,6 +8,8 @@ FHIRconnect is a derivative of YAML and a rework of the draft from
 Betters https://github.com/better-care[FHIRconnect]. It is used to
 bidirectionally map openEHR and FHIR. The aim is to create a mapping
 language the communities can use to transform between the standards.
+Its aim is to be comprehensive and simple to use, meanwhile trying to
+contain all necessary functions for the mappings.
 
 Apart from the transformation the specification and resulting files
 should also deal as a documentation of how these things are to be
@@ -15,6 +17,7 @@ mapped. So even if vendors do not implement FHIRconnect, they have a
 documentation of how this is should be transformed. This is especially
 important to maintain a consistency between transforming both standards
 throughout institutions.
+
 
 == DISCLAIMER
 FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:
