@@ -202,6 +202,7 @@ Examples:
         targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
         operator: "not empty"
 ----
+
 === type
 [source,yaml]
 ----
@@ -244,5 +245,5 @@ spec:
       criteria: "[entered-in-error]"
 ----
 
-Here, we want the mapping into openEHR only to be executed if the `verificationStatus` of the cluster is not `entered-in-error`.
-This is done to prevent wrongly entered data from being mapped into openEHR.
+Here, we want the mapping into openEHR only to be executed if the `verificationStatus` of the cluster
+is not `entered-in-error`. This is done to prevent wrongly entered data from being mapped into openEHR.

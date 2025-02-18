@@ -159,7 +159,35 @@
 </aside>
 <article class="doc">
 <h1 class="page">FollowedBy</h1>
-
+<div class="paragraph">
+<p>FHIRconnect follows a top-down approach combined with iterating and accessing paths, to execute logic
+that is aligned to child elements the  <code>FollowedBy</code> was introduced.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "example"
+    extension: "add"
+    with:
+      fhir: "$fhirRoot.extension"
+      openehr: "$archetype/data[at0002]/items[at0014]"
+    fhirCondition:
+      targetRoot: "$fhirRoot.extension"
+      targetAttribute: "url"
+      operator: "one of"
+      criteria: "[http://fhir.de/StructureDefinition/gender-amtlich-de]"
+    followedBy:
+      mappings:
+        - name: "staticExtensionUrl"
+          with:
+            fhir: "extension"
+            openehr: "$reference"
+          manual:
+            - name: "staticUrl"
+              fhir:
+                - path: "url"
+                  value: "http://fhir.de/StructureDefinition/gender-amtlich-de"</code></pre>
+</div>
+</div>
 </article>
   </div>
 </main>

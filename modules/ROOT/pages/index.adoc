@@ -18,6 +18,14 @@ documentation of how this is should be transformed. This is especially
 important to maintain a consistency between transforming both standards
 throughout institutions.
 
+== Current issues and example mappings
+
+In the repository https://github.com/SevKohler/FHIRconnect?tab=readme-ov-file you can find current issues with the specification under the issue tabs in github.
+Also in the directory contained is the library of mappings.
+Currently, these contain the mappings for the KDS the german core dataset for research and general archetype mappings.
+Be aware that some of the templates are still in rework and some of the templates mapped contain old
+bad-quality archetypes created for highmed 8 years ago (org.highmed archetypes) specifically,
+we are currently refactoring this.
 
 == DISCLAIMER
 FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:
