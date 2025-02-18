@@ -51,12 +51,12 @@ mappings:
     mappings:
       - name: "start"
         with:
-          fhir: "$resource.onset.as(Periodstart"
+          fhir: "$resource.onset.as(Period).start"
           openehr: "items[at0077]"
 
       - name: "lebensphaseCluster"
         with:
-          fhir: "$resource.onset.as(Period"
+          fhir: "$resource.onset.as(Period)"
           openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
         slotArchetype: "CLUSTER.lebensphase.v0"
 
