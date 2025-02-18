@@ -160,33 +160,73 @@
 <article class="doc">
 <h1 class="page">FollowedBy</h1>
 <div class="paragraph">
-<p>FHIRconnect follows a top-down approach combined with iterating and accessing paths, to execute logic
-that is aligned to child elements the  <code>FollowedBy</code> was introduced.</p>
+<p>FHIRConnect follows a top-down approach combined with iterating and accessing paths to execute logic
+that aligns with child elements. To facilitate this, <code>FollowedBy</code> was introduced.
+The <code>FollowedBy</code> mechanism allows us to attach mappings to each other, ensuring their execution occurs as the next step
+after the parent mapping block has been executed.</p>
+</div>
+<div class="paragraph">
+<p>The reason for this is that there are nested paths in FHIR and openEHR.
+If we have <code>0..n</code> root elements, we must execute the mappings <code>0..n</code> times.
+If we need to execute a mapping for two different child nodes within this path, we cannot simply use a
+<code>with</code> logic.
+If we split this into two separate <code>with</code> mappings, they will overwrite each
+other since they address the same root path.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "example"
-    extension: "add"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "period"
     with:
-      fhir: "$fhirRoot.extension"
-      openehr: "$archetype/data[at0002]/items[at0014]"
-    fhirCondition:
-      targetRoot: "$fhirRoot.extension"
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "[http://fhir.de/StructureDefinition/gender-amtlich-de]"
+      fhir: "$resource.onset.as(Period)"
+      openehr: "$archetype/data[at0001]"
+      type: "NONE"
+    openehrCondition:
+      targetRoot: "$archetype/data[at0001]"
+      targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+      operator: "not empty"
     followedBy:
       mappings:
-        - name: "staticExtensionUrl"
+        - name: "start"
           with:
-            fhir: "extension"
-            openehr: "$reference"
-          manual:
-            - name: "staticUrl"
-              fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/gender-amtlich-de"</code></pre>
+            fhir: "start"
+            openehr: "items[at0077]"
+
+        - name: "lebensphaseCluster"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+          slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Here, we access the onset if it is a period (FHIRPath helps us here as a shortcut instead of using <code>fhirCondition</code>)
+and execute a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
+Slot archetypes are explained in the next chapter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "period"
+    mappings:
+      - name: "start"
+        with:
+          fhir: "$resource.onset.as(Periodstart"
+          openehr: "items[at0077]"
+
+      - name: "lebensphaseCluster"
+        with:
+          fhir: "$resource.onset.as(Period"
+          openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+        slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If we would write it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the start mapping
+since it maps the same path.</p>
 </div>
 </article>
   </div>
