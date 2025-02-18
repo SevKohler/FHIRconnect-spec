@@ -24,11 +24,11 @@ Examples:
 ----
   - name: "mapIdentifierForRoom"
     with:
-      fhir: "$resource.location.identifier"
+      fhir: "$resource.identifier"
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
-      targetRoot: "$resource.location.identifier.type"
-      targetAttribute: "coding.code"
+      targetRoot: "$resource.identifier"
+      targetAttribute: "type.coding.code"
       operator: "one of"
       criteria: "[room]"
 ----
@@ -37,10 +37,56 @@ Examples:
 
 Each condition has 4 fields. The `targetRoot` describes the root element the condition is applied to.
 Typically, this is the same as the corresponding path in the mapping block. If so, it is executed on the same element.
-In the `fhirCondition` example above, the `location.identifier` is the same in both paths, so if there are 0..n identifiers,
-each of these will have the condition applied and, if true, mapped. Nevertheless, conditions can also be unattached to
-the path contained in the `with:` block and point to a path outside the mapping block. This is sometimes necessary since there can be factors
-that influence the mapping.
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.identifier" # same path 0..n
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.identifier" # same path 0..n
+      targetAttribute: "type.coding.code"
+      operator: "one of"
+      criteria: "[room]"
+----
+In the `fhirCondition` example, the `location.identifier` is the same in both paths. The condition is applied
+to each element in the identifier (0..n) and the `with` block only executed if this element is true.
+
+[source,json]
+----
+"identifier": [
+          {
+            "use": "official",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "room" //would be mapped
+                }
+              ]
+            },
+            "system": "http://hospital.smarthealthit.org",
+            "value": "encounter-id-1245"
+          },
+          {
+            "use": "official",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "bed" //wouldnt be mapped
+                }
+              ]
+            },
+            "system": "http://hospital.smarthealthit.org",
+            "value": "encounter-id-12asdasdasd45"
+          }
+        ],
+----
+In this example, only the encounter-id-1245 would be mapped, since it fits the condition. The bed code would be
+ignored. Nevertheless, conditions can also be unattached to the path contained in the `with:` block and
+point to a path outside the mapping block. This is sometimes necessary since there can be factors that
+influence the mapping.
 
 [source,yaml]
 ----
@@ -67,10 +113,10 @@ independent of that. This allows independent access to paths for the condition.
 ----
   - name: "mapIdentifierForRoom"
     with:
-      fhir: "$resource.location.identifier"
+      fhir: "$resource.identifier"
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
-      targetRoot: "$resource.location.identifier" # same except for type
+      targetRoot: "$resource.identifier" # same except for type
       targetAttribute: "type.coding.code" # access child nodes
       operator: "one of"
       criteria: "[room]"
