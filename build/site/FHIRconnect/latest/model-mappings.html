@@ -65,7 +65,7 @@
     <a class="nav-link" href="types-of-mappings.html">Types of mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basics.html">Basic concepts</a>
+    <a class="nav-link" href="basics.html">Basic Concepts</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="model-mappings.html">Model mappings</a>
@@ -144,7 +144,47 @@
 <div class="sect1">
 <h2 id="_how"><a class="anchor" href="#_how"></a>How</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>with
+fhir
+openEHR
+conditions
+slotArchetypes</p>
+</div>
+<div class="paragraph">
+<p>unidirectional</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_composition_composer_and_event_context"><a class="anchor" href="#_composition_composer_and_event_context"></a>COMPOSITION COMPOSER and EVENT_CONTEXT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>composition/context/start_time will be set with mapping time if
+nothing is provided after that entry level then items If composer is not
+set leave it empty, if not possible set FHIRconnect If subject is not
+speicifed party_self</p>
+</div>
+<div class="paragraph">
+<p>Set start_time, subject and composer automatically in engine</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"><a class="anchor" href="#_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"></a>context start time and a bundle ofr resources see <a href="https://github.com/medblocks/openFHIR/issues/89" class="bare">https://github.com/medblocks/openFHIR/issues/89</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>FHIR has no composition equivalent so you always start at one profile
+and work from thereon. Which one and how to define ?</p>
+</div>
+<div class="paragraph">
+<p>DV_IDENTIFIER: type, type system &#43; ¨::¨ &#43; value, value
+assigner, assigner</p>
+</div>
+<div class="paragraph">
+<p>Condition is always on the input NOT on the OUTPUT ! That is super
+important!</p>
+</div>
 </div>
 </div>
 </article>

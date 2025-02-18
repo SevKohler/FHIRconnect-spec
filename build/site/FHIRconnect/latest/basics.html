@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>The basics :: FHIRconnect</title>
+    <title>The Basics :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -65,7 +65,7 @@
     <a class="nav-link" href="types-of-mappings.html">Types of mappings</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="basics.html">Basic concepts</a>
+    <a class="nav-link" href="basics.html">Basic Concepts</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-mappings.html">Model mappings</a>
@@ -130,7 +130,7 @@
   <ul>
     <li><a href="index.html">FHIRconnect</a></li>
     <li>Grammar</li>
-    <li><a href="basics.html">Basic concepts</a></li>
+    <li><a href="basics.html">Basic Concepts</a></li>
   </ul>
 </nav>
 <div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/basics.adoc">Edit this Page</a></div>
@@ -140,24 +140,19 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">The basics</h1>
+<h1 class="page">The Basics</h1>
 <div class="sect1">
-<h2 id="_mapping_body"><a class="anchor" href="#_mapping_body"></a>Mapping body</h2>
+<h2 id="_mapping_body"><a class="anchor" href="#_mapping_body"></a>Mapping Body</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In general mappings always act with the idea that we can map the paths
-in openEHR and FHIR against each other. For this
-<a href="https://build.fhir.org/fhirpath.html">FHIRpath</a> and
-<a href="https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators">openEHR
-paths</a> are used. This is also the biggest limitation of these mappings,
-if a correlating representation of a path is missing in one of the
-models it has to be added to the model in FHIR or openEHR, if these
-fields are mandatory.</p>
+<p>In general, mappings always operate under the idea that we can map paths in openEHR and FHIR against each other.
+For this purpose, <a href="https://build.fhir.org/fhirpath.html">FHIRPath</a> and <a href="https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators">openEHR paths</a> are used.
+This is also the biggest limitation of these mappings: if a corresponding representation of a path is missing in
+one of the models, it must be added to the model in FHIR or openEHR, especially if these fields are mandatory.</p>
 </div>
 <div class="paragraph">
-<p>In general all extension and model mapping files start with the mappings
-key in their body, which is a list that contains a set of named
-mappings.</p>
+<p>All extension and model mapping files start with the <code>mappings</code> key in their body, which is a list containing
+a set of named mappings.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -182,19 +177,26 @@ mappings: # starts mappings
 </div>
 </div>
 <div class="paragraph">
-<p>In this example we map an fhir path onset on the corresponding openEHR
-path at0077 (date time of the diagnose onset). The data types of the
-fields that are mapped are automatically resolved by the engine. In this
-case it would map an effectiveDateTime into an DV_DATE_TIME. If
-the engine encounters two data types that are not transformable into
-each other it will not execute the mapping. To find a list which data
-type is mapped to what see chapter ENGINE/ DATA TYPE MAPPINGS !??!?!.</p>
+<p>In this example, we map an FHIR path <code>onset</code> to the corresponding openEHR path <code>at0077</code>
+(date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
+the engine. In this case, it would map an <code>effectiveDateTime</code> into a <code>DV_DATE_TIME</code>. If the engine
+encounters two data types that are not transformable into each other, it will not execute the mapping.</p>
 </div>
 <div class="paragraph">
-<p>To address specific parts of the models variables are used.</p>
+<p><mark>To find a list of which data type is mapped to what, see chapter ENGINE/ DATA TYPE MAPPINGS!??!?!. Should we add that?</mark></p>
 </div>
-<div class="sect3">
-<h4 id="_variables"><a class="anchor" href="#_variables"></a>Variables</h4>
+<div class="paragraph">
+<p>Each part starting with <code>- name: "mappingName"</code> is called a mapping block, and the children contained
+underneath are called child blocks.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_variables"><a class="anchor" href="#_variables"></a>Variables</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To address specific parts of the models, variables are used.</p>
+</div>
 <div class="paragraph">
 <p>Modeling variables/references are required to create reusable paths:</p>
 </div>
@@ -212,21 +214,19 @@ type is mapped to what see chapter ENGINE/ DATA TYPE MAPPINGS !??!?!.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$resource</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the root resource path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the root resource</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$fhirRoot</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Points to the parent FHIR path used in the mapping step
-before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Points to the parent FHIR path used in the previous mapping step</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$archetype</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the root archetype path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path of the root archetype</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$openehrRoot</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Points to the parent openEHR path used in the mapping
-step before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Points to the parent openEHR path used in the previous mapping step</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$composition</code></p></td>
@@ -235,77 +235,98 @@ step before</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$reference</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Helper to indicate a skipped path, due to a
-<a href="#fhir-reference-mapping">Reference Mapping</a> or a manual mapping</p></td>
+<a href="#fhir-reference-mapping">Reference Mapping</a> or manual mapping</p></td>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_archetype_and_resource"><a class="anchor" href="#_archetype_and_resource"></a><code>$archetype</code> and <code>$resource</code></h3>
 <div class="paragraph">
-<p>$resource and $archetype point to the root of resource or archetype.
-Both would be resolved as the following:</p>
+<p><code>$resource</code> and <code>$archetype</code> point to the root of the resource or archetype.
+Both would be resolved as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
-mappings:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
   - name: "dateTime" # name of the mapping
     with:
       fhir: "$resource.onset" # "Condition.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_composition"><a class="anchor" href="#_composition"></a><code>$composition</code></h3>
 <div class="paragraph">
-<p>$composition is used to address elements that are not inside the
-archetype, but part of the surrounding composition that contains it.
-Typically this is used to map elements like the composer etc. pp.</p>
+<p><code>$composition</code> is used to address elements that are not inside the archetype but are part of the surrounding
+composition that contains it. Typically, this is used to map elements like the composer, etc.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "composer"
+    with:
+      fhir: "$resource.performer"
+      openehr: "$composition/composer"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_openehrroot_and_fhirroot"><a class="anchor" href="#_openehrroot_and_fhirroot"></a><code>$openEHRRoot</code> and <code>$FHIRRoot</code></h3>
 <div class="paragraph">
-<p>FHIR has no composition equivalent so you always start at one profile
-and work from thereon. Which one and how to define ?</p>
-</div>
-<div class="paragraph">
-<p>DV_IDENTIFIER: type, type system &#43; ¨::¨ &#43; value, value
-assigner, assigner</p>
-</div>
-<div class="paragraph">
-<p>Condition is always on the input NOT on the OUTPUT ! That is super
-important!</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cardinalities_and_repeating_elements"><a class="anchor" href="#_cardinalities_and_repeating_elements"></a>Cardinalities and repeating elements</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>always start the mapping with the mother element that can be iterated if
-its 0..* pointing to the corresponding openEHR 0..* !</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_composition_composer_and_event_context"><a class="anchor" href="#_composition_composer_and_event_context"></a>COMPOSITION COMPOSER and EVENT_CONTEXT</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>composition/context/start_time will be set with mapping time if
-nothing is provided after that entry level then items If composer is not
-set leave it empty, if not possible set FHIRconnect If subject is not
-speicifed party_self</p>
+<p><code>$openEHRRoot</code> and <code>$FHIRRoot</code> are used to access a path from the parent mapping.
+Mappings in FHIRConnect are top-down and can be nested. Each nesting always accesses the parent path
+and adds a new child to it. Sometimes, you want to address the parent instead of a child. In this case, you use the root variables.</p>
 </div>
 <div class="paragraph">
-<p>Set start_time, subject and composer automatically in engine</p>
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "status"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code"
+    manual:
+      - name: "registered"
+        fhir:
+          path: "status"
+          value: "registered"
+        openehrCondition:
+          targetRoot: "$openehrRoot" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
+          targetAttribute: "code_string"
+          operator: "one of"
+          criteria: "[at0107]"</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_composition_layer_and_why_it_was_not_introduced"><a class="anchor" href="#_composition_layer_and_why_it_was_not_introduced"></a>composition layer and why it was not introduced</h2>
-<div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_reference"><a class="anchor" href="#_reference"></a><code>$reference</code></h3>
+<div class="paragraph">
+<p>Sometimes, there is no direct openEHR mapping available. Typically, this happens when another FHIR resource type needs
+to be created. OpenEHR usually bundles all the information contained in a composition, whereas in FHIR, this information
+is typically spread across multiple resources. The <code>$reference</code> variable indicates that there is no direct mapping to
+openEHR. Usually, this is handled in the next block.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+    with:
+      fhir: "$resource.specimen.reference"
+      openehr: "$reference" # no direct path mapping use $reference
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+          slotArchetype: "CLUSTER.specimen.v1"</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"><a class="anchor" href="#_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"></a>context start time and a bundle ofr resources see <a href="https://github.com/medblocks/openFHIR/issues/89" class="bare">https://github.com/medblocks/openFHIR/issues/89</a></h2>
-<div class="sectionbody">
-
+</div>
 </div>
 </div>
 </article>

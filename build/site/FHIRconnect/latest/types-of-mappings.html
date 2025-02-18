@@ -65,7 +65,7 @@
     <a class="nav-link" href="types-of-mappings.html">Types of mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="basics.html">Basic concepts</a>
+    <a class="nav-link" href="basics.html">Basic Concepts</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="model-mappings.html">Model mappings</a>
@@ -145,25 +145,22 @@
 <h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Mappings are organized in three type of files. The <strong>model mapping</strong>,
-which is the vanilla mapping describing the transformation between an
-archetype and a un-profiled resource. This is the most basic form of
-mapping that is to be shared and maintained by the communities.</p>
+<p>Mappings are organized into three types of files. The model mapping is the vanilla
+mapping that describes the transformation between an archetype and an un-profiled resource.
+This is the most basic form of mapping that is to be shared and maintained by the communities.</p>
 </div>
 <div class="paragraph">
-<p><strong>Extension mappings</strong> are used to extend model mappings by adding,
-overwriting or appending mapping logic to the vanilla model mappings.
-This is required to map between templates and profiles. The model
-mappings act like a sustainable set of base mappings that can be
-extended for a given scope using extension mappings. Extension mappings
-act similar to a String Builder.</p>
+<p>Extension mappings are used to extend model mappings by adding, overwriting, or
+appending mapping logic to the vanilla model mappings. This is required to map
+between templates and profiles. The model mappings act as a sustainable set of base
+mappings that can be extended for a given scope using extension mappings. Extension
+mappings act similarly to a String Builder.</p>
 </div>
 <div class="paragraph">
-<p><strong>Context mappings</strong> define the import of model mappings and extension
-mappings, what profile is transformed to which template and with what
-mapping file to start. There is one context file required for each
-profile and template mapped. From a developer perspective they act as an
-import and main.</p>
+<p>Context mappings define the import of model mappings and extension mappings,
+specifying what profile is transformed into which template and with which mapping
+file to start. There is one context file required for each profile and template mapped.
+From a developer&#8217;s perspective, they act as an import and main.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -231,11 +228,10 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Naming conventions are here the following: Names of model mappings
-always start with the type of openEHR class (e.g. EVALUATION) and the
-full name and version. Sometimes it happens that two resources can be
-transformed into one archetype, in this case the name of the mapping is
-to be extended with what fhir type to what openEHR archetype</p>
+<p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
+class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
+can be transformed into one archetype. In this case, the name of the mapping is to be extended
+with what FHIR type is mapped to what openEHR archetype:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -249,15 +245,12 @@ FHIR medication but an FHIR substance)</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>This allows to separately call this archetype mappings for different use
-cases. The initial one created always stays as <code>CLUSTER.medication.v2</code>
-and is to be seen as the default. All future mappings created that also
-map to medication but from another FHIR input have to add a string to
-their name as described above. We deem the first mapping as the default
-one, furthermore we want to prevent dependency problems by renaming the
-file later on. For extension and context mapping names, there is no
-specific style guide since this is a project specific decision users
-have to take.</p>
+<p>This allows for separately calling these archetype mappings for different use cases. The initial one
+created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
+created that also map to medication but from another FHIR input must add a string to their name as
+described above. We deem the first mapping as the default one. Furthermore, we want to prevent
+dependency problems by renaming the file later on. For extension and context mapping names,
+there is no specific style guide, as this is a project-specific decision users have to make.</p>
 </div>
 </div>
 </div>

@@ -1,1 +1,2 @@
+:navtitle: manual mappings
 == manual mappings mention that people should use fhirConcept maps if possible
