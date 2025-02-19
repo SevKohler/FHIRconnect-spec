@@ -35,8 +35,10 @@ Examples:
 
 == targetRoot
 
-Each condition has 4 fields. The `targetRoot` describes the root element the condition is applied to.
-Typically, this is the same as the corresponding path in the mapping block. If so, it is executed on the same element.
+Each condition has 4 fields. The `targetRoot` is the first one. It defines what element is returned once we
+filter it. This is important since the returned element is matched against the path in the `with` block. If these do
+not align, FHIRconnect won't be able to filter correctly and the engine should return an error here.
+
 [source,yaml]
 ----
   - name: "mapIdentifierForRoom"
@@ -49,9 +51,45 @@ Typically, this is the same as the corresponding path in the mapping block. If s
       operator: "one of"
       criteria: "[room]"
 ----
-In the `fhirCondition` example, the `location.identifier` is the same in both paths. The condition is applied
-to each element in the identifier (0..n) and the `with` block only executed if this element is true.
+In the `fhirCondition` example, the `$resource.identifier` is the same in both paths. The condition is applied
+to each element in the identifier (0..n), and the `with` block only executes the mapping for those identifiers for which
+the condition is true.
 
+Meanwhile, if we were to write it like the example below, the condition block would try to filter on `type`, which does not
+match the element in the `with:` statement. This would result in an error.
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.identifier" # same path 0..n
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.identifier.type" # same path 0..n
+      targetAttribute: "coding.code"
+      operator: "one of"
+      criteria: "[room]"
+----
+
+== targetAttribute
+
+The `targetAttribute` is used to specify the path the filter is applied to. The example above in FHIRPath would be
+written as `$resource.identifier.where(type.coding.code="room")`, therefore checking for the code `type` and returning
+the identifier entries that match. These are then the ones that are mapped in the `with:` block.
+[source,yaml]
+----
+  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.identifier" # same except for type
+      targetAttribute: "type.coding.code" # access child nodes
+      operator: "one of"
+      criteria: "[room]"
+----
+
+In the example below, only the `encounter-id-1245` would be mapped, since it fits the condition. The `bed` code would be
+ignored.
 [source,json]
 ----
 "identifier": [
@@ -74,7 +112,7 @@ to each element in the identifier (0..n) and the `with` block only executed if t
               "coding": [
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                  "code": "bed" //wouldnt be mapped
+                  "code": "bed" //wouldn't be mapped
                 }
               ]
             },
@@ -83,10 +121,11 @@ to each element in the identifier (0..n) and the `with` block only executed if t
           }
         ],
 ----
-In this example, only the encounter-id-1245 would be mapped, since it fits the condition. The bed code would be
-ignored. Nevertheless, conditions can also be unattached to the path contained in the `with:` block and
-point to a path outside the mapping block. This is sometimes necessary since there can be factors that
-influence the mapping.
+
+Conditions can also be unattached to the path contained in the `with:` block and point to a different path.
+This is sometimes necessary since there can be factors that influence the mapping in other places.
+These paths are handled as simple true/false and therefore differ in the way
+they interact with the `with:` block.
 
 [source,yaml]
 ----
@@ -99,27 +138,6 @@ influence the mapping.
       targetAttribute: "coding.code"
       operator: "one of"
       criteria: "[someValue]"
-----
-
-== targetAttribute
-
-The `targetAttribute` is used to specify the path that is outside the relation with the `with:` block to address child elements
-of the root path. The `targetRoot` has some cross-effect with the `with:` block, as explained above, while the `targetAttribute` is
-independent of that. This allows independent access to paths for the condition.
-
-##Often we did not do this very cleanly; we should review the mappings and change them accordingly ##
-
-[source,yaml]
-----
-  - name: "mapIdentifierForRoom"
-    with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
-    fhirCondition:
-      targetRoot: "$resource.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "[room]"
 ----
 
 == operator
@@ -194,8 +212,8 @@ Examples:
   mappings:
     - name: "period"
       with:
-        fhir: "onset.as(Period)"
-        openehr: "data[at0001]"
+        fhir: "$resource.onset.as(Period)"
+        openehr: "$archetype/data[at0001]"
         type: "NONE"
       openehrCondition:
         targetRoot: "$archetype/data[at0001]"
