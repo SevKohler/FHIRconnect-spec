@@ -65,28 +65,67 @@ link are set in the `openEHRLink`.
 ----
 
 
-== Hierarchy mappings
-These are the most complex type of mappings. Sometimes the hierarchy between a fhir and an openEHR model do not fit.
-They are just in different levels of the files.
-A good example is the FHIR MedicationStatement. Without going into detail why the models are differently aligned there
-is the problem that in FHIR the medication is part of the statement, but in openEHR it is part of an EVENT of the .
-MedicationStatement.
-This leads to several problems now, first of all for each route we have in FHIR we need to create a new EVENT in openEHR.
+== Hierarchy Mappings
 
+Hierarchy mappings are the most complex type of mappings.
+Sometimes, the hierarchy between a FHIR and an openEHR model does not align properly.
+For example, elements may exist on different levels in the models, leading to complications.
+
+A good example of this is the FHIR `MedicationStatement`.
+Without delving into the details of why the models are structured differently, there are several challenges to address.
+
+
+In FHIR, the `timing.event` contained within the `dosage` element
+(see https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80817[MedicationStatement])
+maps to the `dateTime` of the `EVENT` in openEHR.
+Therefore, if there are three `dosages` in FHIR with different `timing.event` values,
+three separate `EVENT` elements must be created in the openEHR
+https://ckm.openehr.org/ckm/archetypes/1013.1.4949[medication_statement] archetype.
+
+Another issue is the `route` of administration.
+In openEHR, the `route` of administration is optional (0..1) for each `medication_statement` EVENT.
+However, in FHIR, this is part of the `dosage` element.
+A single `MedicationStatement` in FHIR can have three different `dosages`,
+each with a different `route` of administration.
+For each unique `route` of administration, a new `medication_statement` EVENT must be created in openEHR.
+
+The same logic applies when mapping from openEHR to FHIR.
+In openEHR, each `EVENT` can contain a different medication,
+whereas in FHIR, each `MedicationStatement` resource can only describe one medication.
 
 image::MappingHierarchies.png[]
 
+To summarize, if the `route` or `timing.event` appears multiple times in FHIR
+with different values within the `dosage` element,
+a new `EVENT` must be created in openEHR for each unique occurrence.
+Similarly, if there are multiple medications in openEHR,
+multiple `MedicationStatement` resources must be created in FHIR.
+
+To enable this logic, hierarchy mappings are used.
+These mappings must always be defined first in a FHIRconnect file
+because they significantly impact the structure of the transformed files.
+Hierarchy mappings include a `hierarchy` key at the level of the `with:` block.
+
+This block contains two sub-blocks: one for FHIR and one for openEHR.
+The `create:` key specifies the type of element to be created,
+and the `path:` key indicates where this element should be created.
+The `unique:` key defines the condition that triggers the creation of a new element.
+The path in the `unique:` key relates to the `with:` block.
 
 [source,yaml]
 ----
-  - name: "hierarchyMappings" # is defined by the
+  - name: "hierarchyMappings" # Defined by the hierarchy mapping logic
     with:
       fhir: "$resource.dosage"
       openEHR: "$archetype/data[at0001]/events[at0002]"
-  #    type: "HIERARCHY" not necessary since hierarchy is a unique key for Hierarchy mappings
+    #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
     hierarchy:
-      fhirCreate: "resource"
-      openehrCreate: "event"
-      uniqueValueFHIR: "[route, timing.event]" # if route value is different per dosage slice make a new event
-      uniqueValueOpenEHR: "['/data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+      fhir:
+        create: "resource"
+        path: "$resource"
+        unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+      openEHR:
+        create: "event"
+        path: "$archetype/data[at0001]/events[at0002]"
+        unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event
 ----
