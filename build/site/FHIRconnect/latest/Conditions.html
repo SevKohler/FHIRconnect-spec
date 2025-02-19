@@ -202,8 +202,9 @@ a condition is only executed if the parts in the condition are true. There are t
 <h2 id="_targetroot"><a class="anchor" href="#_targetroot"></a>targetRoot</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each condition has 4 fields. The <code>targetRoot</code> describes the root element the condition is applied to.
-Typically, this is the same as the corresponding path in the mapping block. If so, it is executed on the same element.</p>
+<p>Each condition has 4 fields. The <code>targetRoot</code> is the first one. It defines what element is returned once we
+filter it. This is important since the returned element is matched against the path in the <code>with</code> block. If these do
+not align, FHIRconnect won&#8217;t be able to filter correctly and the engine should return an error here.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -219,8 +220,53 @@ Typically, this is the same as the corresponding path in the mapping block. If s
 </div>
 </div>
 <div class="paragraph">
-<p>In the <code>fhirCondition</code> example, the <code>location.identifier</code> is the same in both paths. The condition is applied
-to each element in the identifier (0..n) and the <code>with</code> block only executed if this element is true.</p>
+<p>In the <code>fhirCondition</code> example, the <code>$resource.identifier</code> is the same in both paths. The condition is applied
+to each element in the identifier (0..n), and the <code>with</code> block only executes the mapping for those identifiers for which
+the condition is true.</p>
+</div>
+<div class="paragraph">
+<p>Meanwhile, if we were to write it like the example below, the condition block would try to filter on <code>type</code>, which does not
+match the element in the <code>with:</code> statement. This would result in an error.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.identifier" # same path 0..n
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.identifier.type" # same path 0..n
+      targetAttribute: "coding.code"
+      operator: "one of"
+      criteria: "[room]"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_targetattribute"><a class="anchor" href="#_targetattribute"></a>targetAttribute</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example above in FHIRPath would be
+written as <code>$resource.identifier.where(type.coding.code="room")</code>, therefore checking for the code <code>type</code> and returning
+the identifier entries that match. These are then the ones that are mapped in the <code>with:</code> block.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+    with:
+      fhir: "$resource.identifier"
+      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+    fhirCondition:
+      targetRoot: "$resource.identifier" # same except for type
+      targetAttribute: "type.coding.code" # access child nodes
+      operator: "one of"
+      criteria: "[room]"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example below, only the <code>encounter-id-1245</code> would be mapped, since it fits the condition. The <code>bed</code> code would be
+ignored.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -244,7 +290,7 @@ to each element in the identifier (0..n) and the <code>with</code> block only ex
               "coding": [
                 {
                   "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-                  "code": "bed" //wouldnt be mapped
+                  "code": "bed" //wouldn't be mapped
                 }
               ]
             },
@@ -255,10 +301,10 @@ to each element in the identifier (0..n) and the <code>with</code> block only ex
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, only the encounter-id-1245 would be mapped, since it fits the condition. The bed code would be
-ignored. Nevertheless, conditions can also be unattached to the path contained in the <code>with:</code> block and
-point to a path outside the mapping block. This is sometimes necessary since there can be factors that
-influence the mapping.</p>
+<p>Conditions can also be unattached to the path contained in the <code>with:</code> block and point to a different path.
+This is sometimes necessary since there can be factors that influence the mapping in other places.
+These paths are handled as simple true/false and therefore differ in the way
+they interact with the <code>with:</code> block.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -271,32 +317,6 @@ influence the mapping.</p>
       targetAttribute: "coding.code"
       operator: "one of"
       criteria: "[someValue]"</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_targetattribute"><a class="anchor" href="#_targetattribute"></a>targetAttribute</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <code>targetAttribute</code> is used to specify the path that is outside the relation with the <code>with:</code> block to address child elements
-of the root path. The <code>targetRoot</code> has some cross-effect with the <code>with:</code> block, as explained above, while the <code>targetAttribute</code> is
-independent of that. This allows independent access to paths for the condition.</p>
-</div>
-<div class="paragraph">
-<p><mark>Often we did not do this very cleanly; we should review the mappings and change them accordingly </mark></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
-    with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
-    fhirCondition:
-      targetRoot: "$resource.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "[room]"</code></pre>
 </div>
 </div>
 </div>
@@ -408,8 +428,8 @@ we need to decide on the operator we want to apply.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  mappings:
     - name: "period"
       with:
-        fhir: "onset.as(Period)"
-        openehr: "data[at0001]"
+        fhir: "$resource.onset.as(Period)"
+        openehr: "$archetype/data[at0001]"
         type: "NONE"
       openehrCondition:
         targetRoot: "$archetype/data[at0001]"

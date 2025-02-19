@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06d7ebe6-6a58-4e26-8604-e09f1be11d5f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/FollowedBy.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/FollowedBy.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/Reference.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/Reference.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/SlotArchetypes.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/SlotArchetypes.adoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/ROOT/pages/manual-mappings.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ROOT/pages/manual-mappings.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +71,7 @@
       <workItem from="1738763291363" duration="11319000" />
       <workItem from="1739786220035" duration="1878000" />
       <workItem from="1739876062181" duration="12940000" />
-      <workItem from="1739950234009" duration="9699000" />
+      <workItem from="1739950234009" duration="9729000" />
     </task>
     <servers />
   </component>

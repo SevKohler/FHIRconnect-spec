@@ -214,18 +214,18 @@ Slot archetypes are explained in the next chapter.</p>
     mappings:
       - name: "start"
         with:
-          fhir: "$resource.onset.as(Periodstart"
+          fhir: "$resource.onset.as(Period).start"
           openehr: "items[at0077]"
 
       - name: "lebensphaseCluster"
         with:
-          fhir: "$resource.onset.as(Period"
+          fhir: "$resource.onset.as(Period)"
           openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
         slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If we would write it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the start mapping
+<p>If we wrote it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the <code>"start"</code> mapping
 since it maps the same path.</p>
 </div>
 </article>

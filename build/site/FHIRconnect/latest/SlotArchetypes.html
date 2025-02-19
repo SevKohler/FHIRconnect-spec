@@ -159,7 +159,52 @@
 </aside>
 <article class="doc">
 <h1 class="page">Slot Archetypes</h1>
-
+<div class="paragraph">
+<p>To facilitate the strength of openEHR, also as part of the mappings, the slotArchetypes were introduced. These allow us
+to link other mappings. This enables us to reuse existing mappings and split the logic for transformation into smaller,
+better-maintained files.</p>
+</div>
+<div class="paragraph">
+<p>The <code>slotArchetype</code> is always called by the name of the mapping contained in the header.
+If we remember:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: CLUSTER.lebensphase.v0
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-CLUSTER.lebensphase.v0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Therefore, we need to call the slot <code>CLUSTER.lebensphase.v0</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "period"
+    mappings:
+      - name: "start"
+        with:
+          fhir: "$resource.onset.as(Period).start"
+          openehr: "items[at0077]"
+      - name: "lebensphaseCluster"
+        with:
+          fhir: "$resource.onset.as(Period)"
+          openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+        slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will redirect the mapping to the mapping file that contains the lebensphase mapping and execute the transformation
+there. The path to which this mapping is transformed is specified in <code>openehr:</code>.</p>
+</div>
 </article>
   </div>
 </main>
