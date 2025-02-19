@@ -1,0 +1,98 @@
+= Manual mappings
+:navtitle:  Manual mappings
+
+Sometimes we cannot transform paths automatically, or we have to set a static value somewhere. For this the manual mappings
+where introduced. They follow the `with:` block, which will not auto-transform the paths, but execute the manual mappings.
+Manual mappings are initialized using `manual:` then a name has to follow. Afterward, we define the what we want to manual
+map, fhir or openEHR. In the next step we can follow a list of `- path:` and the value we map `- value:`. Like this we
+can set several paths in the same time.
+
+The way how FHIRconnect works, we have to always follow down the path of the parent.
+Sometimes we have to access the parents parent node, therefore FHIRconnect introduced the `../` (like in your
+command line) logic to AQL and the `^` to fhirPath (this is copied from jsonPath+).
+Both of which can be used to access the parent.
+
+An example of a manual mapping including `../` and `followedBy`:
+
+[source,yaml]
+----
+  - name: "ISMTransition"
+    with:
+      fhir: "$resource" #there needs to be a mapping table
+      openehr: "$archetype/ism_transition/current_state/defining_code"
+    manual:
+      - name: "initial"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "code_string"
+          operator: "one of"
+          criteria: "[524]"
+        openehr:
+          - path: "terminology_id/value"
+            value: "openehr"
+          - path: "../value"
+            value: "Initial"
+          - path: "code_string"
+            value: "524"
+        fhirCondition:
+          targetRoot: "$fhirRoot"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "[unknown]"
+
+      - name: "planned"
+        fhir:
+          - path: "status"
+            value: "preparation"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "code_string"
+          operator: "one of"
+          criteria: "[526]"
+        openehr:
+          - path: "terminology_id/value"
+            value: "openehr"
+          - path: "../value"
+            value: "Planned"
+          - path: "code_string"
+            value: "526"
+        fhirCondition:
+          targetRoot: "$fhirRoot"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "[preparation]"
+
+----
+
+Another typical use case would be to hardcode, extension urls in FHIR.
+[source,yaml]
+----
+mappings:
+  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+    with:
+      fhir: "$fhirRoot.start.extension.value"
+      openehr: "$archetype/items[at0001]"
+    fhirCondition:
+      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
+      targetAttribute: "url"
+      operator: "one of"
+      criteria: "[http://fhir.de/StructureDefinition/lebensphase]"
+    followedBy:
+      mappings:
+        - name: "extension"
+          with:
+            fhir: "^" # goes on element back to start.extension
+            openehr: "$reference"
+          manual:
+            - name: "extension"
+              fhir:
+                - path: "url"
+                  value: "http://fhir.de/StructureDefinition/lebensphase"
+----
+
+In general manual mappings are simple in nature, but require a lot of maintenance.
+To make this easier the use of https://build.fhir.org/conceptmap.html[FHIRconceptMaps] is recommended.
+This is currently under development in the specification.

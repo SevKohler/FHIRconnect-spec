@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FHIRconnect Specification Documentation :: FHIRconnect</title>
+    <title>Manual mappings :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../_/css/site.css">
   </head>
@@ -79,7 +79,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="Reference.html">Reference</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="manual.html">Manual mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -147,64 +147,118 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">FHIRconnect</a></li>
-    <li><a href="index.html">Introduction</a></li>
+    <li>Grammar</li>
+    <li><a href="manual.html">Manual mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect/modules/ROOT/pages/manual.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FHIRconnect Specification Documentation</h1>
-<div class="sect1">
-<h2 id="_about_fhirconnect"><a class="anchor" href="#_about_fhirconnect"></a>About FHIRconnect</h2>
-<div class="sectionbody">
+<h1 class="page">Manual mappings</h1>
 <div class="paragraph">
-<p>FHIRconnect is a derivative of YAML and a rework of the draft from
-Betters <a href="https://github.com/better-care">FHIRconnect</a>. It is used to
-bidirectionally map openEHR and FHIR. The aim is to create a mapping
-language the communities can use to transform between the standards.
-Its aim is to be comprehensive and simple to use, meanwhile trying to
-contain all necessary functions for the mappings.</p>
+<p>Sometimes we cannot transform paths automatically, or we have to set a static value somewhere. For this the manual mappings
+where introduced. They follow the <code>with:</code> block, which will not auto-transform the paths, but execute the manual mappings.
+Manual mappings are initialized using <code>manual:</code> then a name has to follow. Afterward, we define the what we want to manual
+map, fhir or openEHR. In the next step we can follow a list of <code>- path:</code> and the value we map <code>- value:</code>. Like this we
+can set several paths in the same time.</p>
 </div>
 <div class="paragraph">
-<p>Apart from the transformation the specification and resulting files
-should also deal as a documentation of how these things are to be
-mapped. So even if vendors do not implement FHIRconnect, they have a
-documentation of how this is should be transformed. This is especially
-important to maintain a consistency between transforming both standards
-throughout institutions.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_current_issues_and_example_mappings"><a class="anchor" href="#_current_issues_and_example_mappings"></a>Current issues and example mappings</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In the repository <a href="https://github.com/SevKohler/FHIRconnect?tab=readme-ov-file" class="bare">https://github.com/SevKohler/FHIRconnect?tab=readme-ov-file</a> you can find current issues with the specification under the issue tabs in github.
-Also in the directory contained is the library of mappings.
-Currently, these contain the mappings for the KDS the german core dataset for research and general archetype mappings.
-Be aware that some of the templates are still in rework and some of the templates mapped contain old
-bad-quality archetypes created for highmed 8 years ago (org.highmed archetypes) specifically,
-we are currently refactoring this.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_disclaimer"><a class="anchor" href="#_disclaimer"></a>DISCLAIMER</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:</p>
+<p>The way how FHIRconnect works, we have to always follow down the path of the parent.
+Sometimes we have to access the parents parent node, therefore FHIRconnect introduced the <code>../</code> (like in your
+command line) logic to AQL and the <code>^</code> to fhirPath (this is copied from jsonPath+).
+Both of which can be used to access the parent.</p>
 </div>
 <div class="paragraph">
-<p>WIP</p>
+<p>An example of a manual mapping including <code>../</code> and <code>followedBy</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "ISMTransition"
+    with:
+      fhir: "$resource" #there needs to be a mapping table
+      openehr: "$archetype/ism_transition/current_state/defining_code"
+    manual:
+      - name: "initial"
+        fhir:
+          - path: "status"
+            value: "unknown"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "code_string"
+          operator: "one of"
+          criteria: "[524]"
+        openehr:
+          - path: "terminology_id/value"
+            value: "openehr"
+          - path: "../value"
+            value: "Initial"
+          - path: "code_string"
+            value: "524"
+        fhirCondition:
+          targetRoot: "$fhirRoot"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "[unknown]"
+
+      - name: "planned"
+        fhir:
+          - path: "status"
+            value: "preparation"
+        openehrCondition:
+          targetRoot: "$openehrRoot"
+          targetAttribute: "code_string"
+          operator: "one of"
+          criteria: "[526]"
+        openehr:
+          - path: "terminology_id/value"
+            value: "openehr"
+          - path: "../value"
+            value: "Planned"
+          - path: "code_string"
+            value: "526"
+        fhirCondition:
+          targetRoot: "$fhirRoot"
+          targetAttribute: "status"
+          operator: "one of"
+          criteria: "[preparation]"</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Thanks!</p>
+<p>Another typical use case would be to hardcode, extension urls in FHIR.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+    with:
+      fhir: "$fhirRoot.start.extension.value"
+      openehr: "$archetype/items[at0001]"
+    fhirCondition:
+      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
+      targetAttribute: "url"
+      operator: "one of"
+      criteria: "[http://fhir.de/StructureDefinition/lebensphase]"
+    followedBy:
+      mappings:
+        - name: "extension"
+          with:
+            fhir: "^" # goes on element back to start.extension
+            openehr: "$reference"
+          manual:
+            - name: "extension"
+              fhir:
+                - path: "url"
+                  value: "http://fhir.de/StructureDefinition/lebensphase"</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>In general manual mappings are simple in nature, but require a lot of maintenance.
+To make this easier the use of <a href="https://build.fhir.org/conceptmap.html">FHIRconceptMaps</a> is recommended.
+This is currently under development in the specification.</p>
 </div>
 </article>
   </div>

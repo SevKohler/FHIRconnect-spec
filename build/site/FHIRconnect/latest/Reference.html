@@ -74,13 +74,13 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="SlotArchetypes.html">SlotArchetype</a>
+    <a class="nav-link" href="SlotArchetypes.html">SlotArchetypes</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="Reference.html">Reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="manual-mappings.html">manual-mappings.adoc</a>
+    <a class="nav-link" href="manual.html">Manual mappings</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="MappingTypes.html">Mapping types</a>
@@ -163,7 +163,10 @@
 <p>FHIR typically contains a lot of references. Resources are small building blocks that reference each other
 to provide a comprehensive view of the patient information. The <code>reference:</code> logic was introduced to support this.
 It allows us to initialize a new resource in FHIR (or the other way around) and reference it inside the resource
-we are currently mapping. This is done with the <code>reference:</code> keyword. After this, the type of resource we want to initialize
+we are currently mapping.</p>
+</div>
+<div class="paragraph">
+<p>This is done with the <code>reference:</code> keyword. After this, the type of resource we want to initialize
 needs to be specified in <code>resourceType</code>. After that, the mapping follows the typical syntax. The openEHR key is
 always set with <code>openEHR: $reference</code>, since it&#8217;s a resource initialization and no direct path mapping.
 Most of the time, this comes in combination with a <code>slotArchetype</code>, as in the example below.</p>

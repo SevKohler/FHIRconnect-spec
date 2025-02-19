@@ -74,13 +74,13 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="SlotArchetypes.html">SlotArchetype</a>
+    <a class="nav-link" href="SlotArchetypes.html">SlotArchetypes</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="Reference.html">Reference</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="manual-mappings.html">manual-mappings.adoc</a>
+    <a class="nav-link" href="manual.html">Manual mappings</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="MappingTypes.html">Mapping types</a>
@@ -159,7 +159,137 @@
 </aside>
 <article class="doc">
 <h1 class="page">Mapping types</h1>
-
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are different types of mappings, in general most of it is autoresolved by the engine, since FHIRconnect
+has no static typing. We can enforce types if we want to by using the <code>type:</code> key in the <code>with:</code> clause. Typically, you
+will find this in use for <code>type: NONE</code> if you just want to iterate a path.
+The types are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NONE</p>
+</li>
+<li>
+<p>QUANTITY</p>
+</li>
+<li>
+<p>DATETIME</p>
+</li>
+<li>
+<p>CODING</p>
+</li>
+<li>
+<p>STRING</p>
+</li>
+<li>
+<p>IDENTIFIER</p>
+</li>
+<li>
+<p>HIERARCHY</p>
+</li>
+<li>
+<p>PROGRAMMED</p>
+</li>
+<li>
+<p>REFERENCED</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>@Gasper what else do we have if we want to static type ? i dont like we add this but we have too&#8230;&#8203;
+</mark>
+<mark>Can you write here how you process these in the engine ? Like data type mappings
+</mark></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programmed_mappings"><a class="anchor" href="#_programmed_mappings"></a>Programmed mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a very unique logic. For this the
+Programmed mappings where introduced. Here a bit of code can be referenced that is executed by the engine. The way how
+this code is provided and where is up to the vendor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "dosageTiming"
+    with:
+      fhir: "$fhirRoot.timing"
+      openehr: "$archetype"
+    # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR made up their own</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_referenced_mappings"><a class="anchor" href="#_referenced_mappings"></a>Referenced mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A composition could not contain an archetype (difference to slotArchetypes) to represent a specific resource in FHIR.
+This composition can be another one to the one that is currently mapped. To redirect a part of the FHIR data
+to a different FHIRconnect mapping the <code>$REFERENCED_MAPPING</code> can be used. Hereby, the engine needs to checks
+the <code>meta.url</code> contained in the FHIR resource and search the available FHIRconnect context mappings. If a context mapping
+for this <code>meta.url</code> is contained, it is executed and saved as a separate composition. This composition is linked using the
+openEHR <a href="https://specifications.openehr.org/releases/RM/latest/common.html#_link_class">links</a>. The fields of this
+link are set in the <code>openEHRLink</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "partOf"
+    with:
+      fhir: "$resource.partOf.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+            # type: "REFERENCED" not necessary due to dynamic typing (openehrLink is unique for Referenced...)
+          openehrLink:
+            meaning: "Part of referenced event"
+            type: "partOf"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hierarchy_mappings"><a class="anchor" href="#_hierarchy_mappings"></a>Hierarchy mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These are the most complex type of mappings. Sometimes the hierarchy between a fhir and an openEHR model do not fit.
+They are just in different levels of the files.
+A good example is the FHIR MedicationStatement. Without going into detail why the models are differently aligned there
+is the problem that in FHIR the medication is part of the statement, but in openEHR it is part of an EVENT of the .
+MedicationStatement.
+This leads to several problems now, first of all for each route we have in FHIR we need to create a new EVENT in openEHR.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/MappingHierarchies.png" alt="MappingHierarchies">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "hierarchyMappings" # is defined by the
+    with:
+      fhir: "$resource.dosage"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+  #    type: "HIERARCHY" not necessary since hierarchy is a unique key for Hierarchy mappings
+    hierarchy:
+      fhirCreate: "resource"
+      openehrCreate: "event"
+      uniqueValueFHIR: "[route, timing.event]" # if route value is different per dosage slice make a new event
+      uniqueValueOpenEHR: "['/data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"</code></pre>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>

@@ -5,7 +5,7 @@
 ** xref:FollowedBy.adoc[]
 ** xref:SlotArchetypes.adoc[]
 ** xref:Reference.adoc[]
-** xref:manual-mappings.adoc[]
+** xref:manual.adoc[]
 ** xref:MappingTypes.adoc[]
 ** xref:HierarchyMappings.adoc[]
 ** xref:model-mappings.adoc[]

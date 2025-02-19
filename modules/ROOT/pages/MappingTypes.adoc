@@ -1,3 +1,92 @@
 = Mapping types
 :navtitle: Mapping types
 
+There are different types of mappings, in general most of it is autoresolved by the engine, since FHIRconnect
+has no static typing. We can enforce types if we want to by using the `type:` key in the `with:` clause. Typically, you
+will find this in use for `type: NONE` if you just want to iterate a path.
+The types are:
+
+* NONE
+* QUANTITY
+* DATETIME
+* CODING
+* STRING
+* IDENTIFIER
+* HIERARCHY
+* PROGRAMMED
+* REFERENCED
+
+##@Gasper what else do we have if we want to static type ? i dont like we add this but we have too...
+##
+##Can you write here how you process these in the engine ? Like data type mappings
+##
+
+== Programmed mappings
+Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a very unique logic. For this the
+Programmed mappings where introduced. Here a bit of code can be referenced that is executed by the engine. The way how
+this code is provided and where is up to the vendor.
+
+[source,yaml]
+----
+  - name: "dosageTiming"
+    with:
+      fhir: "$fhirRoot.timing"
+      openehr: "$archetype"
+    # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR made up their own
+----
+
+
+== Referenced mappings
+A composition could not contain an archetype (difference to slotArchetypes) to represent a specific resource in FHIR.
+This composition can be another one to the one that is currently mapped. To redirect a part of the FHIR data
+to a different FHIRconnect mapping the `$REFERENCED_MAPPING` can be used. Hereby, the engine needs to checks
+the `meta.url` contained in the FHIR resource and search the available FHIRconnect context mappings. If a context mapping
+for this `meta.url` is contained, it is executed and saved as a separate composition. This composition is linked using the
+openEHR https://specifications.openehr.org/releases/RM/latest/common.html#_link_class[links]. The fields of this
+link are set in the `openEHRLink`.
+
+[source,yaml]
+----
+  - name: "partOf"
+    with:
+      fhir: "$resource.partOf.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+            # type: "REFERENCED" not necessary due to dynamic typing (openehrLink is unique for Referenced...)
+          openehrLink:
+            meaning: "Part of referenced event"
+            type: "partOf"
+----
+
+
+== Hierarchy mappings
+These are the most complex type of mappings. Sometimes the hierarchy between a fhir and an openEHR model do not fit.
+They are just in different levels of the files.
+A good example is the FHIR MedicationStatement. Without going into detail why the models are differently aligned there
+is the problem that in FHIR the medication is part of the statement, but in openEHR it is part of an EVENT of the .
+MedicationStatement.
+This leads to several problems now, first of all for each route we have in FHIR we need to create a new EVENT in openEHR.
+
+
+image::MappingHierarchies.png[]
+
+
+[source,yaml]
+----
+  - name: "hierarchyMappings" # is defined by the
+    with:
+      fhir: "$resource.dosage"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+  #    type: "HIERARCHY" not necessary since hierarchy is a unique key for Hierarchy mappings
+    hierarchy:
+      fhirCreate: "resource"
+      openehrCreate: "event"
+      uniqueValueFHIR: "[route, timing.event]" # if route value is different per dosage slice make a new event
+      uniqueValueOpenEHR: "['/data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+----
