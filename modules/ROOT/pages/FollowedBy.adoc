@@ -61,7 +61,7 @@ mappings:
         slotArchetype: "CLUSTER.lebensphase.v0"
 
 ----
-If we would write it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the start mapping
+If we wrote it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the `"start"` mapping
 since it maps the same path.
 
 
