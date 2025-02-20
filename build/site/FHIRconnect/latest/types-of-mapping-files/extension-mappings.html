@@ -126,7 +126,7 @@
     <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="model-mappings.html">Model mappings</a>
+    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
@@ -190,6 +190,24 @@
 </aside>
 <article class="doc">
 <h1 class="page">The extension mappings</h1>
+<div class="sect1">
+<h2 id="_extension_header"><a class="anchor" href="#_extension_header"></a>Extension header</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: extension
+metadata:
+  name:  KDS_anatomical_location
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR
+  version: R4
+  extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended</code></pre>
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_extension"><a class="anchor" href="#_extension"></a>Extension</h2>
 <div class="sectionbody">

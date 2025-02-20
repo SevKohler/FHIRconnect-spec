@@ -126,7 +126,7 @@
     <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="model-mappings.html">Model mappings</a>
+    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
@@ -221,86 +221,7 @@ From a developer&#8217;s perspective, they act as an import and main.</p>
 <div class="sect1">
 <h2 id="_the_header"><a class="anchor" href="#_the_header"></a>The header</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The header is contained in each FHIRconnect mapping file. It is
-standardized for both FHIRconnect and
-<a href="https://github.com/SevKohler/OMOCL">OMOCL</a>.</p>
-</div>
-<div class="paragraph">
-<p>An example of a model mapping header:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # what grammar and version is used in this file
-type: model  # the type of mapping: model, extension or context
-metadata:
-  name: ACTION.informed_consent.v0  #the name of the mapping
-  version: 0.0.1a # version of this particular mapping
-spec: # schema specific to the FHIRConnect v0.0.1 engine
-  system: FHIR  # What is mapped
-  version: R4
-  openEhrConfig:
-    archetype: ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>An example of a extension mapping header:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
-type: extension
-metadata:
-  name:  KDS_anatomical_location
-  version: 0.0.1a # version of this particular mapping
-spec: # schema specific to the FHIRConnect v0.0.1 engine
-  system: FHIR
-  version: R4
-  extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Example of a context mapping header:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
-type: context
-metadata:
-  name:  KDS_diagnose.context
-  version: 0.0.1a
-spec:
-  system: FHIR
-  version: R4</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
-class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
-can be transformed into one archetype. In this case, the name of the mapping is to be extended
-with what FHIR type is mapped to what openEHR archetype:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>CLUSTER.medication.v2 (this maps medication-to-medication)</p>
-</li>
-<li>
-<p>CLUSTER.medication.v2.substance-to-medication (this does not map a
-FHIR medication but an FHIR substance)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This allows for separately calling these archetype mappings for different use cases. The initial one
-created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
-created that also map to medication but from another FHIR input must add a string to their name as
-described above. We deem the first mapping as the default one. Furthermore, we want to prevent
-dependency problems by renaming the file later on. For extension and context mapping names,
-there is no specific style guide, as this is a project-specific decision users have to make.</p>
-</div>
+
 </div>
 </div>
 </article>

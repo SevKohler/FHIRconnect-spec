@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Model mappings :: FHIRconnect</title>
+    <title>Model Mappings :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -126,7 +126,7 @@
     <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="model-mappings.html">Model mappings</a>
+    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
@@ -179,7 +179,7 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Types of Mapping files</li>
-    <li><a href="model-mappings.html">Model mappings</a></li>
+    <li><a href="model-mappings.html">Model Mappings</a></li>
   </ul>
 </nav>
 <div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mapping-files/model-mappings.adoc">Edit this Page</a></div>
@@ -189,28 +189,55 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Model mappings</h1>
+<h1 class="page">Model Mappings</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The first layer of mappings are the model mappings. These act as a reusable base of FHIR to openEHR mappings and are the
-core piece of FHIRconnect. Each of these mappings map either an FHIR <a href="https://www.hl7.org/fhir/R4/domainresource.html">DomainResource</a> or
-<a href="https://www.hl7.org/fhir/R4/backboneelement.html">BackboneElement</a> against an openEHR archetype.</p>
+<p>The first layer of mappings consists of the model mappings.
+These serve as a reusable base for FHIR-to-openEHR mappings and form the core of FHIRconnect.
+Each of these mappings connects either an FHIR
+<a href="https://www.hl7.org/fhir/R4/domainresource.html">DomainResource</a> or
+an <a href="https://www.hl7.org/fhir/R4/backboneelement.html">BackboneElement</a> to an openEHR archetype.</p>
 </div>
 <div class="paragraph">
-<p>FHIRConnect was designed with the idea of having a generically valid library of archetype-to-fhir mappings. This library
-is the core strength of FHIRconnect. The vision is that this library is maintained by the community as such. Everyone
-provides back the basic mappings they do or correct and add to existing ones. Like that there will be an ever growing
-amount of matured archetype mappings.</p>
+<p>FHIRConnect was designed with the vision of creating a generically valid library of archetype-to-FHIR
+mappings. This library is the core strength of FHIRconnect. The goal is for this library to be
+maintained by the community, with everyone contributing their basic mappings, correcting existing ones,
+and adding new ones. In this way, the library will grow over time, containing an ever-increasing
+number of refined archetype mappings.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_folders_and_namespaces"><a class="anchor" href="#_folders_and_namespaces"></a>Folders and namespaces</h2>
+<h2 id="_header"><a class="anchor" href="#_header"></a>Header</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each of these model mappings tries to be as generically valid as possible. They can be found under the <code>mapping/model</code> folder.
-Here these models are split depending on their openEHR archetype type.</p>
+<p>The model mapping header was already introduced in the first chapter under <a href="../basics/main.html" class="xref page">Header</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this file
+type: model  # The type of mapping: model, extension, or context
+metadata:
+  name: ACTION.informed_consent.v0  # The name of the mapping
+  version: 0.0.1a  # The version of this particular mapping
+spec:  # Schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # Specifies what is being mapped
+  version: R4
+  openEhrConfig:
+    archetype: ACTION.informed_consent.v0  # The openEHR archetype being mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent  # The FHIR StructureDefinition to which this is mapped</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_folders_and_namespaces"><a class="anchor" href="#_folders_and_namespaces"></a>Folders and Namespaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each of these model mappings aims to be as generically valid as possible. They can be found in
+the <code>mapping/model</code> folder. Here, the models are organized based on their openEHR archetype type.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -218,10 +245,12 @@ Here these models are split depending on their openEHR archetype type.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>OpenEHR has several model libraries, the most important one is the <a href="https://ckm.openehr.org/ckm/">international CKM</a>. Here
-the international models are contained that are used by openEHR platforms. Model mappings for this can be found under
-the folder <code>org.openehr</code> which indicates the namespace of an archetype. Sometimes local models are designed, for national
-requirements, the ones from <a href="https://ckm.highmed.org/ckm/">HiGHmed</a> are contained under <code>org.highmed</code>.</p>
+<p>OpenEHR has several model libraries, the most important of which is the
+<a href="https://ckm.openehr.org/ckm/">international CKM</a>. This contains the international models
+used by openEHR platforms. Model mappings for these can be found under the folder
+<code>org.openehr</code>, which indicates the namespace of an archetype. Sometimes, local models
+are designed to meet national requirements. For example, the models
+from <a href="https://ckm.highmed.org/ckm/">HiGHmed</a> are located under <code>org.highmed</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -229,10 +258,11 @@ requirements, the ones from <a href="https://ckm.highmed.org/ckm/">HiGHmed</a> a
 </div>
 </div>
 <div class="paragraph">
-<p>Inside these folders are the model mappings contained.
-Sometimes, there are two model mappings for the same archetype which differ on their FHIR output. Here the dosage has
-two archetype mappings, one for dosage-to-dosage and one for dosage-to-backboneElement. We treat the dosage-to-dosage
-here as the default one, therefore its name is just dosage.v2.</p>
+<p>Inside these folders, the model mappings are stored.
+Occasionally, there are two model mappings for the same archetype that differ in their FHIR output.
+For example, the dosage archetype has two mappings: one for dosage-to-dosage and another for
+dosage-to-backboneElement. The dosage-to-dosage mapping is treated as the default, so its name is
+simply <code>dosage.v2</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -240,17 +270,19 @@ here as the default one, therefore its name is just dosage.v2.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This naming was chosen because the dosage-to-dosage mapping is naturally the more comprehensive one compared to the
-backboneElement. For processing these files are called by their <code>metadata.name</code>, therefore they are distinguishable.
-The name of a model mapping file contains always first the name of the archetype (without the openEHR-EHR-TYPE).</p>
+<p>This naming convention was chosen because the dosage-to-dosage mapping is naturally more
+comprehensive compared to the backboneElement mapping. For processing, these files are called by
+their <code>metadata.name</code>, making them distinguishable. The name of a model mapping file always starts
+with the name of the archetype (excluding the <code>openEHR-EHR-TYPE</code>).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_model_mapping_examples"><a class="anchor" href="#_model_mapping_examples"></a>Model mapping examples</h2>
+<h2 id="_model_mapping_examples"><a class="anchor" href="#_model_mapping_examples"></a>Model Mapping Examples</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To combine the methods explained, here is an example of a mapping between the problem_diagnose and the Condition in FHIR.</p>
+<p>To illustrate the methods explained, here is an example of a mapping between the <code>problem_diagnose</code>
+archetype and the FHIR <code>Condition</code> resource.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -294,7 +326,7 @@ mappings:
   - name: "provider"
     with:
       fhir: "$resource.recorder"
-      openehr: "$archetype/provider"  # often required therefore simplified mapping engine is to resolve Reference -&gt; Participations
+      openehr: "$archetype/provider"  # Often required, so the simplified mapping engine resolves Reference -&gt; Participations
 
   - name: "problemDiagnose"
     with:
@@ -342,36 +374,36 @@ mappings:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_composition_composer_and_start_time"><a class="anchor" href="#_composition_composer_and_start_time"></a>Composition composer and start_time</h2>
+<h2 id="_composition_composer_and_start_time"><a class="anchor" href="#_composition_composer_and_start_time"></a>Composition Composer and Start Time</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>composition/context/start_time will be set with mapping time if
-nothing is provided after that entry level then items If composer is not
-set leave it empty, if not possible set FHIRconnect If subject is not
-speicifed party_self</p>
+<p><code>composition/context/start_time</code> will be set with mapping time if nothing is provided after
+that entry level, then items. If composer is not set, leave it empty. If not possible,
+set FHIRconnect. If subject is not specified, use <code>party_self</code>.</p>
 </div>
 <div class="paragraph">
-<p>Set start_time, subject and composer automatically in engine</p>
+<p>Set <code>start_time</code>, subject, and composer automatically in the engine.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"><a class="anchor" href="#_context_start_time_and_a_bundle_ofr_resources_see_httpsgithub_commedblocksopenfhirissues89"></a>context start time and a bundle ofr resources see <a href="https://github.com/medblocks/openFHIR/issues/89" class="bare">https://github.com/medblocks/openFHIR/issues/89</a></h2>
+<h2 id="_context_start_time_and_a_bundle_of_resources"><a class="anchor" href="#_context_start_time_and_a_bundle_of_resources"></a>Context Start Time and a Bundle of Resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIR has no composition equivalent so you always start at one profile
-and work from thereon. Which one and how to define ?</p>
+<p>See <a href="https://github.com/medblocks/openFHIR/issues/89" class="bare">https://github.com/medblocks/openFHIR/issues/89</a>.</p>
 </div>
 <div class="paragraph">
-<p>DV_IDENTIFIER: type, type system &#43; ¨::¨ &#43; value, value
-assigner, assigner</p>
+<p>FHIR has no composition equivalent, so you always start at one profile and work from there.
+Which one and how to define?</p>
 </div>
 <div class="paragraph">
-<p>Condition is always on the input NOT on the OUTPUT ! That is super
-important!</p>
+<p><code>DV_IDENTIFIER</code>: type, type system <code>` `::` `</code> value, value assigner, assigner.</p>
+</div>
+<div class="paragraph">
+<p>Condition is always on the input, NOT on the OUTPUT! That is super important!</p>
 </div>
 <div class="sect2">
-<h3 id="_unidirectional"><a class="anchor" href="#_unidirectional"></a>unidirectional</h3>
+<h3 id="_unidirectional"><a class="anchor" href="#_unidirectional"></a>Unidirectional</h3>
 
 </div>
 </div>
