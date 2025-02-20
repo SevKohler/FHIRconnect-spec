@@ -153,6 +153,8 @@ mappings:
 ----
 
 == Composition Composer and Start Time
+FHIR often misses
+
 `composition/context/start_time` will be set with mapping time if nothing is provided after
 that entry level, then items. If composer is not set, leave it empty. If not possible,
 set FHIRconnect. If subject is not specified, use `party_self`.

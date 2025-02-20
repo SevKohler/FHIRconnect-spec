@@ -20,7 +20,3 @@ file to start. There is one context file required for each profile and template 
 From a developer's perspective, they act as an import and main.
 
 image::FileStructure.drawio.png[]
-
-== The header
-
-
