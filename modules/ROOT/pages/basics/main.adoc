@@ -1,5 +1,5 @@
-= The header
-:navtitle: The header
+= Header
+:navtitle: Header
 
 The header is contained in each FHIRconnect mapping file. It is
 standardized for both FHIRconnect and
@@ -7,7 +7,7 @@ https://github.com/SevKohler/OMOCL[OMOCL].
 
 There are three different types of mapping files in FHIRconnect.
 For this header explanation and basic chapter we will focus on the model mappings that map an openEHR-archetype to a
-FHIR resource. Other types are explained later in the chapter xref:types-of-mapping-files/types-of-mappings.adoc[]
+FHIR resource. Other types are explained later in the chapter xref:types-of-mapping-files/main.adoc[]
 
 
 == Grammar and Type
@@ -77,4 +77,5 @@ This allows for separately calling these archetype mappings for different use ca
 created always stays as `CLUSTER.medication.v2` and is to be seen as the default. All future mappings
 created that also map to medication but from another FHIR input must add a string to their name as
 described above. We deem the first mapping as the default one. Furthermore, we want to prevent
-dependency problems by renaming the file later on.
+dependency problems by renaming the file later on. For extension and context mapping names,
+there is no specific style guide, as this is a project-specific decision users have to make.

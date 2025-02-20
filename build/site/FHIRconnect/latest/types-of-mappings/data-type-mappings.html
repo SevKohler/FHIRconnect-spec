@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Hierarchy Mappings :: FHIRconnect</title>
+    <title>Data type mappings :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -66,10 +66,10 @@
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/main.html">Header</a>
+    <a class="nav-link" href="../basics/header.html">The header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/body.html">Body</a>
+    <a class="nav-link" href="../basics/body.html">Basic Concepts</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/Variables.html">Variables</a>
@@ -96,13 +96,10 @@
     <span class="nav-text">Types of Mappings</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="main.html">Mapping types</a>
+    <a class="nav-link" href="MappingTypes.html">Mapping types</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="data-mappings.html">Data mapping types</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="concept-mappings.html">Concept type mappings</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="data-type-mappings.html">Data type mappigns</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="SlotArchetypes.html">SlotArchetypes</a>
@@ -113,7 +110,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="manual.html">Manual mappings</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="HierarchyMappings.html">Hierarchy Mappings</a>
   </li>
 </ul>
@@ -123,7 +120,7 @@
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/main.html">Types of mapping files</a>
+    <a class="nav-link" href="../types-of-mapping-files/types-of-mappings.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/model-mappings.html">Model mappings</a>
@@ -179,93 +176,45 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Types of Mappings</li>
-    <li><a href="HierarchyMappings.html">Hierarchy Mappings</a></li>
+    <li><a href="data-type-mappings.html">Data type mappigns</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mappings/HierarchyMappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mappings/data-type-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Hierarchy Mappings</h1>
+<h1 class="page">Data type mappings</h1>
 <div class="paragraph">
-<p>Hierarchy mappings are the most complex type of mappings.
-Sometimes, the hierarchy between a FHIR and an openEHR model does not align properly.
-For example, elements may exist on different levels in the models, leading to complications.</p>
+<p>@Gaspers since you implemented that ?</p>
 </div>
-<div class="paragraph">
-<p>A good example of this is the FHIR <code>MedicationStatement</code>.
-Without delving into the details of why the models are structured differently,
-there are several challenges to address.</p>
-</div>
-<div class="paragraph">
-<p>In FHIR, the <code>timing.event</code> contained within the <code>dosage</code> element
-(see <a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80817">MedicationStatement</a>)
-maps to the <code>dateTime</code> of the <code>EVENT</code> in openEHR.
-Therefore, if there are three <code>dosages</code> in FHIR with different <code>timing.event</code> values,
-three separate <code>EVENT</code> elements must be created in the openEHR
-<a href="https://ckm.openehr.org/ckm/archetypes/1013.1.4949">medication_statement</a> archetype.</p>
-</div>
-<div class="paragraph">
-<p>Another issue is the <code>route</code> of administration.
-In openEHR, the <code>route</code> of administration is optional (0..1) for each <code>medication_statement</code> EVENT.
-However, in FHIR, this is part of the <code>dosage</code> element.
-A single <code>MedicationStatement</code> in FHIR can have three different <code>dosages</code>,
-each with a different <code>route</code> of administration.
-For each unique <code>route</code> of administration, a new <code>medication_statement</code> EVENT must be created in openEHR.</p>
-</div>
-<div class="paragraph">
-<p>The same logic applies when mapping from openEHR to FHIR.
-In openEHR, each <code>EVENT</code> can contain a different medication,
-whereas in FHIR, each <code>MedicationStatement</code> resource can only describe one medication.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../_images/MappingHierarchies.png" alt="MappingHierarchies">
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NONE</p>
+</li>
+<li>
+<p>QUANTITY</p>
+</li>
+<li>
+<p>DATETIME</p>
+</li>
+<li>
+<p>CODING</p>
+</li>
+<li>
+<p>STRING</p>
+</li>
+<li>
+<p>IDENTIFIER</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>To summarize, if the <code>route</code> or <code>timing.event</code> appears multiple times in FHIR
-with different values within the <code>dosage</code> element,
-a new <code>EVENT</code> must be created in openEHR for each unique occurrence.
-Similarly, if there are multiple medications in openEHR,
-multiple <code>MedicationStatement</code> resources must be created in FHIR.</p>
-</div>
-<div class="paragraph">
-<p>To enable this logic, hierarchy mappings are used.
-These mappings must always be defined as the first ones in a FHIRconnect file
-because they significantly impact the structure of the transformed files.
-Hierarchy mappings include a <code>hierarchy</code> key at the level of the <code>with:</code> block.</p>
-</div>
-<div class="paragraph">
-<p>This block contains two sub-blocks: one for FHIR and one for openEHR.
-The <code>create:</code> key specifies the type of element to be created,
-and the <code>path:</code> key indicates where this element should be created.
-The <code>unique:</code> key defines the condition that triggers the creation of the new element.
-The path in the <code>unique:</code> key relates to the <code>with:</code> block, e.g. in the example we want to split
-the data transformation based on dosages, therefore the <code>with:</code> path relates to dosage.
-This will not automatically transform the dosage and event as a normal <code>with:</code> would do.
-It rather is used as an indicator explained above.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "hierarchyMappings" # Defined by the hierarchy mapping logic
-    with:
-      fhir: "$resource.dosage"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
-    #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
-    hierarchy:
-      fhir:
-        create: "resource"
-        path: "$resource"
-        unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
-      openEHR:
-        create: "event"
-        path: "$archetype/data[at0001]/events[at0002]"
-        unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event</code></pre>
-</div>
+<p><mark>I think we also maybe talk about dynamics typing or is this we leave up to the engine how it is processing the order
+and prioritizing it. </mark></p>
 </div>
 </article>
   </div>

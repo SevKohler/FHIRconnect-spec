@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Requirements of the Engine :: FHIRconnect</title>
+    <title>Header :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -65,29 +65,29 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/main.html">Header</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/body.html">Body</a>
+    <a class="nav-link" href="body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Variables.html">Variables</a>
+    <a class="nav-link" href="Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
+    <a class="nav-link" href="Conditions.html">Condition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
+    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/cardinality.html">Cardinality</a>
+    <a class="nav-link" href="cardinality.html">Cardinality</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/links-and-references.html">Links and references</a>
+    <a class="nav-link" href="links-and-references.html">Links and references</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/demographics.html">Demographics</a>
+    <a class="nav-link" href="demographics.html">Demographics</a>
   </li>
 </ul>
   </li>
@@ -142,8 +142,8 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="engine.html">Engine</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/engine.html">Engine</a>
   </li>
 </ul>
   </li>
@@ -177,121 +177,127 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Engine</li>
-    <li><a href="engine.html">Engine</a></li>
+    <li>Grammar</li>
+    <li>Basics</li>
+    <li><a href="main.html">Header</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/engine/engine.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Requirements of the Engine</h1>
+<h1 class="page">Header</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>What needs to be done by the engine, the grammar implies. ## Validation</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_resolving_of_ehr_id_and_patients"><a class="anchor" href="#_resolving_of_ehr_id_and_patients"></a>Resolving of EHR id and patients</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dynamic_type_conversion"><a class="anchor" href="#_dynamic_type_conversion"></a>Dynamic type conversion</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_missing_references"><a class="anchor" href="#_missing_references"></a>Missing references</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_links_and_references"><a class="anchor" href="#_links_and_references"></a>Links and references</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class" class="bare">https://specifications.openehr.org/releases/RM/latest/common.html#_locatable_class</a></p>
+<p>The header is contained in each FHIRconnect mapping file. It is
+standardized for both FHIRconnect and
+<a href="https://github.com/SevKohler/OMOCL">OMOCL</a>.</p>
 </div>
 <div class="paragraph">
-<p>Automatically add links to identifier for assigner to convert it back ?
-Otherwise this should pinpoint to demopgrahics server.</p>
+<p>There are three different types of mapping files in FHIRconnect.
+For this header explanation and basic chapter we will focus on the model mappings that map an openEHR-archetype to a
+FHIR resource. Other types are explained later in the chapter <a href="../types-of-mapping-files/main.html" class="xref page">Types of mapping files</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_circular_dependencies_and_duplicated_conversions"><a class="anchor" href="#_circular_dependencies_and_duplicated_conversions"></a>Circular dependencies and duplicated conversions</h2>
+<h2 id="_grammar_and_type"><a class="anchor" href="#_grammar_and_type"></a>Grammar and Type</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>table should also list ehr object links. not only composition Advisable
-to stop at depth of 3 ?! ## Ids and how to ensure deterministic behavior</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_mapping_planer"><a class="anchor" href="#_mapping_planer"></a>Mapping planer</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>e.g. if specimen is contained as identifier and specimen cluster is in
-the same composition execute specimen cluster first for the mapping.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_mapping_fields_that_are_not_part_of_the_template"><a class="anchor" href="#_mapping_fields_that_are_not_part_of_the_template"></a>mapping fields that are not part of the template</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Engine should not execute mappings that are not required by the
-template/kick them out.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cardinalities"><a class="anchor" href="#_cardinalities"></a>cardinalities</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When openEHR 0..* and FHIR 0..* the corresponding iteration is
-to be done. e.g.</p>
+<p>Here we define which engine version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
+of the grammar used seperated by a <code>/</code>. The <code>type</code> defines what type of mapping-file this is it can be either:
+<code>model</code>, <code>extension</code> or <code>context</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "diagnose"
-    with:
-      fhir: "$resourcePath.diagnosis"
-      openEHR: "$reference"
-      type: "NONE"</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>These can be a list of diagnoses therefore iterate this mapping for each
-of the elements ## context mappings each context mapping has its own
-imports, so its not mixed when cross referencing</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_writing_into_0_fields"><a class="anchor" href="#_writing_into_0_fields"></a>writing into 0..* fields</h2>
+<h2 id="_metadata"><a class="anchor" href="#_metadata"></a>Metadata</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>E.g. mappings from a 0..* dosage that contains a route into the
-openEHR route which is 0..n. Field is added for each cluster again and
-again. if its 0..* append, if its 0..1 overwrite. Mapping to List in
-openEHR should always append to list e.g. /links.</p>
+<p>The metadata defines the name of the mapping, that is a unique id used to identify the mapping and reference it.
+The version represents which version of the mapping this is. Sometimes its necessary to maintain several versions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context
+metadata:
+  name: ACTION.informed_consent.v0  #the name of the mapping
+  version: 0.0.1-alpha # version of this particular mapping</code></pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_mappings_and_multiple_codings"><a class="anchor" href="#_mappings_and_multiple_codings"></a>mappings and multiple codings</h2>
+<h2 id="_spec"><a class="anchor" href="#_spec"></a>Spec</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>codeable concept transform use term mappings vice versa</p>
+<p>This defines what standard is mapped by the file, in our case <code>FHIR</code> and which Release of it. The current spec was designed
+based on R4. It was not tested with any other Releases, but since FHIRconnect operates on paths, there shouldn&#8217;t be any
+problems.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context
+metadata:
+  name: ACTION.informed_consent.v0  #the name of the mapping
+  version: 0.0.1-alpha # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # What is mapped
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>openEHRConfig.archetype</code> defines which archetypes is mapped, in case of a model mapping.</p>
+</div>
+<div class="paragraph">
+<p>The <code>fhirConfig.structureDefintion</code> contains the information which FHIR StructureDefinition is mapped.
+This is just informal for the user and has no impact on the mapping.
+<mark>Gasper verifiy</mark></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_naming_convention"><a class="anchor" href="#_naming_convention"></a>Naming convention</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
+class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
+can be transformed into one archetype. In this case, the name of the mapping is to be extended
+with what FHIR type is mapped to what openEHR archetype:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CLUSTER.medication.v2 (this maps medication-to-medication)</p>
+</li>
+<li>
+<p>CLUSTER.medication.v2.substance-to-medication (this does not map a
+FHIR medication but an FHIR substance)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This allows for separately calling these archetype mappings for different use cases. The initial one
+created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
+created that also map to medication but from another FHIR input must add a string to their name as
+described above. We deem the first mapping as the default one. Furthermore, we want to prevent
+dependency problems by renaming the file later on.</p>
 </div>
 </div>
 </div>

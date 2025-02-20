@@ -1,4 +1,17 @@
 = Context mappings
 :navtitle: Context mappings
 
-== Mapping body
+== Context header
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: context
+metadata:
+  name:  KDS_diagnose.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+----
+
+

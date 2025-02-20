@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Hierarchy Mappings :: FHIRconnect</title>
+    <title>Types of mapping files :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -96,25 +96,25 @@
     <span class="nav-text">Types of Mappings</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="main.html">Mapping types</a>
+    <a class="nav-link" href="../types-of-mappings/main.html">Mapping types</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="data-mappings.html">Data mapping types</a>
+    <a class="nav-link" href="../types-of-mappings/data-mappings.html">Data mapping types</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="concept-mappings.html">Concept type mappings</a>
+    <a class="nav-link" href="../types-of-mappings/concept-mappings.html">Concept type mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="SlotArchetypes.html">SlotArchetypes</a>
+    <a class="nav-link" href="../types-of-mappings/SlotArchetypes.html">SlotArchetypes</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Reference.html">Reference</a>
+    <a class="nav-link" href="../types-of-mappings/Reference.html">Reference</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="manual.html">Manual mappings</a>
+    <a class="nav-link" href="../types-of-mappings/manual.html">Manual mappings</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="HierarchyMappings.html">Hierarchy Mappings</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mappings/HierarchyMappings.html">Hierarchy Mappings</a>
   </li>
 </ul>
   </li>
@@ -122,17 +122,17 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/main.html">Types of mapping files</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/model-mappings.html">Model mappings</a>
+    <a class="nav-link" href="model-mappings.html">Model mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
+    <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context mappings</a>
+    <a class="nav-link" href="context-mappings.html">Context mappings</a>
   </li>
 </ul>
   </li>
@@ -178,93 +178,129 @@
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
-    <li>Types of Mappings</li>
-    <li><a href="HierarchyMappings.html">Hierarchy Mappings</a></li>
+    <li>Types of Mapping files</li>
+    <li><a href="main.html">Types of mapping files</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mappings/HierarchyMappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mapping-files/main.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Hierarchy Mappings</h1>
+<h1 class="page">Types of mapping files</h1>
+<div class="sect1">
+<h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Hierarchy mappings are the most complex type of mappings.
-Sometimes, the hierarchy between a FHIR and an openEHR model does not align properly.
-For example, elements may exist on different levels in the models, leading to complications.</p>
+<p>Mappings are organized into three types of files. The model mapping is the vanilla
+mapping that describes the transformation between an archetype and an un-profiled resource.
+This is the most basic form of mapping that is to be shared and maintained by the communities.</p>
 </div>
 <div class="paragraph">
-<p>A good example of this is the FHIR <code>MedicationStatement</code>.
-Without delving into the details of why the models are structured differently,
-there are several challenges to address.</p>
+<p>Extension mappings are used to extend model mappings by adding, overwriting, or
+appending mapping logic to the vanilla model mappings. This is required to map
+between templates and profiles. The model mappings act as a sustainable set of base
+mappings that can be extended for a given scope using extension mappings. Extension
+mappings act similarly to a String Builder.</p>
 </div>
 <div class="paragraph">
-<p>In FHIR, the <code>timing.event</code> contained within the <code>dosage</code> element
-(see <a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80817">MedicationStatement</a>)
-maps to the <code>dateTime</code> of the <code>EVENT</code> in openEHR.
-Therefore, if there are three <code>dosages</code> in FHIR with different <code>timing.event</code> values,
-three separate <code>EVENT</code> elements must be created in the openEHR
-<a href="https://ckm.openehr.org/ckm/archetypes/1013.1.4949">medication_statement</a> archetype.</p>
-</div>
-<div class="paragraph">
-<p>Another issue is the <code>route</code> of administration.
-In openEHR, the <code>route</code> of administration is optional (0..1) for each <code>medication_statement</code> EVENT.
-However, in FHIR, this is part of the <code>dosage</code> element.
-A single <code>MedicationStatement</code> in FHIR can have three different <code>dosages</code>,
-each with a different <code>route</code> of administration.
-For each unique <code>route</code> of administration, a new <code>medication_statement</code> EVENT must be created in openEHR.</p>
-</div>
-<div class="paragraph">
-<p>The same logic applies when mapping from openEHR to FHIR.
-In openEHR, each <code>EVENT</code> can contain a different medication,
-whereas in FHIR, each <code>MedicationStatement</code> resource can only describe one medication.</p>
+<p>Context mappings define the import of model mappings and extension mappings,
+specifying what profile is transformed into which template and with which mapping
+file to start. There is one context file required for each profile and template mapped.
+From a developer&#8217;s perspective, they act as an import and main.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/MappingHierarchies.png" alt="MappingHierarchies">
+<img src="../_images/FileStructure.drawio.png" alt="FileStructure.drawio">
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_header"><a class="anchor" href="#_the_header"></a>The header</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The header is contained in each FHIRconnect mapping file. It is
+standardized for both FHIRconnect and
+<a href="https://github.com/SevKohler/OMOCL">OMOCL</a>.</p>
 </div>
 <div class="paragraph">
-<p>To summarize, if the <code>route</code> or <code>timing.event</code> appears multiple times in FHIR
-with different values within the <code>dosage</code> element,
-a new <code>EVENT</code> must be created in openEHR for each unique occurrence.
-Similarly, if there are multiple medications in openEHR,
-multiple <code>MedicationStatement</code> resources must be created in FHIR.</p>
-</div>
-<div class="paragraph">
-<p>To enable this logic, hierarchy mappings are used.
-These mappings must always be defined as the first ones in a FHIRconnect file
-because they significantly impact the structure of the transformed files.
-Hierarchy mappings include a <code>hierarchy</code> key at the level of the <code>with:</code> block.</p>
-</div>
-<div class="paragraph">
-<p>This block contains two sub-blocks: one for FHIR and one for openEHR.
-The <code>create:</code> key specifies the type of element to be created,
-and the <code>path:</code> key indicates where this element should be created.
-The <code>unique:</code> key defines the condition that triggers the creation of the new element.
-The path in the <code>unique:</code> key relates to the <code>with:</code> block, e.g. in the example we want to split
-the data transformation based on dosages, therefore the <code>with:</code> path relates to dosage.
-This will not automatically transform the dosage and event as a normal <code>with:</code> would do.
-It rather is used as an indicator explained above.</p>
+<p>An example of a model mapping header:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "hierarchyMappings" # Defined by the hierarchy mapping logic
-    with:
-      fhir: "$resource.dosage"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
-    #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
-    hierarchy:
-      fhir:
-        create: "resource"
-        path: "$resource"
-        unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
-      openEHR:
-        create: "event"
-        path: "$archetype/data[at0001]/events[at0002]"
-        unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+type: model  # the type of mapping: model, extension or context
+metadata:
+  name: ACTION.informed_consent.v0  #the name of the mapping
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # What is mapped
+  version: R4
+  openEhrConfig:
+    archetype: ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An example of a extension mapping header:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: extension
+metadata:
+  name:  KDS_anatomical_location
+  version: 0.0.1a # version of this particular mapping
+spec: # schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR
+  version: R4
+  extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example of a context mapping header:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: context
+metadata:
+  name:  KDS_diagnose.context
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
+class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
+can be transformed into one archetype. In this case, the name of the mapping is to be extended
+with what FHIR type is mapped to what openEHR archetype:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CLUSTER.medication.v2 (this maps medication-to-medication)</p>
+</li>
+<li>
+<p>CLUSTER.medication.v2.substance-to-medication (this does not map a
+FHIR medication but an FHIR substance)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This allows for separately calling these archetype mappings for different use cases. The initial one
+created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
+created that also map to medication but from another FHIR input must add a string to their name as
+described above. We deem the first mapping as the default one. Furthermore, we want to prevent
+dependency problems by renaming the file later on. For extension and context mapping names,
+there is no specific style guide, as this is a project-specific decision users have to make.</p>
+</div>
 </div>
 </div>
 </article>

@@ -18,7 +18,6 @@ reusable paths.
 |`$composition` |Path of the root composition
 
 |`$reference` |Helper to indicate a skipped path, due to a
-link:#fhir-reference-mapping[Reference Mapping] or manual mapping
 |===
 
 == `$archetype` and `$resource`
@@ -52,7 +51,8 @@ composition that contains it. Typically, this is used to map elements like the c
 
 `$openEHRRoot` and `$FHIRRoot` are used to access a path from the parent mapping.
 Mappings in FHIRConnect are top-down and can be nested. Each nesting always accesses the parent path
-and adds a new child to it. Sometimes, you want to address the parent instead of a child. In this case, you use the root variables.
+and adds a new child to it. Sometimes, you want to address the parent instead of a child. In this case,
+you use the root variables.
 
 Example:
 

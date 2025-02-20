@@ -1,7 +1,7 @@
 * Grammar
 
 ** Basics
-*** xref:basics/header.adoc[]
+*** xref:basics/main.adoc[]
 *** xref:basics/body.adoc[]
 *** xref:basics/Variables.adoc[]
 *** xref:basics/Conditions.adoc[]
@@ -11,14 +11,16 @@
 *** xref:basics/demographics.adoc[]
 
 ** Types of Mappings
-*** xref:types-of-mappings/MappingTypes.adoc[]
+*** xref:types-of-mappings/main.adoc[]
+*** xref:types-of-mappings/data-mappings.adoc[]
+*** xref:types-of-mappings/concept-mappings.adoc[]
 *** xref:types-of-mappings/SlotArchetypes.adoc[]
 *** xref:types-of-mappings/Reference.adoc[]
 *** xref:types-of-mappings/manual.adoc[]
 *** xref:types-of-mappings/HierarchyMappings.adoc[]
 
 ** Types of Mapping files
-*** xref:types-of-mapping-files/types-of-mappings.adoc[]
+*** xref:types-of-mapping-files/main.adoc[]
 *** xref:types-of-mapping-files/model-mappings.adoc[]
 *** xref:types-of-mapping-files/extension-mappings.adoc[]
 *** xref:types-of-mapping-files/context-mappings.adoc[]

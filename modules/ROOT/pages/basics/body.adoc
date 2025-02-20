@@ -1,5 +1,5 @@
-= The Basics
-:navtitle: Basic Concepts
+= Body
+:navtitle: Body
 
 In general, mappings always operate under the idea that we can map paths in openEHR and FHIR against each other.
 For this purpose, https://build.fhir.org/fhirpath.html[FHIRPath] and https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators[openEHR paths] are used.
@@ -18,7 +18,7 @@ mappings: # starts mappings
   - name: "dateTime" # name of the mapping
 ----
 
-== with block
+== with
 Inside these mapping blocks, there is always a `with:` statement that contains `fhir` and `openehr` keys.
 These two keys indicate the paths that are mapped against each other.
 

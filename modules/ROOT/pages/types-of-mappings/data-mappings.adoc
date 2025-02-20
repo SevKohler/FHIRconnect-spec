@@ -1,0 +1,17 @@
+= Data mapping types
+:navtitle: Data mapping types
+
+== NONE
+
+== QUANTITY
+
+== DATETIME
+
+== CODING
+
+== STRING
+
+== IDENTIFIER
+
+##I think we also maybe talk about dynamics typing or is this we leave up to the engine how it is processing the order
+and prioritizing it. ##

@@ -66,10 +66,10 @@
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="header.html">The header</a>
+    <a class="nav-link" href="main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="body.html">Basic Concepts</a>
+    <a class="nav-link" href="body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="Variables.html">Variables</a>
@@ -96,7 +96,13 @@
     <span class="nav-text">Types of Mappings</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mappings/MappingTypes.html">Mapping types</a>
+    <a class="nav-link" href="../types-of-mappings/main.html">Mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mappings/data-mappings.html">Data mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mappings/concept-mappings.html">Concept type mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mappings/SlotArchetypes.html">SlotArchetypes</a>
@@ -117,7 +123,7 @@
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/types-of-mappings.html">Types of mapping files</a>
+    <a class="nav-link" href="../types-of-mapping-files/main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/model-mappings.html">Model mappings</a>
@@ -238,10 +244,7 @@ not align, FHIRconnect won&#8217;t be able to filter correctly and the engine sh
       fhir: "$resource.identifier" # same path 0..n
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
-      targetRoot: "$resource.identifier" # same path 0..n
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "[room]"</code></pre>
+      targetRoot: "$resource.identifier" # same path 0..n</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -260,10 +263,7 @@ match the element in the <code>with:</code> statement. This would result in an e
       fhir: "$resource.identifier" # same path 0..n
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
-      targetRoot: "$resource.identifier.type" # not the same since references type
-      targetAttribute: "coding.code"
-      operator: "one of"
-      criteria: "[room]"</code></pre>
+      targetRoot: "$resource.identifier.type" # not the same since references type</code></pre>
 </div>
 </div>
 </div>

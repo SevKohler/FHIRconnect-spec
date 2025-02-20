@@ -1,30 +1,5 @@
-= Mapping types
-:navtitle: Mapping types
-
-There are different types of mappings, in general most of it is autoresolved by the engine with
-dynamic typing. We can enforce types if we want to by using the `type:` key in the `with:` clause.
-Typically, you will find this in use for `type: NONE` if you just want to iterate a path.
-
-The types are:
-
-* NONE
-* QUANTITY
-* DATETIME
-* CODING
-* STRING
-* IDENTIFIER
-* SLOT
-* MANUAL
-* REFERENCE
-* HIERARCHY
-* PROGRAMMED
-* PARTICIPATION
-* LINKED
-
-##@Gasper what else do we have if we want to static type ? i dont like we add this but we have too...
-##
-##Can you write here how you process these in the engine ? Like data type mappings
-##
+= Concept type mappings
+:navtitle: Concept type mappings
 
 == Particaption mappings
 openEHR has a class in the Reference Model that standardizes how https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class[participation]
@@ -85,5 +60,3 @@ link are set in the `openEHRLink`.
             meaning: "Part of referenced event"
             type: "partOf"
 ----
-
-

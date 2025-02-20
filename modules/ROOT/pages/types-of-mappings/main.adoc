@@ -1,0 +1,51 @@
+= Mapping types
+:navtitle: Mapping types
+
+There are different types of mappings, in general most of it is autoresolved by the engine with
+dynamic typing. We can enforce types if we want to by using the `type:` key in the `with:` clause.
+
+There are two categories of types, one are data types these are primitive mappigns
+that transform one data element into another.
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Data type mappings |Description
+|`NONE` | Ignores the current mapping step
+
+|`QUANTITY` | Maps two quantities
+
+|`DATETIME` | Maps date and time
+
+|`CODING` | Maps coded text
+
+|`STRING` | Maps text
+
+|`IDENTIFIER` |Maps two identifiers
+|===
+
+Then there is the category of concept types that are used for everything that does not directly transform
+two data types into each other.
+
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Concept type mappings |Description
+
+|`SLOT` | Used to reference another model mapping
+
+|`MANUAL` | Manually maps values
+
+|`REFERENCE` | Creates and reference a new resource in FHIR
+
+|`HIERARCHY` | Alignes different levels of structure to each other
+
+|`PROGRAMMED` | References a part of code outside the FHIRconnect files
+
+|`PARTICIPATION` | Maps a participation in openEHR
+
+|`LINKED` | Triggers and links the mapping of another Composition
+
+|===
+
+
+These types are now explained in more detail in the following chapters
