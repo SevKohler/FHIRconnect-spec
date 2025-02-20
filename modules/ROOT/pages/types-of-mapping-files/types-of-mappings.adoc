@@ -1,5 +1,5 @@
-= Types of mappings
-:navtitle: Types of mappings
+= Types of mapping files
+:navtitle: Types of mapping files
 # :url-asciidoc-lang: https://projects.eclipse.org/projects/technology.asciidoc
 
 == File structure

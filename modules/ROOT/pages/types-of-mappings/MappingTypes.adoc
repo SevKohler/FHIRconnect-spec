@@ -1,0 +1,89 @@
+= Mapping types
+:navtitle: Mapping types
+
+There are different types of mappings, in general most of it is autoresolved by the engine with
+dynamic typing. We can enforce types if we want to by using the `type:` key in the `with:` clause.
+Typically, you will find this in use for `type: NONE` if you just want to iterate a path.
+
+The types are:
+
+* NONE
+* QUANTITY
+* DATETIME
+* CODING
+* STRING
+* IDENTIFIER
+* SLOT
+* MANUAL
+* REFERENCE
+* HIERARCHY
+* PROGRAMMED
+* PARTICIPATION
+* LINKED
+
+##@Gasper what else do we have if we want to static type ? i dont like we add this but we have too...
+##
+##Can you write here how you process these in the engine ? Like data type mappings
+##
+
+== Particaption mappings
+openEHR has a class in the Reference Model that standardizes how https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class[participation]
+of people for a activity are represented. The function in this method is not something that is auto-transformable. Therefore,
+it is  added to the `with:` statement, as an additional parameter to the automatic-transformation.
+The presence of the `participationsFunction:` indicates this mapping type.
+
+[source,yaml]
+----
+  - name: "other_participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$archetype/other_participations"
+    participationsFunction: "asserter"
+----
+
+
+== Programmed mappings
+Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a unique logic.
+For this the Programmed mappings where introduced. Here a bit of code is called outside the mappings file
+and executed by the engine. The way how this code is provided and where is up to the vendor.
+This type of mapping will not auto-transform between the paths, since the mapping logic is done in the
+program code.
+
+[source,yaml]
+----
+  - name: "dosageTiming"
+    with:
+      fhir: "$fhirRoot.timing"
+      openehr: "$archetype"
+    # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR made up their own
+----
+
+
+== Linked mappings
+There are cases where we have to map data into another composition. To redirect a part of the FHIR data
+to a different FHIRconnect mapping the type `REFERENCED` can be used. Hereby, the engine checks
+the `meta.url` contained in the FHIR resource and searches all available FHIRconnect context mappings.
+If a context mapping for this `meta.url` is found, it is executed and saved as a separate composition.
+This composition is linked using the openEHR https://specifications.openehr.org/releases/RM/latest/common.html#_link_class[links]. The fields of this
+link are set in the `openEHRLink`.
+
+[source,yaml]
+----
+  - name: "partOf"
+    with:
+      fhir: "$resource.partOf.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+            # type: "REFERENCED" not necessary due to dynamic typing (openehrLink is unique for Referenced...)
+          openehrLink:
+            meaning: "Part of referenced event"
+            type: "partOf"
+----
+
+

@@ -1,60 +1,8 @@
-= The Basics
-:navtitle: Basic Concepts
+= Variables
+:navtitle: Variables
 
-== Mapping Body
-
-In general, mappings always operate under the idea that we can map paths in openEHR and FHIR against each other.
-For this purpose, https://build.fhir.org/fhirpath.html[FHIRPath] and https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators[openEHR paths] are used.
-This is also the biggest limitation of these mappings: if a corresponding representation of a path is missing in
-one of the models, it must be added to the model in FHIR or openEHR, especially if these fields are mandatory.
-
-All extension and model mapping files start with the `mappings` key in their body, which is a list containing
-a set of named mappings.
-
-[source,yaml]
-----
-engine: FHIRConnect/v0.0.1
-type: model
-metadata:
-  name: EVALUATION.problem_diagnosis.v1
-  version: 0.0.1a
-spec:
-  system: FHIR
-  version: R4
-  openEhrConfig:
-    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
-
-mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
-    with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
-----
-
-In this example, we map an FHIR path `onset` to the corresponding openEHR path `at0077`
-(date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
-the engine. In this case, it would map an `effectiveDateTime` into a `DV_DATE_TIME`. If the engine
-encounters two data types that are not transformable into each other, it will not execute the mapping.
-
-#To find a list of which data type is mapped to what, see chapter ENGINE/ DATA TYPE MAPPINGS!??!?!. Should we add that?#
-
-Each part starting with `- name: "mappingName"` is called a mapping block, and the children contained
-underneath are called child blocks.
-
-== Top down processing
-The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
-the latter one in the order will overwrite the first one.
-Also, when nesting blocks, the child block will always aim on the path of the father, the idea here is
-that you iterate down the path of an element and step by step map each of the fields contained. More is explained
-later in the FollowedBy chapter.
-
-== Variables
-
-To address specific parts of the models, variables are used.
-
-Modeling variables/references are required to create reusable paths:
+To address specific parts of the models, variables are used. Modeling variables/references are required to create
+reusable paths.
 
 [width="100%",cols="18%,82%",options="header",]
 |===
@@ -73,7 +21,7 @@ Modeling variables/references are required to create reusable paths:
 link:#fhir-reference-mapping[Reference Mapping] or manual mapping
 |===
 
-=== `$archetype` and `$resource`
+== `$archetype` and `$resource`
 
 `$resource` and `$archetype` point to the root of the resource or archetype.
 Both would be resolved as follows:
@@ -87,7 +35,7 @@ mappings:
       openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"
 ----
 
-=== `$composition`
+== `$composition`
 
 `$composition` is used to address elements that are not inside the archetype but are part of the surrounding
 composition that contains it. Typically, this is used to map elements like the composer, etc.
@@ -100,7 +48,7 @@ composition that contains it. Typically, this is used to map elements like the c
       openehr: "$composition/composer"
 ----
 
-=== `$openEHRRoot` and `$FHIRRoot`
+== `$openEHRRoot` and `$FHIRRoot`
 
 `$openEHRRoot` and `$FHIRRoot` are used to access a path from the parent mapping.
 Mappings in FHIRConnect are top-down and can be nested. Each nesting always accesses the parent path
@@ -126,7 +74,7 @@ Example:
           criteria: "[at0107]"
 ----
 
-=== `$reference`
+== `$reference`
 
 Sometimes, there is no direct openEHR mapping available. Typically, this happens when another FHIR resource type needs
 to be created. OpenEHR usually bundles all the information contained in a composition, whereas in FHIR, this information

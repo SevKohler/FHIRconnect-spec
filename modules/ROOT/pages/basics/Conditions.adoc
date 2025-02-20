@@ -47,9 +47,6 @@ not align, FHIRconnect won't be able to filter correctly and the engine should r
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
       targetRoot: "$resource.identifier" # same path 0..n
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "[room]"
 ----
 In the `fhirCondition` example, the `$resource.identifier` is the same in both paths. The condition is applied
 to each element in the identifier (0..n), and the `with` block only executes the mapping for those identifiers for which
@@ -64,10 +61,7 @@ match the element in the `with:` statement. This would result in an error.
       fhir: "$resource.identifier" # same path 0..n
       openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
     fhirCondition:
-      targetRoot: "$resource.identifier.type" # same path 0..n
-      targetAttribute: "coding.code"
-      operator: "one of"
-      criteria: "[room]"
+      targetRoot: "$resource.identifier.type" # not the same since references type
 ----
 
 == targetAttribute
@@ -121,6 +115,11 @@ ignored.
           }
         ],
 ----
+
+Important is also to mention, that conditions are always applied on the input data. They do not
+filter on the data that is currently mapped. When we map a FHIR resource into openEHR, only the fhirConditions are
+processed and in case of openEHR to FHIR its the other way around. So e.g. the openEHRCondition are not applied via
+mapping-time to the openEHR data we are currently mapping.
 
 Conditions can also be unattached to the path contained in the `with:` block and point to a different path.
 This is sometimes necessary since there can be factors that influence the mapping in other places.
@@ -238,8 +237,7 @@ Examples:
 == Conditions in the header
 
 There is a special case where a condition can be contained in the header of a file.
-This logic implies that the FHIRconnect mapping for the part of what the file addresses is only executed
-if the given condition is met.
+This logic defines that the mapping file is only executed if the given condition is met.
 
 Example:
 [source,yaml]

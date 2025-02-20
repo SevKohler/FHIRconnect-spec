@@ -42,3 +42,5 @@ mappings:
 
 This will redirect the mapping to the mapping file that contains the lebensphase mapping and execute the transformation
 there. The path to which this mapping is transformed is specified in `openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"`.
+The paths contained in the `with:` are not automatically-transformed as they would normally do, since this logic is contained
+in the slotArchetype.

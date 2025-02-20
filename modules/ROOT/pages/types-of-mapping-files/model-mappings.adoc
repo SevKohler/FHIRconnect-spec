@@ -1,0 +1,158 @@
+= Model mappings
+:navtitle: Model mappings
+
+The first layer of mappings are the model mappings. These act as a reusable base of FHIR to openEHR mappings and are the
+core piece of FHIRconnect. Each of these mappings map either an FHIR https://www.hl7.org/fhir/R4/domainresource.html[DomainResource] or
+https://www.hl7.org/fhir/R4/backboneelement.html[BackboneElement] against an openEHR archetype.
+
+FHIRConnect was designed with the idea of having a generically valid library of archetype-to-fhir mappings. This library
+is the core strength of FHIRconnect. The vision is that this library is maintained by the community as such. Everyone
+provides back the basic mappings they do or correct and add to existing ones. Like that there will be an ever growing
+amount of matured archetype mappings.
+
+== Folders and namespaces
+Each of these model mappings tries to be as generically valid as possible. They can be found under the `mapping/model` folder.
+Here these models are split depending on their openEHR archetype type.
+
+image::ModelFolder.png[]
+
+OpenEHR has several model libraries, the most important one is the https://ckm.openehr.org/ckm/[international CKM]. Here
+the international models are contained that are used by openEHR platforms. Model mappings for this can be found under
+the folder `org.openehr` which indicates the namespace of an archetype. Sometimes local models are designed, for national
+requirements, the ones from https://ckm.highmed.org/ckm/[HiGHmed] are contained under `org.highmed`.
+
+image::ModelFolder2.png[]
+
+Inside these folders are the model mappings contained.
+Sometimes, there are two model mappings for the same archetype which differ on their FHIR output. Here the dosage has
+two archetype mappings, one for dosage-to-dosage and one for dosage-to-backboneElement. We treat the dosage-to-dosage
+here as the default one, therefore its name is just dosage.v2.
+
+image::DifferentDosage.png[]
+
+This naming was chosen because the dosage-to-dosage mapping is naturally the more comprehensive one compared to the
+backboneElement. For processing these files are called by their `metadata.name`, therefore they are distinguishable.
+The name of a model mapping file contains always first the name of the archetype (without the openEHR-EHR-TYPE).
+
+
+== Model mapping examples
+
+To combine the methods explained, here is an example of a mapping between the problem_diagnose and the Condition in FHIR.
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: EVALUATION.problem_diagnosis.v1
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+
+mappings:
+
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+  - name: "participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$composition/context/participations"
+    participationsFunction: "asserter"
+
+  - name: "composer"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$composition/composer"
+
+  - name: "other_participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$archetype/other_participations"
+    participationsFunction: "asserter"
+
+  - name: "provider"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$archetype/provider"  # often required therefore simplified mapping engine is to resolve Reference -> Participations
+
+  - name: "problemDiagnose"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "problemDiagnoseName"
+          with:
+            fhir: "coding"
+            openehr: "data[at0001]/items[at0002]"
+        - name: "problemDiagnoseText"
+          with:
+            fhir: "text"
+            openehr: "data[at0001]/items[at0009]"
+
+  - name: "note"
+    with:
+      fhir: "$resource.note.text"
+      openehr: "$archetype/data[at0001]/items[at0069]"
+
+  - name: "dateTime"
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+
+  - name: "bodySite"
+    with:
+      fhir: "$resource.bodySite"
+      openehr: "$archetype/data[at0012]"
+
+  - name: "bodySiteCluster"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+    slotArchetype: "CLUSTER.anatomical_location.v1"
+
+  - name: "severity"
+    with:
+      fhir: "$resource.severity"
+      openehr: "$archetype/data[at0005]"
+
+
+
+
+----
+
+
+
+
+== Composition composer and start_time
+composition/context/start++_++time will be set with mapping time if
+nothing is provided after that entry level then items If composer is not
+set leave it empty, if not possible set FHIRconnect If subject is not
+speicifed party++_++self
+
+Set start++_++time, subject and composer automatically in engine
+
+
+
+== context start time and a bundle ofr resources see https://github.com/medblocks/openFHIR/issues/89
+
+FHIR has no composition equivalent so you always start at one profile
+and work from thereon. Which one and how to define ?
+
+
+DV++_++IDENTIFIER: type, type system {plus} ¨::¨ {plus} value, value
+assigner, assigner
+
+Condition is always on the input NOT on the OUTPUT ! That is super
+important!
+
+=== unidirectional

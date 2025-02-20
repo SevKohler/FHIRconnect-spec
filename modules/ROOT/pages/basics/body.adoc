@@ -1,0 +1,50 @@
+= The Basics
+:navtitle: Basic Concepts
+
+In general, mappings always operate under the idea that we can map paths in openEHR and FHIR against each other.
+For this purpose, https://build.fhir.org/fhirpath.html[FHIRPath] and https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators[openEHR paths] are used.
+This is also the biggest limitation of these mappings: if a corresponding representation of a path is missing in
+one of the models, it must be added to the model in FHIR or openEHR. Otherwise, there is no mapping.
+
+All mapping files start with the `mappings` key in their body, which is a list containing
+a set of named mappings.
+
+The `mappings:` body is followed by mapping blocks. Each part starting with `- name: "mappingName"`
+is called a mapping block, and the children contained underneath are called child blocks.
+
+[source,yaml]
+----
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+----
+
+== with block
+Inside these mapping blocks, there is always a `with:` statement that contains `fhir` and `openehr` keys.
+These two keys indicate the paths that are mapped against each other.
+
+[source,yaml]
+----
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+----
+
+In this example, we map an FHIR path `onset` to the corresponding openEHR path `at0077`
+(date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
+the engine. In this case, it would map an `effectiveDateTime` into a `DV_DATE_TIME`. If the engine
+encounters two data types that are not transformable into each other, it will not execute the mapping.
+
+Sometimes, mappings do not transform these paths directly, depending on the mapping type used.
+Specific keywords, explained in the following chapters, do not automatically transform these paths
+but use them in another way. If no specific keys are used, the default behavior is that these paths
+are mapped against each other.
+
+== Top down processing
+The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
+the latter one in the order will overwrite the first one.
+Also, when nesting blocks, the child block will always aim on the path of the parent, the idea here is
+that you iterate down the path of an element and step by step map each of the fields contained. More is explained
+later in the FollowedBy chapter
+

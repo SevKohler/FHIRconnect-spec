@@ -13,8 +13,6 @@ If we need to execute a mapping for two different child nodes within this path, 
 If we split this into two separate `with` mappings, they will overwrite each
 other since they address the same root path.
 
-Example:
-
 [source,yaml]
 ----
 mappings:
@@ -44,6 +42,11 @@ mappings:
 Here, we access the onset if it is a period (FHIRPath helps us here as a shortcut instead of using `fhirCondition`)
 and execute a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
 Slot archetypes are explained in the next chapter.
+
+
+If we wrote it as two single `with:` statements, the cluster mappings would, when converting openEHR to FHIR,
+overwrite the `"start"` mapping since it maps the same path.
+
 [source,yaml]
 ----
 mappings:
@@ -61,7 +64,6 @@ mappings:
         slotArchetype: "CLUSTER.lebensphase.v0"
 
 ----
-If we wrote it like that, the cluster mappings would, when converting openEHR to FHIR, overwrite the `"start"` mapping
-since it maps the same path.
+
 
 

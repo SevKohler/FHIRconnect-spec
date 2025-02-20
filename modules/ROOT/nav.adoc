@@ -1,19 +1,27 @@
 * Grammar
-** xref:types-of-mappings.adoc[]
-** xref:basics.adoc[]
-** xref:Conditions.adoc[]
-** xref:FollowedBy.adoc[]
-** xref:SlotArchetypes.adoc[]
-** xref:Reference.adoc[]
-** xref:manual.adoc[]
-** xref:MappingTypes.adoc[]
-** xref:HierarchyMappings.adoc[]
-** xref:model-mappings.adoc[]
-** xref:extension-mappings.adoc[]
-** xref:context-mappings.adoc[]
-** xref:cardinality.adoc[]
-** xref:links-and-references.adoc[]
-** xref:demographics.adoc[]
+
+** Basics
+*** xref:basics/header.adoc[]
+*** xref:basics/body.adoc[]
+*** xref:basics/Variables.adoc[]
+*** xref:basics/Conditions.adoc[]
+*** xref:basics/FollowedBy.adoc[]
+*** xref:basics/cardinality.adoc[]
+*** xref:basics/links-and-references.adoc[]
+*** xref:basics/demographics.adoc[]
+
+** Types of Mappings
+*** xref:types-of-mappings/MappingTypes.adoc[]
+*** xref:types-of-mappings/SlotArchetypes.adoc[]
+*** xref:types-of-mappings/Reference.adoc[]
+*** xref:types-of-mappings/manual.adoc[]
+*** xref:types-of-mappings/HierarchyMappings.adoc[]
+
+** Types of Mapping files
+*** xref:types-of-mapping-files/types-of-mappings.adoc[]
+*** xref:types-of-mapping-files/model-mappings.adoc[]
+*** xref:types-of-mapping-files/extension-mappings.adoc[]
+*** xref:types-of-mapping-files/context-mappings.adoc[]
 
 * Engine
-** xref:engine.adoc[]
+** xref:engine/engine.adoc[]

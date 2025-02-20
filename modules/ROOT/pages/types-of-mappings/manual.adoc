@@ -2,17 +2,9 @@
 :navtitle:  Manual mappings
 
 Sometimes we cannot transform paths automatically, or we have to set a static value somewhere. For this the manual mappings
-where introduced. They follow the `with:` block, which will not auto-transform the paths, but execute the manual mappings.
-Manual mappings are initialized using `manual:` then a name has to follow. Afterward, we define the what we want to manual
-map, fhir or openEHR. In the next step we can follow a list of `- path:` and the value we map `- value:`. Like this we
-can set several paths in the same time.
-
-The way how FHIRconnect works, we have to always follow down the path of the parent.
-Sometimes we have to access the parents parent node, therefore FHIRconnect introduced the `../` (like in your
-command line) logic to AQL and the `^` to fhirPath (this is copied from jsonPath+).
-Both of which can be used to access the parent.
-
-An example of a manual mapping including `../` and `followedBy`:
+where introduced. Manual mappings are initialized using the `manual:` key which is followed by a name.
+Then we define what standard we want to manual map for openEHR or FHIR, this can be also both. This is followed
+by a list of paths `- path:` and the value we map `- value:`. Like this we can set several paths in the same time.
 
 [source,yaml]
 ----
@@ -66,6 +58,13 @@ An example of a manual mapping including `../` and `followedBy`:
           criteria: "[preparation]"
 
 ----
+
+The way how FHIRconnect works, we have to always follow down the path of the parent.
+Sometimes we have to access the parents parent node, therefore FHIRconnect introduced the `../` (like in your
+command line) logic to AQL and the `^` to fhirPath (this is copied from jsonPath+).
+Both of which can be used to access the parent.
+
+An example of a manual mapping including `../` and `followedBy`:
 
 Another typical use case would be to hardcode, extension urls in FHIR.
 [source,yaml]
