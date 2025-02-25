@@ -1,0 +1,17 @@
+= References
+:navtitle:  References
+
+== References
+Hereby, the references need to be resolved. To prevent circular-dependencies in FHIR, only the references
+contained in the files of the Bundle are resolved. If we receive another reference that was not contained
+as part of the Bundle, it is not resolved.
+
+
+
+
+repeating elements, bundles
+
+#Should be at the engine#
+
+
+

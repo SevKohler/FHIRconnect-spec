@@ -5,50 +5,14 @@ What needs to be done by the engine, the grammar implies. ## Validation
 
 == Resolving of EHR id and patients
 
-== Dynamic type conversion
-
 == Missing references
 
-== Links and references
-
-https://specifications.openehr.org/releases/RM/latest/common.html#++_++locatable++_++class
-
-Automatically add links to identifier for assigner to convert it back ?
-Otherwise this should pinpoint to demopgrahics server.
-
-== Circular dependencies and duplicated conversions
-
-table should also list ehr object links. not only composition Advisable
-to stop at depth of 3 ?! ## Ids and how to ensure deterministic behavior
-
-== Mapping planer
-
-e.g. if specimen is contained as identifier and specimen cluster is in
-the same composition execute specimen cluster first for the mapping.
 
 == mapping fields that are not part of the template
 
 Engine should not execute mappings that are not required by the
 template/kick them out.
 
-== cardinalities
-
-When openEHR 0..++*++ and FHIR 0..++*++ the corresponding iteration is
-to be done. e.g.
-
-[source,yaml]
-----
-  - name: "diagnose"
-    with:
-      fhir: "$resourcePath.diagnosis"
-      openEHR: "$reference"
-      type: "NONE"
-
-----
-
-These can be a list of diagnoses therefore iterate this mapping for each
-of the elements ## context mappings each context mapping has its own
-imports, so its not mixed when cross referencing
 
 == writing into 0..++*++ fields
 

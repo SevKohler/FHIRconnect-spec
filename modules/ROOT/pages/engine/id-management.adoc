@@ -1,0 +1,31 @@
+= ID-Management
+:navtitle:  ID-Management
+
+FHIR defines that ids of resources must be unique within a FHIR server. This results into different problems.
+The FHIRconnect engine needs to maintain these ids in order to return the same id when mapping a FHIR resource twice.
+Secondly, it must be able to resolve an outside id to the same id it maintains for the resource internally.
+It cannot copy these outside-ids since this will cause unique
+identifier problems (two sides could send the same id), so it has to do its own id management.
+
+As an example, this would otherwise cause a problem.
+
+image::IDProblem.drawio.png[]
+
+Keeping the outside ID has different upsides. It enables the engine to process a PUT. Secondly, the engine
+can return already mapped Compositions by resolving the id, instead of creating a duplicate. This can be achieved
+by implementing a table that keeps track of what was mapped, including the input.
+
+Here is a possible pseudocode example.
+
+[width="100%", options="header"]
+|===
+|URL of sending site | external resource ID | internal resource ID | composition ID
+|http://someFHirServer.com | list of resource ids in the bundle|
+corresponding list of internal ids of the FHIRconnect engine | 12312-123123
+|===
+
+Be aware, that if sites send the same Bundle twice but missing a specific resource that was contained the
+last version. This will be treated as a different mapping, e.g. missing a reference or else. Since the list
+of ids is always matched against each other.
+
+

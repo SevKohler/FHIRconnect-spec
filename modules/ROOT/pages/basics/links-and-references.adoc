@@ -1,3 +1,0 @@
-= Links and references
-:navtitle:  Links and references
-== duplicated reference {plus} resource in a bundle will generate two compositions.

@@ -1,6 +1,0 @@
-= Cardinalities
-:navtitle:  Cardinality
-
-== Cardinalities and repeating elements
-always start the mapping with the mother element that can be iterated if
-its 0..++*++ pointing to the corresponding openEHR 0..++*++ !

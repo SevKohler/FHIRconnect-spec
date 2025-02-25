@@ -1,0 +1,7 @@
+= FHIRsearch and AQL
+:navtitle:  FHIRsearch and AQL
+
+While the current version of the spec did not focus on these issues, here are some recommendations how to
+handle this.
+
+In general, the FHIRconnect mappinng files have all the logic

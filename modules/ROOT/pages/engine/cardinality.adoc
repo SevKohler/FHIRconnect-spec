@@ -1,0 +1,13 @@
+= Cardinalities
+:navtitle:  Cardinalities
+
+We encounter different cardinalities in elements that are to be mapped. These can be fixed by changing the model.
+Sometimes this is not possible. FHIRconnect always acts depending on the cardinality of something.
+
+When a 0..n field is mapped into a 0..1 field, the last element is maintained. All other ones are to
+be overwritten by their predecessor.
+
+If we map an element into a list element, also from another mapping, it's always appended to the list
+and does not overwrite the entire list.
+#GASPER, is this true i dont remember 100%#
+
