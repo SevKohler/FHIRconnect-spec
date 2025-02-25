@@ -1,26 +1,6 @@
-= Requirements of the Engine
+= Engine
 :navtitle: Engine
 
-What needs to be done by the engine, the grammar implies. ## Validation
+Some of the logic to provide a working FHIRconnect spec needs to be covered by the engine. In this chapter
+problems are described and how an engine should solve these. These are recommendations.
 
-== Resolving of EHR id and patients
-
-== Missing references
-
-
-== mapping fields that are not part of the template
-
-Engine should not execute mappings that are not required by the
-template/kick them out.
-
-
-== writing into 0..++*++ fields
-
-E.g. mappings from a 0..++*++ dosage that contains a route into the
-openEHR route which is 0..n. Field is added for each cluster again and
-again. if its 0..++*++ append, if its 0..1 overwrite. Mapping to List in
-openEHR should always append to list e.g. /links.
-
-== mappings and multiple codings
-
-codeable concept transform use term mappings vice versa

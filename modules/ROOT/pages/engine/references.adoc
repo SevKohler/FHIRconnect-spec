@@ -1,17 +1,7 @@
 = References
 :navtitle:  References
 
-== References
-Hereby, the references need to be resolved. To prevent circular-dependencies in FHIR, only the references
-contained in the files of the Bundle are resolved. If we receive another reference that was not contained
-as part of the Bundle, it is not resolved.
-
-
-
-
-repeating elements, bundles
-
-#Should be at the engine#
-
-
-
+When a reference is provided in a resource and not contained in the Bundle, the engine should attempt to
+GET it form the sending site. If not possible, the engine proceed with the mapping. To prevent circular
+dependencies in FHIR, the mapping engine should either stop at a given level of references or keep track
+which ones where already resolved.

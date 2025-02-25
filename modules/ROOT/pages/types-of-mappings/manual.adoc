@@ -92,6 +92,42 @@ mappings:
                   value: "http://fhir.de/StructureDefinition/lebensphase"
 ----
 
+== ConceptMaps
 In general manual mappings are simple in nature, but require a lot of maintenance.
-To make this easier the use of https://build.fhir.org/conceptmap.html[FHIRconceptMaps] is recommended.
-This is currently under development in the specification.
+To mitigate this the use of  https://build.fhir.org/conceptmap.html[FHIRconceptMaps] is recommended.
+These can be used in the FHIRconnect spec using the `conceptmap:` key, that points to the conceptMap Url.
+
+[source,yaml]
+----
+mappings:
+  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+    with:
+      fhir: "$fhirRoot.start.extension.value"
+      openehr: "$archetype/items[at0001]"
+    fhirCondition:
+      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
+      targetAttribute: "url"
+      operator: "one of"
+      criteria: "[http://fhir.de/StructureDefinition/lebensphase]"
+    conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
+----
+
+The concept map can also be directly attached inside the header, this way all codes contained in the
+conceptmap will be transformed using the conceptmap, if encountered in the mapping.
+
+[source,yaml]
+----
+engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name:  CLUSTER.problem_qualifier.v2
+  version: 0.0.1a
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-CLUSTER.problem_qualifier.v2
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+  conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
+----

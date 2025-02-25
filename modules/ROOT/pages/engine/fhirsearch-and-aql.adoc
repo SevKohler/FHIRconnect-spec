@@ -1,0 +1,10 @@
+= FHIRsearch and AQL
+:navtitle: FHIRsearch and AQL
+
+The current version of the specification does not focus specifically on AQL and FHIRsearch.
+
+In general, the FHIRconnect mapping files contain all the logic needed to transform between paths.
+This logic must be extracted from the engine to enable searching on openEHR data or vice versa.
+
+One possible approach is mapping AQL to FHIRPath,
+or alternatively, keeping FHIR data available for search.

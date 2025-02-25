@@ -172,3 +172,6 @@ Which one and how to define?
 Condition is always on the input, NOT on the OUTPUT! That is super important!
 
 === Unidirectional
+
+
+== MAPPING OF FIELDS THAT ARE 0..0 ?

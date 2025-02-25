@@ -28,4 +28,4 @@
 *** xref:engine/cardinality.adoc[]
 *** xref:engine/bundles.adoc[]
 *** xref:engine/references.adoc[]
-*** xref:engine/FHIRsearch.adoc[]
+*** xref:engine/fhirsearch-and-aql.adoc[]
