@@ -152,26 +152,9 @@ mappings:
       openehr: "$archetype/data[at0005]"
 ----
 
-== Composition Composer and Start Time
-FHIR often misses
+== Mapping 0..0 fields
 
-`composition/context/start_time` will be set with mapping time if nothing is provided after
-that entry level, then items. If composer is not set, leave it empty. If not possible,
-set FHIRconnect. If subject is not specified, use `party_self`.
+Since model mappings should include all archetype to resource mappings, these will contain
+some mappings that are not part of the corresponding Profile/Templates (0..0). These are ignored
+and not executed.
 
-Set `start_time`, subject, and composer automatically in the engine.
-
-== Context Start Time and a Bundle of Resources
-See https://github.com/medblocks/openFHIR/issues/89.
-
-FHIR has no composition equivalent, so you always start at one profile and work from there.
-Which one and how to define?
-
-`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner.
-
-Condition is always on the input, NOT on the OUTPUT! That is super important!
-
-=== Unidirectional
-
-
-== MAPPING OF FIELDS THAT ARE 0..0 ?

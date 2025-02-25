@@ -1,0 +1,22 @@
+= Defaults for fields
+:navtitle: Defaults for fields
+
+For some of the fields in openEHR, there is often no corresponding element in FHIR.
+This is typically the case for the
+https://specifications.openehr.org/releases/RM/latest/ehr.html#_composition_class[composer]
+and the
+https://specifications.openehr.org/releases/RM/latest/ehr.html#_event_context_class[Composition context].
+
+However, the composer is a mandatory element in openEHR, and the context is usually populated,
+which includes the mandatory element `start_time`.
+It is recommended to default the composer, if not populated by a mapping,
+with a value such as `FHIRconnect` party.
+
+For the `context_start_time`, the default mapping time can be used.
+The `EVENT_CONTEXT` `setting` should be defined by the project performing the mapping.
+It can be defaulted to one of the valid values from
+https://github.com/openEHR/specifications-TERM/blob/master/computable/XML/en/openehr_terminology.xml#L274[settings].
+
+The `language`, `territory`, and `category` of the
+https://specifications.openehr.org/releases/RM/latest/ehr.html#_composition_class[Composition]
+should be set either as part of the project mapping files or as default values by the engine.

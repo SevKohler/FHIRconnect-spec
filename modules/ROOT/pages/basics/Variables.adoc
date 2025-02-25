@@ -71,7 +71,7 @@ Example:
           targetRoot: "$openehrRoot" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
           targetAttribute: "code_string"
           operator: "one of"
-          criteria: "[at0107]"
+          criteria: "at0107"
 ----
 
 == `$reference`
@@ -79,7 +79,7 @@ Example:
 Sometimes, there is no direct openEHR mapping available. Typically, this happens when another FHIR resource type needs
 to be created. OpenEHR usually bundles all the information contained in a composition, whereas in FHIR, this information
 is typically spread across multiple resources. The `$reference` variable indicates that there is no direct mapping to
-openEHR. Usually, this is handled in the next block.
+openEHR. Usually, this is handled in the next method.
 
 Example:
 

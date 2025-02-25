@@ -21,10 +21,13 @@
 *** xref:types-of-mapping-files/main.adoc[]
 *** xref:types-of-mapping-files/model-mappings.adoc[]
 *** xref:types-of-mapping-files/extension-mappings.adoc[]
+*** xref:types-of-mapping-files/extension-methods.adoc[]
+*** xref:types-of-mapping-files/composition-element.adoc[]
 *** xref:types-of-mapping-files/context-mappings.adoc[]
 
 * Engine
 ** xref:engine/engine.adoc[]
+*** xref:engine/defaults-for-fields.adoc[]
 *** xref:engine/cardinality.adoc[]
 *** xref:engine/bundles.adoc[]
 *** xref:engine/references.adoc[]

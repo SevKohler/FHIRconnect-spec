@@ -9,8 +9,8 @@ one of the models, it must be added to the model in FHIR or openEHR. Otherwise, 
 All mapping files start with the `mappings` key in their body, which is a list containing
 a set of named mappings.
 
-The `mappings:` body is followed by mapping blocks. Each part starting with `- name: "mappingName"`
-is called a mapping block, and the children contained underneath are called child blocks.
+The `mappings:` body is followed by mapping methods. Each part starting with `- name: "mappingName"`
+is called a mapping method, and the children contained underneath are called child methods.
 
 [source,yaml]
 ----
@@ -19,7 +19,7 @@ mappings: # starts mappings
 ----
 
 == with
-Inside these mapping blocks, there is always a `with:` statement that contains `fhir` and `openehr` keys.
+Inside these mapping methods, there is always a `with:` statement that contains `fhir` and `openehr` keys.
 These two keys indicate the paths that are mapped against each other.
 
 [source,yaml]
@@ -44,7 +44,23 @@ are mapped against each other.
 == Top down processing
 The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
 the latter one in the order will overwrite the first one.
-Also, when nesting blocks, the child block will always aim on the path of the parent, the idea here is
+Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
 that you iterate down the path of an element and step by step map each of the fields contained. More is explained
 later in the FollowedBy chapter
 
+== Undirectional
+To execute a mapping method unidirectional the `undirectional` key can be added to a `- name:` method. This way
+the mapping contained is only executed in one direction. The allowed values are either
+`"openehr->fhir"` or `"fhir->openehr"` This is also true for all the child method contained
+underneath of this `with` method.
+
+[source,yaml]
+----
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+    unidirectional: "openEHR->fhir"
+----
+#@Gasper we need to shift this to he name method#

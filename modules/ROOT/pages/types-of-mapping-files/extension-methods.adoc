@@ -1,0 +1,193 @@
+= Extension methods
+
+An extension always inherits all the mappings contained in the model-mapping. It can interact with these existing
+mappings by starting a mapping method and adding the `extends` key. Depending on the key different logic is executed.
+
+[width="100%",cols="18%,82%",options="header",]
+|===
+|types |Description
+|`add` | adds a mapping to the model-mapping, always added to the button of the file
+
+|`append` | appends mapping logic to a path inside the model-mapping
+
+|`overwrite` | overwrites the mapping method with the same name
+|===
+
+== Add
+This extension method adds a mapping method to the model-mapping. It is always added at the button of them
+model-mapping file. So it could also overwrite prior methods to the same path.
+
+Example:
+[source,yaml]
+----
+  - name: "problemQualifier"
+    extension: "add"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
+    slotArchetype: "CLUSTER.problem_qualifier.v2"
+
+----
+
+This impacts the model mapping file, via runtime, in the following way:
+[source,yaml]
+----
+mappings:
+
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+#------ added --------
+  - name: "problemQualifier"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
+    slotArchetype: "CLUSTER.problem_qualifier.v2"
+----
+
+== Append
+The append extension method appends a followedBy to a method. The method where it is to be appended to
+is referenced with the key `appendTo`. The value used is the name of the mapping method.  This can be also
+the child method. The path would be then `appendTo: parent.child`
+
+Example of an append extension method.
+[source,yaml]
+----
+
+  - name: "wirkstofftyp"
+    extension: "append"
+    appendTo: "ingredients"
+    followedBy:
+      mappings:
+        - name: "wirkstofftypExtended"
+          with:
+            fhir: "$fhirRoot.ingredients.extension.value"
+            openehr: "$archetype/items[at0142]"
+----
+
+This would impact a model-mapping file, via runtime, in the following way:
+
+[source,yaml]
+----
+mappings:
+  - name: "name"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype/items[at0132]"
+
+  - name: "ingredients"
+    with:
+      fhir: "$resource.ingredient"
+      openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
+    followedBy:
+      mappings:
+        - name: "ingredient"
+          with:
+            fhir: "item.as(CodeableConcept)"
+            openehr: "items[at0142]"
+  #----------- Append -----------------------------------
+        - name: "wirkstofftypExtended"
+          with:
+            fhir: "$fhirRoot.ingredients.extension.value"
+            openehr: "$archetype/items[at0142]"
+----
+
+To maintain readability the append is only transformed into a followedBy. If more logic is to be altered, the
+overwrite method is to be used.
+
+== Overwrite
+To overwrite, overwrite an existing method contained in the model mapping. The name of the mapping method,
+is the name of the method in the model-mapping that is overwritten.
+
+Example:
+[source,yaml]
+----
+  - name: "dateTime"
+    extension: "overwrite"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "period"
+          with:
+            fhir: "onset.as(Period)"
+            openehr: "$archetype"
+            type: "DATETIME"
+          followedBy:
+            mappings:
+              - name: "start"
+                with:
+                  fhir: "$fhirRoot.start"
+                  openehr: "data[at0001]/items[at0077]"
+                  type: "DATETIME"
+
+              - name: "lebensphaseCluster"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+                slotArchetype: "CLUSTER.lebensphase.v0"
+
+        - name: "dateTime"
+          with:
+            fhir: "onset.as(DateTime)"
+            openehr: "data[at0001]/items[at0077]"
+
+----
+Prior to extension use
+
+[source,yaml]
+----
+mappings:
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+  - name: "dateTime"
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+----
+
+After the extension, the model-mapping would look like this via runtime:
+[source,yaml]
+----
+mappings:
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+# ---------- Overwrite ---------------------------
+  - name: "dateTime"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "period"
+          with:
+            fhir: "onset.as(Period)"
+            openehr: "$archetype"
+          followedBy:
+            mappings:
+              - name: "start"
+                with:
+                  fhir: "$fhirRoot.start"
+                  openehr: "data[at0001]/items[at0077]"
+
+              - name: "lebensphaseCluster"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+                slotArchetype: "CLUSTER.lebensphase.v0"
+
+        - name: "dateTime"
+          with:
+            fhir: "onset.as(DateTime)"
+            openehr: "data[at0001]/items[at0077]"
+----

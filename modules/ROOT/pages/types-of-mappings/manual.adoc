@@ -11,7 +11,7 @@ by a list of paths `- path:` and the value we map `- value:`. Like this we can s
   - name: "ISMTransition"
     with:
       fhir: "$resource" #there needs to be a mapping table
-      openehr: "$archetype/ism_transition/current_state/defining_code"
+      openehr: "$archetype/ism_transition/current_state"
     manual:
       - name: "initial"
         fhir:
@@ -19,21 +19,21 @@ by a list of paths `- path:` and the value we map `- value:`. Like this we can s
             value: "unknown"
         openehrCondition:
           targetRoot: "$openehrRoot"
-          targetAttribute: "code_string"
+          targetAttribute: "defining_code/code_string"
           operator: "one of"
-          criteria: "[524]"
+          criteria: "524"
         openehr:
-          - path: "terminology_id/value"
+          - path: "defining_code/terminology_id/value"
             value: "openehr"
-          - path: "../value"
+          - path: "value"
             value: "Initial"
-          - path: "code_string"
+          - path: "defining_code/code_string"
             value: "524"
         fhirCondition:
           targetRoot: "$fhirRoot"
           targetAttribute: "status"
           operator: "one of"
-          criteria: "[unknown]"
+          criteria: "unknown"
 
       - name: "planned"
         fhir:
@@ -41,39 +41,36 @@ by a list of paths `- path:` and the value we map `- value:`. Like this we can s
             value: "preparation"
         openehrCondition:
           targetRoot: "$openehrRoot"
-          targetAttribute: "code_string"
+          targetAttribute: "defining_code/code_string"
           operator: "one of"
-          criteria: "[526]"
+          criteria: "526"
         openehr:
-          - path: "terminology_id/value"
+          - path: "defining_code/terminology_id/value"
             value: "openehr"
-          - path: "../value"
+          - path: "value"
             value: "Planned"
-          - path: "code_string"
+          - path: "defining_code/code_string"
             value: "526"
         fhirCondition:
           targetRoot: "$fhirRoot"
           targetAttribute: "status"
           operator: "one of"
-          criteria: "[preparation]"
+          criteria: "preparation"
 
 ----
-
-The way how FHIRconnect works, we have to always follow down the path of the parent.
-Sometimes we have to access the parents parent node, therefore FHIRconnect introduced the `../` (like in your
-command line) logic to AQL and the `^` to fhirPath (this is copied from jsonPath+).
-Both of which can be used to access the parent.
-
-An example of a manual mapping including `../` and `followedBy`:
+In case of manual, inside the a manual mapping method, paths do not overwrite each other.
+We craft an element in FHIR or openEHR. Otherwise the e.g. `defining_code/terminology_id/value` and `defining_code/code_string`
+would overwrite each other. Instead they are merges together.
 
 Another typical use case would be to hardcode, extension urls in FHIR.
 [source,yaml]
 ----
-mappings:
   - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+    extension: "add"
     with:
-      fhir: "$fhirRoot.start.extension.value"
+      fhir: "$fhirRoot.start.extension"
       openehr: "$archetype/items[at0001]"
+      type: "CODEABLECONCEPT"
     fhirCondition:
       targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
       targetAttribute: "url"
@@ -83,10 +80,9 @@ mappings:
       mappings:
         - name: "extension"
           with:
-            fhir: "^" # goes on element back to start.extension
-            openehr: "$reference"
+            fhir: "$fhirRoot"
           manual:
-            - name: "extension"
+            - name: "physicalType"
               fhir:
                 - path: "url"
                   value: "http://fhir.de/StructureDefinition/lebensphase"
@@ -108,7 +104,7 @@ mappings:
       targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
       targetAttribute: "url"
       operator: "one of"
-      criteria: "[http://fhir.de/StructureDefinition/lebensphase]"
+      criteria: "http://fhir.de/StructureDefinition/lebensphase"
     conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
 ----
 

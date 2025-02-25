@@ -1,7 +1,36 @@
 = The extension mappings
 :navtitle: Extension mappings
 
+Archetypes and resources are the core components of he models, but not the only ones. Both openEHR and FHIR
+have a second layer of models that interact with these. In FHIR the Profile changes the cardinality of fields,
+but also can add extensions. These extensions are fields are typically introduced by the user, since the resource
+does not cover everything. Also profiles, depending on the project, can make use of fields in a different way.
+
+OpenEHR on the other hand, has templates, these reference archetypes as building blocks and constrain them or
+add coding values etc. They do not extend the existing models.
+
+Both Templates and Profiles are done project specific. Therefore, for each project that is mapped, we need to
+introduce a set of alterations and extensions to our model-mappings. This is done in the `extension` mappings.
+An extension mapping always relates 1-to-1 to a model-mapping.
+
+== File structure
+
+Extension mappings are contained in the project folder. Here the folders are split depending on the project files they contain.
+
+
+image::ExtensionContextFolder2.PNG[]
+
+Inside the project folder, sub-folders represent each module that is mapped. These
+folders contain the extensions and context-files for one template (sometimes also more than for one template) .
+The context file is explained later in the chapter xref:types-of-mapping-files/context-mappings.adoc[].
+
+image::ExtensionContextFolder3.PNG[]
+
 == Extension header
+
+The `type` of header needs to be set to `extension`. Since it extends a existing mapping it does not need
+to reference the archetype etc. pp. again. The key `extends` is used to reference the model-mapping. Hereby,
+the name of the model-mapping is used.
 
 [source,yaml]
 ----
@@ -15,6 +44,3 @@ spec: # schema specific to the FHIRConnect v0.0.1 engine
   version: R4
   extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended
 ----
-
-
-== Extension

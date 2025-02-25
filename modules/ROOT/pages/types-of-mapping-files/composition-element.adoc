@@ -1,0 +1,7 @@
+= Mapping composition elements
+:navtitle: Mapping composition elements
+
+Composition mappings are not an own layer of mapping. The concept of a Composition as it exists in openEHR
+has no exact copy in FHIR. Fields contained in the Composition are contained in the resource instance. Therefore,
+their mapping has to be contained there. Each project based mapping has to check, which composition level
+mappings it inherits by the model mappings and has to overwrite those which it does not want.

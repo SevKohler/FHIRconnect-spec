@@ -40,13 +40,13 @@ multiple `MedicationStatement` resources must be created in FHIR.
 To enable this logic, hierarchy mappings are used.
 These mappings must always be defined as the first ones in a FHIRconnect file
 because they significantly impact the structure of the transformed files.
-Hierarchy mappings include a `hierarchy` key at the level of the `with:` block.
+Hierarchy mappings include a `hierarchy` key at the level of the `with:` method.
 
-This block contains two sub-blocks: one for FHIR and one for openEHR.
+This method contains two sub-methods: one for FHIR and one for openEHR.
 The `create:` key specifies the type of element to be created,
 and the `path:` key indicates where this element should be created.
 The `unique:` key defines the condition that triggers the creation of the new element.
-The path in the `unique:` key relates to the `with:` block, e.g. in the example we want to split
+The path in the `unique:` key relates to the `with:` method, e.g. in the example we want to split
 the data transformation based on dosages, therefore the `with:` path relates to dosage.
 This will not automatically transform the dosage and event as a normal `with:` would do.
 It rather is used as an indicator explained above.
