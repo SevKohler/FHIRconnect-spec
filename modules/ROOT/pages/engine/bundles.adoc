@@ -25,6 +25,6 @@ but it is also referenced by Diagnose A.
 For such cases, **linked mappings** are used.
 See xref:types-of-mappings/concept-mappings.adoc[].
 
-In this case, the Diagnose mapping would link to the Encounter mapping.
-As a result, in addition to processing its own mapping, the Diagnose mapping
+In this case, the Diagnosis mapping would link to the Encounter mapping.
+As a result, in addition to processing its own mapping, the Diagnosis mapping
 would also trigger the Encounter mapping.

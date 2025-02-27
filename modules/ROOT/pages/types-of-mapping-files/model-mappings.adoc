@@ -22,7 +22,7 @@ engine: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this fil
 type: model  # The type of mapping: model, extension, or context
 metadata:
   name: ACTION.informed_consent.v0  # The name of the mapping
-  version: 0.0.1a  # The version of this particular mapping
+  version: 1.0.0  # The version of this particular mapping
 spec:  # Schema specific to the FHIRConnect v0.0.1 engine
   system: FHIR  # Specifies what is being mapped
   version: R4
@@ -33,7 +33,8 @@ spec:  # Schema specific to the FHIRConnect v0.0.1 engine
 ----
 
 == Folders and Namespaces
-Each of these model mappings aims to be as generically valid as possible. They can be found in
+In general the folder structure of each  FHIRconnect project is up to the vendor. The official https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[library] follows
+the pattern described here. Each of these model mappings aims to be as generically valid as possible. They can be found in
 the `mapping/model` folder. Here, the models are organized based on their openEHR archetype type.
 
 image::ModelFolder.png[]

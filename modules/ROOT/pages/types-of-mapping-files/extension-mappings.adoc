@@ -14,9 +14,10 @@ introduce a set of alterations and extensions to our model-mappings. This is don
 An extension mapping always relates 1-to-1 to a model-mapping.
 
 == File structure
-
-Extension mappings are contained in the project folder. Here the folders are split depending on the project files they contain.
-
+In general the folder structure of each  FHIRconnect project is up to the vendor.
+The official https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[library] follows
+the pattern described here. Extension mappings are contained in the project folder.
+Here the folders are split depending on the project files they contain.
 
 image::ExtensionContextFolder2.PNG[]
 
@@ -38,7 +39,7 @@ engine: FHIRConnect/v0.0.1
 type: extension
 metadata:
   name:  KDS_anatomical_location
-  version: 0.0.1a # version of this particular mapping
+  version: 1.0.0 # version of this particular mapping
 spec: # schema specific to the FHIRConnect v0.0.1 engine
   system: FHIR
   version: R4

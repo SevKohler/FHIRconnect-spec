@@ -1,9 +1,39 @@
 = Data mapping types
 :navtitle: Data mapping types
 
+##TODO annoying chapter, since we have to nail down how what is mapped, which is draining. have to do next week ##
+
+
+Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
+types contained in the serialized FHIR instances and openEHR compositions.
+
+This chapter is mainly used to describe how these mappings are to be processed.
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| Type ID / FHIR  | openEHR       | Primitive | "FLAT / FHIR" Attributes Pairs
+| NONE            | NONE          | false     | /
+| QUANTITY        | DV_QUANTITY   | true      | magnitude / value +<br> unit / unit
+| QUANTITY        | DV_ORDINAL    | true      | ordinal / value +<br> value / unit +<br> code / code
+| QUANTITY        | DV_COUNT      | true      | (direct)
+| DATETIME        | DV_DATE_TIME  | true      | (direct)
+| CODEABLECONCEPT | DV_CODED_TEXT | false     | *nested* / coding +<br> value / text
+| CODING          | CODE_PHRASE   | true      | code / code +<br> terminology / system
+| STRING          | DV_TEXT       | true      | (direct)
+| DOSAGE          | NONE          | false     | (special)
+|===
+
+https://build.fhir.org/datatypes.html
+
+
 == NONE
+Does nothing, usually used to access nested elements of the path, in the child mapping methods.
 
 == QUANTITY
+Maps
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701
+https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958
+
 
 == DATETIME
 
@@ -57,6 +87,6 @@ Maybe we should list this as it should be transformed by data types:
 10.4.1. DV_EHR_URI Syntax
 
 
-`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner.
+`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner ?
 
 

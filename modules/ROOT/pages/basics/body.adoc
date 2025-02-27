@@ -63,4 +63,3 @@ mappings: # starts mappings
       openehr: "$archetype/data[at0001]/items[at0077]"
     unidirectional: "openEHR->fhir"
 ----
-#@Gasper we need to shift this to he name method#

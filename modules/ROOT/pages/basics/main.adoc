@@ -11,13 +11,13 @@ FHIR resource. Other types are explained later in the chapter xref:types-of-mapp
 
 
 == Grammar and Type
-Here we define which engine version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
+Here we define which grammar version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
 of the grammar used seperated by a `/`. The `type` defines what type of mapping-file this is it can be either:
 `model`, `extension` or `context`.
 
 [source,yaml]
 ----
-grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context
 ----
 
@@ -27,7 +27,7 @@ The version represents which version of the mapping this is. Sometimes its neces
 
 [source,yaml]
 ----
-grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context
 metadata:
   name: ACTION.informed_consent.v0  #the name of the mapping
@@ -41,7 +41,7 @@ problems.
 
 [source,yaml]
 ----
-grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context
 metadata:
   name: ACTION.informed_consent.v0  #the name of the mapping
@@ -51,16 +51,16 @@ spec: # schema specific to the FHIRConnect v0.0.1 engine
   version: R4
   openEhrConfig:
     archetype: openEHR-EHR-ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+    revision: 0.0.1-alpha
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped
 ----
 
 The `openEHRConfig.archetype` defines which archetypes is mapped, in case of a model mapping.
+The `openEHRCondig.revision` states what revision of the archetype this mapping is for.
 
 The `fhirConfig.structureDefintion` contains the information which FHIR StructureDefinition is mapped.
 This is just informal for the user and has no impact on the mapping.
-#Gasper verifiy#
-
 
 == Naming convention
 

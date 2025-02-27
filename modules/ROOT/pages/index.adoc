@@ -2,6 +2,14 @@
 :navtitle: Introduction
 # :url-asciidoc-lang: https://projects.eclipse.org/projects/technology.asciidoc
 
+
+== DISCLAIMER
+FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:
+
+WIP
+
+Thanks!
+
 == About FHIRconnect
 
 FHIRconnect is a derivative of YAML and a rework of the draft from
@@ -18,18 +26,24 @@ documentation of how this is should be transformed. This is especially
 important to maintain a consistency between transforming both standards
 throughout institutions.
 
+The official mapping library of FHIRconnect is maintained
+https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[here]
+
 == Current issues and example mappings
 
-In the repository https://github.com/SevKohler/FHIRconnect?tab=readme-ov-file you can find current issues with the specification under the issue tabs in github.
+In the https://github.com/SevKohler/FHIRconnect-spec[repository] you can find current issues with the specification under the issue tabs in github.
 Also in the directory contained is the library of mappings.
 Currently, these contain the mappings for the KDS the german core dataset for research and general archetype mappings.
 Be aware that some of the templates are still in rework and some of the templates mapped contain old
 bad-quality archetypes created for highmed 8 years ago (org.highmed archetypes) specifically,
 we are currently refactoring this.
 
-== DISCLAIMER
-FHIRconnect is the result of a research project. To support our research, please cite one of our papers instead of referencing our github in scientific articles. You can find an overview of papers about FHIRconnect here. If you are not sure which paper to cite, we recommend this one:
+== Maintaining the specification
+If there are any comments, suggestions and in general all discussion are to be held in the https://github.com/SevKohler/FHIRconnect-spec[issues]
+tab of the github.
 
-WIP
+== Contributors
 
-Thanks!
+* Diego Bosca
+* Gasper Andrejc
+* Severin Kohler

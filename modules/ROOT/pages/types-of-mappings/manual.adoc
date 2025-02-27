@@ -117,7 +117,7 @@ engine: FHIRConnect/v0.0.1
 type: model
 metadata:
   name:  CLUSTER.problem_qualifier.v2
-  version: 0.0.1a
+  version: 1.0.0
 spec:
   system: FHIR
   version: R4

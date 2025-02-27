@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/demographics.html">Demographics</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +153,9 @@
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/references.html">References</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -208,16 +208,111 @@
 </aside>
 <article class="doc">
 <h1 class="page">Data mapping types</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark>TODO annoying chapter, since we have to nail down how what is mapped, which is draining. have to do next week </mark></p>
+</div>
+<div class="paragraph">
+<p>Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
+types contained in the serialized FHIR instances and openEHR compositions.</p>
+</div>
+<div class="paragraph">
+<p>This chapter is mainly used to describe how these mappings are to be processed.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Type ID / FHIR</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Primitive</th>
+<th class="tableblock halign-center valign-top">"FLAT / FHIR" Attributes Pairs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">NONE</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">NONE</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">/</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_QUANTITY</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">magnitude / value +&lt;br&gt; unit / unit</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_ORDINAL</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">ordinal / value +&lt;br&gt; value / unit +&lt;br&gt; code / code</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_COUNT</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">(direct)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DATETIME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_DATE_TIME</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">(direct)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">CODEABLECONCEPT</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_CODED_TEXT</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>nested</strong> / coding +&lt;br&gt; value / text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">CODING</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">CODE_PHRASE</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code / code +&lt;br&gt; terminology / system</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DV_TEXT</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">(direct)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">DOSAGE</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">NONE</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">(special)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="https://build.fhir.org/datatypes.html" class="bare">https://build.fhir.org/datatypes.html</a></p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_none"><a class="anchor" href="#_none"></a>NONE</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Does nothing, usually used to access nested elements of the path, in the child mapping methods.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_quantity"><a class="anchor" href="#_quantity"></a>QUANTITY</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Maps
+<a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701" class="bare">https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701</a>
+<a href="https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958" class="bare">https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958</a></p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -291,7 +386,7 @@ Maybe we should list this as it should be transformed by data types:</p>
 10.4.1. DV_EHR_URI Syntax</p>
 </div>
 <div class="paragraph">
-<p><code>DV_IDENTIFIER</code>: type, type system <code>` `::` `</code> value, value assigner, assigner.</p>
+<p><code>DV_IDENTIFIER</code>: type, type system <code>` `::` `</code> value, value assigner, assigner ?</p>
 </div>
 </div>
 </div>

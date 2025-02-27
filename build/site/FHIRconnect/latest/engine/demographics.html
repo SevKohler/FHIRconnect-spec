@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Types of mapping files :: FHIRconnect</title>
+    <title>Demographics :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -113,23 +113,23 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="main.html">Types of mapping files</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
+    <a class="nav-link" href="../types-of-mapping-files/model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
+    <a class="nav-link" href="../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="extension-methods.html">Extension methods</a>
+    <a class="nav-link" href="../types-of-mapping-files/extension-methods.html">Extension methods</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="composition-element.html">Mapping composition elements</a>
+    <a class="nav-link" href="../types-of-mapping-files/composition-element.html">Mapping composition elements</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="context-mappings.html">Context Mappings</a>
+    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
 </ul>
   </li>
@@ -141,25 +141,25 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../engine/engine.html">Engine</a>
+    <a class="nav-link" href="engine.html">Engine</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+    <a class="nav-link" href="defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="cardinality.html">Cardinalities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+    <a class="nav-link" href="bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+    <a class="nav-link" href="references.html">References</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/references.html">References</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+    <a class="nav-link" href="fhirsearch-and-aql.html">FHIRsearch and AQL</a>
   </li>
 </ul>
   </li>
@@ -195,46 +195,80 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Grammar</li>
-    <li>Types of Mapping files</li>
-    <li><a href="main.html">Types of mapping files</a></li>
+    <li>Engine</li>
+    <li><a href="engine.html">Engine</a></li>
+    <li><a href="demographics.html">Demographics</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/main.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/engine/demographics.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Types of mapping files</h1>
-<div class="sect1">
-<h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
-<div class="sectionbody">
+<h1 class="page">Demographics</h1>
 <div class="paragraph">
-<p>Mappings are organized into three types of files. The model mapping is the vanilla
-mapping that describes the transformation between an archetype and an un-profiled resource.
-This is the most basic form of mapping that is to be shared and maintained by the communities.</p>
+<p>openEHR distinguishes between a demographic domain and the EHR domain.
+The EHR domain contains clinical EHR data, while the demographics domain usually contains non-clinical data.
+The initial idea behind this separation was to address privacy concerns.
+What constitutes non-clinical data varies between vendors and use cases.</p>
 </div>
 <div class="paragraph">
-<p>Extension mappings are used to extend model mappings by adding, overwriting, or
-appending mapping logic to the vanilla model mappings. This is required to map
-between templates and profiles. The model mappings act as a sustainable set of base
-mappings that can be extended for a given scope using extension mappings. Extension
-mappings act similarly to a String Builder.</p>
+<p>In the EHR domain, everything relates to a patient&#8217;s EHR, whereas the demographics (or non-clinical CDR)
+usually contains patient demographic data such as full name, address, insurance number, etc.
+There are cases where EHR archetypes contain patient-related data, particularly in research contexts.
+For example, birthdate, gender, and sex are stored.</p>
 </div>
 <div class="paragraph">
-<p>Context mappings define the import of model mappings and extension mappings,
-specifying what profile is transformed into which template and with which mapping
-file to start. There is one context file required for each profile and template mapped.
-From a developer&#8217;s perspective, they act as an import and main.</p>
+<p>Vendors typically manage demographic data using either a FHIR server or an openEHR demographics server
+(based on openEHR demographics archetypes). The reference model of the EHR links these external IDs.</p>
+</div>
+<div class="paragraph">
+<p>FHIRconnect logic sends individual FHIR resources to a demographics endpoint and links them accordingly.
+This endpoint, located outside FHIRconnect, can either transform these resources or use FHIR directly.
+The key requirement is that it returns an external identifier, which is then linked in the openEHR files
+and also can be used to re-retrieve the fhir resource for tranforming it back.</p>
+</div>
+<div class="paragraph">
+<p>This process involves mapping resources to RM paths that reference demographic data.
+If the referenced resource is included in the Bundle, it is sent to the demographics service,
+and the returned ID is stored in the <code>PARTY_IDENTIFIED</code> field.
+Otherwise, the resource&#8217;s identifier is directly linked inside the RM field, since there is
+nothing to transform. FHIRconnect performs this operation for each path containing a <code>PARTY_IDENTIFIED</code> field.
+When extracting FHIR data, the ID is requested from the demographics service and the resource received back,
+returned.</p>
+</div>
+<div class="paragraph">
+<p>Example</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "partyIdentifiedComposer"
+    with:
+      fhir: "$resourcePath.recorder"
+      openehr: "$composition/composer"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Flow from FHIR to openEHR</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../_images/FileStructure.drawio.png" alt="FileStructure.drawio">
+<img src="../_images/demographics1.drawio.png" alt="demographics1.drawio">
 </div>
 </div>
+<div class="paragraph">
+<p>Flow from openEHR to FHIR</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/demographics2.drawio.png" alt="demographics2.drawio">
+</div>
+</div>
+<div class="paragraph">
+<p>If a demographics service is not implemented, a FHIRconnect engine should use the IDs maintained
+by the FHIRconnect engines FHIR-server.</p>
 </div>
 </article>
   </div>

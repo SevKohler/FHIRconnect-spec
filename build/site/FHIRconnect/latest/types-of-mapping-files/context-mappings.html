@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/demographics.html">Demographics</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +153,9 @@
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/references.html">References</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -225,11 +225,11 @@ These mappings act as imports.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1
 type: context
 metadata:
-  name: KDS_diagnose.context
-  version: 0.0.1a
+  name:  KDS_Prozedur.context
+  version: 1.0.0
 spec:
   system: FHIR
   version: R4</code></pre>
@@ -241,14 +241,20 @@ spec:
 <h2 id="_profileurl_templateid"><a class="anchor" href="#_profileurl_templateid"></a>profileUrl &amp; templateId</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>profileUrl</code> defines the profile being mapped, as specified in the <code>meta.url</code> of a FHIR profile instance.
-The <code>templateId</code> defines the template being mapped by these files. It must reference the exact ID of the template.</p>
+<p>The <code>profile.url</code> defines the profile being mapped, as specified in the <code>meta.url</code> of a FHIR profile instance.
+The <code>profile.version</code> defines what version of the profile this mapping is for.
+The <code>template.id</code> defines the template being mapped by these files. It must reference the exact ID of the template.
+The <code>template.sem_ver</code> defines what version of the template is mapped.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"</code></pre>
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"</code></pre>
 </div>
 </div>
 </div>
@@ -268,21 +274,17 @@ and B has an extension C, then extension C is applied.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"
   archetypes:
-    - "CLUSTER.multiple_coding_icd10gm.v1"
-    - "EVALUATION.problem_diagnosis.v1"
-    - "CLUSTER.problem_qualifier.v2"
-    - "CLUSTER.lebensphase.v0"
+    - "ACTION.procedure.v1"
     - "CLUSTER.case_identification.v0"
-    - "CLUSTER.anatomical_location.v1"
   extensions:
-    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
-    - "KDS_problem_qualifier"
-    - "KDS_lebensphase"
-    - "KDS_anatomical_location"
-    - "KDS_Specimen"</code></pre>
+    - "KDS_procedure.v1"</code></pre>
 </div>
 </div>
 </div>
@@ -294,28 +296,24 @@ and B has an extension C, then extension C is applied.</p>
 <p>The <code>start</code> key defines where the engine should begin the mapping.
 Typically, the engine starts from this mapping and resolves all references from there.
 The model mapping name is used here.
-In the example below, the engine would start the mapping at the <code>KDS_problem_diagnose</code> extension,
-since this extends the <code>EVALUATION.problem_diagnosis.v1</code>.</p>
+In the example below, the engine would start the mapping at the <code>KDS_procedure.v1</code> extension,
+since this extends the <code>ACTION.procedure.v1</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"
   archetypes:
-    - "CLUSTER.multiple_coding_icd10gm.v1"
-    - "EVALUATION.problem_diagnosis.v1"
-    - "CLUSTER.problem_qualifier.v2"
-    - "CLUSTER.lebensphase.v0"
+    - "ACTION.procedure.v1"
     - "CLUSTER.case_identification.v0"
-    - "CLUSTER.anatomical_location.v1"
   extensions:
-    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
-    - "KDS_problem_qualifier"
-    - "KDS_lebensphase"
-    - "KDS_anatomical_location"
-    - "KDS_Specimen"
-  start: "EVALUATION.problem_diagnosis.v1"</code></pre>
+    - "KDS_procedure.v1"
+  start: "ACTION.procedure.v1"</code></pre>
 </div>
 </div>
 </div>

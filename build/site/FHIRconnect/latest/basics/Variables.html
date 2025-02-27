@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="demographics.html">Demographics</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -154,6 +151,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/references.html">References</a>
@@ -306,14 +306,14 @@ you use the root variables.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "status"
     with:
       fhir: "$resource"
-      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code"
+      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value"
     manual:
       - name: "registered"
         fhir:
           path: "status"
           value: "registered"
         openehrCondition:
-          targetRoot: "$openehrRoot" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
+          targetRoot: "$openehrRoot/defining_code" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
           targetAttribute: "code_string"
           operator: "one of"
           criteria: "at0107"</code></pre>

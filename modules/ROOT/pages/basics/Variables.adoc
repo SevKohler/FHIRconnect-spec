@@ -61,14 +61,14 @@ Example:
   - name: "status"
     with:
       fhir: "$resource"
-      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code"
+      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value"
     manual:
       - name: "registered"
         fhir:
           path: "status"
           value: "registered"
         openehrCondition:
-          targetRoot: "$openehrRoot" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
+          targetRoot: "$openehrRoot/defining_code" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
           targetAttribute: "code_string"
           operator: "one of"
           criteria: "at0107"

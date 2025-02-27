@@ -10,25 +10,31 @@ The header is of the `type: context`. It does not contain an openEHR or FHIR-spe
 
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1
+grammar: FHIRConnect/v0.0.1
 type: context
 metadata:
-  name: KDS_diagnose.context
-  version: 0.0.1a
+  name:  KDS_Prozedur.context
+  version: 1.0.0
 spec:
   system: FHIR
   version: R4
 ----
 
 == profileUrl & templateId
-The `profileUrl` defines the profile being mapped, as specified in the `meta.url` of a FHIR profile instance.
-The `templateId` defines the template being mapped by these files. It must reference the exact ID of the template.
+The `profile.url` defines the profile being mapped, as specified in the `meta.url` of a FHIR profile instance.
+The `profile.version` defines what version of the profile this mapping is for.
+The `template.id` defines the template being mapped by these files. It must reference the exact ID of the template.
+The `template.sem_ver` defines what version of the template is mapped.
 
 [source,yaml]
 ----
 context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"
 ----
 
 == Archetypes & Extensions
@@ -42,48 +48,41 @@ and B has an extension C, then extension C is applied.
 
 [source,yaml]
 ----
+
 context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"
   archetypes:
-    - "CLUSTER.multiple_coding_icd10gm.v1"
-    - "EVALUATION.problem_diagnosis.v1"
-    - "CLUSTER.problem_qualifier.v2"
-    - "CLUSTER.lebensphase.v0"
+    - "ACTION.procedure.v1"
     - "CLUSTER.case_identification.v0"
-    - "CLUSTER.anatomical_location.v1"
   extensions:
-    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
-    - "KDS_problem_qualifier"
-    - "KDS_lebensphase"
-    - "KDS_anatomical_location"
-    - "KDS_Specimen"
+    - "KDS_procedure.v1"
 ----
 
 == Start
 The `start` key defines where the engine should begin the mapping.
 Typically, the engine starts from this mapping and resolves all references from there.
 The model mapping name is used here.
-In the example below, the engine would start the mapping at the `KDS_problem_diagnose` extension,
-since this extends the `EVALUATION.problem_diagnosis.v1`.
+In the example below, the engine would start the mapping at the `KDS_procedure.v1` extension,
+since this extends the `ACTION.procedure.v1`.
 
 [source,yaml]
 ----
 context:
-  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
-  templateId: "KDS_Diagnose"
+  profile:
+    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
+    version: "2025.0.0"
+  template:
+    id: "KDS_Prozedur"
+    sem_ver: "10.0.0"
   archetypes:
-    - "CLUSTER.multiple_coding_icd10gm.v1"
-    - "EVALUATION.problem_diagnosis.v1"
-    - "CLUSTER.problem_qualifier.v2"
-    - "CLUSTER.lebensphase.v0"
+    - "ACTION.procedure.v1"
     - "CLUSTER.case_identification.v0"
-    - "CLUSTER.anatomical_location.v1"
   extensions:
-    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
-    - "KDS_problem_qualifier"
-    - "KDS_lebensphase"
-    - "KDS_anatomical_location"
-    - "KDS_Specimen"
-  start: "EVALUATION.problem_diagnosis.v1"
+    - "KDS_procedure.v1"
+  start: "ACTION.procedure.v1"
 ----

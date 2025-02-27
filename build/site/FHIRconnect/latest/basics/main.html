@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="demographics.html">Demographics</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +153,9 @@
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/references.html">References</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -226,13 +226,13 @@ FHIR resource. Other types are explained later in the chapter <a href="../types-
 <h2 id="_grammar_and_type"><a class="anchor" href="#_grammar_and_type"></a>Grammar and Type</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Here we define which engine version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
+<p>Here we define which grammar version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
 of the grammar used seperated by a <code>/</code>. The <code>type</code> defines what type of mapping-file this is it can be either:
 <code>model</code>, <code>extension</code> or <code>context</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context</code></pre>
 </div>
 </div>
@@ -247,7 +247,7 @@ The version represents which version of the mapping this is. Sometimes its neces
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context
 metadata:
   name: ACTION.informed_consent.v0  #the name of the mapping
@@ -266,7 +266,7 @@ problems.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v1.0.0  # what grammar and version is used in this file
 type: model  # the type of mapping: model, extension or context
 metadata:
   name: ACTION.informed_consent.v0  #the name of the mapping
@@ -276,17 +276,18 @@ spec: # schema specific to the FHIRConnect v0.0.1 engine
   version: R4
   openEhrConfig:
     archetype: openEHR-EHR-ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
+    revision: 0.0.1-alpha
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>openEHRConfig.archetype</code> defines which archetypes is mapped, in case of a model mapping.</p>
+<p>The <code>openEHRConfig.archetype</code> defines which archetypes is mapped, in case of a model mapping.
+The <code>openEHRCondig.revision</code> states what revision of the archetype this mapping is for.</p>
 </div>
 <div class="paragraph">
 <p>The <code>fhirConfig.structureDefintion</code> contains the information which FHIR StructureDefinition is mapped.
-This is just informal for the user and has no impact on the mapping.
-<mark>Gasper verifiy</mark></p>
+This is just informal for the user and has no impact on the mapping.</p>
 </div>
 </div>
 </div>

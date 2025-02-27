@@ -80,9 +80,6 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/demographics.html">Demographics</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -154,6 +151,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../engine/references.html">References</a>
@@ -231,7 +231,10 @@ An extension mapping always relates 1-to-1 to a model-mapping.</p>
 <h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Extension mappings are contained in the project folder. Here the folders are split depending on the project files they contain.</p>
+<p>In general the folder structure of each  FHIRconnect project is up to the vendor.
+The official <a href="https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main">library</a> follows
+the pattern described here. Extension mappings are contained in the project folder.
+Here the folders are split depending on the project files they contain.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -264,7 +267,7 @@ the name of the model-mapping is used.</p>
 type: extension
 metadata:
   name:  KDS_anatomical_location
-  version: 0.0.1a # version of this particular mapping
+  version: 1.0.0 # version of this particular mapping
 spec: # schema specific to the FHIRConnect v0.0.1 engine
   system: FHIR
   version: R4
