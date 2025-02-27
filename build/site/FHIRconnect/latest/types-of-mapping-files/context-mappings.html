@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Context mappings :: FHIRconnect</title>
+    <title>Context Mappings :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -81,12 +81,6 @@
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/cardinality.html">Cardinality</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/links-and-references.html">Links and references</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/demographics.html">Demographics</a>
   </li>
 </ul>
@@ -131,8 +125,14 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="composition-element.html">Mapping composition elements</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="context-mappings.html">Context mappings</a>
+    <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
 </ul>
   </li>
@@ -143,7 +143,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../engine/engine.html">Engine</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -179,30 +197,125 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Types of Mapping files</li>
-    <li><a href="context-mappings.html">Context mappings</a></li>
+    <li><a href="context-mappings.html">Context Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mapping-files/context-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/context-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Context mappings</h1>
-<div class="sect1">
-<h2 id="_context_header"><a class="anchor" href="#_context_header"></a>Context header</h2>
+<h1 class="page">Context Mappings</h1>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>The extension and model mappings introduced represent individual pieces of mappings
+that need to be combined to successfully map a composition or profile.
+These mappings act as imports.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_header"><a class="anchor" href="#_header"></a>Header</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The header is of the <code>type: context</code>. It does not contain an openEHR or FHIR-specific part.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
 type: context
 metadata:
-  name:  KDS_diagnose.context
+  name: KDS_diagnose.context
   version: 0.0.1a
 spec:
   system: FHIR
   version: R4</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_profileurl_templateid"><a class="anchor" href="#_profileurl_templateid"></a>profileUrl &amp; templateId</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>profileUrl</code> defines the profile being mapped, as specified in the <code>meta.url</code> of a FHIR profile instance.
+The <code>templateId</code> defines the template being mapped by these files. It must reference the exact ID of the template.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
+  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
+  templateId: "KDS_Diagnose"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_archetypes_extensions"><a class="anchor" href="#_archetypes_extensions"></a>Archetypes &amp; Extensions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The next keys are the <code>archetypes</code>, which reference all model mappings used for this template-profile mapping
+by their header name.
+The <code>extensions</code> key defines which extensions are loaded for the model mappings contained in the <code>archetypes</code>.
+An extension is not always required. Each time a model mapping is called as part of this context,
+and it has an extension, the extension is applied.
+For example, if model mapping A references (<code>slotArchetype</code>) another model mapping B,
+and B has an extension C, then extension C is applied.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
+  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
+  templateId: "KDS_Diagnose"
+  archetypes:
+    - "CLUSTER.multiple_coding_icd10gm.v1"
+    - "EVALUATION.problem_diagnosis.v1"
+    - "CLUSTER.problem_qualifier.v2"
+    - "CLUSTER.lebensphase.v0"
+    - "CLUSTER.case_identification.v0"
+    - "CLUSTER.anatomical_location.v1"
+  extensions:
+    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
+    - "KDS_problem_qualifier"
+    - "KDS_lebensphase"
+    - "KDS_anatomical_location"
+    - "KDS_Specimen"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_start"><a class="anchor" href="#_start"></a>Start</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>start</code> key defines where the engine should begin the mapping.
+Typically, the engine starts from this mapping and resolves all references from there.
+The model mapping name is used here.
+In the example below, the engine would start the mapping at the <code>KDS_problem_diagnose</code> extension,
+since this extends the <code>EVALUATION.problem_diagnosis.v1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
+  profileUrl: "https://www.medizininformatik-initiative.de/fhir/core/modul-diagnose/StructureDefinition/Diagnose"
+  templateId: "KDS_Diagnose"
+  archetypes:
+    - "CLUSTER.multiple_coding_icd10gm.v1"
+    - "EVALUATION.problem_diagnosis.v1"
+    - "CLUSTER.problem_qualifier.v2"
+    - "CLUSTER.lebensphase.v0"
+    - "CLUSTER.case_identification.v0"
+    - "CLUSTER.anatomical_location.v1"
+  extensions:
+    - "KDS_problem_diagnose" # Overloads the vanilla mappings; no version means the latest is used
+    - "KDS_problem_qualifier"
+    - "KDS_lebensphase"
+    - "KDS_anatomical_location"
+    - "KDS_Specimen"
+  start: "EVALUATION.problem_diagnosis.v1"</code></pre>
 </div>
 </div>
 </div>

@@ -1,13 +1,11 @@
-site:
-  title: FHIRconnect
-  start_page: project-name::index.adoc
 content:
   sources:
-    - url: .
-      branches: HEAD
+  - branches: HEAD
+    url: .
+site:
+  start_page: project-name::index.adoc
+  title: FHIRconnect
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
-
-
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

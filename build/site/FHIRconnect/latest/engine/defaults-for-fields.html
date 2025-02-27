@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Header :: FHIRconnect</title>
+    <title>Defaults for fields :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -65,23 +65,23 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="main.html">Header</a>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="body.html">Body</a>
+    <a class="nav-link" href="../basics/body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Variables.html">Variables</a>
+    <a class="nav-link" href="../basics/Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Conditions.html">Condition</a>
+    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
+    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="demographics.html">Demographics</a>
+    <a class="nav-link" href="../basics/demographics.html">Demographics</a>
   </li>
 </ul>
   </li>
@@ -144,22 +144,22 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../engine/engine.html">Engine</a>
+    <a class="nav-link" href="engine.html">Engine</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="cardinality.html">Cardinalities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+    <a class="nav-link" href="bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/references.html">References</a>
+    <a class="nav-link" href="references.html">References</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+    <a class="nav-link" href="fhirsearch-and-aql.html">FHIRsearch and AQL</a>
   </li>
 </ul>
   </li>
@@ -195,130 +195,42 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Grammar</li>
-    <li>Basics</li>
-    <li><a href="main.html">Header</a></li>
+    <li>Engine</li>
+    <li><a href="engine.html">Engine</a></li>
+    <li><a href="defaults-for-fields.html">Defaults for fields</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/engine/defaults-for-fields.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Header</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Defaults for fields</h1>
 <div class="paragraph">
-<p>The header is contained in each FHIRconnect mapping file. It is
-standardized for both FHIRconnect and
-<a href="https://github.com/SevKohler/OMOCL">OMOCL</a>.</p>
-</div>
-<div class="paragraph">
-<p>There are three different types of mapping files in FHIRconnect.
-For this header explanation and basic chapter we will focus on the model mappings that map an openEHR-archetype to a
-FHIR resource. Other types are explained later in the chapter <a href="../types-of-mapping-files/main.html" class="xref page">Types of mapping files</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_grammar_and_type"><a class="anchor" href="#_grammar_and_type"></a>Grammar and Type</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here we define which engine version is used, for FHIRconnect its FHIRconnect. The name is followed by the version
-of the grammar used seperated by a <code>/</code>. The <code>type</code> defines what type of mapping-file this is it can be either:
-<code>model</code>, <code>extension</code> or <code>context</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
-type: model  # the type of mapping: model, extension or context</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_metadata"><a class="anchor" href="#_metadata"></a>Metadata</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The metadata defines the name of the mapping, that is a unique id used to identify the mapping and reference it.
-The version represents which version of the mapping this is. Sometimes its necessary to maintain several versions.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
-type: model  # the type of mapping: model, extension or context
-metadata:
-  name: ACTION.informed_consent.v0  #the name of the mapping
-  version: 0.0.1-alpha # version of this particular mapping</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_spec"><a class="anchor" href="#_spec"></a>Spec</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This defines what standard is mapped by the file, in our case <code>FHIR</code> and which Release of it. The current spec was designed
-based on R4. It was not tested with any other Releases, but since FHIRconnect operates on paths, there shouldn&#8217;t be any
-problems.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1  # what grammar and version is used in this file
-type: model  # the type of mapping: model, extension or context
-metadata:
-  name: ACTION.informed_consent.v0  #the name of the mapping
-  version: 0.0.1-alpha # version of this particular mapping
-spec: # schema specific to the FHIRConnect v0.0.1 engine
-  system: FHIR  # What is mapped
-  version: R4
-  openEhrConfig:
-    archetype: openEHR-EHR-ACTION.informed_consent.v0 # what openEHR archetype is mapped in this model mapping
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent # to what FHIR structureDefinition this is mapped</code></pre>
-</div>
+<p>For some of the fields in openEHR, there is often no corresponding element in FHIR.
+This is typically the case for the
+<a href="https://specifications.openehr.org/releases/RM/latest/ehr.html#_composition_class">composer</a>
+and the
+<a href="https://specifications.openehr.org/releases/RM/latest/ehr.html#_event_context_class">Composition context</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>openEHRConfig.archetype</code> defines which archetypes is mapped, in case of a model mapping.</p>
+<p>However, the composer is a mandatory element in openEHR, and the context is usually populated,
+which includes the mandatory element <code>start_time</code>.
+It is recommended to default the composer, if not populated by a mapping,
+with a value such as <code>FHIRconnect</code> party.</p>
 </div>
 <div class="paragraph">
-<p>The <code>fhirConfig.structureDefintion</code> contains the information which FHIR StructureDefinition is mapped.
-This is just informal for the user and has no impact on the mapping.
-<mark>Gasper verifiy</mark></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_naming_convention"><a class="anchor" href="#_naming_convention"></a>Naming convention</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
-class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
-can be transformed into one archetype. In this case, the name of the mapping is to be extended
-with what FHIR type is mapped to what openEHR archetype:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>CLUSTER.medication.v2 (this maps medication-to-medication)</p>
-</li>
-<li>
-<p>CLUSTER.medication.v2.substance-to-medication (this does not map a
-FHIR medication but an FHIR substance)</p>
-</li>
-</ul>
+<p>For the <code>context_start_time</code>, the default mapping time can be used.
+The <code>EVENT_CONTEXT</code> <code>setting</code> should be defined by the project performing the mapping.
+It can be defaulted to one of the valid values from
+<a href="https://github.com/openEHR/specifications-TERM/blob/master/computable/XML/en/openehr_terminology.xml#L274">settings</a>.</p>
 </div>
 <div class="paragraph">
-<p>This allows for separately calling these archetype mappings for different use cases. The initial one
-created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
-created that also map to medication but from another FHIR input must add a string to their name as
-described above. We deem the first mapping as the default one. Furthermore, we want to prevent
-dependency problems by renaming the file later on. For extension and context mapping names,
-there is no specific style guide, as this is a project-specific decision users have to make.</p>
-</div>
-</div>
+<p>The <code>language</code>, <code>territory</code>, and <code>category</code> of the
+<a href="https://specifications.openehr.org/releases/RM/latest/ehr.html#_composition_class">Composition</a>
+should be set either as part of the project mapping files or as default values by the engine.</p>
 </div>
 </article>
   </div>

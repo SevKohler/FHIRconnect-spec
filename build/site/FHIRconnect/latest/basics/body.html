@@ -81,12 +81,6 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="cardinality.html">Cardinality</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="links-and-references.html">Links and references</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="demographics.html">Demographics</a>
   </li>
 </ul>
@@ -132,7 +126,13 @@
     <a class="nav-link" href="../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context mappings</a>
+    <a class="nav-link" href="../types-of-mapping-files/extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/composition-element.html">Mapping composition elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
 </ul>
   </li>
@@ -143,7 +143,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../engine/engine.html">Engine</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -182,7 +200,7 @@
     <li><a href="body.html">Body</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -203,8 +221,8 @@ one of the models, it must be added to the model in FHIR or openEHR. Otherwise, 
 a set of named mappings.</p>
 </div>
 <div class="paragraph">
-<p>The <code>mappings:</code> body is followed by mapping blocks. Each part starting with <code>- name: "mappingName"</code>
-is called a mapping block, and the children contained underneath are called child blocks.</p>
+<p>The <code>mappings:</code> body is followed by mapping methods. Each part starting with <code>- name: "mappingName"</code>
+is called a mapping method, and the children contained underneath are called child methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -218,7 +236,7 @@ is called a mapping block, and the children contained underneath are called chil
 <h2 id="_with"><a class="anchor" href="#_with"></a>with</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Inside these mapping blocks, there is always a <code>with:</code> statement that contains <code>fhir</code> and <code>openehr</code> keys.
+<p>Inside these mapping methods, there is always a <code>with:</code> statement that contains <code>fhir</code> and <code>openehr</code> keys.
 These two keys indicate the paths that are mapped against each other.</p>
 </div>
 <div class="listingblock">
@@ -250,9 +268,33 @@ are mapped against each other.</p>
 <div class="paragraph">
 <p>The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
 the latter one in the order will overwrite the first one.
-Also, when nesting blocks, the child block will always aim on the path of the parent, the idea here is
+Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
 that you iterate down the path of an element and step by step map each of the fields contained. More is explained
 later in the FollowedBy chapter</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_undirectional"><a class="anchor" href="#_undirectional"></a>Undirectional</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To execute a mapping method unidirectional the <code>undirectional</code> key can be added to a <code>- name:</code> method. This way
+the mapping contained is only executed in one direction. The allowed values are either
+<code>"openehr&#8594;fhir"</code> or <code>"fhir&#8594;openehr"</code> This is also true for all the child method contained
+underneath of this <code>with</code> method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+    unidirectional: "openEHR-&gt;fhir"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><mark>@Gasper we need to shift this to he name method</mark></p>
 </div>
 </div>
 </div>

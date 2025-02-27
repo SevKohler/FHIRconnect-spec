@@ -81,12 +81,6 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="cardinality.html">Cardinality</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="links-and-references.html">Links and references</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="demographics.html">Demographics</a>
   </li>
 </ul>
@@ -132,7 +126,13 @@
     <a class="nav-link" href="../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context mappings</a>
+    <a class="nav-link" href="../types-of-mapping-files/extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/composition-element.html">Mapping composition elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
 </ul>
   </li>
@@ -143,7 +143,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../engine/engine.html">Engine</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -182,7 +200,7 @@
     <li><a href="Conditions.html">Condition</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -193,7 +211,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Conditions are introduced to implement an IF logic for FHIRconnect. This means that the mapping block that has
+<p>Conditions are introduced to implement an IF logic for FHIRconnect. This means that the mapping method that has
 a condition is only executed if the parts in the condition are true. There are two types of conditions:
 <code>openEHRCondition</code> and <code>fhirCondition</code> for each corresponding standard.</p>
 </div>
@@ -211,7 +229,7 @@ a condition is only executed if the parts in the condition are true. There are t
     targetRoot: "$archetype"
     targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
     operator: "one of"
-    criteria: "[at0064]"</code></pre>
+    criteria: "at0064"</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -224,7 +242,7 @@ a condition is only executed if the parts in the condition are true. There are t
       targetRoot: "$resource.identifier"
       targetAttribute: "type.coding.code"
       operator: "one of"
-      criteria: "[room]"</code></pre>
+      criteria: "room"</code></pre>
 </div>
 </div>
 </div>
@@ -234,7 +252,7 @@ a condition is only executed if the parts in the condition are true. There are t
 <div class="sectionbody">
 <div class="paragraph">
 <p>Each condition has 4 fields. The <code>targetRoot</code> is the first one. It defines what element is returned once we
-filter it. This is important since the returned element is matched against the path in the <code>with</code> block. If these do
+filter it. This is important since the returned element is matched against the path in the <code>with</code> method. If these do
 not align, FHIRconnect won&#8217;t be able to filter correctly and the engine should return an error here.</p>
 </div>
 <div class="listingblock">
@@ -249,11 +267,11 @@ not align, FHIRconnect won&#8217;t be able to filter correctly and the engine sh
 </div>
 <div class="paragraph">
 <p>In the <code>fhirCondition</code> example, the <code>$resource.identifier</code> is the same in both paths. The condition is applied
-to each element in the identifier (0..n), and the <code>with</code> block only executes the mapping for those identifiers for which
+to each element in the identifier (0..n), and the <code>with</code> method only executes the mapping for those identifiers for which
 the condition is true.</p>
 </div>
 <div class="paragraph">
-<p>Meanwhile, if we were to write it like the example below, the condition block would try to filter on <code>type</code>, which does not
+<p>Meanwhile, if we were to write it like the example below, the condition method would try to filter on <code>type</code>, which does not
 match the element in the <code>with:</code> statement. This would result in an error.</p>
 </div>
 <div class="listingblock">
@@ -274,7 +292,7 @@ match the element in the <code>with:</code> statement. This would result in an e
 <div class="paragraph">
 <p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example above in FHIRPath would be
 written as <code>$resource.identifier.where(type.coding.code="room")</code>, therefore checking for the code <code>type</code> and returning
-the identifier entries that match. These are then the ones that are mapped in the <code>with:</code> block.</p>
+the identifier entries that match. These are then the ones that are mapped in the <code>with:</code> method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -286,7 +304,7 @@ the identifier entries that match. These are then the ones that are mapped in th
       targetRoot: "$resource.identifier" # same except for type
       targetAttribute: "type.coding.code" # access child nodes
       operator: "one of"
-      criteria: "[room]"</code></pre>
+      criteria: "room"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -328,14 +346,15 @@ ignored.</p>
 <div class="paragraph">
 <p>Important is also to mention, that conditions are always applied on the input data. They do not
 filter on the data that is currently mapped. When we map a FHIR resource into openEHR, only the fhirConditions are
-processed and in case of openEHR to FHIR its the other way around. So e.g. the openEHRCondition are not applied via
-mapping-time to the openEHR data we are currently mapping.</p>
+processed and in case of openEHR to FHIR it&#8217;s the other way around. So e.g. the openEHRCondition are not applied via
+mapping-time to the openEHR data we are currently mapping. There can be also several Attributes used, in this case
+the values need to be written as a yaml list using <code>-</code>.</p>
 </div>
 <div class="paragraph">
-<p>Conditions can also be unattached to the path contained in the <code>with:</code> block and point to a different path.
+<p>Conditions can also be unattached to the path contained in the <code>with:</code> method and point to a different path.
 This is sometimes necessary since there can be factors that influence the mapping in other places.
 These paths are handled as simple true/false and therefore differ in the way
-they interact with the <code>with:</code> block.</p>
+they interact with the <code>with:</code> method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -347,7 +366,7 @@ they interact with the <code>with:</code> block.</p>
       targetRoot: "$resource.some.otherPath"
       targetAttribute: "coding.code"
       operator: "one of"
-      criteria: "[someValue]"</code></pre>
+      criteria: "someValue"</code></pre>
 </div>
 </div>
 </div>
@@ -356,7 +375,7 @@ they interact with the <code>with:</code> block.</p>
 <h2 id="_operator"><a class="anchor" href="#_operator"></a>operator</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once we define on which path the condition is to be applied and how it relates (or does not relate) to the <code>with:</code> block,
+<p>Once we define on which path the condition is to be applied and how it relates (or does not relate) to the <code>with:</code> method,
 we need to decide on the operator we want to apply.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -373,23 +392,23 @@ we need to decide on the operator we want to apply.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>one of</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path contains one of the elements contained in <code>criteria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path contains one of the elements contained in <code>criteria</code>, uses <a href="https://en.wikipedia.org/wiki/Logical_conjunction"><strong>OR</strong></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>not of</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path does not contain one of the elements contained in <code>criteria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path does not contain one of the elements contained in <code>criteria</code>, uses <a href="https://en.wikipedia.org/wiki/Logical_conjunction"><strong>AND</strong></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>empty</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path is empty; does not include a <code>criteria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path is empty; does not include a <code>criteria</code>, uses <a href="https://en.wikipedia.org/wiki/Logical_conjunction"><strong>AND</strong></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>not empty</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path is not empty; does not include a <code>criteria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the path is not empty; does not include a <code>criteria</code>, uses <a href="https://en.wikipedia.org/wiki/Logical_conjunction"><strong>AND</strong></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the element in the path matches the given type in <code>criteria</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">checks if the element in the path matches the given type in <code>criteria</code>, uses <a href="https://en.wikipedia.org/wiki/Logical_conjunction"><strong>OR</strong></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -400,7 +419,7 @@ we need to decide on the operator we want to apply.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Defines the element that is combined with the operator and checked against the path. <code>criteria</code> is not required for
-<code>empty</code> or <code>not empty</code>. <code>criteria</code> is always represented as a list in YAML.</p>
+<code>empty</code> or <code>not empty</code>. <code>criteria</code> can be either a single element, or as a list (using <code>-</code>).</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -417,7 +436,7 @@ we need to decide on the operator we want to apply.</p>
       targetRoot: "$resource.location.identifier" # same except for type
       targetAttribute: "type.coding.code" # access child nodes
       operator: "one of"
-      criteria: "[room]"</code></pre>
+      criteria: "room"</code></pre>
 </div>
 </div>
 </div>
@@ -433,7 +452,7 @@ we need to decide on the operator we want to apply.</p>
       targetRoot: "$resource.verificationStatus.coding.code"
       targetAttribute: "value"
       operator: "not of"
-      criteria: "[entered-in-error]"</code></pre>
+      criteria: "entered-in-error"</code></pre>
 </div>
 </div>
 </div>
@@ -481,7 +500,7 @@ we need to decide on the operator we want to apply.</p>
       targetRoot: "$archetype"
       targetAttribute: "items[at0001]"
       operator: "type"
-      criteria: ["DV_CODED_TEXT"]</code></pre>
+      criteria: "DV_CODED_TEXT"</code></pre>
 </div>
 </div>
 </div>
@@ -515,7 +534,7 @@ spec:
       targetRoot: "$resource.verificationStatus"
       targetAttribute: "coding"
       operator: "one of"
-      criteria: "[entered-in-error]"</code></pre>
+      criteria: "entered-in-error"</code></pre>
 </div>
 </div>
 <div class="paragraph">

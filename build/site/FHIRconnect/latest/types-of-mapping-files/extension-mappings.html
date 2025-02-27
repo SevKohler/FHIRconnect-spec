@@ -81,12 +81,6 @@
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/cardinality.html">Cardinality</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/links-and-references.html">Links and references</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/demographics.html">Demographics</a>
   </li>
 </ul>
@@ -132,7 +126,13 @@
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="context-mappings.html">Context mappings</a>
+    <a class="nav-link" href="extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="composition-element.html">Mapping composition elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
 </ul>
   </li>
@@ -143,7 +143,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../engine/engine.html">Engine</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -182,7 +200,7 @@
     <li><a href="extension-mappings.html">Extension mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///C:/Users/Severin/repos/FHIRconnect/modules/ROOT/pages/types-of-mapping-files/extension-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/extension-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -190,9 +208,56 @@
 </aside>
 <article class="doc">
 <h1 class="page">The extension mappings</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Archetypes and resources are the core components of he models, but not the only ones. Both openEHR and FHIR
+have a second layer of models that interact with these. In FHIR the Profile changes the cardinality of fields,
+but also can add extensions. These extensions are fields are typically introduced by the user, since the resource
+does not cover everything. Also profiles, depending on the project, can make use of fields in a different way.</p>
+</div>
+<div class="paragraph">
+<p>OpenEHR on the other hand, has templates, these reference archetypes as building blocks and constrain them or
+add coding values etc. They do not extend the existing models.</p>
+</div>
+<div class="paragraph">
+<p>Both Templates and Profiles are done project specific. Therefore, for each project that is mapped, we need to
+introduce a set of alterations and extensions to our model-mappings. This is done in the <code>extension</code> mappings.
+An extension mapping always relates 1-to-1 to a model-mapping.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_file_structure"><a class="anchor" href="#_file_structure"></a>File structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Extension mappings are contained in the project folder. Here the folders are split depending on the project files they contain.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/ExtensionContextFolder2.PNG" alt="ExtensionContextFolder2">
+</div>
+</div>
+<div class="paragraph">
+<p>Inside the project folder, sub-folders represent each module that is mapped. These
+folders contain the extensions and context-files for one template (sometimes also more than for one template) .
+The context file is explained later in the chapter <a href="context-mappings.html" class="xref page">Context Mappings</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/ExtensionContextFolder3.PNG" alt="ExtensionContextFolder3">
+</div>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_extension_header"><a class="anchor" href="#_extension_header"></a>Extension header</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The <code>type</code> of header needs to be set to <code>extension</code>. Since it extends a existing mapping it does not need
+to reference the archetype etc. pp. again. The key <code>extends</code> is used to reference the model-mapping. Hereby,
+the name of the model-mapping is used.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
@@ -206,12 +271,6 @@ spec: # schema specific to the FHIRConnect v0.0.1 engine
   extends: CLUSTER.anatomical_location.v1 # the name of the model mapping that is to be extended</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_extension"><a class="anchor" href="#_extension"></a>Extension</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 </article>

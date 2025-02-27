@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Model Mappings :: FHIRconnect</title>
+    <title>Extension methods :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -119,13 +119,13 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="extension-methods.html">Extension methods</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -197,207 +197,253 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Types of Mapping files</li>
-    <li><a href="model-mappings.html">Model Mappings</a></li>
+    <li><a href="extension-methods.html">Extension methods</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/model-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/extension-methods.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Model Mappings</h1>
+<h1 class="page">Extension methods</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>The first layer of mappings consists of the model mappings.
-These serve as a reusable base for FHIR-to-openEHR mappings and form the core of FHIRconnect.
-Each of these mappings connects either an FHIR
-<a href="https://www.hl7.org/fhir/R4/domainresource.html">DomainResource</a> or
-an <a href="https://www.hl7.org/fhir/R4/backboneelement.html">BackboneElement</a> to an openEHR archetype.</p>
+<p>An extension always inherits all the mappings contained in the model-mapping. It can interact with these existing
+mappings by starting a mapping method and adding the <code>extends</code> key. Depending on the key different logic is executed.</p>
 </div>
-<div class="paragraph">
-<p>FHIRConnect was designed with the vision of creating a generically valid library of archetype-to-FHIR
-mappings. This library is the core strength of FHIRconnect. The goal is for this library to be
-maintained by the community, with everyone contributing their basic mappings, correcting existing ones,
-and adding new ones. In this way, the library will grow over time, containing an ever-increasing
-number of refined archetype mappings.</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 18%;">
+<col style="width: 82%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">types</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>add</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">adds a mapping to the model-mapping, always added to the button of the file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>append</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">appends mapping logic to a path inside the model-mapping</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>overwrite</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">overwrites the mapping method with the same name</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_header"><a class="anchor" href="#_header"></a>Header</h2>
+<h2 id="_add"><a class="anchor" href="#_add"></a>Add</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The model mapping header was already introduced in the first chapter under <a href="../basics/main.html" class="xref page">Header</a>.</p>
+<p>This extension method adds a mapping method to the model-mapping. It is always added at the button of them
+model-mapping file. So it could also overwrite prior methods to the same path.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this file
-type: model  # The type of mapping: model, extension, or context
-metadata:
-  name: ACTION.informed_consent.v0  # The name of the mapping
-  version: 0.0.1a  # The version of this particular mapping
-spec:  # Schema specific to the FHIRConnect v0.0.1 engine
-  system: FHIR  # Specifies what is being mapped
-  version: R4
-  openEhrConfig:
-    archetype: ACTION.informed_consent.v0  # The openEHR archetype being mapped in this model mapping
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent  # The FHIR StructureDefinition to which this is mapped</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_folders_and_namespaces"><a class="anchor" href="#_folders_and_namespaces"></a>Folders and Namespaces</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Each of these model mappings aims to be as generically valid as possible. They can be found in
-the <code>mapping/model</code> folder. Here, the models are organized based on their openEHR archetype type.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../_images/ModelFolder.png" alt="ModelFolder">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "problemQualifier"
+    extension: "add"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
+    slotArchetype: "CLUSTER.problem_qualifier.v2"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>OpenEHR has several model libraries, the most important of which is the
-<a href="https://ckm.openehr.org/ckm/">international CKM</a>. This contains the international models
-used by openEHR platforms. Model mappings for these can be found under the folder
-<code>org.openehr</code>, which indicates the namespace of an archetype. Sometimes, local models
-are designed to meet national requirements. For example, the models
-from <a href="https://ckm.highmed.org/ckm/">HiGHmed</a> are located under <code>org.highmed</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../_images/ModelFolder2.png" alt="ModelFolder2">
-</div>
-</div>
-<div class="paragraph">
-<p>Inside these folders, the model mappings are stored.
-Occasionally, there are two model mappings for the same archetype that differ in their FHIR output.
-For example, the dosage archetype has two mappings: one for dosage-to-dosage and another for
-dosage-to-backboneElement. The dosage-to-dosage mapping is treated as the default, so its name is
-simply <code>dosage.v2</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../_images/DifferentDosage.png" alt="DifferentDosage">
-</div>
-</div>
-<div class="paragraph">
-<p>This naming convention was chosen because the dosage-to-dosage mapping is naturally more
-comprehensive compared to the backboneElement mapping. For processing, these files are called by
-their <code>metadata.name</code>, making them distinguishable. The name of a model mapping file always starts
-with the name of the archetype (excluding the <code>openEHR-EHR-TYPE</code>).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_model_mapping_examples"><a class="anchor" href="#_model_mapping_examples"></a>Model Mapping Examples</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To illustrate the methods explained, here is an example of a mapping between the <code>problem_diagnose</code>
-archetype and the FHIR <code>Condition</code> resource.</p>
+<p>This impacts the model mapping file, via runtime, in the following way:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
-type: model
-metadata:
-  name: EVALUATION.problem_diagnosis.v1
-  version: 0.0.1-alpha
-spec:
-  system: FHIR
-  version: R4
-  openEhrConfig:
-    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
-
-mappings:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
 
   - name: "contextStartTime"
     with:
       fhir: "$resource.recordedDate"
       openehr: "$composition/context/start_time"
-
-  - name: "participations"
-    with:
-      fhir: "$resource.asserter"
-      openehr: "$composition/context/participations"
-    participationsFunction: "asserter"
-
-  - name: "composer"
-    with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
-
-  - name: "other_participations"
-    with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/other_participations"
-    participationsFunction: "asserter"
-
-  - name: "provider"
-    with:
-      fhir: "$resource.recorder"
-      openehr: "$archetype/provider"  # Often required, so the simplified mapping engine resolves Reference -&gt; Participations
-
-  - name: "problemDiagnose"
-    with:
-      fhir: "$resource.code"
-      openehr: "$archetype"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "problemDiagnoseName"
-          with:
-            fhir: "coding"
-            openehr: "data[at0001]/items[at0002]"
-        - name: "problemDiagnoseText"
-          with:
-            fhir: "text"
-            openehr: "data[at0001]/items[at0009]"
-
-  - name: "note"
-    with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0069]"
-
-  - name: "dateTime"
-    with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
-
-  - name: "bodySite"
-    with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
-
-  - name: "bodySiteCluster"
+#------ added --------
+  - name: "problemQualifier"
     with:
       fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
-
-  - name: "severity"
-    with:
-      fhir: "$resource.severity"
-      openehr: "$archetype/data[at0005]"</code></pre>
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
+    slotArchetype: "CLUSTER.problem_qualifier.v2"</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_mapping_0_0_fields"><a class="anchor" href="#_mapping_0_0_fields"></a>Mapping 0..0 fields</h2>
+<h2 id="_append"><a class="anchor" href="#_append"></a>Append</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Since model mappings should include all archetype to resource mappings, these will contain
-some mappings that are not part of the corresponding Profile/Templates (0..0). These are ignored
-and not executed.</p>
+<p>The append extension method appends a followedBy to a method. The method where it is to be appended to
+is referenced with the key <code>appendTo</code>. The value used is the name of the mapping method.  This can be also
+the child method. The path would be then <code>appendTo: parent.child</code></p>
+</div>
+<div class="paragraph">
+<p>Example of an append extension method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "wirkstofftyp"
+    extension: "append"
+    appendTo: "ingredients"
+    followedBy:
+      mappings:
+        - name: "wirkstofftypExtended"
+          with:
+            fhir: "$fhirRoot.ingredients.extension.value"
+            openehr: "$archetype/items[at0142]"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would impact a model-mapping file, via runtime, in the following way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "name"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype/items[at0132]"
+
+  - name: "ingredients"
+    with:
+      fhir: "$resource.ingredient"
+      openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
+    followedBy:
+      mappings:
+        - name: "ingredient"
+          with:
+            fhir: "item.as(CodeableConcept)"
+            openehr: "items[at0142]"
+  #----------- Append -----------------------------------
+        - name: "wirkstofftypExtended"
+          with:
+            fhir: "$fhirRoot.ingredients.extension.value"
+            openehr: "$archetype/items[at0142]"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To maintain readability the append is only transformed into a followedBy. If more logic is to be altered, the
+overwrite method is to be used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overwrite"><a class="anchor" href="#_overwrite"></a>Overwrite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To overwrite, overwrite an existing method contained in the model mapping. The name of the mapping method,
+is the name of the method in the model-mapping that is overwritten.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "dateTime"
+    extension: "overwrite"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "period"
+          with:
+            fhir: "onset.as(Period)"
+            openehr: "$archetype"
+            type: "DATETIME"
+          followedBy:
+            mappings:
+              - name: "start"
+                with:
+                  fhir: "$fhirRoot.start"
+                  openehr: "data[at0001]/items[at0077]"
+                  type: "DATETIME"
+
+              - name: "lebensphaseCluster"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+                slotArchetype: "CLUSTER.lebensphase.v0"
+
+        - name: "dateTime"
+          with:
+            fhir: "onset.as(DateTime)"
+            openehr: "data[at0001]/items[at0077]"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prior to extension use</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+  - name: "dateTime"
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the extension, the model-mapping would look like this via runtime:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+# ---------- Overwrite ---------------------------
+  - name: "dateTime"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "period"
+          with:
+            fhir: "onset.as(Period)"
+            openehr: "$archetype"
+          followedBy:
+            mappings:
+              - name: "start"
+                with:
+                  fhir: "$fhirRoot.start"
+                  openehr: "data[at0001]/items[at0077]"
+
+              - name: "lebensphaseCluster"
+                with:
+                  fhir: "$fhirRoot"
+                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+                slotArchetype: "CLUSTER.lebensphase.v0"
+
+        - name: "dateTime"
+          with:
+            fhir: "onset.as(DateTime)"
+            openehr: "data[at0001]/items[at0077]"</code></pre>
+</div>
 </div>
 </div>
 </div>
