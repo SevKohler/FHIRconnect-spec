@@ -1,62 +1,62 @@
-= Recurring elements
+= Recurring Elements
 :navtitle: Recurrence
 
-When mapping recurring elements, it is extremely important you pinpoint both FHIR data type and openEHR
-data type on the same level, otherwise recurring elements won't work as expected, and you may end up overwriting instead of
-mapping all data points.
+When mapping recurring elements, it is crucial to align both FHIR and openEHR data types
+at the same level. Otherwise, recurring elements may not function correctly, leading to
+data overwriting instead of properly mapping all occurrences.
 
-Example:
+== Example Mapping
+
 [source,yaml]
 ----
-  - name: "specimen"
-    extension: "add"
+ mappings:
+  - name: "recurring"
     with:
-      fhir: "$resource.specimen"
-      openehr: "$reference"
-      type: "NONE"
-    reference:
-      resourceType: "Specimen"
+     fhir: "$resource.diagnosis" # 0..n
+     openehr: "$archetype/data[at0001]" # 0..n
+     type: "NONE"
+    followedBy:
       mappings:
-        - name: "specimenRecurring"
+        - name: "code"
           with:
-            fhir: "$fhirRoot" #ServiceRequest FHIR Resource has a specimen that is recurring ($fhirRoot in this example is parent's specimen)
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]" # in openEHR, this item is a recurring element as well
-          followedBy:
-             mappings:
-                   - name: "type"
-                     with:
-                       fhir: "type"
-                       openehr: "items[at0029]"
-                   - name: "note"
-                     with:
-                       fhir: "note.text"
-                       openehr: "items[at0045]"
-
-----
-
-In the example above, both `ServiceRequest.specimen` as well as `$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]` are
-recurring elements, therefore they are specified on the same level in the mapping. All mappings of a specific occurrence of `specimen` are within `followedBy`
-or would otherwise need to be a `slotArchetype` mapping. In this way, all specimens are mapped.
-
-If contrary, you wrote something like this, you would be overriding the `specimen` with each occurrence and end up only with the last item being mapped:
-[source,yaml]
-----
-  - name: "specimen"
-    extension: "add"
-    with:
-      fhir: "$resource.specimen"
-      openehr: "$reference"
-      type: "NONE"
-    reference:
-      resourceType: "Specimen"
-      mappings:
-        - name: "type"
-          with:
-            fhir: "$fhirRoot.type"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0029]"
+            fhir: "use"
+            openehr: "/items[at0030]"
         - name: "note"
           with:
-            fhir: "$fhirRoot.note.text"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0045]"
-
+            fhir: "rank"
+            openehr: "items[at0045]"
 ----
+
+In the example above, both `diagnosis` and
+`$archetype/data[at0001]` are recurring elements (0..n) that map to each other.
+Therefore, they are mapped at the same level. Each occurrence of `diagnosis` is mapped within `followedBy`.
+This ensures that all diagnosis fields are properly mapped.
+
+== Incorrect Mapping
+
+If the mapping is structured incorrectly, as shown below, each occurrence of `diagnosis` would
+overwrite the previous one, resulting in only the last occurrence being mapped:
+
+[source,yaml]
+----
+ mappings:
+  - name: "recurring"
+    with:
+     fhir: "$resource.diagnosis" # 0..n
+     openehr: "$archetype/data[at0001]" # 0..n
+     type: "NONE" # do not map just iterate here, since the values are in the paths below
+    followedBy:
+      mappings:
+        - name: "$resource.diagnosis.code"
+          with:
+            fhir: "use"
+            openehr: "$archetype/data[at0001]/items[at0030]" #  would overwrite data[0001]
+        - name: "$resource.diagnosis.note"
+          with:
+            fhir: "rank"
+            openehr: "$archetype/data[at0001]/items[at0045]"  #  would overwrite and code data[0001]
+----
+
+This approach mistakenly nests the `type` and `note` mappings directly under `specimen`, causing
+each new occurrence to overwrite the previous one instead of maintaining all occurrences.
+

@@ -50,19 +50,16 @@ overwrite the `"start"` mapping since it maps the same path.
 [source,yaml]
 ----
 mappings:
-  - name: "period"
-    mappings:
-      - name: "start"
-        with:
-          fhir: "$resource.onset.as(Period).start"
-          openehr: "items[at0077]"
+  - name: "start"
+    with:
+      fhir: "$resource.onset.as(Period).start"
+      openehr: "items[at0077]"
 
-      - name: "lebensphaseCluster"
-        with:
-          fhir: "$resource.onset.as(Period)"
-          openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-        slotArchetype: "CLUSTER.lebensphase.v0"
-
+  - name: "lebensphaseCluster"
+    with:
+      fhir: "$resource.onset.as(Period)"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+    slotArchetype: "CLUSTER.lebensphase.v0"
 ----
 
 == Path construction
