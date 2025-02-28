@@ -65,5 +65,11 @@ mappings:
 
 ----
 
+== Path construction
 
+All followedBy mappings start with parent's path. In the example above, resolved path used for actual mapping
+of `- name: "start""` would be $resource.onset.as(Period).start. First part being from the parent and the `start` being
+from the followedBy mapping. In the same manner, openehr paths are concatenated.
 
+In case you do not want a followedBy mapping to include the parent's path, you can always reference `$openehrRoot`, `$archetype`,
+`$fhirRoot` or `$resource` (see: xref:basics/Variables.adoc[]).
