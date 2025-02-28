@@ -1,12 +1,12 @@
 = Recurring elements
 :navtitle: Recurrence
 
-When mapping recurring elements, it is extremely important you pin point both FHIR data type as well as openEHR
-data type on the same level, otherwise recurring elements wont work as expected and you may end up overwriting instead of
+When mapping recurring elements, it is extremely important you pinpoint both FHIR data type and openEHR
+data type on the same level, otherwise recurring elements won't work as expected, and you may end up overwriting instead of
 mapping all data points.
 
 Example:
-
+[source,yaml]
 ----
   - name: "specimen"
     extension: "add"
@@ -39,7 +39,7 @@ recurring elements, therefore they are specified on the same level in the mappin
 or would otherwise need to be a `slotArchetype` mapping. In this way, all specimens are mapped.
 
 If contrary, you wrote something like this, you would be overriding the `specimen` with each occurrence and end up only with the last item being mapped:
-
+[source,yaml]
 ----
   - name: "specimen"
     extension: "add"

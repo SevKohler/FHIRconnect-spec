@@ -52,8 +52,9 @@ In the `fhirCondition` example, the `$resource.identifier` is the same in both p
 to each element in the identifier (0..n), and the `with` method only executes the mapping for those identifiers for which
 the condition is true.
 
-Meanwhile, if we were to write it like the example below, the condition method would try to filter on `type`, meaning
-all identifiers where type is of a certain value would be mapped.
+Meanwhile, if we were to write it like the example below, the condition method would try to filter on
+`type`, which does not match the element in the `with:` statement. This would result in an error.
+
 [source,yaml]
 ----
   - name: "mapIdentifierForRoom"

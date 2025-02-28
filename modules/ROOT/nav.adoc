@@ -6,6 +6,7 @@
 *** xref:basics/Variables.adoc[]
 *** xref:basics/Conditions.adoc[]
 *** xref:basics/FollowedBy.adoc[]
+*** xref:basics/Recurrence.adoc[]
 
 ** Types of Mappings
 *** xref:types-of-mappings/main.adoc[]
@@ -23,6 +24,7 @@
 *** xref:types-of-mapping-files/extension-methods.adoc[]
 *** xref:types-of-mapping-files/composition-element.adoc[]
 *** xref:types-of-mapping-files/context-mappings.adoc[]
+*** xref:types-of-mapping-files/TemplateAgnostic.adoc[]
 
 * Engine
 ** xref:engine/engine.adoc[]
