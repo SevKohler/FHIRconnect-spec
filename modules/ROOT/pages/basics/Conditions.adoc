@@ -266,7 +266,7 @@ spec:
     archetype: openEHR-EHR-CLUSTER.problem_qualifier.v2
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
-    condition:
+    fhirCondition:
        - targetRoot: "$resource.verificationStatus"
          targetAttribute: "coding"
          operator: "one of"
