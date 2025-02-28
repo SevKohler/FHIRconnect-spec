@@ -18,6 +18,12 @@ mappings: # starts mappings
   - name: "dateTime" # name of the mapping
 ----
 
+Name of the mappings `- name: "dateTime"` is used also when a mapping is being extended
+(for `overwrite` or `append`, see: xref:types-of-mapping-files/extension-methods.adoc[]).
+
+It is proposed that camelCase is used when specifying mapping names, otherwise apart from being used when referenced
+in extension methods, they serve no deeper meaning.
+
 == with
 Inside these mapping methods, there is always a `with:` statement that contains `fhir` and `openehr` keys.
 These two keys indicate the paths that are mapped against each other.
@@ -33,7 +39,7 @@ mappings: # starts mappings
 
 In this example, we map an FHIR path `onset` to the corresponding openEHR path `at0077`
 (date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
-the engine. In this case, it would map an `effectiveDateTime` into a `DV_DATE_TIME`. If the engine
+the engine. In this case, it would map an `onset` into a `DV_DATE_TIME`. If the engine
 encounters two data types that are not transformable into each other, it will not execute the mapping.
 
 Sometimes, mappings do not transform these paths directly, depending on the mapping type used.

@@ -1,0 +1,62 @@
+= Recurring elements
+:navtitle: Recurrence
+
+When mapping recurring elements, it is extremely important you pin point both FHIR data type as well as openEHR
+data type on the same level, otherwise recurring elements wont work as expected and you may end up overwriting instead of
+mapping all data points.
+
+Example:
+
+----
+  - name: "specimen"
+    extension: "add"
+    with:
+      fhir: "$resource.specimen"
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenRecurring"
+          with:
+            fhir: "$fhirRoot" #ServiceRequest FHIR Resource has a specimen that is recurring ($fhirRoot in this example is parent's specimen)
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]" # in openEHR, this item is a recurring element as well
+          followedBy:
+             mappings:
+                   - name: "type"
+                     with:
+                       fhir: "type"
+                       openehr: "items[at0029]"
+                   - name: "note"
+                     with:
+                       fhir: "note.text"
+                       openehr: "items[at0045]"
+
+----
+
+In the example above, both `ServiceRequest.specimen` as well as `$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]` are
+recurring elements, therefore they are specified on the same level in the mapping. All mappings of a specific occurrence of `specimen` are within `followedBy`
+or would otherwise need to be a `slotArchetype` mapping. In this way, all specimens are mapped.
+
+If contrary, you wrote something like this, you would be overriding the `specimen` with each occurrence and end up only with the last item being mapped:
+
+----
+  - name: "specimen"
+    extension: "add"
+    with:
+      fhir: "$resource.specimen"
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "type"
+          with:
+            fhir: "$fhirRoot.type"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0029]"
+        - name: "note"
+          with:
+            fhir: "$fhirRoot.note.text"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0045]"
+
+----
