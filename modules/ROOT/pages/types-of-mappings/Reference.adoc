@@ -1,15 +1,14 @@
 = Reference
 :navtitle: Reference
 
-FHIR typically contains a lot of references. Resources are small building blocks that reference each other
+FHIR-based data typically contains a great number of references. Resources are small building blocks that reference each other
 to provide a comprehensive view of the patient information. The `reference:` logic was introduced to support this.
 It allows us to initialize a new resource in FHIR (or the other way around) and reference it inside the resource
 we are currently mapping.
 
-This is done with the `reference:` keyword. After this, the type of resource we want to initialize
-needs to be specified in `resourceType`. After that, the mapping follows the typical syntax. The openEHR key is
-always set with `openEHR: $reference`, since it's a resource initialization and no direct path mapping.
-Most of the time, this comes in combination with a `slotArchetype`, as in the example below.
+This is accomplished by the `reference:` keyword, followed by the type of resource we want to initialize in the `resourceType` attribute. The remaininge mapping follows the usual syntax. The openEHR key is
+always set with `openEHR: $reference`, since it is a resource initialization and no direct path mapping.
+Most of the time, reference comes in combination with a `slotArchetype`, as in the example below.
 
 [source,yaml]
 ----
