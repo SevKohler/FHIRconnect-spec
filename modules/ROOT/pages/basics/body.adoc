@@ -9,8 +9,8 @@ one of the models, it must be added to the model in FHIR or openEHR. Otherwise, 
 All mapping files start with the `mappings` key in their body, which is a list containing
 a set of named mappings.
 
-The `mappings:` body is followed by mapping methods. Each part starting with `- name: "mappingName"`
-is called a mapping method, and the children contained underneath are called child methods.
+The `mappings:` body is followed by mapping methods, each part starting with `- name: "mappingName"`.
+This is called a mapping method, and the children contained underneath are called child methods.
 
 [source,yaml]
 ----
@@ -37,10 +37,10 @@ mappings: # starts mappings
       openehr: "$archetype/data[at0001]/items[at0077]"
 ----
 
-In this example, we map an FHIR path `onset` to the corresponding openEHR path `at0077`
+In this example, FHIR path `onset` is mapped to the corresponding openEHR path `at0077`
 (date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
 the engine. In this case, it would map an `onset` into a `DV_DATE_TIME`. If the engine
-encounters two data types that are not transformable into each other, it will not execute the mapping.
+encounters two data types that are not transformable into each other, mapping will not be executed.
 
 Sometimes, mappings do not transform these paths directly, depending on the mapping type used.
 Specific keywords, explained in the following chapters, do not automatically transform these paths
@@ -48,11 +48,11 @@ but use them in another way. If no specific keys are used, the default behavior 
 are mapped against each other.
 
 == Top down processing
-The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
-the latter one in the order will overwrite the first one.
+The general way of processing in FHIRconnect is top down. If two mappings are mapped to the same path
+the later one in the order will overwrite the first one.
 Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
-that you iterate down the path of an element and step by step map each of the fields contained. More is explained
-later in the FollowedBy chapter
+that you iterate down the path of an element and step by step map each of the fields contained. This is explained
+further in the FollowedBy chapter
 
 == Undirectional
 To execute a mapping method unidirectional the `undirectional` key can be added to a `- name:` method. This way
