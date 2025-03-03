@@ -1,10 +1,10 @@
 = Concept type mappings
 :navtitle: Concept type mappings
 
-== Particaption mappings
-openEHR has a class in the Reference Model that standardizes how https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class[participation]
+== Participation mappings
+OpenEHR has a class in the Reference Model that standardizes how https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class[participation]
 of people for a activity are represented. The function in this method is not something that is auto-transformable. Therefore,
-it is  added to the `with:` statement, as an additional parameter to the automatic-transformation.
+it is added to the `with:` statement, as an additional parameter to the automatic-transformation.
 The presence of the `participationsFunction:` indicates this mapping type.
 
 [source,yaml]
@@ -19,7 +19,7 @@ The presence of the `participationsFunction:` indicates this mapping type.
 
 == Programmed mappings
 Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a unique logic.
-For this the Programmed mappings where introduced. Here a bit of code is called outside the mappings file
+For this the Programmed mappings where introduced. In this mapping an external bit of code is retrieved 
 and executed by the engine. The way how this code is provided and where is up to the vendor.
 This type of mapping will not auto-transform between the paths, since the mapping logic is done in the
 program code.
@@ -31,12 +31,12 @@ program code.
       fhir: "$fhirRoot.timing"
       openehr: "$archetype"
     # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
-    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR made up their own
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax
 ----
 
 
 == Linked mappings
-There are cases where we have to map data into another composition. To redirect a part of the FHIR data
+There are cases where it is needed to map data into another composition. To redirect a part of the FHIR data
 to a different FHIRconnect mapping the type `REFERENCED` can be used. Hereby, the engine checks
 the `meta.url` contained in the FHIR resource and searches all available FHIRconnect context mappings.
 If a context mapping for this `meta.url` is found, it is executed and saved as a separate composition.
