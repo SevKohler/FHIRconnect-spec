@@ -47,7 +47,7 @@ Each of which maps in the `followedBy` the elements of the cluster.
 If contrary, this would be overriding the `specimen` with each
 occurrence and end up only with the last item being mapped. It creates a new `specimen` for each specimen contained.
 It does map this only to one appearance in the cluster. Therefore, only the last specimen is transformed.
-Each other one overwrites the same paths all over.
+Each `note` and `type` method overwrites the predecessor one.
 
 [source,yaml]
 ----
