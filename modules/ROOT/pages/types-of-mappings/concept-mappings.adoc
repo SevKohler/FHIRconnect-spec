@@ -60,3 +60,27 @@ link are set in the `openEHRLink`.
             meaning: "Part of referenced event"
             type: "partOf"
 ----
+
+== NONE
+Does nothing, usually used to iterate and access nested elements of the path, via the child mapping methods.
+
+[source,yaml]
+----
+
+  - name: "problemDiagnose"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype"
+      type: "NONE" # iterate 0..n codes
+    followedBy:
+      mappings:
+        - name: "problemDiagnoseName"
+          with:
+            fhir: "coding"
+            openehr: "data[at0001]/items[at0002]"
+        - name: "problemDiagnoseText"
+          with:
+            fhir: "text"
+            openehr: "data[at0001]/items[at0009]"
+
+----

@@ -17,30 +17,25 @@ mappings:
   - name: "period"
     with:
       fhir: "$resource.onset.as(Period)"
-      openehr: "$archetype/data[at0001]"
+      openehr: "$archetype"
       type: "NONE"
-    openehrCondition:
-      targetRoot: "$archetype/data[at0001]"
-      targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-      operator: "not empty"
     followedBy:
       mappings:
         - name: "start"
           with:
             fhir: "start"
-            openehr: "items[at0077]"
+            openehr: "data[at0001]/items[at0077]"
 
         - name: "lebensphaseCluster"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
           slotArchetype: "CLUSTER.lebensphase.v0"
 ----
 
 Here, the onset is accessed if it is a period (FHIRPath helps us here as a shortcut instead of using `fhirCondition`)
 and executes a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
 Slot archetypes are explained in the next chapter.
-
 
 If it was writen as two single `with:` statements, the cluster mappings would, when converting openEHR to FHIR,
 overwrite the `"start"` mapping since it maps the same path.
@@ -51,11 +46,11 @@ mappings:
   - name: "start"
     with:
       fhir: "$resource.onset.as(Period).start"
-      openehr: "items[at0077]"
+      openehr: "$archetype/data[at0001]items[at0077]"
 
   - name: "lebensphaseCluster"
     with:
-      fhir: "$resource.onset.as(Period)"
+      fhir: "$resource.onset.as(Period)" # same path onset, overwrites start
       openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
     slotArchetype: "CLUSTER.lebensphase.v0"
 ----
@@ -63,8 +58,8 @@ mappings:
 == Path construction
 
 All followedBy mappings start with parent's path. In the example above, resolved path used for actual mapping
-of `- name: "start""` would be $resource.onset.as(Period).start. First part being from the parent and the `start` being
-from the followedBy mapping. In the same manner, openehr paths are concatenated.
+of `- name: "start"` would be $resource.onset.as(Period).start. First part being from the parent and
+the `start` being from the followedBy mapping. In the same manner, openEHR paths are concatenated.
 
-In case you do not want a followedBy mapping to include the parent's path, you can always reference `$openehrRoot`, `$archetype`,
+In case you do not want a followedBy mapping to include another path, you can reference `$openehrRoot`, `$archetype`,
 `$fhirRoot` or `$resource` (see: xref:basics/Variables.adoc[]).

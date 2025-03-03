@@ -1,18 +1,123 @@
 = Data mapping types
 :navtitle: Data mapping types
 
-##TODO annoying chapter, since we have to nail down how what is mapped, which is draining. have to do next week ##
+Mappings between two data values are executed depending on the data type of the element.
+As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
+path in openEHR, if its a valid data type.
 
-
+If no valid data-type is provided
 Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
 types contained in the serialized FHIR instances and openEHR compositions.
 
 This chapter is mainly used to describe how these mappings are to be processed.
 
+https://build.fhir.org/datatypes.html
+
+
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701
+https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958
+
+
+https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model
+Maybe we should list this as it should be transformed by data types:
+
+State that this depends on the input type, here we just introduce the easiest fits
+
+using openEHR types since started with
+
+
+== DV_TEXT
+String
+
+== TERM_MAPPING
+
+
+== CODE_PHRASE
+
+
+== DV_CODED_TEXT
+
+
+== DV_PARAGRAPH
+
+
+== DV_ORDERED
+
+
+== DV_INTERVAL
+
+
+== REFERENCE_RANGE
+
+
+== DV_ORDINAL
+
+
+== DV_SCALE
+
+
+== DV_QUANTIFIED
+
+
+== DV_AMOUNT
+
+
+== DV_QUANTITY
+
+
+== DV_COUNT
+
+
+== DV_PROPORTION
+
+
+== DV_ABSOLUTE_QUANTITY
+
+
+== DV_TEMPORAL
+
+
+== DV_DATE
+
+
+== DV_TIME
+
+
+== DV_DATE_TIME
+
+
+== DV_DURATION
+
+
+== DV_ENCAPSULATED
+
+
+== DV_MULTIMEDIA
+
+
+== DV_PARSABLE
+
+
+== DV_URI
+
+
+== DV_EHR_URI
+
+
+
+`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner ?
+
+
+
+
+== Deprecated
+This is the old way (v0.9) of mapping using static types, since the information is derivable from
+the instances of FHIR and openEHR this static typing is deprecated. It  creates more mapping
+fields and makes users required to map each field possible in a data type manually.
+
 [cols="^1,^1,^1,^2", options="header"]
 |===
 | Type ID / FHIR  | openEHR       | Primitive | "FLAT / FHIR" Attributes Pairs
-| NONE            | NONE          | false     | /
 | QUANTITY        | DV_QUANTITY   | true      | magnitude / value +<br> unit / unit
 | QUANTITY        | DV_ORDINAL    | true      | ordinal / value +<br> value / unit +<br> code / code
 | QUANTITY        | DV_COUNT      | true      | (direct)
@@ -22,71 +127,4 @@ This chapter is mainly used to describe how these mappings are to be processed.
 | STRING          | DV_TEXT       | true      | (direct)
 | DOSAGE          | NONE          | false     | (special)
 |===
-
-https://build.fhir.org/datatypes.html
-
-
-== NONE
-Does nothing, usually used to access nested elements of the path, in the child mapping methods.
-
-== QUANTITY
-Maps
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701
-https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958
-
-
-== DATETIME
-
-== CODING
-
-== CODEABLECONCEPT
-
-term mappings
-
-== STRING
-
-== IDENTIFIER
-
-##I think we also maybe talk about dynamics typing or is this we leave up to the engine how it is processing the order
-and prioritizing it. ##
-
-
-
-##These are the ones we have to adress, at least in the spec (the library should contain which ones are not supported)
-##
-
-https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model
-Maybe we should list this as it should be transformed by data types:
-
-5.2.1. DV_TEXT Class
-5.2.2. TERM_MAPPING Class
-5.2.3. CODE_PHRASE Class
-5.2.4. DV_CODED_TEXT Class
-5.2.5. DV_PARAGRAPH Class
-6.2.1. DV_ORDERED Class
-6.2.2. DV_INTERVAL Class
-6.2.3. REFERENCE_RANGE Class
-6.2.4. DV_ORDINAL Class
-6.2.5. DV_SCALE Class
-6.2.6. DV_QUANTIFIED Class
-6.2.7. DV_AMOUNT Class
-6.2.8. DV_QUANTITY Class
-6.2.9. DV_COUNT Class
-6.2.10. DV_PROPORTION Class
-6.2.12. DV_ABSOLUTE_QUANTITY Class
-7.2.1. DV_TEMPORAL Class
-7.2.2. DV_DATE Class
-7.2.3. DV_TIME Class
-7.2.4. DV_DATE_TIME Class
-7.2.5. DV_DURATION Class
-9.2.1. DV_ENCAPSULATED Class
-9.2.2. DV_MULTIMEDIA Class
-9.2.3. DV_PARSABLE Class
-10.3.1. DV_URI Class
-10.3.2. DV_EHR_URI Class
-10.4.1. DV_EHR_URI Syntax
-
-
-`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner ?
-
 
