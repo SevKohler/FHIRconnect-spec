@@ -2,7 +2,7 @@
 :navtitle: Mapping types
 
 There are different types of mappings, in general most of it is autoresolved by the engine with
-dynamic typing. Typec can be enforced by using the `type:` key in the `with:` clause.
+dynamic typing. Types can be enforced by using the `type:` key in the `with:` clause.
 
 There are two categories of types, one are data types. These are primitive mappings
 that transform one data element into another.
