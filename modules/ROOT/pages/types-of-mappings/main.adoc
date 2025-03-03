@@ -2,9 +2,9 @@
 :navtitle: Mapping types
 
 There are different types of mappings, in general most of it is autoresolved by the engine with
-dynamic typing. We can enforce types if we want to by using the `type:` key in the `with:` clause.
+dynamic typing. Typec can be enforced by using the `type:` key in the `with:` clause.
 
-There are two categories of types, one are data types these are primitive mappigns
+There are two categories of types, one are data types. These are primitive mappings
 that transform one data element into another.
 
 [width="100%",cols="18%,82%",options="header",]
@@ -23,8 +23,7 @@ that transform one data element into another.
 |`IDENTIFIER` |Maps two identifiers
 |===
 
-Then there is the category of concept types that are used for everything that does not directly transform
-two data types into each other.
+Secodn one are the category of concept types that are used for transformations more complex than data types.
 
 
 [width="100%",cols="18%,82%",options="header",]
@@ -37,7 +36,7 @@ two data types into each other.
 
 |`REFERENCE` | Creates and reference a new resource in FHIR
 
-|`HIERARCHY` | Alignes different levels of structure to each other
+|`HIERARCHY` | Aligns different levels of structure to each other
 
 |`PROGRAMMED` | References a part of code outside the FHIRconnect files
 
@@ -48,4 +47,4 @@ two data types into each other.
 |===
 
 
-These types are now explained in more detail in the following chapters
+These types are explained in more detail in the following chapters
