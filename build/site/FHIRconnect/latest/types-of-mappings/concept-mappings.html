@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="concept-mappings.html">Concept type mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -209,12 +215,12 @@
 <article class="doc">
 <h1 class="page">Concept type mappings</h1>
 <div class="sect1">
-<h2 id="_particaption_mappings"><a class="anchor" href="#_particaption_mappings"></a>Particaption mappings</h2>
+<h2 id="_participation_mappings"><a class="anchor" href="#_participation_mappings"></a>Participation mappings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>openEHR has a class in the Reference Model that standardizes how <a href="https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class">participation</a>
+<p>OpenEHR has a class in the Reference Model that standardizes how <a href="https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class">participation</a>
 of people for a activity are represented. The function in this method is not something that is auto-transformable. Therefore,
-it is  added to the <code>with:</code> statement, as an additional parameter to the automatic-transformation.
+it is added to the <code>with:</code> statement, as an additional parameter to the automatic-transformation.
 The presence of the <code>participationsFunction:</code> indicates this mapping type.</p>
 </div>
 <div class="listingblock">
@@ -233,7 +239,7 @@ The presence of the <code>participationsFunction:</code> indicates this mapping 
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a unique logic.
-For this the Programmed mappings where introduced. Here a bit of code is called outside the mappings file
+For this the Programmed mappings where introduced. In this mapping an external bit of code is retrieved
 and executed by the engine. The way how this code is provided and where is up to the vendor.
 This type of mapping will not auto-transform between the paths, since the mapping logic is done in the
 program code.</p>
@@ -245,7 +251,7 @@ program code.</p>
       fhir: "$fhirRoot.timing"
       openehr: "$archetype"
     # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
-    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR made up their own</code></pre>
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax</code></pre>
 </div>
 </div>
 </div>
@@ -254,7 +260,7 @@ program code.</p>
 <h2 id="_linked_mappings"><a class="anchor" href="#_linked_mappings"></a>Linked mappings</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are cases where we have to map data into another composition. To redirect a part of the FHIR data
+<p>There are cases where it is needed to map data into another composition. To redirect a part of the FHIR data
 to a different FHIRconnect mapping the type <code>REFERENCED</code> can be used. Hereby, the engine checks
 the <code>meta.url</code> contained in the FHIR resource and searches all available FHIRconnect context mappings.
 If a context mapping for this <code>meta.url</code> is found, it is executed and saved as a separate composition.
@@ -277,6 +283,33 @@ link are set in the <code>openEHRLink</code>.</p>
           openehrLink:
             meaning: "Part of referenced event"
             type: "partOf"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_none"><a class="anchor" href="#_none"></a>NONE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Does nothing, usually used to iterate and access nested elements of the path, via the child mapping methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "problemDiagnose"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype"
+      type: "NONE" # iterate 0..n codes
+    followedBy:
+      mappings:
+        - name: "problemDiagnoseName"
+          with:
+            fhir: "coding"
+            openehr: "data[at0001]/items[at0002]"
+        - name: "problemDiagnoseText"
+          with:
+            fhir: "text"
+            openehr: "data[at0001]/items[at0009]"</code></pre>
 </div>
 </div>
 </div>

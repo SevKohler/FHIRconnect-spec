@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="main.html">Header</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -243,7 +249,7 @@ type: model  # the type of mapping: model, extension or context</code></pre>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The metadata defines the name of the mapping, that is a unique id used to identify the mapping and reference it.
-The version represents which version of the mapping this is. Sometimes its necessary to maintain several versions.</p>
+The version represents which version of the mapping. Different versions can coexist, as sometimes its necessary to maintain several versions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -261,8 +267,7 @@ metadata:
 <div class="sectionbody">
 <div class="paragraph">
 <p>This defines what standard is mapped by the file, in our case <code>FHIR</code> and which Release of it. The current spec was designed
-based on R4. It was not tested with any other Releases, but since FHIRconnect operates on paths, there shouldn&#8217;t be any
-problems.</p>
+based on R4. FHIRconnect has not been tested with any other FHIR Releases, but no problems are expected as FHIRconnect operates on paths.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -283,11 +288,11 @@ spec: # schema specific to the FHIRConnect v0.0.1 engine
 </div>
 <div class="paragraph">
 <p>The <code>openEHRConfig.archetype</code> defines which archetypes is mapped, in case of a model mapping.
-The <code>openEHRCondig.revision</code> states what revision of the archetype this mapping is for.</p>
+The <code>openEHRCondig.revision</code> states what revision of the archetype this mapping applies for.</p>
 </div>
 <div class="paragraph">
-<p>The <code>fhirConfig.structureDefintion</code> contains the information which FHIR StructureDefinition is mapped.
-This is just informal for the user and has no impact on the mapping.</p>
+<p>The <code>fhirConfig.structureDefintion</code> contains the information about which FHIR StructureDefinition is mapped.
+This is just information for the user and has no impact on the mapping.</p>
 </div>
 </div>
 </div>
@@ -296,8 +301,8 @@ This is just informal for the user and has no impact on the mapping.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Naming conventions are as follows: Names of model mappings always start with the type of openEHR
-class (e.g., EVALUATION) and the full name and version. Sometimes it happens that two resources
-can be transformed into one archetype. In this case, the name of the mapping is to be extended
+class (e.g., EVALUATION) and the full name and version. It can happen that two resources
+are transformed into one archetype. In this case, the name of the mapping is to be extended
 with what FHIR type is mapped to what openEHR archetype:</p>
 </div>
 <div class="ulist">
@@ -315,7 +320,7 @@ FHIR medication but an FHIR substance)</p>
 <p>This allows for separately calling these archetype mappings for different use cases. The initial one
 created always stays as <code>CLUSTER.medication.v2</code> and is to be seen as the default. All future mappings
 created that also map to medication but from another FHIR input must add a string to their name as
-described above. We deem the first mapping as the default one. Furthermore, we want to prevent
+described above. We deem the first mapping as the default one. This will prevent
 dependency problems by renaming the file later on. For extension and context mapping names,
 there is no specific style guide, as this is a project-specific decision users have to make.</p>
 </div>

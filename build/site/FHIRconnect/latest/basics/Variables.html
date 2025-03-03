@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="Variables.html">Variables</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -211,7 +217,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To address specific parts of the models, variables are used. Modeling variables/references are required to create
+<p>Variables are used to address specific parts of the models. Modeling variables/references are required to create
 reusable paths.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -248,7 +254,7 @@ reusable paths.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$reference</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Helper to indicate a skipped path, due to a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Helper to indicate a skipped path, due to resolving a reference</p></td>
 </tr>
 </tbody>
 </table>
@@ -263,7 +269,16 @@ Both would be resolved as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">..
+spec:
+..
+  openEhrConfig:
+    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+    revision: 1.4.1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+
+mappings:
   - name: "dateTime" # name of the mapping
     with:
       fhir: "$resource.onset" # "Condition.onset"
@@ -276,7 +291,7 @@ Both would be resolved as follows:</p>
 <h2 id="_composition"><a class="anchor" href="#_composition"></a><code>$composition</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>$composition</code> is used to address elements that are not inside the archetype but are part of the surrounding
+<p><code>$composition</code> is used to address elements that are not inside the archetype but are part of the context of the surrounding
 composition that contains it. Typically, this is used to map elements like the composer, etc.</p>
 </div>
 <div class="listingblock">
@@ -290,13 +305,12 @@ composition that contains it. Typically, this is used to map elements like the c
 </div>
 </div>
 <div class="sect1">
-<h2 id="_openehrroot_and_fhirroot"><a class="anchor" href="#_openehrroot_and_fhirroot"></a><code>$openEHRRoot</code> and <code>$FHIRRoot</code></h2>
+<h2 id="_openehrroot_and_fhirroot"><a class="anchor" href="#_openehrroot_and_fhirroot"></a><code>$openehrRoot</code> and <code>$fhirRoot</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>$openEHRRoot</code> and <code>$FHIRRoot</code> are used to access a path from the parent mapping.
-Mappings in FHIRConnect are top-down and can be nested. Each nesting always accesses the parent path
-and adds a new child to it. Sometimes, you want to address the parent instead of a child. In this case,
-you use the root variables.</p>
+<p><code>$openehrRoot</code> and <code>$fhirRoot</code> are used to access a path from the parent mapping.
+Mappings in FHIRConnect are top-down and can be nested. Each nested path always accesses the parent path
+and adds a new child to it. If you want to point to the parent instead of a child, you must use the root variables.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -328,7 +342,7 @@ you use the root variables.</p>
 <p>Sometimes, there is no direct openEHR mapping available. Typically, this happens when another FHIR resource type needs
 to be created. OpenEHR usually bundles all the information contained in a composition, whereas in FHIR, this information
 is typically spread across multiple resources. The <code>$reference</code> variable indicates that there is no direct mapping to
-openEHR. Usually, this is handled in the next method.</p>
+openEHR. Usually, this is handled in the following method.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>

@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="manual.html">Manual mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/manual.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/manual.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -211,10 +217,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Sometimes we cannot transform paths automatically, or we have to set a static value somewhere. For this the manual mappings
+<p>Sometimes paths cannot be automatically transformed, or a path must be set to a static value. For this the manual mappings
 where introduced. Manual mappings are initialized using the <code>manual:</code> key which is followed by a name.
-Then we define what standard we want to manual map for openEHR or FHIR, this can be also both. This is followed
-by a list of paths <code>- path:</code> and the value we map <code>- value:</code>. Like this we can set several paths in the same time.</p>
+This manual mapping defines what standard the mapping applies to (openehr, fhir, or both openehr and fhir). This is followed
+by a list of paths <code>- path:</code> and the value we map <code>- value:</code>. Several paths can be set at the same time.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -269,9 +275,9 @@ by a list of paths <code>- path:</code> and the value we map <code>- value:</cod
 </div>
 </div>
 <div class="paragraph">
-<p>In case of manual, inside the a manual mapping method, paths do not overwrite each other.
-We craft an element in FHIR or openEHR. Otherwise the e.g. <code>defining_code/terminology_id/value</code> and <code>defining_code/code_string</code>
-would overwrite each other. Instead they are merges together.</p>
+<p>Inside manual mapping method, paths do not overwrite each other.
+Full FHIR or openEHR elements are created from all given paths. For example <code>defining_code/terminology_id/value</code> and <code>defining_code/code_string</code>
+are merged together in the same data element and do not overwrite.</p>
 </div>
 <div class="paragraph">
 <p>Another typical use case would be to hardcode, extension urls in FHIR.</p>
@@ -307,8 +313,8 @@ would overwrite each other. Instead they are merges together.</p>
 <h2 id="_conceptmaps"><a class="anchor" href="#_conceptmaps"></a>ConceptMaps</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In general manual mappings are simple in nature, but require a lot of maintenance.
-To mitigate this the use of  <a href="https://build.fhir.org/conceptmap.html">FHIRconceptMaps</a> is recommended.
+<p>In general manual mappings are simple in nature, but require maintenance.
+To mitigate this the use of <a href="https://build.fhir.org/conceptmap.html">FHIRconceptMaps</a> is recommended.
 These can be used in the FHIRconnect spec using the <code>conceptmap:</code> key, that points to the conceptMap Url.</p>
 </div>
 <div class="listingblock">
@@ -328,7 +334,7 @@ These can be used in the FHIRconnect spec using the <code>conceptmap:</code> key
 </div>
 <div class="paragraph">
 <p>The concept map can also be directly attached inside the header, this way all codes contained in the
-conceptmap will be transformed using the conceptmap, if encountered in the mapping.</p>
+conceptmap will be transformed using the conceptmap, if it appears in the mapping.</p>
 </div>
 <div class="listingblock">
 <div class="content">
