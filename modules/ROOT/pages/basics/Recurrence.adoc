@@ -13,7 +13,7 @@ data overwriting instead of properly mapping all occurrences.
   - name: "recurring"
     with:
      fhir: "$resource.diagnosis" # 0..n
-     openehr: "$archetype/data[at0001]" # 0..n
+     openehr: "$archetype/data[at0001]/data[0002]" # 0..n
      type: "NONE"
     followedBy:
       mappings:
@@ -28,7 +28,7 @@ data overwriting instead of properly mapping all occurrences.
 ----
 
 In the example above, both `diagnosis` and
-`$archetype/data[at0001]` are recurring elements (0..n) that map to each other.
+`$archetype/data[at0001]/data[0002]` are recurring elements (0..n) that map to each other.
 Therefore, they are mapped at the same level. Each occurrence of `diagnosis` is mapped within `followedBy`.
 This ensures that all diagnosis fields are properly mapped.
 
@@ -43,20 +43,21 @@ overwrite the previous one, resulting in only the last occurrence being mapped:
   - name: "recurring"
     with:
      fhir: "$resource.diagnosis" # 0..n
-     openehr: "$archetype/data[at0001]" # 0..n
+     openehr: "$archetype/data[at0001]" # 1..1
      type: "NONE" # do not map just iterate here, since the values are in the paths below
     followedBy:
       mappings:
-        - name: "$resource.diagnosis.code"
+        - name: "code"
           with:
-            fhir: "use"
-            openehr: "$archetype/data[at0001]/items[at0030]" #  would overwrite data[0001]
-        - name: "$resource.diagnosis.note"
+            fhir: "code"
+            openehr: "data[0002]/items[at0030]" #  0..n
+        - name: "note"
           with:
-            fhir: "rank"
-            openehr: "$archetype/data[at0001]/items[at0045]"  #  would overwrite and code data[0001]
+            fhir: "note"
+            openehr: "data[0002]/items[at0045]"  #  0..n  would overwrite "code", since it write into data[0002
 ----
 
-This approach mistakenly nests the `type` and `note` mappings directly under `specimen`, causing
+This approach mistakenly nests the `code` and `note` mappings directly under `recurring`, causing
 each new occurrence to overwrite the previous one instead of maintaining all occurrences.
-
+Furthermore, when mapping back from openEHR into FHIR, there will be only one instance transformed
+into `diagnosis`, since `data[at0001]` has just a single occurrence and was used instead of `data[0002]`.
