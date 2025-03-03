@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="data-mappings.html">Data mapping types</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -211,14 +217,448 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><mark>TODO annoying chapter, since we have to nail down how what is mapped, which is draining. have to do next week </mark></p>
+<p>Mappings between two data values are executed depending on the data type of the element.
+As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
+path in openEHR, if its a valid data type.</p>
 </div>
 <div class="paragraph">
-<p>Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
+<p>If no valid data-type is provided
+Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
 types contained in the serialized FHIR instances and openEHR compositions.</p>
 </div>
 <div class="paragraph">
 <p>This chapter is mainly used to describe how these mappings are to be processed.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://build.fhir.org/datatypes.html" class="bare">https://build.fhir.org/datatypes.html</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701" class="bare">https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701</a>
+<a href="https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958" class="bare">https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model" class="bare">https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model</a>
+Maybe we should list this as it should be transformed by data types:</p>
+</div>
+<div class="paragraph">
+<p>State that this depends on the input type, here we just introduce the easiest fits</p>
+</div>
+<div class="paragraph">
+<p>using openEHR types since started with</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_text"><a class="anchor" href="#_dv_text"></a>DV_TEXT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The transformation is lacking here a good mapping to FHIR.
+String is the one that comes closest:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888">String</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">opeEHR</th>
+<th class="tableblock halign-center valign-top">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_coded_text"><a class="anchor" href="#_dv_coded_text"></a>DV_CODED_TEXT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/83219">CodeableConcept</a>
+to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class">DV_CODED_TEXT</a>.</p>
+</div>
+<div class="paragraph">
+<p>FHIRconnect engine checks, if the defining_code requires a specific terminology like e.g. SNOMED-CT that
+is also contained in the coding. If yes, this one should be transformed into the defining_code instead of the first one.
+This can only be done, if both FHIR and openEHR reference the same terminology id for that element.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise, FHIRconnect transforms the first appearance of coding into the defining_code.
+Each further coding is transformed into the term_mappings.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..n, either first one or the one with the same terminology_system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">defining_code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1, see <a href="#CODE_PHRASE">CODE_PHRASE</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">defining_code/preferred_term</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">is added to the defining_code preferred_term</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">each one that was not mapped in defining_code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="#TERM_MAPPING">TERM_MAPPING</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+   "_type" : "DV_CODED_TEXT",
+    "value" : "fever",
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8",
+       "preferred_term": "Fever"
+    },
+  "mappings": [
+    {
+      "_type": "TERM_MAPPING",
+      "match": "=",
+      "purpose": "multiple_coding",
+      "target": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+          "_type": "TERMINOLOGY_ID",
+          "value": "http://snomed.info/sct"
+        },
+        "code_string": "386661006"
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"code": {
+        "coding":  [
+            {
+                "system": "http://loinc.org",
+                "code": "LP74849-8",
+                "display": "Fever"
+            },
+            {
+                "system": "http://snomed.info/sct",
+                "code": "386661006",
+                "display": "Fever"
+            }
+        ],
+      "text": "Fever"
+    },
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CODE_PHRASE"><a class="anchor" href="#CODE_PHRASE"></a>CODE_PHRASE</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">opeEHR</th>
+<th class="tableblock halign-center valign-top">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TERM_MAPPING"><a class="anchor" href="#TERM_MAPPING"></a>TERM_MAPPING</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>use match <code>=</code> purpose multi_coding
+target easy</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_paragraph"><a class="anchor" href="#_dv_paragraph"></a>DV_PARAGRAPH</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_ordered"><a class="anchor" href="#_dv_ordered"></a>DV_ORDERED</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_interval"><a class="anchor" href="#_dv_interval"></a>DV_INTERVAL</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reference_range"><a class="anchor" href="#_reference_range"></a>REFERENCE_RANGE</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_ordinal"><a class="anchor" href="#_dv_ordinal"></a>DV_ORDINAL</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_scale"><a class="anchor" href="#_dv_scale"></a>DV_SCALE</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_quantified"><a class="anchor" href="#_dv_quantified"></a>DV_QUANTIFIED</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_amount"><a class="anchor" href="#_dv_amount"></a>DV_AMOUNT</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_quantity"><a class="anchor" href="#_dv_quantity"></a>DV_QUANTITY</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_count"><a class="anchor" href="#_dv_count"></a>DV_COUNT</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_proportion"><a class="anchor" href="#_dv_proportion"></a>DV_PROPORTION</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_absolute_quantity"><a class="anchor" href="#_dv_absolute_quantity"></a>DV_ABSOLUTE_QUANTITY</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_temporal"><a class="anchor" href="#_dv_temporal"></a>DV_TEMPORAL</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_date"><a class="anchor" href="#_dv_date"></a>DV_DATE</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_time"><a class="anchor" href="#_dv_time"></a>DV_TIME</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_date_time"><a class="anchor" href="#_dv_date_time"></a>DV_DATE_TIME</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_duration"><a class="anchor" href="#_dv_duration"></a>DV_DURATION</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_encapsulated"><a class="anchor" href="#_dv_encapsulated"></a>DV_ENCAPSULATED</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_multimedia"><a class="anchor" href="#_dv_multimedia"></a>DV_MULTIMEDIA</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_parsable"><a class="anchor" href="#_dv_parsable"></a>DV_PARSABLE</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_uri"><a class="anchor" href="#_dv_uri"></a>DV_URI</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dv_ehr_uri"><a class="anchor" href="#_dv_ehr_uri"></a>DV_EHR_URI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DV_IDENTIFIER</code>: type, type system <code>` `::` `</code> value, value assigner, assigner ?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deprecated"><a class="anchor" href="#_deprecated"></a>Deprecated</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is the old way (v0.9) of mapping using static types, since the information is derivable from
+the instances of FHIR and openEHR this static typing is deprecated. It  creates more mapping
+fields and makes users required to map each field possible in a data type manually.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -236,12 +676,6 @@ types contained in the serialized FHIR instances and openEHR compositions.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NONE</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NONE</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">/</p></td>
-</tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">DV_QUANTITY</p></td>
@@ -292,102 +726,6 @@ types contained in the serialized FHIR instances and openEHR compositions.</p>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html" class="bare">https://build.fhir.org/datatypes.html</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_none"><a class="anchor" href="#_none"></a>NONE</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Does nothing, usually used to access nested elements of the path, in the child mapping methods.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_quantity"><a class="anchor" href="#_quantity"></a>QUANTITY</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Maps
-<a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701" class="bare">https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701</a>
-<a href="https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958" class="bare">https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_datetime"><a class="anchor" href="#_datetime"></a>DATETIME</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_coding"><a class="anchor" href="#_coding"></a>CODING</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_codeableconcept"><a class="anchor" href="#_codeableconcept"></a>CODEABLECONCEPT</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>term mappings</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_string"><a class="anchor" href="#_string"></a>STRING</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_identifier"><a class="anchor" href="#_identifier"></a>IDENTIFIER</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><mark>I think we also maybe talk about dynamics typing or is this we leave up to the engine how it is processing the order
-and prioritizing it. </mark></p>
-</div>
-<div class="paragraph">
-<p><mark>These are the ones we have to adress, at least in the spec (the library should contain which ones are not supported)
-</mark></p>
-</div>
-<div class="paragraph">
-<p><a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model" class="bare">https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model</a>
-Maybe we should list this as it should be transformed by data types:</p>
-</div>
-<div class="paragraph">
-<p>5.2.1. DV_TEXT Class
-5.2.2. TERM_MAPPING Class
-5.2.3. CODE_PHRASE Class
-5.2.4. DV_CODED_TEXT Class
-5.2.5. DV_PARAGRAPH Class
-6.2.1. DV_ORDERED Class
-6.2.2. DV_INTERVAL Class
-6.2.3. REFERENCE_RANGE Class
-6.2.4. DV_ORDINAL Class
-6.2.5. DV_SCALE Class
-6.2.6. DV_QUANTIFIED Class
-6.2.7. DV_AMOUNT Class
-6.2.8. DV_QUANTITY Class
-6.2.9. DV_COUNT Class
-6.2.10. DV_PROPORTION Class
-6.2.12. DV_ABSOLUTE_QUANTITY Class
-7.2.1. DV_TEMPORAL Class
-7.2.2. DV_DATE Class
-7.2.3. DV_TIME Class
-7.2.4. DV_DATE_TIME Class
-7.2.5. DV_DURATION Class
-9.2.1. DV_ENCAPSULATED Class
-9.2.2. DV_MULTIMEDIA Class
-9.2.3. DV_PARSABLE Class
-10.3.1. DV_URI Class
-10.3.2. DV_EHR_URI Class
-10.4.1. DV_EHR_URI Syntax</p>
-</div>
-<div class="paragraph">
-<p><code>DV_IDENTIFIER</code>: type, type system <code>` `::` `</code> value, value assigner, assigner ?</p>
-</div>
 </div>
 </div>
 </article>

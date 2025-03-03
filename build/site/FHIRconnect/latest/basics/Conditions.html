@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="Conditions.html">Condition</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -211,9 +217,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Conditions are introduced to implement an IF logic for FHIRconnect. This means that the mapping method that has
+<p>Conditions implement conditional logic in FHIRconnect. The mapping method that has
 a condition is only executed if the parts in the condition are true. There are two types of conditions:
-<code>openEHRCondition</code> and <code>fhirCondition</code> for each corresponding standard.</p>
+<code>openehrCondition</code> and <code>fhirCondition</code>, one for each corresponding standard.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -251,9 +257,8 @@ a condition is only executed if the parts in the condition are true. There are t
 <h2 id="_targetroot"><a class="anchor" href="#_targetroot"></a>targetRoot</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each condition has 4 fields. The <code>targetRoot</code> is the first one. It defines what element is returned once we
-filter it. This is important since the returned element is matched against the path in the <code>with</code> method. If these do
-not align, FHIRconnect won&#8217;t be able to filter correctly and the engine should return an error here.</p>
+<p>Each condition has 4 fields. The <code>targetRoot</code> is the first one. It defines what element is returned once filtered. This is important since the returned element is matched against the path in the <code>with</code> method. If these do
+not align, FHIRconnect will not be able to filter correctly and the engine should return an error here.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -271,8 +276,8 @@ to each element in the identifier (0..n), and the <code>with</code> method only 
 the condition is true.</p>
 </div>
 <div class="paragraph">
-<p>Meanwhile, if we were to write it like the example below, the condition method would try to filter on <code>type</code>, which does not
-match the element in the <code>with:</code> statement. This would result in an error.</p>
+<p>Meanwhile, for the following example, the condition method would try to filter on
+<code>type</code>, which does not match the element in the <code>with:</code> statement. This would result in an error.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -292,7 +297,7 @@ match the element in the <code>with:</code> statement. This would result in an e
 <div class="paragraph">
 <p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example above in FHIRPath would be
 written as <code>$resource.identifier.where(type.coding.code="room")</code>, therefore checking for the code <code>type</code> and returning
-the identifier entries that match. These are then the ones that are mapped in the <code>with:</code> method.</p>
+the identifier entries that match. These are the ones that are mapped in the <code>with:</code> method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -308,7 +313,7 @@ the identifier entries that match. These are then the ones that are mapped in th
 </div>
 </div>
 <div class="paragraph">
-<p>In the example below, only the <code>encounter-id-1245</code> would be mapped, since it fits the condition. The <code>bed</code> code would be
+<p>In the following example, only the <code>encounter-id-1245</code> would be mapped, since it fits the condition. The <code>bed</code> code would be
 ignored.</p>
 </div>
 <div class="listingblock">
@@ -344,10 +349,10 @@ ignored.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Important is also to mention, that conditions are always applied on the input data. They do not
+<p>It is also important to mention that conditions are always applied on the input data. They do not
 filter on the data that is currently mapped. When we map a FHIR resource into openEHR, only the fhirConditions are
 processed and in case of openEHR to FHIR it&#8217;s the other way around. So e.g. the openEHRCondition are not applied via
-mapping-time to the openEHR data we are currently mapping. There can be also several Attributes used, in this case
+mapping-time to the openEHR data being currently mapped. The use of Attributes is also supported, in this case
 the values need to be written as a yaml list using <code>-</code>.</p>
 </div>
 <div class="paragraph">
@@ -375,8 +380,8 @@ they interact with the <code>with:</code> method.</p>
 <h2 id="_operator"><a class="anchor" href="#_operator"></a>operator</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once we define on which path the condition is to be applied and how it relates (or does not relate) to the <code>with:</code> method,
-we need to decide on the operator we want to apply.</p>
+<p>Once the path for the condition is chosen and how it relates (or does not relate) to the <code>with:</code> method is specified,
+an operator must also be specified.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -492,7 +497,8 @@ we need to decide on the operator we want to apply.</p>
 <h3 id="_type"><a class="anchor" href="#_type"></a>type</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "bodySiteCoded"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  # openehrCondition example
+  - name: "bodySiteCoded"
     with:
       fhir: "$resource.bodysite"
       openehr: "$archetype/items[at0001]" #Name of body site
@@ -500,7 +506,17 @@ we need to decide on the operator we want to apply.</p>
       targetRoot: "$archetype"
       targetAttribute: "items[at0001]"
       operator: "type"
-      criteria: "DV_CODED_TEXT"</code></pre>
+      criteria: "DV_CODED_TEXT"
+
+  # fhirCondition example
+  - name: "bodySiteCoding"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype"
+    fhirCondition:
+      targetRoot: "$fhirRoot"
+      operator: "type"
+      criteria: "CodeableConcept"</code></pre>
 </div>
 </div>
 </div>
@@ -531,15 +547,18 @@ spec:
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
     fhirCondition:
-      targetRoot: "$resource.verificationStatus"
-      targetAttribute: "coding"
-      operator: "one of"
-      criteria: "entered-in-error"</code></pre>
+       - targetRoot: "$resource.verificationStatus"
+         targetAttribute: "coding"
+         operator: "one of"
+         criteria: "entered-in-error"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here, we want the mapping into openEHR only to be executed if the <code>verificationStatus</code> of the cluster
+<p>Here, The openEHR mapping will only be executed if the <code>verificationStatus</code> of the cluster
 is not <code>entered-in-error</code>. This is done to prevent wrongly entered data from being mapped into openEHR.</p>
+</div>
+<div class="paragraph">
+<p>There can be more conditions (with AND connectors between them). Notice that the condition is an array.</p>
 </div>
 </div>
 </div>

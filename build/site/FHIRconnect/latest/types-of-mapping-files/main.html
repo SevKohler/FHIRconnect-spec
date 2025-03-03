@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="main.html">Types of mapping files</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/main.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/main.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -220,8 +226,8 @@ This is the most basic form of mapping that is to be shared and maintained by th
 <p>Extension mappings are used to extend model mappings by adding, overwriting, or
 appending mapping logic to the vanilla model mappings. This is required to map
 between templates and profiles. The model mappings act as a sustainable set of base
-mappings that can be extended for a given scope using extension mappings. Extension
-mappings act similarly to a String Builder.</p>
+mappings that can be extended for a given scope using extension mappings. Mappings are additive,
+extension mappings can be interpreted as being executed after the model mappings.</p>
 </div>
 <div class="paragraph">
 <p>Context mappings define the import of model mappings and extension mappings,

@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="body.html">Body</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -221,14 +227,22 @@ one of the models, it must be added to the model in FHIR or openEHR. Otherwise, 
 a set of named mappings.</p>
 </div>
 <div class="paragraph">
-<p>The <code>mappings:</code> body is followed by mapping methods. Each part starting with <code>- name: "mappingName"</code>
-is called a mapping method, and the children contained underneath are called child methods.</p>
+<p>The <code>mappings:</code> body is followed by mapping methods, each part starting with <code>- name: "mappingName"</code>.
+This is called a mapping method, and the children contained underneath are called child methods.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
   - name: "dateTime" # name of the mapping</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Name of the mappings <code>- name: "dateTime"</code> is used also when a mapping is being extended
+(for <code>overwrite</code> or <code>append</code>, see: <a href="../types-of-mapping-files/extension-methods.html" class="xref page">Extension methods</a>).</p>
+</div>
+<div class="paragraph">
+<p>It is proposed that camelCase is used when specifying mapping names, otherwise apart from being used when referenced
+in extension methods, they serve no deeper meaning.</p>
 </div>
 </div>
 </div>
@@ -249,10 +263,10 @@ These two keys indicate the paths that are mapped against each other.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, we map an FHIR path <code>onset</code> to the corresponding openEHR path <code>at0077</code>
+<p>In this example, FHIR path <code>onset</code> is mapped to the corresponding openEHR path <code>at0077</code>
 (date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
-the engine. In this case, it would map an <code>effectiveDateTime</code> into a <code>DV_DATE_TIME</code>. If the engine
-encounters two data types that are not transformable into each other, it will not execute the mapping.</p>
+the engine. In this case, it would map an <code>onset</code> into a <code>DV_DATE_TIME</code>. If the engine
+encounters two data types that are not transformable into each other, mapping will not be executed.</p>
 </div>
 <div class="paragraph">
 <p>Sometimes, mappings do not transform these paths directly, depending on the mapping type used.
@@ -266,11 +280,11 @@ are mapped against each other.</p>
 <h2 id="_top_down_processing"><a class="anchor" href="#_top_down_processing"></a>Top down processing</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The general way of processing in FHIRconnect is top down. If you write two mappings that map the same path
-the latter one in the order will overwrite the first one.
+<p>The general way of processing in FHIRconnect is top down. If two mappings are mapped to the same path
+the later one in the order will overwrite the first one.
 Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
-that you iterate down the path of an element and step by step map each of the fields contained. More is explained
-later in the FollowedBy chapter</p>
+that you iterate down the path of an element and step by step map each of the fields contained. This is explained
+further in the FollowedBy chapter</p>
 </div>
 </div>
 </div>

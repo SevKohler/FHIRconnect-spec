@@ -80,6 +80,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -130,6 +133,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
   </li>
 </ul>
   </li>
@@ -200,7 +206,7 @@
     <li><a href="SlotArchetypes.html">SlotArchetypes</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/SlotArchetypes.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/SlotArchetypes.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -215,7 +221,7 @@ better-maintained files.</p>
 </div>
 <div class="paragraph">
 <p>The <code>slotArchetype</code> is always called by the name of the mapping contained in the header.
-If we remember:</p>
+As previous examples:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -232,7 +238,7 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>Therefore, we need to call the slot <code>CLUSTER.lebensphase.v0</code>.</p>
+<p>Therefore, the slotArchetype must point to <code>CLUSTER.lebensphase.v0</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -251,9 +257,9 @@ spec:
 </div>
 </div>
 <div class="paragraph">
-<p>This will redirect the mapping to the mapping file that contains the lebensphase mapping and execute the transformation
-there. The path to which this mapping is transformed is specified in <code>openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"</code>.
-The paths contained in the <code>with:</code> are not automatically-transformed as they would normally do, since this logic is contained
+<p>This will redirect the mapping to the mapping file that contains the mapping definition (in the example the lebensphase mapping) and execute the transformation
+there. The path to which this mapping is transformed is specified in the openehr attribute (<code>openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"</code> in the example).
+The paths contained in the <code>with:</code> are not automatically transformed as they would normally do, since this logic is contained
 in the slotArchetype.</p>
 </div>
 </article>
