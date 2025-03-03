@@ -219,32 +219,11 @@
 <div class="paragraph">
 <p>Mappings between two data values are executed depending on the data type of the element.
 As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
-path in openEHR, if its a valid data type.</p>
+path in openEHR, if it&#8217;s a valid data type.</p>
 </div>
 <div class="paragraph">
-<p>If no valid data-type is provided
-Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
-types contained in the serialized FHIR instances and openEHR compositions.</p>
-</div>
-<div class="paragraph">
-<p>This chapter is mainly used to describe how these mappings are to be processed.</p>
-</div>
-<div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html" class="bare">https://build.fhir.org/datatypes.html</a></p>
-</div>
-<div class="paragraph">
-<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701" class="bare">https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701</a>
-<a href="https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958" class="bare">https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958</a></p>
-</div>
-<div class="paragraph">
-<p><a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model" class="bare">https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model</a>
-Maybe we should list this as it should be transformed by data types:</p>
-</div>
-<div class="paragraph">
-<p>State that this depends on the input type, here we just introduce the easiest fits</p>
-</div>
-<div class="paragraph">
-<p>using openEHR types since started with</p>
+<p>If no valid data-type is provided these could be transformed into another element e.g. the period start into a
+DV_DATE_TIME. This is up to vendors how strict or relaxed they want to design their engine.</p>
 </div>
 </div>
 </div>
@@ -317,6 +296,8 @@ String is the one that comes closest:</p>
 <div class="sect1">
 <h2 id="_dv_coded_text"><a class="anchor" href="#_dv_coded_text"></a>DV_CODED_TEXT</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="CodeableConcept"><a class="anchor" href="#CodeableConcept"></a>CodeableConcept</h3>
 <div class="paragraph">
 <p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/83219">CodeableConcept</a>
 to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class">DV_CODED_TEXT</a>.</p>
@@ -340,9 +321,9 @@ Each further coding is transformed into the term_mappings.</p>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
@@ -353,10 +334,16 @@ Each further coding is transformed into the term_mappings.</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">1..1, see <a href="#CODE_PHRASE">CODE_PHRASE</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding.display</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Display of coding of first row</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">text</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">defining_code/preferred_term</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">is added to the defining_code preferred_term</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Is added to the defining_code preferred_term</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
@@ -372,9 +359,9 @@ Each further coding is transformed into the term_mappings.</p>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">each one that was not mapped in defining_code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Each one that was not mapped in defining_code</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="#TERM_MAPPING">TERM_MAPPING</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">See <a href="#TERM_MAPPING">TERM_MAPPING</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
@@ -397,7 +384,7 @@ Each further coding is transformed into the term_mappings.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
    "_type" : "DV_CODED_TEXT",
-    "value" : "fever",
+    "value" : "Fever",
     "defining_code" : {
       "_type" : "CODE_PHRASE",
       "terminology_id" : {
@@ -405,13 +392,12 @@ Each further coding is transformed into the term_mappings.</p>
         "value" : "http://loinc.org"
       },
       "code_string" : "LP74849-8",
-       "preferred_term": "Fever"
+      "preferred_term": "Fever"
     },
   "mappings": [
     {
       "_type": "TERM_MAPPING",
       "match": "=",
-      "purpose": "multiple_coding",
       "target": {
         "_type": "CODE_PHRASE",
         "terminology_id": {
@@ -449,10 +435,11 @@ Each further coding is transformed into the term_mappings.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_coding"><a class="anchor" href="#_coding"></a>Coding</h3>
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979">Coding</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class">DV_CODED_TEXT</a>.</p>
 </div>
-<div class="sect1">
-<h2 id="CODE_PHRASE"><a class="anchor" href="#CODE_PHRASE"></a>CODE_PHRASE</h2>
-<div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -463,16 +450,46 @@ Each further coding is transformed into the term_mappings.</p>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">comment</th>
-<th class="tableblock halign-center valign-top">opeEHR</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">defining_code/terminology_id/name</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">defining_code/terminology_id/version_id</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">defining_code/code_string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">userSelected</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">preferred_term</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
@@ -507,14 +524,247 @@ Each further coding is transformed into the term_mappings.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+   "_type" : "DV_CODED_TEXT",
+    "value" : "Fever",
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8"
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CODE_PHRASE"><a class="anchor" href="#CODE_PHRASE"></a>CODE_PHRASE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979">Coding</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class">CODE_PHRASE</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">terminology_id/name</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">terminology_id/version_id</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code_string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">userSelected</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">preferred_term</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8"
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="TERM_MAPPING"><a class="anchor" href="#TERM_MAPPING"></a>TERM_MAPPING</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>use match <code>=</code> purpose multi_coding
-target easy</p>
+<p>For context see <a href="#CodeableConcept">CodeableConcept</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_term_mapping_class">TERM_MAPPING</a> to
+<a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979">Coding</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">match</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hard coded to <code>=</code>, other operators not mappable to FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">purpose</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">target</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="#CODE_PHRASE">CODE_PHRASE</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "mappings": [
+    {
+      "_type": "TERM_MAPPING",
+      "match": "=",
+      "target": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+          "_type": "TERMINOLOGY_ID",
+          "value": "http://snomed.info/sct"
+        },
+        "code_string": "386661006"
+      }
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -680,13 +930,13 @@ fields and makes users required to map each field possible in a data type manual
 <td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">DV_QUANTITY</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">magnitude / value +&lt;br&gt; unit / unit</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">magnitude / value, unit / unit</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">DV_ORDINAL</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">ordinal / value +&lt;br&gt; value / unit +&lt;br&gt; code / code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">ordinal / value, value / unit,  code / code</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">QUANTITY</p></td>
@@ -704,13 +954,13 @@ fields and makes users required to map each field possible in a data type manual
 <td class="tableblock halign-center valign-top"><p class="tableblock">CODEABLECONCEPT</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">DV_CODED_TEXT</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>nested</strong> / coding +&lt;br&gt; value / text</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>nested</strong> / coding, value / text</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">CODING</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">CODE_PHRASE</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">code / code +&lt;br&gt; terminology / system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code / code, terminology / system</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">STRING</p></td>
