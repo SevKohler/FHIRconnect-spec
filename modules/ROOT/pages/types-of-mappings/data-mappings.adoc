@@ -3,28 +3,10 @@
 
 Mappings between two data values are executed depending on the data type of the element.
 As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
-path in openEHR, if its a valid data type.
+path in openEHR, if it's a valid data type.
 
-If no valid data-type is provided
-Data mapping types are not mandatory in FHIRconnect, since the corresponding mapping is resolved by the
-types contained in the serialized FHIR instances and openEHR compositions.
-
-This chapter is mainly used to describe how these mappings are to be processed.
-
-https://build.fhir.org/datatypes.html
-
-
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81701
-https://specifications.openehr.org/releases/UML/development/index.html#Architecture___18_1_83e026d_1433773263991_74683_5958
-
-
-https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_data_types_information_model
-Maybe we should list this as it should be transformed by data types:
-
-State that this depends on the input type, here we just introduce the easiest fits
-
-using openEHR types since started with
-
+If no valid data-type is provided these could be transformed into another element e.g. the period start into a
+DV_DATE_TIME. This is up to vendors how strict or relaxed they want to design their engine.
 
 == DV_TEXT
 The transformation is lacking here a good mapping to FHIR.
@@ -46,6 +28,9 @@ https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String] to ht
 
 
 == DV_CODED_TEXT
+[[CodeableConcept]]
+=== CodeableConcept
+
 https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/83219[CodeableConcept]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
 
@@ -59,14 +44,15 @@ Each further coding is transformed into the term_mappings.
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | comment  | openEHR | comment
-|coding | 0..n, either first one or the one with the same terminology_system  |  defining_code | 1..1, see <<CODE_PHRASE>>
-| text |     |  defining_code/preferred_term | is added to the defining_code preferred_term
-| -     |    |  hyperlink   |
-| -     |    |  formatting  |
-| coding| each one that was not mapped in defining_code   |  mappings    | see <<TERM_MAPPING>>
-| -     |    |  language    |
-| -     |    |  encoding    |
+| FHIRpath        | Comment                                                 | openEHR              | Comment
+| coding         | 0..n, either first one or the one with the same terminology_system | defining_code       | 1..1, see <<CODE_PHRASE>>
+| coding.display | Display of coding of first row                          | value                |
+| text          |                                                         | defining_code/preferred_term | Is added to the defining_code preferred_term
+| -             |                                                         | hyperlink            |
+| -             |                                                         | formatting           |
+| coding        | Each one that was not mapped in defining_code            | mappings             | See <<TERM_MAPPING>>
+| -             |                                                         | language             |
+| -             |                                                         | encoding             |
 |===
 
 Example:
@@ -74,7 +60,7 @@ Example:
 ----
 {
    "_type" : "DV_CODED_TEXT",
-    "value" : "fever",
+    "value" : "Fever",
     "defining_code" : {
       "_type" : "CODE_PHRASE",
       "terminology_id" : {
@@ -82,13 +68,12 @@ Example:
         "value" : "http://loinc.org"
       },
       "code_string" : "LP74849-8",
-       "preferred_term": "Fever"
+      "preferred_term": "Fever"
     },
   "mappings": [
     {
       "_type": "TERM_MAPPING",
       "match": "=",
-      "purpose": "multiple_coding",
       "target": {
         "_type": "CODE_PHRASE",
         "terminology_id": {
@@ -123,27 +108,149 @@ To:
 }
 ----
 
+=== Coding
 
-[[CODE_PHRASE]]
-== CODE_PHRASE
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | comment  | opeEHR | comment
-| value |    |  value |
-| -  |    |  hyperlink |
-| -  |    |  formatting |
-| -  |    |  mappings |
-| -  |    |  language |
-| -  |   |  encoding |
-
+| FHIRpath  | Comment  | openEHR                   | Comment
+| system    |         | defining_code/terminology_id/name       |
+| version   |         | defining_code/terminology_id/version_id |
+| value     |         | defining_code/code_string                |
+| display   |         | value                     |
+| userSelected |         | -                     |
+| -         |         | preferred_term             |
+| -         |         | hyperlink                 |
+| -         |         | formatting                |
+| -         |         | mappings                  |
+| -         |         | language                  |
+| -         |         | encoding                  |
 |===
+
+
+
+Example:
+[source,json]
+----
+{
+   "_type" : "DV_CODED_TEXT",
+    "value" : "Fever",
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8"
+    }
+}
+----
+
+To:
+[source,json]
+----
+"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}
+----
+
+[[CODE_PHRASE]]
+== CODE_PHRASE
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                  | Comment
+| system    |         | terminology_id/name       |
+| version   |         | terminology_id/version_id |
+| value     |         | code_string               |
+| display   |         | value                     |
+| userSelected |      | -                         |
+| -         |         | preferred_term            |
+| -         |         | hyperlink                 |
+| -         |         | formatting                |
+| -         |         | mappings                  |
+| -         |         | language                  |
+| -         |         | encoding                  |
+|===
+
+Example:
+[source,json]
+----
+{
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8"
+    }
+}
+----
+
+To:
+[source,json]
+----
+"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}
+----
 
 [[TERM_MAPPING]]
 == TERM_MAPPING
+For context see <<CodeableConcept>>
 
-use match `=` purpose multi_coding
-target easy
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_term_mapping_class[TERM_MAPPING] to
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding]
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR  | Comment
+| -         |         | match    | hard coded to `=`, other operators not mappable to FHIR
+| -         |         | purpose  |
+| coding    |         | target   | see <<CODE_PHRASE>>
+|===
+Example:
+[source,json]
+----
+{
+  "mappings": [
+    {
+      "_type": "TERM_MAPPING",
+      "match": "=",
+      "target": {
+        "_type": "CODE_PHRASE",
+        "terminology_id": {
+          "_type": "TERMINOLOGY_ID",
+          "value": "http://snomed.info/sct"
+        },
+        "code_string": "386661006"
+      }
+    }
+  ]
+}
+----
+
+To:
+[source,json]
+----
+"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}
+----
 
 
 == DV_PARAGRAPH
@@ -226,12 +333,12 @@ fields and makes users required to map each field possible in a data type manual
 [cols="^1,^1,^1,^2", options="header"]
 |===
 | Type ID / FHIR  | openEHR       | Primitive | "FLAT / FHIR" Attributes Pairs
-| QUANTITY        | DV_QUANTITY   | true      | magnitude / value +<br> unit / unit
-| QUANTITY        | DV_ORDINAL    | true      | ordinal / value +<br> value / unit +<br> code / code
+| QUANTITY        | DV_QUANTITY   | true      | magnitude / value, unit / unit
+| QUANTITY        | DV_ORDINAL    | true      | ordinal / value, value / unit,  code / code
 | QUANTITY        | DV_COUNT      | true      | (direct)
 | DATETIME        | DV_DATE_TIME  | true      | (direct)
-| CODEABLECONCEPT | DV_CODED_TEXT | false     | *nested* / coding +<br> value / text
-| CODING          | CODE_PHRASE   | true      | code / code +<br> terminology / system
+| CODEABLECONCEPT | DV_CODED_TEXT | false     | *nested* / coding, value / text
+| CODING          | CODE_PHRASE   | true      | code / code, terminology / system
 | STRING          | DV_TEXT       | true      | (direct)
 | DOSAGE          | NONE          | false     | (special)
 |===
