@@ -5,7 +5,7 @@
 == File structure
 
 Mappings are organized into three types of files. The model mapping is the vanilla
-mapping that describes the transformation between an archetype and an un-profiled resource.
+mapping that describes the transformation between an archetype and an unprofiled resource.
 This is the most basic form of mapping that is to be shared and maintained by the communities.
 
 Extension mappings are used to extend model mappings by adding, overwriting, or
