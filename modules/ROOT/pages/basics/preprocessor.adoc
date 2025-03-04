@@ -1,0 +1,22 @@
+= Preprocessor
+
+Sometimes it is necessary to execute a logic, before the rest of the body is processed. This part
+is contained in the `preprocessor`. Only  xref:types-of-mappings/concept-type/HierarchyMappings.adoc[] and xref:basics/Conditions.adoc[]
+are allowed here.
+
+[source,yaml]
+----
+preprocessor:
+  fhirCondition:
+    targetRoot: "$resource.verificationStatus"
+    targetAttribute: "coding"
+    operator: "not of"
+    criteria: "entered-in-error"
+
+mappings: # body
+  - name: "dateTime"
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+    unidirectional: "openEHR->fhir"
+----

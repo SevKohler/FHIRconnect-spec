@@ -3,6 +3,7 @@
 ** Basics
 *** xref:basics/main.adoc[]
 *** xref:basics/body.adoc[]
+*** xref:basics/preprocessor.adoc[]
 *** xref:basics/Variables.adoc[]
 *** xref:basics/Conditions.adoc[]
 *** xref:basics/FollowedBy.adoc[]
