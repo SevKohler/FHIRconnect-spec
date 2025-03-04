@@ -1,6 +1,4 @@
-= DV_INTERVAL
-
-https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class
+= DV_BOOLEAN
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
