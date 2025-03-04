@@ -8,8 +8,9 @@ after the parent mapping method has been executed.
 
 The reason for this is that there are nested paths in FHIR and openEHR.
 For `0..n` root elements, mappings must be executed `0..n` times.
-To execute a mapping for two different child nodes within this path, the `with` logic is not enough. If we split this into two separate `with` mappings, they will overwrite each
-other since both address the same root path.
+To execute a mapping for two different child nodes within this path, the `with` logic is not enough.
+If we split this into two separate `with` mappings,
+they will overwrite each other since both address the same root path.
 
 [source,yaml]
 ----
@@ -63,3 +64,4 @@ the `start` being from the followedBy mapping. In the same manner, openEHR paths
 
 In case you do not want a followedBy mapping to include another path, you can reference `$openehrRoot`, `$archetype`,
 `$fhirRoot` or `$resource` (see: xref:basics/Variables.adoc[]).
+

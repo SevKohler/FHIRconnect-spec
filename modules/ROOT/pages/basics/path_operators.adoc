@@ -1,0 +1,123 @@
+= Path operators
+:navtitle: path operators
+
+Given the sequencing pattern to follow a path in FHIRconnect, sometimes it is necessary to access elements back in the path.
+For this, we introduced the `../` and `^` notations.
+
+The `../` notation is used in openEHR, and its logic is the same as in the command line.
+It simply goes back one element, accessing the parent.
+
+The same logic is used in FHIR with `^`, which was adapted from https://github.com/JSONPath-Plus/JSONPath[JSONPath Plus].
+Both notations can be combined to access parents further back in the hierarchy.
+
+This is usually necessary when elements are contained at different levels.
+
+== Examples
+
+[source,yaml]
+----
+- name: "example"
+  with:
+    fhir: "$resource.somePath"
+    openehr: "../data[at0001]/items[at0009]"
+# Goes one element back and accesses /data[at0001]/items[at0009]
+----
+
+[source,yaml]
+----
+mappings:
+  - name: "example"
+    with:
+      fhir: "^.code" # Accesses the parent's .code
+      openehr: "data[at0001]/items[at0009]"
+----
+
+== Recurrence and parent elements
+When mapping an Encounter diagnosis into an openEHR `problem_diagnosis`,
+we find that the diagnosis type is contained in the Encounter, while the rest
+of the diagnosis is contained in a referenced `Condition`.
+
+To maintain the sequencing and faithfully represent recurrence, we need to access the `use` after
+slotting the `problem_diagnosis`.
+
+This requires accessing the parent's parent (using two `^` notations)
+to reach `diagnosis.use`.
+
+[source,yaml]
+----
+- name: "problemDiagnosis"
+  with:
+    fhir: "$resource.diagnosis"
+    openehr: "$archetype"
+    type: "NONE"
+  followedBy:
+    mappings:
+      - name: "referencedDiagnose"
+        with:
+          fhir: "condition.reference"
+          openehr: "$reference"
+        reference:
+          resourceType: "Condition"
+          mappings:
+            - name: "slot"
+              with:
+                fhir: "$fhirRoot"
+                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+              followedBy:
+                mappings:
+                  - name: "diagnosisTyp"
+                    with:
+                      fhir: "^^.use.coding.code"
+                      openehr: "data[at0001]/items[at0009]"
+                    fhirCondition:
+                      targetRoot: "^^.use.coding.code"
+                      targetAttribute: "value"
+                      operator: "one of"
+                      criteria:
+                        - "referral-diagnosis"
+                        - "treatment-diagnosis"
+----
+
+=== Wrong mapping
+
+Imagine the `condition.referenc` to be `0..n`. In this case, the below code would not populate the `use.coding.code`
+except for the last `problem_diagnosis` mapped, since it is executed afterward.
+
+FHIRconnect always adds to the last element. This is both a recurrence problem and a structural one,
+as the `use` is not contained in the condition.
+
+[source,yaml]
+----
+- name: "problemDiagnosis"
+  with:
+    fhir: "$resource.diagnosis"
+    openehr: "$archetype"
+    type: "NONE"
+  followedBy:
+    mappings:
+      - name: "referencedDiagnose"
+        with:
+          fhir: "condition.reference"
+          openehr: "$reference"
+        reference:
+          resourceType: "Condition"
+          mappings:
+            - name: "slot"
+              with:
+                fhir: "$fhirRoot"
+                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+
+      - name: "diagnosisTyp"
+        with:
+          fhir: "use.coding.code"
+          openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]"
+        fhirCondition:
+          targetRoot: "use.coding.code"
+          targetAttribute: "value"
+          operator: "one of"
+          criteria:
+            - "referral-diagnosis"
+            - "treatment-diagnosis"
+----
