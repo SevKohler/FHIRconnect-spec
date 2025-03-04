@@ -269,7 +269,7 @@ spec:
     fhirCondition:
        - targetRoot: "$resource.verificationStatus"
          targetAttribute: "coding"
-         operator: "one of"
+         operator: "not of"
          criteria: "entered-in-error"
 ----
 

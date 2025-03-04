@@ -1,0 +1,18 @@
+= DV_TEXT
+
+== https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class[DV_TEXT]
+
+The transformation is lacking here a good mapping to FHIR.
+String is the one that comes closest.
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | comment  | opeEHR | comment
+| value |    |  value |
+| -  |    |  hyperlink |
+| -  |    |  formatting |
+| -  |    |  mappings |
+| -  |    |  language |
+| -  |   |  encoding |
+
+|===

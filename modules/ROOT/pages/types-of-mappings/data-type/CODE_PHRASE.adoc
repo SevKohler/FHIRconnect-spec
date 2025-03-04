@@ -1,0 +1,45 @@
+= CODE_PHRASE
+
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                  | Comment
+| system    |         | terminology_id/name       |
+| version   |         | terminology_id/version_id |
+| value     |         | code_string               |
+| display   |         | value                     |
+| userSelected |      | -                         |
+| -         |         | preferred_term            |
+| -         |         | hyperlink                 |
+| -         |         | formatting                |
+| -         |         | mappings                  |
+| -         |         | language                  |
+| -         |         | encoding                  |
+|===
+
+Example:
+[source,json]
+----
+{
+    "defining_code" : {
+      "_type" : "CODE_PHRASE",
+      "terminology_id" : {
+        "_type" : "TERMINOLOGY_ID",
+        "value" : "http://loinc.org"
+      },
+      "code_string" : "LP74849-8"
+    }
+}
+----
+
+To:
+[source,json]
+----
+"coding":  [
+  {
+    "system": "http://loinc.org",
+    "code": "LP74849-8",
+    "display": "Fever"
+  }
+}
+----

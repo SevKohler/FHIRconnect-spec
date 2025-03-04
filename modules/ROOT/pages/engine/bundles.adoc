@@ -23,7 +23,7 @@ For example, the Encounter in the diagram could be mapped to an Encounter in ope
 but it is also referenced by Diagnose A.
 
 For such cases, **linked mappings** are used.
-See xref:types-of-mappings/concept-mappings.adoc[].
+See xref:types-of-mappings/concept-type/concept-mappings.adoc[].
 
 In this case, the Diagnosis mapping would link to the Encounter mapping.
 As a result, in addition to processing its own mapping, the Diagnosis mapping

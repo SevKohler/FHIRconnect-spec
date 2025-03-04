@@ -1,0 +1,40 @@
+= Data mapping types
+:navtitle: Data mapping types
+
+Mappings between two data values are executed depending on the data type of the element.
+As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
+path in openEHR, if it's a valid data type.
+
+If no valid data-type is provided these could be transformed into another element e.g. the period start into a
+DV_DATE_TIME. This is up to vendors how strict or relaxed they want to design their engine.
+
+This includes only non abstract data-types of openEHR, also some of the inheritance is solved in the child object, since the parent
+object has no representation in FHIR without its child.
+
+There is also some mappings from the https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_overview[Common Information Model] contained
+like a PARTY_IDENTIFIED mapping.
+
+
+image::uml_types_openEHR.svg[]
+taken from https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703[openEHR specification]
+
+
+
+== Deprecated
+This is the old way (v0.9) of mapping using static types, since the information is derivable from
+the instances of FHIR and openEHR this static typing is deprecated. It  creates more mapping
+fields and makes users required to map each field possible in a data type manually.
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| Type ID / FHIR  | openEHR       | Primitive | "FLAT / FHIR" Attributes Pairs
+| QUANTITY        | DV_QUANTITY   | true      | magnitude / value, unit / unit
+| QUANTITY        | DV_ORDINAL    | true      | ordinal / value, value / unit,  code / code
+| QUANTITY        | DV_COUNT      | true      | (direct)
+| DATETIME        | DV_DATE_TIME  | true      | (direct)
+| CODEABLECONCEPT | DV_CODED_TEXT | false     | *nested* / coding, value / text
+| CODING          | CODE_PHRASE   | true      | code / code, terminology / system
+| STRING          | DV_TEXT       | true      | (direct)
+| DOSAGE          | NONE          | false     | (special)
+|===
+

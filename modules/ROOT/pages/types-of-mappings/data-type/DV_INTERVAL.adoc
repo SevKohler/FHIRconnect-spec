@@ -1,0 +1,4 @@
+= DV_INTERVAL
+
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class
+

@@ -10,12 +10,51 @@
 
 ** Types of Mappings
 *** xref:types-of-mappings/main.adoc[]
-*** xref:types-of-mappings/data-mappings.adoc[]
-*** xref:types-of-mappings/concept-mappings.adoc[]
-*** xref:types-of-mappings/SlotArchetypes.adoc[]
-*** xref:types-of-mappings/Reference.adoc[]
-*** xref:types-of-mappings/manual.adoc[]
-*** xref:types-of-mappings/HierarchyMappings.adoc[]
+*** Data-type mappings
+
+**** Basic Package
+***** xref:types-of-mappings/data-type/DV_IDENTIFIER.adoc[]
+
+**** Text Package
+***** xref:types-of-mappings/data-type/DV_TEXT.adoc[]
+***** xref:types-of-mappings/data-type/DV_CODED_TEXT.adoc[]
+***** xref:types-of-mappings/data-type/CODE_PHRASE.adoc[]
+***** xref:types-of-mappings/data-type/TERM_MAPPING.adoc[]
+
+**** Quantity Package
+***** xref:types-of-mappings/data-type/DV_ORDERED.adoc[]
+***** xref:types-of-mappings/data-type/DV_INTERVAL.adoc[]
+***** xref:types-of-mappings/data-type/DV_ORDINAL.adoc[]
+***** xref:types-of-mappings/data-type/DV_SCALE.adoc[]
+***** xref:types-of-mappings/data-type/DV_QUANTIFIED.adoc[]
+***** xref:types-of-mappings/data-type/DV_QUANTITY.adoc[]
+***** xref:types-of-mappings/data-type/DV_COUNT.adoc[]
+***** xref:types-of-mappings/data-type/DV_PROPORTION.adoc[]
+
+**** Date Time Package
+***** xref:types-of-mappings/data-type/DV_DATE.adoc[]
+***** xref:types-of-mappings/data-type/DV_TIME.adoc[]
+***** xref:types-of-mappings/data-type/DV_DATE_TIME.adoc[]
+***** xref:types-of-mappings/data-type/DV_DURATION.adoc[]
+
+**** Encapsulated Package
+***** xref:types-of-mappings/data-type/DV_MULTIMEDIA.adoc[]
+***** xref:types-of-mappings/data-type/DV_PARSABLE.adoc[]
+
+**** Uri Package
+***** xref:types-of-mappings/data-type/DV_URI.adoc[]
+***** xref:types-of-mappings/data-type/DV_EHR_URI.adoc[]
+
+**** Common Information model
+***** xref:types-of-mappings/data-type/PARTY_IDENTIFIED.adoc[]
+
+
+*** Concept-type mappings
+**** xref:types-of-mappings/concept-type/concept-mappings.adoc[]
+**** xref:types-of-mappings/concept-type/SlotArchetypes.adoc[]
+**** xref:types-of-mappings/concept-type/Reference.adoc[]
+**** xref:types-of-mappings/concept-type/manual.adoc[]
+**** xref:types-of-mappings/concept-type/HierarchyMappings.adoc[]
 
 ** Types of Mapping files
 *** xref:types-of-mapping-files/main.adoc[]

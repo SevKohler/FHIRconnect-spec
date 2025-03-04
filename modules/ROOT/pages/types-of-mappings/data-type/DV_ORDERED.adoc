@@ -1,0 +1,3 @@
+= DV_ORDERED
+
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordered_class

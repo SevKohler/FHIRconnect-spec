@@ -1,11 +1,37 @@
 = Concept type mappings
 :navtitle: Concept type mappings
 
+Overview
+[width="100%",cols="18%,82%",options="header",]
+|===
+|Concept type mappings |Description
+
+|`SLOT` | Used to reference another model mapping
+
+|`MANUAL` | Manually maps values
+
+|`REFERENCE` | Creates and reference a new resource in FHIR
+
+|`HIERARCHY` | Aligns different levels of structure to each other
+
+|`PROGRAMMED` | References a part of code outside the FHIRconnect files
+
+|`PARTICIPATION` | Maps a participation in openEHR
+
+|`LINKED` | Triggers and links the mapping of another Composition
+
+|`NONE` | Used to iterate
+
+|===
+
+
 == Participation mappings
 OpenEHR has a class in the Reference Model that standardizes how https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class[participation]
 of people for a activity are represented. The function in this method is not something that is auto-transformable. Therefore,
 it is added to the `with:` statement, as an additional parameter to the automatic-transformation.
 The presence of the `participationsFunction:` indicates this mapping type.
+
+#we could make the same logic using static#
 
 [source,yaml]
 ----
