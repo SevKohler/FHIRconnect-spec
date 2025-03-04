@@ -74,6 +74,9 @@
     <a class="nav-link" href="../basics/body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/preprocessor.html">Preprocessor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -340,17 +343,18 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Archetypes and resources are the core components of he models, but not the only ones. Both openEHR and FHIR
-have a second layer of models that interact with these. In FHIR the Profile changes the cardinality of fields,
-but also can add extensions. These extensions are fields are typically introduced by the user, since the resource
-does not cover everything. Also profiles, depending on the project, can make use of fields in a different way.</p>
+have a second layer of models that interact with these. In FHIR these are called Profiles. A Profile may introduce
+changes in the cardinality of fields, but also add extensions. These extensions are fields that are typically
+introduced by the user, since the resource does not cover every use case. Also profiles, depending on the project,
+can make use of fields in a different way.</p>
 </div>
 <div class="paragraph">
 <p>OpenEHR on the other hand, has templates, these reference archetypes as building blocks and constrain them or
-add coding values etc. They do not extend the existing models.</p>
+add coding values etc. They do not extend the existing models, only constraint archetypes or the reference model.</p>
 </div>
 <div class="paragraph">
-<p>Both Templates and Profiles are done project specific. Therefore, for each project that is mapped, we need to
-introduce a set of alterations and extensions to our model-mappings. This is done in the <code>extension</code> mappings.
+<p>Both Templates and Profiles are designed to be project specific. Therefore, for each project that is mapped, we need to
+introduce a set of changes and extensions to our model-mappings. This is done in the <code>extension</code> mappings.
 An extension mapping always relates 1-to-1 to a model-mapping.</p>
 </div>
 </div>
@@ -359,10 +363,10 @@ An extension mapping always relates 1-to-1 to a model-mapping.</p>
 <h2 id="file-structure"><a class="anchor" href="#file-structure"></a>File structure</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In general the folder structure of each  FHIRconnect project is up to the vendor.
+<p>In general the folder structure of each FHIRconnect project is up to the provider.
 The official <a href="https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main">library</a> follows
 the pattern described here. Extension mappings are contained in the project folder.
-Here the folders are split depending on the project files they contain.</p>
+Folders are split depending on the project files they contain.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -386,8 +390,8 @@ The context file is explained later in the chapter <a href="context-mappings.htm
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>type</code> of header needs to be set to <code>extension</code>. Since it extends a existing mapping it does not need
-to reference the archetype etc. pp. again. The key <code>extends</code> is used to reference the model-mapping. Hereby,
-the name of the model-mapping is used.</p>
+to reference the archetype or other metadata again. The key <code>extends</code> is used to reference the model-mapping. Hereby,
+the name of the model mapping is used.</p>
 </div>
 <div class="listingblock">
 <div class="content">

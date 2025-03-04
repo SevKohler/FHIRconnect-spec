@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Body :: FHIRconnect</title>
-    <link rel="prev" href="main.html">
-    <link rel="next" href="preprocessor.html">
+    <title>Preprocessor :: FHIRconnect</title>
+    <link rel="prev" href="body.html">
+    <link rel="next" href="Variables.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -70,10 +70,10 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="main.html">Header</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="body.html">Body</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="preprocessor.html">Preprocessor</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -328,115 +328,42 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Basics</li>
-    <li><a href="body.html">Body</a></li>
+    <li><a href="preprocessor.html">Preprocessor</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/preprocessor.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Body</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Preprocessor</h1>
 <div class="paragraph">
-<p>In general, mappings always operate under the idea that we can map paths in openEHR and FHIR against each other.
-For this purpose, <a href="https://build.fhir.org/fhirpath.html">FHIRPath</a> and <a href="https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_paths_and_locators">openEHR paths</a> are used.
-This is also the biggest limitation of these mappings: if a corresponding representation of a path is missing in
-one of the models, it must be added to the model in FHIR or openEHR. Otherwise, there is no mapping.</p>
-</div>
-<div class="paragraph">
-<p>All mapping files start with the <code>mappings</code> key in their body, which is a list containing
-a set of named mappings.</p>
-</div>
-<div class="paragraph">
-<p>The <code>mappings:</code> body is followed by mapping methods, each part starting with <code>- name: "mappingName"</code>.
-This is called a mapping method, and the children contained underneath are called child methods.</p>
+<p>Sometimes it is necessary to execute a logic, before the rest of the body is processed. This part
+is contained in the <code>preprocessor</code>. Only  <a href="../types-of-mappings/concept-type/HierarchyMappings.html" class="xref page">Hierarchy Mappings</a> and <a href="Conditions.html" class="xref page">Conditions</a>
+are allowed here.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
-  - name: "dateTime" # name of the mapping</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Name of the mappings <code>- name: "dateTime"</code> is used also when a mapping is being extended
-(for <code>overwrite</code> or <code>append</code>, see: <a href="../types-of-mapping-files/extension-methods.html" class="xref page">Extension methods</a>).</p>
-</div>
-<div class="paragraph">
-<p>It is proposed that camelCase is used when specifying mapping names, otherwise apart from being used when referenced
-in extension methods, they serve no deeper meaning.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="with"><a class="anchor" href="#with"></a>with</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Inside these mapping methods, there is always a <code>with:</code> statement that contains <code>fhir</code> and <code>openehr</code> keys.
-These two keys indicate the paths that are mapped against each other.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
-    with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, FHIR path <code>onset</code> is mapped to the corresponding openEHR path <code>at0077</code>
-(date-time of diagnosis onset). The data types of the mapped fields are automatically resolved by
-the engine. In this case, it would map an <code>onset</code> into a <code>DV_DATE_TIME</code>. If the engine
-encounters two data types that are not transformable into each other, mapping will not be executed.</p>
-</div>
-<div class="paragraph">
-<p>Sometimes, mappings do not transform these paths directly, depending on the mapping type used.
-Specific keywords, explained in the following chapters, do not automatically transform these paths
-but use them in another way. If no specific keys are used, the default behavior is that these paths
-are mapped against each other.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="top-down-processing"><a class="anchor" href="#top-down-processing"></a>Top down processing</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The general way of processing in FHIRconnect is top down. If two mappings are mapped to the same path
-the later one in the order will overwrite the first one.
-Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
-that you iterate down the path of an element and step by step map each of the fields contained. This is explained
-further in the FollowedBy chapter</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="undirectional"><a class="anchor" href="#undirectional"></a>Undirectional</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To execute a mapping method unidirectional the <code>undirectional</code> key can be added to a <code>- name:</code> method. This way
-the mapping contained is only executed in one direction. The allowed values are either
-<code>"openehr&#8594;fhir"</code> or <code>"fhir&#8594;openehr"</code> This is also true for all the child method contained
-underneath of this <code>with</code> method.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">preprocessor:
+  fhirCondition:
+    targetRoot: "$resource.verificationStatus"
+    targetAttribute: "coding"
+    operator: "not of"
+    criteria: "entered-in-error"
+
+mappings: # body
+  - name: "dateTime"
     with:
       fhir: "$resource.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"
     unidirectional: "openEHR-&gt;fhir"</code></pre>
 </div>
 </div>
-</div>
-</div>
 <nav class="pagination">
-  <span class="prev"><a href="main.html">Header</a></span>
-  <span class="next"><a href="preprocessor.html">Preprocessor</a></span>
+  <span class="prev"><a href="body.html">Body</a></span>
+  <span class="next"><a href="Variables.html">Variables</a></span>
 </nav>
 </article>
   </div>
