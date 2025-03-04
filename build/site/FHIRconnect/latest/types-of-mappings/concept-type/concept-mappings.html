@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Concept type mappings :: FHIRconnect</title>
+    <meta name="generator" content="Antora 3.1.10">
+    <link rel="stylesheet" href="../../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../../../..">FHIRconnect</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="FHIRconnect" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">FHIRconnect</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Grammar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basics</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/main.html">Header</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/body.html">Body</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/Variables.html">Variables</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/Conditions.html">Condition</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/FollowedBy.html">FollowedBy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/Recurrence.html">Recurrence</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Types of Mappings</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../main.html">Mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Data-type mappings</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Text Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_TEXT.html">DV_TEXT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_CODED_TEXT.html">DV_CODED_TEXT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/CODE_PHRASE.html">CODE_PHRASE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/TERM_MAPPING.html">TERM_MAPPING</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Quantity Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_ORDERED.html">DV_ORDERED</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_INTERVAL.html">DV_INTERVAL</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_ORDINAL.html">DV_ORDINAL</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_SCALE.html">DV_SCALE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_QUANTIFIED.html">DV_QUANTIFIED</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_QUANTITY.html">DV_QUANTITY</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_COUNT.html">DV_COUNT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_PROPORTION.html">DV_PROPORTION</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Date Time Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_DATE.html">DV_DATE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_TIME.html">DV_TIME</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_DATE_TIME.html">DV_DATE_TIME</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_DURATION.html">DV_DURATION</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Encapsulated Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_MULTIMEDIA.html">DV_MULTIMEDIA</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_PARSABLE.html">DV_PARSABLE</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Uri Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_URI.html">DV_URI</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/DV_EHR_URI.html">DV_EHR_URI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Common Information model</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Concept-type mappings</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="4">
+    <a class="nav-link" href="concept-mappings.html">Concept type mappings</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="SlotArchetypes.html">SlotArchetypes</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="Reference.html">Reference</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="manual.html">Manual mappings</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="HierarchyMappings.html">Hierarchy Mappings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Types of Mapping files</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/main.html">Types of mapping files</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/model-mappings.html">Model Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/composition-element.html">Mapping composition elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Engine</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/cardinality.html">Cardinalities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/demographics.html">Demographics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FHIRconnect</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../../index.html">FHIRconnect</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">FHIRconnect</a></li>
+    <li>Grammar</li>
+    <li>Types of Mappings</li>
+    <li>Concept-type mappings</li>
+    <li><a href="concept-mappings.html">Concept type mappings</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/concept-mappings.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Concept type mappings</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Overview</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 18%;">
+<col style="width: 82%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Concept type mappings</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SLOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to reference another model mapping</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MANUAL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Manually maps values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>REFERENCE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creates and reference a new resource in FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>HIERARCHY</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aligns different levels of structure to each other</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PROGRAMMED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">References a part of code outside the FHIRconnect files</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>PARTICIPATION</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps a participation in openEHR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LINKED</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Triggers and links the mapping of another Composition</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>NONE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to iterate</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_participation_mappings"><a class="anchor" href="#_participation_mappings"></a>Participation mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenEHR has a class in the Reference Model that standardizes how <a href="https://specifications.openehr.org/releases/RM/latest/common.html#_participation_class">participation</a>
+of people for a activity are represented. The function in this method is not something that is auto-transformable. Therefore,
+it is added to the <code>with:</code> statement, as an additional parameter to the automatic-transformation.
+The presence of the <code>participationsFunction:</code> indicates this mapping type.</p>
+</div>
+<div class="paragraph">
+<p><mark>we could make the same logic using static</mark></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "other_participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$archetype/other_participations"
+    participationsFunction: "asserter"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_programmed_mappings"><a class="anchor" href="#_programmed_mappings"></a>Programmed mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes the FHIRconnect specification grammar is not enough and a mapping requires a unique logic.
+For this the Programmed mappings where introduced. In this mapping an external bit of code is retrieved
+and executed by the engine. The way how this code is provided and where is up to the vendor.
+This type of mapping will not auto-transform between the paths, since the mapping logic is done in the
+program code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "dosageTiming"
+    with:
+      fhir: "$fhirRoot.timing"
+      openehr: "$archetype"
+    # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
+    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_linked_mappings"><a class="anchor" href="#_linked_mappings"></a>Linked mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are cases where it is needed to map data into another composition. To redirect a part of the FHIR data
+to a different FHIRconnect mapping the type <code>REFERENCED</code> can be used. Hereby, the engine checks
+the <code>meta.url</code> contained in the FHIR resource and searches all available FHIRconnect context mappings.
+If a context mapping for this <code>meta.url</code> is found, it is executed and saved as a separate composition.
+This composition is linked using the openEHR <a href="https://specifications.openehr.org/releases/RM/latest/common.html#_link_class">links</a>. The fields of this
+link are set in the <code>openEHRLink</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "partOf"
+    with:
+      fhir: "$resource.partOf.reference"
+      openehr: "$reference"
+    reference:
+      mappings:
+        - name: "partOfReference"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/links" # will use link
+            # type: "REFERENCED" not necessary due to dynamic typing (openehrLink is unique for Referenced...)
+          openehrLink:
+            meaning: "Part of referenced event"
+            type: "partOf"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_none"><a class="anchor" href="#_none"></a>NONE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Does nothing, usually used to iterate and access nested elements of the path, via the child mapping methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "problemDiagnose"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype"
+      type: "NONE" # iterate 0..n codes
+    followedBy:
+      mappings:
+        - name: "problemDiagnoseName"
+          with:
+            fhir: "coding"
+            openehr: "data[at0001]/items[at0002]"
+        - name: "problemDiagnoseText"
+          with:
+            fhir: "text"
+            openehr: "data[at0001]/items[at0009]"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script async src="../../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
