@@ -2,10 +2,43 @@
 
 :navtitle: Hierarchy Mappings
 
-
 Hierarchy mappings are the most complex type of mappings.
 Sometimes, the hierarchy between a FHIR and an openEHR model does not align properly.
 For example, elements may exist on different levels in the models, leading to complications.
+The hierarchy mapping is always contained in the preprocessor using the `hierarchy` key.
+There can be only one hierarchy mapping; currently, we have not encountered a case where more than one is needed.
+
+== createOn
+
+The simplest `hierarchy` mapping is related to events in openEHR.
+Often, openEHR has several events in an `OBSERVATION`.
+In FHIR, these `events` are sometimes represented by a resource for each one.
+Therefore, for each event in openEHR, one `resource` must be created.
+
+Here, the `with:` key relates to the path that is checked.
+For each occurrence of `$archetype/data[at0001]/events[at0002]`, the `createOn` is executed.
+The `createOn` contains a `fhir` key, which indicates that for openEHR-to-FHIR mapping, a specific logic is to be executed.
+This logic is contained in the `create` key.
+The `resource` states that a new resource is to be created.
+
+The engine's composition fields remain the same for each of these mappings.
+One could imagine this process as cloning the composition with one event each, making the processing 1-to-1.
+
+[source,yaml]
+----
+preprocessor:
+  hierarchy:
+    with:
+      fhir: "$resource"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+    createOn:
+      fhir:
+        create: "resource"
+----
+
+== Hierarchy and unique values
+
+Another case for hierarchy mappings is creating a new element based on a specific filter.
 
 A good example of this is the FHIR `MedicationStatement`.
 Without delving into the details of why the models are structured differently,
@@ -13,7 +46,7 @@ there are several challenges to address.
 
 In FHIR, the `timing.event` contained within the `dosage` element
 (see https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80817[MedicationStatement])
-maps to the `dateTime` of the `EVENT` in openEHR.
+maps to the `time` of the https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_event_class[EVENT] in openEHR.
 Therefore, if there are three `dosages` in FHIR with different `timing.event` values,
 three separate `EVENT` elements must be created in the openEHR
 https://ckm.openehr.org/ckm/archetypes/1013.1.4949[medication_statement] archetype.
@@ -37,31 +70,28 @@ a new `EVENT` must be created in openEHR for each unique occurrence.
 Similarly, if there are multiple medications in openEHR,
 multiple `MedicationStatement` resources must be created in FHIR.
 
-To enable this logic, hierarchy mappings are used.
-These mappings must always be defined as the first ones in a FHIRconnect file
-because they significantly impact the structure of the transformed files.
-Hierarchy mappings include a `hierarchy` key at the level of the `with:` method.
-
-This method contains two sub-methods: one for FHIR and one for openEHR.
-The `create:` key specifies the type of element to be created,
-and the `path:` key indicates where this element should be created.
+The `create:` key specifies the type of element to be created. The `path:` key indicates
+where this element should be created. This is left empty if the element is the archetype or
+resource itself, as in the example shown at `fhir:`.
 The `unique:` key defines the condition that triggers the creation of the new element.
-The path in the `unique:` key relates to the `with:` method, e.g. in the example we want to split
-the data transformation based on dosages, therefore the `with:` path relates to dosage.
-This will not automatically transform the dosage and event as a normal `with:` would do.
-It rather is used as an indicator explained above.
+The path in the `unique:` key relates to the `with:` method.
+
+To sum this up:
+From FHIR-to-openEHR, for each dosage with a different route and/or timing.event creat a new event in openEHR.
+From openEHR-to-FHIR, for each event in openEHR with a different Medication name (`[at0132]`) create a
+new resource in FHIR.
 
 [source,yaml]
 ----
-  - name: "hierarchyMappings" # Defined by the hierarchy mapping logic
+preprocessor:
+  hierarchy:
     with:
       fhir: "$resource.dosage"
       openEHR: "$archetype/data[at0001]/events[at0002]"
     #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
-    hierarchy:
+    createOn:
       fhir:
         create: "resource"
-        path: "$resource"
         unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
       openEHR:
         create: "event"

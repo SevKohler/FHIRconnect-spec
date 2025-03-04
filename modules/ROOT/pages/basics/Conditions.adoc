@@ -246,34 +246,37 @@ Examples:
       criteria: "CodeableConcept"
 ----
 
-== Conditions in the header
+There can be more conditions (with AND connectors between them). Notice that the condition is an array.
 
-There is a special case where a condition can be contained in the header of a file.
+== Conditions in the preprocessor
+
+There is a special case where a condition can be contained in the preprocessor of a file.
 This logic defines that the mapping file is only executed if the given condition is met.
+There can be only one `fhirCondition` and/or one `openEHRCondition`.
+The Condition filters the amount of `$archetype` or `resources` that are to be mapped.
 
 Example:
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1
-type: model
-metadata:
-  name:  CLUSTER.problem_qualifier.v2
-  version: 1.0.0
-spec:
-  system: FHIR
-  version: R4
-  openEhrConfig:
-    archetype: openEHR-EHR-CLUSTER.problem_qualifier.v2
-  fhirConfig:
-    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
-    fhirCondition:
-       - targetRoot: "$resource.verificationStatus"
-         targetAttribute: "coding"
-         operator: "not of"
-         criteria: "entered-in-error"
+preprocessor:
+  fhirCondition:
+    targetRoot: "$resource.verificationStatus"
+    targetAttribute: "coding"
+    operator: "not of"
+    criteria: "entered-in-error"
+
+mappings:
+  - name: "period"
+    with:
+      fhir: "$resource.onset.as(Period)"
+      openehr: "$archetype/data[at0001]"
+      type: "NONE"
+    openehrCondition:
+      targetRoot: "$archetype/data[at0001]"
+      targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
+      operator: "not empty"
 ----
 
 Here, The openEHR mapping will only be executed if the `verificationStatus` of the cluster
 is not `entered-in-error`. This is done to prevent wrongly entered data from being mapped into openEHR.
 
-There can be more conditions (with AND connectors between them). Notice that the condition is an array.
