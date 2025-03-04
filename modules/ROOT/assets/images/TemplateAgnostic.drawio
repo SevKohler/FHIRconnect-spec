@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2025-03-04T14:12:08.811Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="i82L7nW6VrNUdkyO2apb" version="21.2.1" type="device">
+<mxfile host="Electron" modified="2025-03-04T14:26:58.650Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="5lJHspYhru2hZabze5xV" version="21.2.1" type="device">
   <diagram name="Seite-1" id="9__LCdmmGacqktosTfNm">
     <mxGraphModel dx="1126" dy="679" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -28,7 +28,7 @@
             <mxPoint x="290" y="390" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ixQiI9HFGh_PmM7cg_0j-8" value="FHIR Profile Zib&lt;br&gt;heart rate&lt;br&gt;rate&lt;br&gt;extersion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
+        <mxCell id="ixQiI9HFGh_PmM7cg_0j-8" value="FHIR Profile 1&lt;br&gt;heart rate&lt;br&gt;rate&lt;br&gt;extersion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1" vertex="1">
           <mxGeometry x="40" y="660" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ixQiI9HFGh_PmM7cg_0j-9" value="FHIR Profile 2&lt;br&gt;heart rate&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;rate&lt;br&gt;regularity" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
