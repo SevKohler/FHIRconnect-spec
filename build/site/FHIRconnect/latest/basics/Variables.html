@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Variables :: FHIRconnect</title>
+    <link rel="prev" href="body.html">
+    <link rel="next" href="Conditions.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -103,6 +105,9 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_BOOLEAN.html">DV_BOOLEAN</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -197,7 +202,7 @@
   </li>
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Common Information model</span>
+    <span class="nav-text">Common Information Model</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
@@ -375,7 +380,7 @@ reusable paths.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_archetype_and_resource"><a class="anchor" href="#_archetype_and_resource"></a><code>$archetype</code> and <code>$resource</code></h2>
+<h2 id="archetype-and-resource"><a class="anchor" href="#archetype-and-resource"></a><code>$archetype</code> and <code>$resource</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>$resource</code> and <code>$archetype</code> point to the root of the resource or archetype.
@@ -402,7 +407,7 @@ mappings:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_composition"><a class="anchor" href="#_composition"></a><code>$composition</code></h2>
+<h2 id="composition"><a class="anchor" href="#composition"></a><code>$composition</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>$composition</code> is used to address elements that are not inside the archetype but are part of the context of the surrounding
@@ -419,7 +424,7 @@ composition that contains it. Typically, this is used to map elements like the c
 </div>
 </div>
 <div class="sect1">
-<h2 id="_openehrroot_and_fhirroot"><a class="anchor" href="#_openehrroot_and_fhirroot"></a><code>$openehrRoot</code> and <code>$fhirRoot</code></h2>
+<h2 id="openehrroot-and-fhirroot"><a class="anchor" href="#openehrroot-and-fhirroot"></a><code>$openehrRoot</code> and <code>$fhirRoot</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><code>$openehrRoot</code> and <code>$fhirRoot</code> are used to access a path from the parent mapping.
@@ -450,7 +455,7 @@ and adds a new child to it. If you want to point to the parent instead of a chil
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reference"><a class="anchor" href="#_reference"></a><code>$reference</code></h2>
+<h2 id="reference"><a class="anchor" href="#reference"></a><code>$reference</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Sometimes, there is no direct openEHR mapping available. Typically, this happens when another FHIR resource type needs
@@ -479,6 +484,10 @@ openEHR. Usually, this is handled in the following method.</p>
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="body.html">Body</a></span>
+  <span class="next"><a href="Conditions.html">Condition</a></span>
+</nav>
 </article>
   </div>
 </main>

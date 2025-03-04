@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Conditions :: FHIRconnect</title>
+    <link rel="prev" href="Variables.html">
+    <link rel="next" href="FollowedBy.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -103,6 +105,9 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_BOOLEAN.html">DV_BOOLEAN</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -197,7 +202,7 @@
   </li>
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Common Information model</span>
+    <span class="nav-text">Common Information Model</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
@@ -368,7 +373,7 @@ a condition is only executed if the parts in the condition are true. There are t
 </div>
 </div>
 <div class="sect1">
-<h2 id="_targetroot"><a class="anchor" href="#_targetroot"></a>targetRoot</h2>
+<h2 id="targetroot"><a class="anchor" href="#targetroot"></a>targetRoot</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Each condition has 4 fields. The <code>targetRoot</code> is the first one. It defines what element is returned once filtered. This is important since the returned element is matched against the path in the <code>with</code> method. If these do
@@ -406,7 +411,7 @@ the condition is true.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_targetattribute"><a class="anchor" href="#_targetattribute"></a>targetAttribute</h2>
+<h2 id="targetattribute"><a class="anchor" href="#targetattribute"></a>targetAttribute</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example above in FHIRPath would be
@@ -491,7 +496,7 @@ they interact with the <code>with:</code> method.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_operator"><a class="anchor" href="#_operator"></a>operator</h2>
+<h2 id="operator"><a class="anchor" href="#operator"></a>operator</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Once the path for the condition is chosen and how it relates (or does not relate) to the <code>with:</code> method is specified,
@@ -534,7 +539,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_criteria"><a class="anchor" href="#_criteria"></a>criteria</h2>
+<h2 id="criteria"><a class="anchor" href="#criteria"></a>criteria</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Defines the element that is combined with the operator and checked against the path. <code>criteria</code> is not required for
@@ -544,7 +549,7 @@ an operator must also be specified.</p>
 <p>Examples:</p>
 </div>
 <div class="sect2">
-<h3 id="_one_of"><a class="anchor" href="#_one_of"></a>one of</h3>
+<h3 id="one-of"><a class="anchor" href="#one-of"></a>one of</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
@@ -560,7 +565,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_not_of"><a class="anchor" href="#_not_of"></a>not of</h3>
+<h3 id="not-of"><a class="anchor" href="#not-of"></a>not of</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "statusCoded"
@@ -576,7 +581,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_empty"><a class="anchor" href="#_empty"></a>empty</h3>
+<h3 id="empty"><a class="anchor" href="#empty"></a>empty</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "bodySiteText"
@@ -591,7 +596,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_not_empty"><a class="anchor" href="#_not_empty"></a>not empty</h3>
+<h3 id="not-empty"><a class="anchor" href="#not-empty"></a>not empty</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  mappings:
@@ -608,7 +613,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_type"><a class="anchor" href="#_type"></a>type</h3>
+<h3 id="type"><a class="anchor" href="#type"></a>type</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  # openehrCondition example
@@ -637,7 +642,7 @@ an operator must also be specified.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_conditions_in_the_header"><a class="anchor" href="#_conditions_in_the_header"></a>Conditions in the header</h2>
+<h2 id="conditions-in-the-header"><a class="anchor" href="#conditions-in-the-header"></a>Conditions in the header</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>There is a special case where a condition can be contained in the header of a file.
@@ -676,6 +681,10 @@ is not <code>entered-in-error</code>. This is done to prevent wrongly entered da
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="Variables.html">Variables</a></span>
+  <span class="next"><a href="FollowedBy.html">FollowedBy</a></span>
+</nav>
 </article>
   </div>
 </main>

@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Context Mappings :: FHIRconnect</title>
+    <link rel="prev" href="composition-element.html">
+    <link rel="next" href="TemplateAgnostic.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -103,6 +105,9 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_BOOLEAN.html">DV_BOOLEAN</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -197,7 +202,7 @@
   </li>
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Common Information model</span>
+    <span class="nav-text">Common Information Model</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
@@ -338,7 +343,7 @@ These mappings act as imports.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_header"><a class="anchor" href="#_header"></a>Header</h2>
+<h2 id="header"><a class="anchor" href="#header"></a>Header</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The header is of the <code>type: context</code>. It does not contain an openEHR or FHIR-specific part.</p>
@@ -358,7 +363,7 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_profileurl_templateid"><a class="anchor" href="#_profileurl_templateid"></a>profileUrl &amp; templateId</h2>
+<h2 id="profileurl-templateid"><a class="anchor" href="#profileurl-templateid"></a>profileUrl &amp; templateId</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>profile.url</code> defines the profile being mapped, as specified in the <code>meta.url</code> of a FHIR profile instance.
@@ -380,7 +385,7 @@ The <code>template.sem_ver</code> defines what version of the template is mapped
 </div>
 </div>
 <div class="sect1">
-<h2 id="_archetypes_extensions"><a class="anchor" href="#_archetypes_extensions"></a>Archetypes &amp; Extensions</h2>
+<h2 id="archetypes-extensions"><a class="anchor" href="#archetypes-extensions"></a>Archetypes &amp; Extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The next keys are the <code>archetypes</code>, which reference all model mappings used for this template-profile mapping
@@ -410,7 +415,7 @@ and B has an extension C, then extension C is applied.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_start"><a class="anchor" href="#_start"></a>Start</h2>
+<h2 id="start"><a class="anchor" href="#start"></a>Start</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <code>start</code> key defines where the engine should begin the mapping.
@@ -438,6 +443,10 @@ since this extends the <code>ACTION.procedure.v1</code>.</p>
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="composition-element.html">Mapping composition elements</a></span>
+  <span class="next"><a href="TemplateAgnostic.html">Template agnostic</a></span>
+</nav>
 </article>
   </div>
 </main>

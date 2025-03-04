@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Body :: FHIRconnect</title>
+    <link rel="prev" href="main.html">
+    <link rel="next" href="Variables.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -103,6 +105,9 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_BOOLEAN.html">DV_BOOLEAN</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -197,7 +202,7 @@
   </li>
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Common Information model</span>
+    <span class="nav-text">Common Information Model</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
@@ -361,7 +366,7 @@ in extension methods, they serve no deeper meaning.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_with"><a class="anchor" href="#_with"></a>with</h2>
+<h2 id="with"><a class="anchor" href="#with"></a>with</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Inside these mapping methods, there is always a <code>with:</code> statement that contains <code>fhir</code> and <code>openehr</code> keys.
@@ -391,7 +396,7 @@ are mapped against each other.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_top_down_processing"><a class="anchor" href="#_top_down_processing"></a>Top down processing</h2>
+<h2 id="top-down-processing"><a class="anchor" href="#top-down-processing"></a>Top down processing</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The general way of processing in FHIRconnect is top down. If two mappings are mapped to the same path
@@ -403,7 +408,7 @@ further in the FollowedBy chapter</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_undirectional"><a class="anchor" href="#_undirectional"></a>Undirectional</h2>
+<h2 id="undirectional"><a class="anchor" href="#undirectional"></a>Undirectional</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To execute a mapping method unidirectional the <code>undirectional</code> key can be added to a <code>- name:</code> method. This way
@@ -423,6 +428,10 @@ underneath of this <code>with</code> method.</p>
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="main.html">Header</a></span>
+  <span class="next"><a href="Variables.html">Variables</a></span>
+</nav>
 </article>
   </div>
 </main>
