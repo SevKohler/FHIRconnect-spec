@@ -2,22 +2,23 @@
 :navtitle: Extension mappings
 
 Archetypes and resources are the core components of he models, but not the only ones. Both openEHR and FHIR
-have a second layer of models that interact with these. In FHIR the Profile changes the cardinality of fields,
-but also can add extensions. These extensions are fields are typically introduced by the user, since the resource
-does not cover everything. Also profiles, depending on the project, can make use of fields in a different way.
+have a second layer of models that interact with these. In FHIR these are called Profiles. A Profile may introduce
+changes in the cardinality of fields, but also add extensions. These extensions are fields that are typically
+introduced by the user, since the resource does not cover every use case. Also profiles, depending on the project,
+can make use of fields in a different way.
 
 OpenEHR on the other hand, has templates, these reference archetypes as building blocks and constrain them or
-add coding values etc. They do not extend the existing models.
+add coding values etc. They do not extend the existing models, only constraint archetypes or the reference model.
 
-Both Templates and Profiles are done project specific. Therefore, for each project that is mapped, we need to
-introduce a set of alterations and extensions to our model-mappings. This is done in the `extension` mappings.
+Both Templates and Profiles are designed to be project specific. Therefore, for each project that is mapped, we need to
+introduce a set of changes and extensions to our model-mappings. This is done in the `extension` mappings.
 An extension mapping always relates 1-to-1 to a model-mapping.
 
 == File structure
-In general the folder structure of each  FHIRconnect project is up to the vendor.
+In general the folder structure of each FHIRconnect project is up to the provider.
 The official https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[library] follows
 the pattern described here. Extension mappings are contained in the project folder.
-Here the folders are split depending on the project files they contain.
+Folders are split depending on the project files they contain.
 
 image::ExtensionContextFolder2.PNG[]
 
@@ -30,8 +31,8 @@ image::ExtensionContextFolder3.PNG[]
 == Extension header
 
 The `type` of header needs to be set to `extension`. Since it extends a existing mapping it does not need
-to reference the archetype etc. pp. again. The key `extends` is used to reference the model-mapping. Hereby,
-the name of the model-mapping is used.
+to reference the archetype or other metadata again. The key `extends` is used to reference the model-mapping. Hereby,
+the name of the model mapping is used.
 
 [source,yaml]
 ----
