@@ -8,33 +8,46 @@ For example, elements may exist on different levels in the models, leading to co
 The hierarchy mapping is always contained in the preprocessor using the `hierarchy` key.
 There can be only one hierarchy mapping; currently, we have not encountered a case where more than one is needed.
 
-== createOn
+== split
 
 The simplest `hierarchy` mapping is related to events in openEHR.
-Often, openEHR has several events in an `OBSERVATION`.
+https://specifications.openehr.org/releases/RM/latest/ehr.html#_observation_class[OBSERVATION] archetypes
+in openEHR can contain a list of events.
 In FHIR, these `events` are sometimes represented by a resource for each one.
 Therefore, for each event in openEHR, one `resource` must be created.
 
-Here, the `with:` key relates to the path that is checked.
-For each occurrence of `$archetype/data[at0001]/events[at0002]`, the `createOn` is executed.
-The `createOn` contains a `fhir` key, which indicates that for openEHR-to-FHIR mapping, a specific logic is to be executed.
-This logic is contained in the `create` key.
-The `resource` states that a new resource is to be created.
+The `with:` key indicates which paths are to be accessed and iterated if they are 0..n.
+The `split` key can contain either `openEHR` or `fhir`.
+The `create` method defines the element to create.
+In the case of a `resource` or `archetype`, this type is inferred by the FHIRconnect mapping file it is included in.
+The `create` method is executed for each occurrence of the correlating `with` statement.
 
-The engine's composition fields remain the same for each of these mappings.
-One could imagine this process as cloning the composition with one event each, making the processing 1-to-1.
+As an example:
 
 [source,yaml]
 ----
+...
+  openEhrConfig:
+    archetype: openEHR-EHR-OBSERVATION.laboratory_test_result.v1
+    revision: 1.2.5
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+
 preprocessor:
   hierarchy:
     with:
       fhir: "$resource"
       openEHR: "$archetype/data[at0001]/events[at0002]"
-    createOn:
+    split:
       fhir:
         create: "resource"
 ----
+
+For each occurrence of `$archetype/data[at0001]/events[at0002]`, the `split` is executed.
+Each occurrence of an event (if there is more than one) will create a new `DiagnosticReport`.
+
+The engine's composition fields remain the same for each of these mappings.
+One could imagine this process as cloning the composition with one event each, making the processing 1-to-1.
 
 == Hierarchy and unique values
 
@@ -52,7 +65,7 @@ three separate `EVENT` elements must be created in the openEHR
 https://ckm.openehr.org/ckm/archetypes/1013.1.4949[medication_statement] archetype.
 
 Another issue is the `route` of administration.
-In openEHR, the `route` of administration is optional (0..1) for each `medication_statement` EVENT.
+In openEHR, the `route` of administration is contained in each `medication_statement` EVENT.
 However, in FHIR, this is part of the `dosage` element.
 A single `MedicationStatement` in FHIR can have three different `dosages`,
 each with a different `route` of administration.
@@ -61,25 +74,20 @@ For each unique `route` of administration, a new `medication_statement` EVENT mu
 The same logic applies when mapping from openEHR to FHIR.
 In openEHR, each `EVENT` can contain a different medication,
 whereas in FHIR, each `MedicationStatement` resource can only describe one medication.
+So for each openEHR `EVENT` containing a different medication, a new resource needs to be created.
 
 image::MappingHierarchies.png[]
 
-To summarize, if the `route` or `timing.event` appears multiple times in FHIR
-with different values within the `dosage` element,
-a new `EVENT` must be created in openEHR for each unique occurrence.
-Similarly, if there are multiple medications in openEHR,
-multiple `MedicationStatement` resources must be created in FHIR.
-
-The `create:` key specifies the type of element to be created. The `path:` key indicates
-where this element should be created. This is left empty if the element is the archetype or
-resource itself, as in the example shown at `fhir:`.
+The grammar enables this with the `path` and `unique` keys.
+To recap, the `create:` key specifies the type of element to be created.
+The `path:` key indicates where this element should be created.
+This is left empty if the element is the archetype or resource itself, as in the example shown at `fhir:`.
 The `unique:` key defines the condition that triggers the creation of the new element.
 The path in the `unique:` key relates to the `with:` method.
-
-To sum this up:
-From FHIR-to-openEHR, for each dosage with a different route and/or timing.event creat a new event in openEHR.
-From openEHR-to-FHIR, for each event in openEHR with a different Medication name (`[at0132]`) create a
-new resource in FHIR.
+For example, in the example, we want to split the data transformation based on dosages,
+so the `with:` path relates to dosage.
+This will not automatically transform the dosage and event as a normal `with:` would do.
+It is rather used as an indicator, as explained above.
 
 [source,yaml]
 ----
@@ -89,7 +97,7 @@ preprocessor:
       fhir: "$resource.dosage"
       openEHR: "$archetype/data[at0001]/events[at0002]"
     #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
-    createOn:
+    split:
       fhir:
         create: "resource"
         unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
@@ -98,3 +106,9 @@ preprocessor:
         path: "$archetype/data[at0001]/events[at0002]"
         unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event
 ----
+
+To summarize:
+
+* From FHIR-to-openEHR, for each `dosage` with a different `route` and/or `timing.event`, create a new `EVENT` in openEHR.
+
+* From openEHR-to-FHIR, for each event in openEHR with a different medication name (`[at0132]`), create a new `MedicationStatement` resource in FHIR.
