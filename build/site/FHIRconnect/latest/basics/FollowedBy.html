@@ -85,6 +85,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="Recurrence.html">Recurrence</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="path_operators.html">path operators</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -257,7 +260,7 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
   </li>
@@ -344,8 +347,9 @@ after the parent mapping method has been executed.</p>
 <div class="paragraph">
 <p>The reason for this is that there are nested paths in FHIR and openEHR.
 For <code>0..n</code> root elements, mappings must be executed <code>0..n</code> times.
-To execute a mapping for two different child nodes within this path, the <code>with</code> logic is not enough. If we split this into two separate <code>with</code> mappings, they will overwrite each
-other since both address the same root path.</p>
+To execute a mapping for two different child nodes within this path, the <code>with</code> logic is not enough.
+If we split this into two separate <code>with</code> mappings,
+they will overwrite each other since both address the same root path.</p>
 </div>
 <div class="listingblock">
 <div class="content">

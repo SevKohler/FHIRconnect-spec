@@ -85,6 +85,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../basics/Recurrence.html">Recurrence</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../basics/path_operators.html">path operators</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -257,7 +260,7 @@
     <a class="nav-link" href="../../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
+    <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
   </li>
@@ -334,10 +337,71 @@
 </aside>
 <article class="doc">
 <h1 class="page">Hierarchy Mappings</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Hierarchy mappings are the most complex type of mappings.
 Sometimes, the hierarchy between a FHIR and an openEHR model does not align properly.
-For example, elements may exist on different levels in the models, leading to complications.</p>
+For example, elements may exist on different levels in the models, leading to complications.
+The hierarchy mapping is always contained in the preprocessor using the <code>hierarchy</code> key.
+There can be only one hierarchy mapping; currently, we have not encountered a case where more than one is needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="split"><a class="anchor" href="#split"></a>split</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The simplest <code>hierarchy</code> mapping is related to events in openEHR.
+<a href="https://specifications.openehr.org/releases/RM/latest/ehr.html#_observation_class">OBSERVATION</a> archetypes
+in openEHR can contain a list of events.
+In FHIR, these <code>events</code> are sometimes represented by a resource for each one.
+Therefore, for each event in openEHR, one <code>resource</code> must be created.</p>
+</div>
+<div class="paragraph">
+<p>The <code>with:</code> key indicates which paths are to be accessed and iterated if they are 0..n.
+The <code>split</code> key can contain either <code>openEHR</code> or <code>fhir</code>.
+The <code>create</code> method defines the element to create.
+In the case of a <code>resource</code> or <code>archetype</code>, this type is inferred by the FHIRconnect mapping file it is included in.
+The <code>create</code> method is executed for each occurrence of the correlating <code>with</code> statement.</p>
+</div>
+<div class="paragraph">
+<p>As an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
+  openEhrConfig:
+    archetype: openEHR-EHR-OBSERVATION.laboratory_test_result.v1
+    revision: 1.2.5
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/DiagnosticReport
+
+preprocessor:
+  hierarchy:
+    with:
+      fhir: "$resource"
+      openEHR: "$archetype/data[at0001]/events[at0002]"
+    split:
+      fhir:
+        create: "resource"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each occurrence of <code>$archetype/data[at0001]/events[at0002]</code>, the <code>split</code> is executed.
+Each occurrence of an event (if there is more than one) will create a new <code>DiagnosticReport</code>.</p>
+</div>
+<div class="paragraph">
+<p>The engine&#8217;s composition fields remain the same for each of these mappings.
+One could imagine this process as cloning the composition with one event each, making the processing 1-to-1.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hierarchy-and-unique-values"><a class="anchor" href="#hierarchy-and-unique-values"></a>Hierarchy and unique values</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another case for hierarchy mappings is creating a new element based on a specific filter.</p>
 </div>
 <div class="paragraph">
 <p>A good example of this is the FHIR <code>MedicationStatement</code>.
@@ -347,14 +411,14 @@ there are several challenges to address.</p>
 <div class="paragraph">
 <p>In FHIR, the <code>timing.event</code> contained within the <code>dosage</code> element
 (see <a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/80817">MedicationStatement</a>)
-maps to the <code>dateTime</code> of the <code>EVENT</code> in openEHR.
+maps to the <code>time</code> of the <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_event_class">EVENT</a> in openEHR.
 Therefore, if there are three <code>dosages</code> in FHIR with different <code>timing.event</code> values,
 three separate <code>EVENT</code> elements must be created in the openEHR
 <a href="https://ckm.openehr.org/ckm/archetypes/1013.1.4949">medication_statement</a> archetype.</p>
 </div>
 <div class="paragraph">
 <p>Another issue is the <code>route</code> of administration.
-In openEHR, the <code>route</code> of administration is optional (0..1) for each <code>medication_statement</code> EVENT.
+In openEHR, the <code>route</code> of administration is contained in each <code>medication_statement</code> EVENT.
 However, in FHIR, this is part of the <code>dosage</code> element.
 A single <code>MedicationStatement</code> in FHIR can have three different <code>dosages</code>,
 each with a different <code>route</code> of administration.
@@ -363,7 +427,8 @@ For each unique <code>route</code> of administration, a new <code>medication_sta
 <div class="paragraph">
 <p>The same logic applies when mapping from openEHR to FHIR.
 In openEHR, each <code>EVENT</code> can contain a different medication,
-whereas in FHIR, each <code>MedicationStatement</code> resource can only describe one medication.</p>
+whereas in FHIR, each <code>MedicationStatement</code> resource can only describe one medication.
+So for each openEHR <code>EVENT</code> containing a different medication, a new resource needs to be created.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -371,44 +436,48 @@ whereas in FHIR, each <code>MedicationStatement</code> resource can only describ
 </div>
 </div>
 <div class="paragraph">
-<p>To summarize, if the <code>route</code> or <code>timing.event</code> appears multiple times in FHIR
-with different values within the <code>dosage</code> element,
-a new <code>EVENT</code> must be created in openEHR for each unique occurrence.
-Similarly, if there are multiple medications in openEHR,
-multiple <code>MedicationStatement</code> resources must be created in FHIR.</p>
-</div>
-<div class="paragraph">
-<p>To enable this logic, hierarchy mappings are used.
-These mappings must always be defined as the first ones in a FHIRconnect file
-because they significantly impact the structure of the transformed files.
-Hierarchy mappings include a <code>hierarchy</code> key at the level of the <code>with:</code> method.</p>
-</div>
-<div class="paragraph">
-<p>This method contains two sub-methods: one for FHIR and one for openEHR.
-The <code>create:</code> key specifies the type of element to be created,
-and the <code>path:</code> key indicates where this element should be created.
+<p>The grammar enables this with the <code>path</code> and <code>unique</code> keys.
+To recap, the <code>create:</code> key specifies the type of element to be created.
+The <code>path:</code> key indicates where this element should be created.
+This is left empty if the element is the archetype or resource itself, as in the example shown at <code>fhir:</code>.
 The <code>unique:</code> key defines the condition that triggers the creation of the new element.
-The path in the <code>unique:</code> key relates to the <code>with:</code> method, e.g. in the example we want to split
-the data transformation based on dosages, therefore the <code>with:</code> path relates to dosage.
+The path in the <code>unique:</code> key relates to the <code>with:</code> method.
+For example, in the example, we want to split the data transformation based on dosages,
+so the <code>with:</code> path relates to dosage.
 This will not automatically transform the dosage and event as a normal <code>with:</code> would do.
-It rather is used as an indicator explained above.</p>
+It is rather used as an indicator, as explained above.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "hierarchyMappings" # Defined by the hierarchy mapping logic
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">preprocessor:
+  hierarchy:
     with:
       fhir: "$resource.dosage"
       openEHR: "$archetype/data[at0001]/events[at0002]"
     #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
-    hierarchy:
+    split:
       fhir:
         create: "resource"
-        path: "$resource"
         unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
       openEHR:
         create: "event"
         path: "$archetype/data[at0001]/events[at0002]"
         unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To summarize:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From FHIR-to-openEHR, for each <code>dosage</code> with a different <code>route</code> and/or <code>timing.event</code>, create a new <code>EVENT</code> in openEHR.</p>
+</li>
+<li>
+<p>From openEHR-to-FHIR, for each event in openEHR with a different medication name (<code>[at0132]</code>), create a new <code>MedicationStatement</code> resource in FHIR.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <nav class="pagination">

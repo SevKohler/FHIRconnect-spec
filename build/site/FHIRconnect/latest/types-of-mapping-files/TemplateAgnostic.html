@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Template agnostic :: FHIRconnect</title>
+    <title>Template Agnostic :: FHIRconnect</title>
     <link rel="prev" href="context-mappings.html">
     <link rel="next" href="../engine/introduction.html">
     <meta name="generator" content="Antora 3.1.10">
@@ -84,6 +84,9 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/path_operators.html">path operators</a>
   </li>
 </ul>
   </li>
@@ -257,7 +260,7 @@
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="TemplateAgnostic.html">Template agnostic</a>
+    <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
   </li>
@@ -322,7 +325,7 @@
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
     <li>Types of Mapping files</li>
-    <li><a href="TemplateAgnostic.html">Template agnostic</a></li>
+    <li><a href="TemplateAgnostic.html">Template Agnostic</a></li>
   </ul>
 </nav>
 <div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/TemplateAgnostic.adoc">Edit this Page</a></div>
@@ -332,8 +335,90 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Template agnostic</h1>
-
+<h1 class="page">Template Agnostic</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the major advantages, besides being able to reuse model mappings, is that the transformation
+of openEHR-to-FHIR is template agnostic.
+FHIR has the problem that each initiative adds new fields in different ways.
+In FHIR, this is done by adding extensions, and fields are often used differently.
+A recent <a href="https://pubmed.ncbi.nlm.nih.gov/37128432/">publication</a> shows that 35% of the fields
+contained in an implementation guide are extensions.
+When converting back and forth between FHIR datasets, these fields can either be missing on
+one side or provided in another profile, or they may be modeled differently.
+This makes the transformation between FHIR initiatives lackluster, as an integration process has to deal with different representations and missing data that was not modeled.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fhir-mappings-and-the-persistence-problem"><a class="anchor" href="#fhir-mappings-and-the-persistence-problem"></a>FHIR mappings and the persistence problem</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When using FHIR for persistence this 35% results in an integration problem.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/TemplateAgnostic2.drawio.png" alt="TemplateAgnostic2.drawio">
+</div>
+</div>
+<div class="paragraph">
+<p>In this example there is no profile that contain both extensions and regularity. So, for integrating
+between FHIR profiles, a new profile that captures all three fields would need to be modeled.
+This profile would then be extended for each new field introduced by a each FHIR initiative.
+If these fields are modeled differently between initiatives, it results in even more integration processes.
+There are other problems like the releases (FHIR has 6 versions as of now)
+and missing standardization of composer, etc. pp.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="how-agnostic-archetype-mappings-solve-this-issue"><a class="anchor" href="#how-agnostic-archetype-mappings-solve-this-issue"></a>How agnostic archetype mappings solve this issue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>FHIRconnect solves this issue.
+The mappings defined from openEHR-to-FHIR are based on archetypes and map using extensions into a profile.
+Therefore, the data contained in openEHR does not need to be stored in e.g. a new template.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/TemplateAgnostic.drawio.png" alt="TemplateAgnostic.drawio">
+</div>
+</div>
+<div class="paragraph">
+<p>Here, two different templates populate different fields of the same archetype.
+The mapping is executed from openEHR-to-FHIR based on the archetype.
+The extension mapping may change how some paths of the archetype are mapped to Profile 1 or Profile 2,
+but this is independent of the template and relates to the profile.
+Therefore, once we write a mapping for Profile 1, each archetype in an openEHR CDR can be mapped
+to that specific profile (if no mandatory field is missing).
+The downside here is that FHIR initiatives are modeled in smaller scopes for exchange, and the data
+contained in archetypes is often not modeled, leading to data loss.</p>
+</div>
+<div class="paragraph">
+<p>In regard to FHIR releases, currently FHIRconnect was designed to map R4.
+Adapting other releases like R6 could only require editing the paths of the mappings files
+and marking them with R6 in the header. Yet, it was not reviewed.</p>
+</div>
+<div class="paragraph">
+<p>This provides the possibility to convert data between different FHIR projects in an easy manner, e.g. transforming
+data from the german-core dataset (KDS) to the EEHRxF FHIR-profiles and back.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modeling-recommendation"><a class="anchor" href="#modeling-recommendation"></a>Modeling recommendation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For mapping FHIR-to-openEHR, the template used can be seen as an ingest for the FHIR profile.
+FHIR profiles are mostly designed for exchange and not for recording clinical data inside institutions.
+Therefore, a split between data-capture and FHIR templates is sometimes recommended to
+avoid infringing on the primary data-capture templates.
+Hereby, it is important that the 1..1 fields are contained otherwise the mapping cannot be executed.
+Yet, it is not always mandatory.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
   <span class="prev"><a href="context-mappings.html">Context Mappings</a></span>
   <span class="next"><a href="../engine/introduction.html">Introduction</a></span>

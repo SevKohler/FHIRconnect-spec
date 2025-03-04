@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FHIRsearch and AQL :: FHIRconnect</title>
-    <link rel="prev" href="references.html">
+    <title>Path operators :: FHIRconnect</title>
+    <link rel="prev" href="Recurrence.html">
+    <link rel="next" href="../types-of-mappings/main.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -67,25 +68,25 @@
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/main.html">Header</a>
+    <a class="nav-link" href="main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/body.html">Body</a>
+    <a class="nav-link" href="body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Variables.html">Variables</a>
+    <a class="nav-link" href="Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
+    <a class="nav-link" href="Conditions.html">Condition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
+    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
+    <a class="nav-link" href="Recurrence.html">Recurrence</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/path_operators.html">path operators</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="path_operators.html">path operators</a>
   </li>
 </ul>
   </li>
@@ -270,25 +271,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="introduction.html">Introduction</a>
+    <a class="nav-link" href="../engine/introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="defaults-for-fields.html">Defaults for fields</a>
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="bundles.html">Bundles</a>
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="demographics.html">Demographics</a>
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="references.html">References</a>
+    <a class="nav-link" href="../engine/references.html">References</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
   </li>
 </ul>
   </li>
@@ -322,30 +323,164 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Engine</li>
-    <li><a href="fhirsearch-and-aql.html">FHIRsearch and AQL</a></li>
+    <li>Grammar</li>
+    <li>Basics</li>
+    <li><a href="path_operators.html">path operators</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/engine/fhirsearch-and-aql.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/path_operators.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FHIRsearch and AQL</h1>
+<h1 class="page">Path operators</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The current version of the specification does not focus specifically on AQL and FHIRsearch.</p>
+<p>Given the sequencing pattern to follow a path in FHIRconnect, sometimes it is necessary to access elements back in the path.
+For this, we introduced the <code>../</code> and <code>^</code> notations.</p>
 </div>
 <div class="paragraph">
-<p>In general, the FHIRconnect mapping files contain all the logic needed to transform between paths.
-This logic must be extracted from the engine to enable searching on openEHR data or vice versa.</p>
+<p>The <code>../</code> notation is used in openEHR, and its logic is the same as in the command line.
+It simply goes back one element, accessing the parent.</p>
 </div>
 <div class="paragraph">
-<p>One possible approach is mapping AQL to FHIRPath, or alternatively, keeping FHIR data available for search.</p>
+<p>The same logic is used in FHIR with <code>^</code>, which was adapted from <a href="https://github.com/JSONPath-Plus/JSONPath">JSONPath Plus</a>.
+Both notations can be combined to access parents further back in the hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>This is usually necessary when elements are contained at different levels.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "example"
+  with:
+    fhir: "$resource.somePath"
+    openehr: "../data[at0001]/items[at0009]"
+# Goes one element back and accesses /data[at0001]/items[at0009]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "example"
+    with:
+      fhir: "^.code" # Accesses the parent's .code
+      openehr: "data[at0001]/items[at0009]"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="recurrence-and-parent-elements"><a class="anchor" href="#recurrence-and-parent-elements"></a>Recurrence and parent elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When mapping an Encounter diagnosis into an openEHR <code>problem_diagnosis</code>,
+we find that the diagnosis type is contained in the Encounter, while the rest
+of the diagnosis is contained in a referenced <code>Condition</code>.</p>
+</div>
+<div class="paragraph">
+<p>To maintain the sequencing and faithfully represent recurrence, we need to access the <code>use</code> after
+slotting the <code>problem_diagnosis</code>.</p>
+</div>
+<div class="paragraph">
+<p>This requires accessing the parent&#8217;s parent (using two <code>^</code> notations)
+to reach <code>diagnosis.use</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "problemDiagnosis"
+  with:
+    fhir: "$resource.diagnosis"
+    openehr: "$archetype"
+    type: "NONE"
+  followedBy:
+    mappings:
+      - name: "referencedDiagnose"
+        with:
+          fhir: "condition.reference"
+          openehr: "$reference"
+        reference:
+          resourceType: "Condition"
+          mappings:
+            - name: "slot"
+              with:
+                fhir: "$fhirRoot"
+                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+              followedBy:
+                mappings:
+                  - name: "diagnosisTyp"
+                    with:
+                      fhir: "^^.use.coding.code"
+                      openehr: "data[at0001]/items[at0009]"
+                    fhirCondition:
+                      targetRoot: "^^.use.coding.code"
+                      targetAttribute: "value"
+                      operator: "one of"
+                      criteria:
+                        - "referral-diagnosis"
+                        - "treatment-diagnosis"</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wrong-mapping"><a class="anchor" href="#wrong-mapping"></a>Wrong mapping</h3>
+<div class="paragraph">
+<p>Imagine the <code>condition.referenc</code> to be <code>0..n</code>. In this case, the below code would not populate the <code>use.coding.code</code>
+except for the last <code>problem_diagnosis</code> mapped, since it is executed afterward.</p>
+</div>
+<div class="paragraph">
+<p>FHIRconnect always adds to the last element. This is both a recurrence problem and a structural one,
+as the <code>use</code> is not contained in the condition.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "problemDiagnosis"
+  with:
+    fhir: "$resource.diagnosis"
+    openehr: "$archetype"
+    type: "NONE"
+  followedBy:
+    mappings:
+      - name: "referencedDiagnose"
+        with:
+          fhir: "condition.reference"
+          openehr: "$reference"
+        reference:
+          resourceType: "Condition"
+          mappings:
+            - name: "slot"
+              with:
+                fhir: "$fhirRoot"
+                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+
+      - name: "diagnosisTyp"
+        with:
+          fhir: "use.coding.code"
+          openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]"
+        fhirCondition:
+          targetRoot: "use.coding.code"
+          targetAttribute: "value"
+          operator: "one of"
+          criteria:
+            - "referral-diagnosis"
+            - "treatment-diagnosis"</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="references.html">References</a></span>
+  <span class="prev"><a href="Recurrence.html">Recurrence</a></span>
+  <span class="next"><a href="../types-of-mappings/main.html">Mapping types</a></span>
 </nav>
 </article>
   </div>

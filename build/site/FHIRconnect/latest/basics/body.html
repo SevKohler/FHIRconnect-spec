@@ -85,6 +85,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="Recurrence.html">Recurrence</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="path_operators.html">path operators</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
@@ -257,7 +260,7 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template agnostic</a>
+    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
   </li>
@@ -420,6 +423,33 @@ underneath of this <code>with</code> method.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
   - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+    unidirectional: "openEHR-&gt;fhir"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="preprocessor"><a class="anchor" href="#preprocessor"></a>preprocessor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes it is necessary to execute a logic, before the rest of the body is processed. This part
+is contained in the <code>preprocessor</code>. Only  <a href="../types-of-mappings/concept-type/HierarchyMappings.html" class="xref page">Hierarchy Mappings</a> and <a href="Conditions.html" class="xref page">Conditions</a>
+are allowed here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">preprocessor:
+  - name: "filterResources"
+    fhirCondition:
+      targetRoot: "$resource.verificationStatus"
+      targetAttribute: "coding"
+      operator: "not of"
+      criteria: "entered-in-error"
+mappings: # body
+  - name: "dateTime"
     with:
       fhir: "$resource.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"
