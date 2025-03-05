@@ -68,7 +68,7 @@ to reach `diagnosis.use`.
                 mappings:
                   - name: "diagnosisTyp"
                     with:
-                      fhir: "^^.use.coding.code"
+                      fhir: "^^.use.coding"
                       openehr: "data[at0001]/items[at0009]"
                     fhirCondition:
                       targetRoot: "^^.use.coding.code"
