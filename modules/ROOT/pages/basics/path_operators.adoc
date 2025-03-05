@@ -81,11 +81,11 @@ to reach `diagnosis.use`.
 
 === Wrong mapping
 
-Imagine the `condition.referenc` to be `0..n`. In this case, the below code would not populate the `use.coding.code`
-except for the last `problem_diagnosis` mapped, since it is executed afterward.
+Imagine the `condition.reference` to be `0..n`. In this case, the below code would not populate the `use.coding.code`.
+Instead, it would make a new empty entry into the `problem_diagnose` cluster containing
+only the `use` code.
 
-FHIRconnect always adds to the last element. This is both a recurrence problem and a structural one,
-as the `use` is not contained in the condition.
+This is both a recurrence problem and a structural one, as the `use` is not contained in the condition.
 
 [source,yaml]
 ----

@@ -437,7 +437,7 @@ to reach <code>diagnosis.use</code>.</p>
                 mappings:
                   - name: "diagnosisTyp"
                     with:
-                      fhir: "^^.use.coding.code"
+                      fhir: "^^.use.coding"
                       openehr: "data[at0001]/items[at0009]"
                     fhirCondition:
                       targetRoot: "^^.use.coding.code"
@@ -451,12 +451,12 @@ to reach <code>diagnosis.use</code>.</p>
 <div class="sect2">
 <h3 id="wrong-mapping"><a class="anchor" href="#wrong-mapping"></a>Wrong mapping</h3>
 <div class="paragraph">
-<p>Imagine the <code>condition.referenc</code> to be <code>0..n</code>. In this case, the below code would not populate the <code>use.coding.code</code>
-except for the last <code>problem_diagnosis</code> mapped, since it is executed afterward.</p>
+<p>Imagine the <code>condition.reference</code> to be <code>0..n</code>. In this case, the below code would not populate the <code>use.coding.code</code>.
+Instead, it would make a new empty entry into the <code>problem_diagnose</code> cluster containing
+only the <code>use</code> code.</p>
 </div>
 <div class="paragraph">
-<p>FHIRconnect always adds to the last element. This is both a recurrence problem and a structural one,
-as the <code>use</code> is not contained in the condition.</p>
+<p>This is both a recurrence problem and a structural one, as the <code>use</code> is not contained in the condition.</p>
 </div>
 <div class="listingblock">
 <div class="content">
