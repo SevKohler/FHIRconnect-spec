@@ -3,7 +3,7 @@
 
 The extension and model mappings introduced represent individual pieces of mappings
 that need to be combined to successfully map a composition or profile.
-These mappings act as imports.
+On the other hand, context mappings act as imports.
 
 == Header
 The header is of the `type: context`. It does not contain an openEHR or FHIR-specific part.

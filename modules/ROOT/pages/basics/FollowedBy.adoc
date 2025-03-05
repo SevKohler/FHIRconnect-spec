@@ -38,7 +38,7 @@ Here, the onset is accessed if it is a period (FHIRPath helps us here as a short
 and executes a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
 Slot archetypes are explained in the next chapter.
 
-If it was writen as two single `with:` statements, the cluster mappings would, when converting openEHR to FHIR,
+If it was written as two single `with:` statements, the cluster mappings would, when converting openEHR to FHIR,
 overwrite the `"start"` mapping since it maps the same path.
 
 [source,yaml]
@@ -56,10 +56,13 @@ mappings:
     slotArchetype: "CLUSTER.lebensphase.v0"
 ----
 
+More information about recurrence and cardinality see
+xref:recurrence/main.adoc[]
+
 == Path construction
 
 All followedBy mappings start with parent's path. In the example above, resolved path used for actual mapping
-of `- name: "start"` would be $resource.onset.as(Period).start. First part being from the parent and
+of `- name: "start"` would be `$resource.onset.as(Period).start`. First part being from the parent and
 the `start` being from the followedBy mapping. In the same manner, openEHR paths are concatenated.
 
 In case you do not want a followedBy mapping to include another path, you can reference `$openehrRoot`, `$archetype`,

@@ -1,17 +1,30 @@
 = DV_COUNT
 
+== Integer (or primitive of other kind, i.e. string)
+
+https://build.fhir.org/datatypes.html#integer[Integer]
+to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
+
 [cols="^1,^1,^1,^2", options="header"]
 |===
 | FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| value    |         | magnitude       |
+| -         |         | normal_range                 |
+| -         |         | other_reference_ranges                |
+|===
+
+== Quantity
+
+https://build.fhir.org/datatypes.html#Quantity[Quantity]
+to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                  | Comment
+| value    |         | magnitude       | Is a mandatory field in openEHR, whereas not in FHIR.
+| code (if exists, else unit)    |         |                |
+| system   |         |                      |
+| system         |         |             |
+| -         |         | normal_range                 |
+| -         |         | other_reference_ranges                |
 |===

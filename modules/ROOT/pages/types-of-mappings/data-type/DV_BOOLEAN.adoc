@@ -1,17 +1,12 @@
 = DV_BOOLEAN
 
+== Boolean
+
+https://build.fhir.org/datatypes.html#boolean[Boolean]
+to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_boolean_class[DV_BOOLEAN].
+
 [cols="^1,^1,^1,^2", options="header"]
 |===
 | FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| value    |         | value       |
 |===

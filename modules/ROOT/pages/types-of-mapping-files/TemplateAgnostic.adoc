@@ -10,7 +10,7 @@ A recent https://pubmed.ncbi.nlm.nih.gov/37128432/[publication] shows that 35% o
 contained in an implementation guide are extensions.
 When converting back and forth between FHIR datasets, these fields can either be missing on
 one side or provided in another profile, or they may be modeled differently.
-This makes the transformation between FHIR initiatives lackluster, as an integration process has to deal with different representations and missing data that was not modeled.
+This makes the transformation between FHIR initiatives difficult, as the integration process has to deal with different representations and missing data that was not modeled.
 
 == FHIR mappings and the persistence problem
 
@@ -22,8 +22,9 @@ In this example there is no profile that contain both extensions and regularity.
 between FHIR profiles, a new profile that captures all three fields would need to be modeled.
 This profile would then be extended for each new field introduced by a each FHIR initiative.
 If these fields are modeled differently between initiatives, it results in even more integration processes.
-There are other problems like the releases (FHIR has 6 versions as of now)
-and missing standardization of composer, etc. pp.
+There are other problems like differences between releases (FHIR has https://hl7.org/fhir/history.html[6 versions as of now])
+and missing standardization of composer, etc. pp. See the https://build.fhir.org/fivews.html[fiveWs] page 
+for an analysis on the semantics of different resource attributes.
 
 == How agnostic archetype mappings solve this issue
 FHIRconnect solves this issue.
@@ -38,14 +39,14 @@ The extension mapping may change how some paths of the archetype are mapped to P
 but this is independent of the template and relates to the profile.
 Therefore, once we write a mapping for Profile 1, each archetype in an openEHR CDR can be mapped
 to that specific profile (if no mandatory field is missing).
-The downside here is that FHIR initiatives are modeled in smaller scopes for exchange, and the data
-contained in archetypes is often not modeled, leading to data loss.
+The downside here is that FHIR initiatives are modeled in smaller scopes for exchange purposes, and parts of the data
+contained in archetypes definition are often not modeled in the FHIR profiles, leading to data loss.
 
 In regard to FHIR releases, currently FHIRconnect was designed to map R4.
-Adapting other releases like R6 could only require editing the paths of the mappings files
-and marking them with R6 in the header. Yet, it was not reviewed.
+Adapting other releases like R5 could only require editing the paths of the mappings files
+and marking them with R5 in the header. This has not been reviewed extensively, so problems may arise.
 
-This provides the possibility to convert data between different FHIR projects in an easy manner, e.g. transforming
+This provides the possibility to convert data between different FHIR projects in an easy manner by using openEHR as a cannonical model, e.g. transforming
 data from the german-core dataset (KDS) to the EEHRxF FHIR-profiles and back.
 
 == Modeling recommendation
@@ -54,7 +55,7 @@ For mapping FHIR-to-openEHR, the template used can be seen as an ingest for the 
 FHIR profiles are mostly designed for exchange and not for recording clinical data inside institutions.
 Therefore, a split between data-capture and FHIR templates is sometimes recommended to
 avoid infringing on the primary data-capture templates.
-Hereby, it is important that the 1..1 fields are contained otherwise the mapping cannot be executed.
+Hereby, the mandatory fields (1..1) should be contained otherwise the mapping can not be executed.
 Yet, it is not always mandatory.
 
 

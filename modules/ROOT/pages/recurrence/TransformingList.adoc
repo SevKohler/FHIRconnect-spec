@@ -1,0 +1,79 @@
+= Transforming a list
+:navtitle: Transforming a list
+
+When transforming an element that is `0..n`, FHIRconnect always appends. If we transform
+from a `0..n` to a `0..1` field, only the last entry of `0..n` is mapped.
+
+[source,yaml]
+----
+  - name: "bodySite"
+    with:
+      fhir: "$resource.bodySite"
+      openehr: "$archetype/data[at0012]"
+
+  - name: "bodySiteCluster"
+    with:
+      fhir: "$resource.bodySite"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+    slotArchetype: "CLUSTER.anatomical_location.v1"
+----
+In this example, both the cluster and the `at0012` (bodySite openEHR) are mapped to `bodySite` in FHIR.
+Often, openEHR has additional fields to be more granular, like in this case. FHIR only has
+the `bodySite` for that, yet both openEHR fields transform to it. The FHIR `bodySite`
+is `0..n`, therefore both entries would be appended into the `bodySite`.
+
+[source,yaml]
+----
+{
+  "anatomicalLocation": [
+    "left valve"
+  ],
+  "bodySite": [
+    "heart"
+  ]
+}
+----
+
+[source,yaml]
+----
+{
+  "bodySite": [
+    "heart",
+    "left valve"
+  ]
+}
+----
+
+== N elements to n paths
+
+When mapping a list back from FHIR using the FHIRconnect snippet from above,
+the problem is that both openEHR paths would be populated.
+
+[source,yaml]
+----
+{
+  "bodySite": [
+    "heart",
+    "left valve"
+  ]
+}
+----
+
+[source,yaml]
+----
+{
+  "anatomicalLocation": [
+    "left valve", "heart"
+  ],
+  "bodySite": [
+    "left valve", "heart"
+  ]
+}
+----
+
+There are different options to tackle this. The template uses only one of them.
+For example, `bodySite` in openEHR is `0..0`. If both are contained, users can use an extension
+(see chapter xref:types-of-mapping-files/extension-mappings.adoc[] )
+to `overwrite` with the `type: NONE` and `unidirectional`, enforcing the mapping
+to only map into `anatomical_location` when coming from FHIR to openEHR.
+

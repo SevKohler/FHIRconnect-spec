@@ -69,14 +69,14 @@ Example:
   - name: "status"
     with:
       fhir: "$resource"
-      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value"
+      openehr: "$archetype/items[at0073]/value"
     manual:
       - name: "registered"
         fhir:
           path: "status"
           value: "registered"
         openehrCondition:
-          targetRoot: "$openehrRoot/defining_code" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
+          targetRoot: "$openehrRoot/defining_code" # $archetype/items[at0073]/value/defining_code
           targetAttribute: "code_string"
           operator: "one of"
           criteria: "at0107"
@@ -103,6 +103,6 @@ Example:
         - name: "specimenReference"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+            openehr: "$archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
           slotArchetype: "CLUSTER.specimen.v1"
 ----

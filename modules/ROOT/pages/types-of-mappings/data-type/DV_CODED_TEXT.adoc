@@ -4,7 +4,7 @@ Inherits from DV_TEXT.
 
 == CodeableConcept
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/83219[CodeableConcept]
+https://build.fhir.org/datatypes.html#codeableconcept[CodeableConcept]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
 
 FHIRconnect engine checks, if the defining_code requires a specific terminology like e.g. SNOMED-CT that
