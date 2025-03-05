@@ -18,5 +18,5 @@ mappings: # body
     with:
       fhir: "$resource.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"
-    unidirectional: "openEHR->fhir"
+    unidirectional: "openehr->fhir"
 ----
