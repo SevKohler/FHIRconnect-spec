@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FollowedBy :: FHIRconnect</title>
-    <link rel="prev" href="Conditions.html">
-    <link rel="next" href="path_operators.html">
+    <title>When to fail a mapping :: FHIRconnect</title>
+    <link rel="prev" href="defaults-for-fields.html">
+    <link rel="next" href="bundles.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -68,25 +68,25 @@
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="main.html">Header</a>
+    <a class="nav-link" href="../basics/main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="body.html">Body</a>
+    <a class="nav-link" href="../basics/body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="preprocessor.html">Preprocessor</a>
+    <a class="nav-link" href="../basics/preprocessor.html">Preprocessor</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Variables.html">Variables</a>
+    <a class="nav-link" href="../basics/Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Conditions.html">Condition</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
+    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="path_operators.html">path operators</a>
+    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/path_operators.html">path operators</a>
   </li>
 </ul>
   </li>
@@ -289,25 +289,25 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/introduction.html">Introduction</a>
+    <a class="nav-link" href="introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+    <a class="nav-link" href="defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
+    <a class="nav-link" href="bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+    <a class="nav-link" href="demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+    <a class="nav-link" href="references.html">References</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/references.html">References</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+    <a class="nav-link" href="fhirsearch-and-aql.html">FHIRsearch and AQL</a>
   </li>
 </ul>
   </li>
@@ -341,103 +341,34 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Grammar</li>
-    <li>Basics</li>
-    <li><a href="FollowedBy.html">FollowedBy</a></li>
+    <li>Engine</li>
+    <li><a href="Fail.html">When to fail a mapping</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/FollowedBy.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/engine/Fail.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FollowedBy</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">When to fail a mapping</h1>
 <div class="paragraph">
-<p>FHIRConnect follows a top-down approach combined with iterating and accessing paths to execute logic
-that aligns with child elements. To facilitate this, <code>FollowedBy</code> was introduced.
-The <code>FollowedBy</code> mechanism allows to attach mappings to each other, ensuring their execution occurs as the next step
-after the parent mapping method has been executed.</p>
+<p>It is recommended that the engine enforces strict rules when mapping elements.
+Since the mapped data is clinical data, maintaining maximum semantics and data coverage is a top priority.</p>
 </div>
 <div class="paragraph">
-<p>The reason for this is that there are nested paths in FHIR and openEHR.
-For <code>0..n</code> root elements, mappings must be executed <code>0..n</code> times.
-To execute a mapping for two different child nodes within this path, the <code>with</code> logic is not enough.
-If we split this into two separate <code>with</code> mappings,
-they will overwrite each other since both address the same root path.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "period"
-    with:
-      fhir: "$resource.onset.as(Period)"
-      openehr: "$archetype"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "start"
-          with:
-            fhir: "start"
-            openehr: "data[at0001]/items[at0077]"
-
-        - name: "lebensphaseCluster"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-          slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
-</div>
+<p>For example, if we have a parent node with a <code>1..1</code> cardinality and a child node with a <code>1..1</code> cardinality,
+the mapping should fail if the child is not provided.</p>
 </div>
 <div class="paragraph">
-<p>Here, the onset is accessed if it is a period (FHIRPath helps us here as a shortcut instead of using <code>fhirCondition</code>)
-and executes a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
-Slot archetypes are explained in the next chapter.</p>
-</div>
-<div class="paragraph">
-<p>If it was written as two single <code>with:</code> statements, the cluster mappings would, when converting openEHR to FHIR,
-overwrite the <code>"start"</code> mapping since it maps the same path.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "start"
-    with:
-      fhir: "$resource.onset.as(Period).start"
-      openehr: "$archetype/data[at0001]items[at0077]"
-
-  - name: "lebensphaseCluster"
-    with:
-      fhir: "$resource.onset.as(Period)" # same path onset, overwrites start
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-    slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>More information about recurrence and cardinality see
-<a href="../recurrence/main.html" class="xref page">Recurrence</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="path-construction"><a class="anchor" href="#path-construction"></a>Path construction</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>All followedBy mappings start with parent&#8217;s path. In the example above, resolved path used for actual mapping
-of <code>- name: "start"</code> would be <code>$resource.onset.as(Period).start</code>. First part being from the parent and
-the <code>start</code> being from the followedBy mapping. In the same manner, openEHR paths are concatenated.</p>
-</div>
-<div class="paragraph">
-<p>In case you do not want a followedBy mapping to include another path, you can reference <code>$openehrRoot</code>, <code>$archetype</code>,
-<code>$fhirRoot</code> or <code>$resource</code> (see: <a href="Variables.html" class="xref page">Variables</a>).</p>
-</div>
-</div>
+<p>A more tolerant approach would be to map only the parent, ensuring that at least some data is transformed.
+However, since we cannot determine what data is missing, either all data should be mapped,
+or the mapping should fail.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="Conditions.html">Condition</a></span>
-  <span class="next"><a href="path_operators.html">path operators</a></span>
+  <span class="prev"><a href="defaults-for-fields.html">Defaults for fields</a></span>
+  <span class="next"><a href="bundles.html">Bundles</a></span>
 </nav>
 </article>
   </div>

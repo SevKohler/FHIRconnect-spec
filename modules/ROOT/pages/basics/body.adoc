@@ -52,7 +52,7 @@ The general way of processing in FHIRconnect is top down. If two mappings are ma
 with a cardinality of 0..1, the later one in the order will overwrite the first one.
 Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
 that you iterate down the path of an element and step by step map each of the fields contained. This is explained
-further in the xref:basics/FollowedBy.adoc[] and xref:recurrence/Recurrence.adoc[] chapter
+further in the xref:basics/FollowedBy.adoc[] and xref:recurrence/main.adoc[] chapter
 
 == Undirectional
 To execute a mapping method unidirectional the `undirectional` key can be added to a `- name:` method. This way

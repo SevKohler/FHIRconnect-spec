@@ -86,9 +86,6 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Recurrence.html">Recurrence</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="path_operators.html">path operators</a>
   </li>
 </ul>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
@@ -331,7 +346,7 @@
     <li><a href="Conditions.html">Condition</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -420,7 +435,7 @@ the condition is true.</p>
 <h2 id="targetattribute"><a class="anchor" href="#targetattribute"></a>targetAttribute</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example above in FHIRPath would be
+<p>The <code>targetAttribute</code> is used to specify the path the filter is applied to. The example below in FHIRPath would be
 written as <code>$resource.identifier.where(type.coding.code="room")</code>, therefore checking for the code <code>type</code> and returning
 the identifier entries that match. These are the ones that are mapped in the <code>with:</code> method.</p>
 </div>

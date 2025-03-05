@@ -86,9 +86,6 @@
     <a class="nav-link" href="../../basics/FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../basics/Recurrence.html">Recurrence</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../basics/path_operators.html">path operators</a>
   </li>
 </ul>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../engine/bundles.html">Bundles</a>
@@ -332,7 +347,7 @@
     <li><a href="manual.html">Manual mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/manual.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/manual.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -440,7 +455,7 @@ are merged together in the same data element and do not overwrite.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In general manual mappings are simple in nature, but require maintenance.
-To mitigate this the use of <a href="https://build.fhir.org/conceptmap.html">FHIRconceptMaps</a> is recommended.
+To mitigate this the use of <a href="https://build.fhir.org/conceptmap.html">FHIR ConceptMaps</a> is recommended.
 These can be used in the FHIRconnect spec using the <code>conceptmap:</code> key, that points to the conceptMap Url.</p>
 </div>
 <div class="listingblock">
@@ -478,6 +493,11 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
   conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>How FHIR Connect engine resolves this concept map and does the translation of codes is outside the domain of this
+FHIR Connect specification. It is, however advised that <a href="https://build.fhir.org/terminology-service.html">FHIR Terminology Service Implementation Guide</a>
+is followed and translation is done following the <a href="https://build.fhir.org/conceptmap-operation-translate.html">$translate</a> operation description.</p>
 </div>
 </div>
 </div>

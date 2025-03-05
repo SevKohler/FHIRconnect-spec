@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Hierarchy Mappings :: FHIRconnect</title>
     <link rel="prev" href="manual.html">
-    <link rel="next" href="../../types-of-mapping-files/main.html">
+    <link rel="next" href="../../recurrence/main.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -84,9 +84,6 @@
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../basics/FollowedBy.html">FollowedBy</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../basics/Recurrence.html">Recurrence</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../basics/path_operators.html">path operators</a>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../engine/bundles.html">Bundles</a>
@@ -332,7 +347,7 @@
     <li><a href="HierarchyMappings.html">Hierarchy Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/HierarchyMappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/HierarchyMappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -373,8 +388,7 @@ The <code>create</code> method is executed for each occurrence of the correlatin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
-  openEhrConfig:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  openEhrConfig:
     archetype: openEHR-EHR-OBSERVATION.laboratory_test_result.v1
     revision: 1.2.5
   fhirConfig:
@@ -461,11 +475,14 @@ It is rather used as an indicator, as explained above.</p>
     split:
       fhir:
         create: "resource"
-        unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+        unique:
+          - "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
       openEHR:
         create: "event"
         path: "$archetype/data[at0001]/events[at0002]"
-        unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event</code></pre>
+        unique:
+          - "route"
+          - "timing.event" # If the route value differs per dosage slice, create a new event</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -485,7 +502,7 @@ It is rather used as an indicator, as explained above.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="manual.html">Manual mappings</a></span>
-  <span class="next"><a href="../../types-of-mapping-files/main.html">Types of mapping files</a></span>
+  <span class="next"><a href="../../recurrence/main.html">Recurrence</a></span>
 </nav>
 </article>
   </div>

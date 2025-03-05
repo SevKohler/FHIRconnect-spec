@@ -86,9 +86,6 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Recurrence.html">Recurrence</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="path_operators.html">path operators</a>
   </li>
 </ul>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
@@ -331,7 +346,7 @@
     <li><a href="Variables.html">Variables</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -445,14 +460,14 @@ and adds a new child to it. If you want to point to the parent instead of a chil
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "status"
     with:
       fhir: "$resource"
-      openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value"
+      openehr: "$archetype/items[at0073]/value"
     manual:
       - name: "registered"
         fhir:
           path: "status"
           value: "registered"
         openehrCondition:
-          targetRoot: "$openehrRoot/defining_code" # $archetype/data[at0001]/events[at0002]/data[at0003]/items[at0073]/value/defining_code
+          targetRoot: "$openehrRoot/defining_code" # $archetype/items[at0073]/value/defining_code
           targetAttribute: "code_string"
           operator: "one of"
           criteria: "at0107"</code></pre>
@@ -484,7 +499,7 @@ openEHR. Usually, this is handled in the following method.</p>
         - name: "specimenReference"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+            openehr: "$archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
           slotArchetype: "CLUSTER.specimen.v1"</code></pre>
 </div>
 </div>

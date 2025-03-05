@@ -86,9 +86,6 @@
     <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Recurrence.html">Recurrence</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="path_operators.html">path operators</a>
   </li>
 </ul>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
@@ -331,7 +346,7 @@
     <li><a href="body.html">Body</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/body.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -406,10 +421,10 @@ are mapped against each other.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The general way of processing in FHIRconnect is top down. If two mappings are mapped to the same path
-the later one in the order will overwrite the first one.
+with a cardinality of 0..1, the later one in the order will overwrite the first one.
 Also, when nesting methods, the child methods will always aim on the path of the parent, the idea here is
 that you iterate down the path of an element and step by step map each of the fields contained. This is explained
-further in the FollowedBy chapter</p>
+further in the <a href="FollowedBy.html" class="xref page">FollowedBy</a> and <a href="../recurrence/main.html" class="xref page">Recurrence</a> chapter</p>
 </div>
 </div>
 </div>
@@ -429,7 +444,7 @@ underneath of this <code>with</code> method.</p>
     with:
       fhir: "$resource.onset"
       openehr: "$archetype/data[at0001]/items[at0077]"
-    unidirectional: "openEHR-&gt;fhir"</code></pre>
+    unidirectional: "openehr-&gt;fhir"</code></pre>
 </div>
 </div>
 </div>

@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FollowedBy :: FHIRconnect</title>
-    <link rel="prev" href="Conditions.html">
-    <link rel="next" href="path_operators.html">
+    <title>Transforming child elements in a list :: FHIRconnect</title>
+    <link rel="prev" href="TransformingList.html">
+    <link rel="next" href="../types-of-mapping-files/main.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -68,25 +68,25 @@
     <span class="nav-text">Basics</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="main.html">Header</a>
+    <a class="nav-link" href="../basics/main.html">Header</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="body.html">Body</a>
+    <a class="nav-link" href="../basics/body.html">Body</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="preprocessor.html">Preprocessor</a>
+    <a class="nav-link" href="../basics/preprocessor.html">Preprocessor</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Variables.html">Variables</a>
+    <a class="nav-link" href="../basics/Variables.html">Variables</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="Conditions.html">Condition</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="FollowedBy.html">FollowedBy</a>
+    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="path_operators.html">path operators</a>
+    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/path_operators.html">path operators</a>
   </li>
 </ul>
   </li>
@@ -242,16 +242,16 @@
     <span class="nav-text">Recurrence</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+    <a class="nav-link" href="main.html">Recurrence</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+    <a class="nav-link" href="Overwriting.html">Overwriting</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+    <a class="nav-link" href="TransformingList.html">Transforming a list</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="PopulatingAnEntry.html">Transforming child elements in a list</a>
   </li>
 </ul>
   </li>
@@ -342,102 +342,342 @@
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
     <li>Grammar</li>
-    <li>Basics</li>
-    <li><a href="FollowedBy.html">FollowedBy</a></li>
+    <li>Recurrence</li>
+    <li><a href="PopulatingAnEntry.html">Transforming child elements in a list</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/FollowedBy.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/PopulatingAnEntry.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">FollowedBy</h1>
+<h1 class="page">Transforming child elements in a list</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>FHIRConnect follows a top-down approach combined with iterating and accessing paths to execute logic
-that aligns with child elements. To facilitate this, <code>FollowedBy</code> was introduced.
-The <code>FollowedBy</code> mechanism allows to attach mappings to each other, ensuring their execution occurs as the next step
-after the parent mapping method has been executed.</p>
-</div>
-<div class="paragraph">
-<p>The reason for this is that there are nested paths in FHIR and openEHR.
-For <code>0..n</code> root elements, mappings must be executed <code>0..n</code> times.
-To execute a mapping for two different child nodes within this path, the <code>with</code> logic is not enough.
-If we split this into two separate <code>with</code> mappings,
-they will overwrite each other since both address the same root path.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "period"
-    with:
-      fhir: "$resource.onset.as(Period)"
-      openehr: "$archetype"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "start"
-          with:
-            fhir: "start"
-            openehr: "data[at0001]/items[at0077]"
-
-        - name: "lebensphaseCluster"
-          with:
-            fhir: "$fhirRoot"
-            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-          slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Here, the onset is accessed if it is a period (FHIRPath helps us here as a shortcut instead of using <code>fhirCondition</code>)
-and executes a mapping based on the start time of the period. Additionally, we trigger a slot archetype cluster mapping.
-Slot archetypes are explained in the next chapter.</p>
-</div>
-<div class="paragraph">
-<p>If it was written as two single <code>with:</code> statements, the cluster mappings would, when converting openEHR to FHIR,
-overwrite the <code>"start"</code> mapping since it maps the same path.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "start"
-    with:
-      fhir: "$resource.onset.as(Period).start"
-      openehr: "$archetype/data[at0001]items[at0077]"
-
-  - name: "lebensphaseCluster"
-    with:
-      fhir: "$resource.onset.as(Period)" # same path onset, overwrites start
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-    slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>More information about recurrence and cardinality see
-<a href="../recurrence/main.html" class="xref page">Recurrence</a></p>
+<p>To map two lists against each other that contain a set of child items we need to iterate
+both of these lists. When iterating each of their appearances each of the corresponding
+paths need to be mapped.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="path-construction"><a class="anchor" href="#path-construction"></a>Path construction</h2>
+<h2 id="example"><a class="anchor" href="#example"></a>Example</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>All followedBy mappings start with parent&#8217;s path. In the example above, resolved path used for actual mapping
-of <code>- name: "start"</code> would be <code>$resource.onset.as(Period).start</code>. First part being from the parent and
-the <code>start</code> being from the followedBy mapping. In the same manner, openEHR paths are concatenated.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "collection"
+    with:
+      fhir: "$resource.collection" # 0..n
+      openehr: "$archetype/data[at0001]" # 0..n
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "collected"
+          with:
+            fhir: "collected"
+            openehr: "items[at0015]"
+
+        - name: "collector"
+          with:
+            fhir: "collector"
+            openehr: "items[at0070]"</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>In case you do not want a followedBy mapping to include another path, you can reference <code>$openehrRoot</code>, <code>$archetype</code>,
-<code>$fhirRoot</code> or <code>$resource</code> (see: <a href="Variables.html" class="xref page">Variables</a>).</p>
+<p>In the pseudocode example above, both <code>collection</code> and <code>$archetype/data[at0001]</code> are recurring
+elements. Therefore, they are specified on the same level in the mapping. All mappings of a specific
+occurrence of <code>collection</code> are within <code>followedBy</code>, each of which maps in the <code>followedBy</code> the elements
+of the cluster.
+Therefore, these lists would be transformed into each other.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "collection": [
+    {
+      "collected": "12:00",
+      "collector": "13"
+    },
+    {
+      "collected": "13:00",
+      "collector": "14"
+    }
+  ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "at0001": [
+    {
+      "at0015": "12:00",
+      "at0070": "13"
+    },
+    {
+      "at0015": "13:00",
+      "at0070": "14"
+    }
+  ]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wrong-mapping"><a class="anchor" href="#wrong-mapping"></a>Wrong mapping</h3>
+<div class="paragraph">
+<p>In this example, the <code>data[0001]</code>, which has a cardinality of <code>0..n</code>, is contained
+as part of the parent mapping paths. FHIRconnect always appends to a <code>0..n</code> path if it&#8217;s
+not iterated. The below example would append a new entry in <code>data[0001]</code> for each
+occurrence of <code>collection</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "collection"
+    with:
+      fhir: "$resource.collection" # 0..n
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "collected"
+          with:
+            fhir: "collected"
+            openehr: "data[at0001]/items[at0015]"
+
+        - name: "collector"
+          with:
+            fhir: "collector"
+            openehr: "data[at0001]/items[at0070]"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "collection": [
+    {
+      "collected": "12:00",
+      "collector": "13"
+    },
+    {
+      "collected": "13:00",
+      "collector": "14"
+    }
+  ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would result in this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "at0001": [
+    {
+      "at0015": "12:00"
+    },
+    {
+      "at0070": "13"
+    },
+    {
+      "at0015": "13:00"
+    },
+    {
+      "at0070": "14"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-with-slot"><a class="anchor" href="#example-with-slot"></a>Example with Slot</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this example, both <code>ServiceRequest.specimen</code> as well
+as <code>$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]</code> are recurring
+elements, therefore they are specified on the same level in the mapping. All mappings of a specific
+occurrence of <code>specimen</code> are within <code>followedBy</code>. For each specimen, one cluster is created.
+Each of which maps in the <code>followedBy</code> the <code>identifier</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+    with:
+      fhir: "$resource.specimen" #0..n
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenRecurring"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/activities[at0001]
+/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"   #0..n
+          slotArchetype: "CLUSTER.specimen.v1"
+          followedBy:
+            mappings:
+              - name: "specimenIdentifier"
+                with:
+                  fhir: "identifier"
+                  openehr: "items[at0001]"</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incorrect-mapping"><a class="anchor" href="#incorrect-mapping"></a>Incorrect Mapping</h3>
+<div class="paragraph">
+<p>If, on the contrary, this would create two <code>specimen</code> clusters—one with the slot and one with only an
+identifier.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+    with:
+      fhir: "$resource.specimen"
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenRecurring"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+          slotArchetype: "CLUSTER.specimen.v1"
+        - name: "specimenIdentifier"
+          with:
+            fhir: "identifier"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example-of-double-nesting"><a class="anchor" href="#example-of-double-nesting"></a>Example of double nesting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Imagine the following example. We have a <code>category</code> in FHIR with <code>0..n</code> elements, and this
+category has <code>0..n</code> text elements. The same goes in openEHR, where you have one <code>at0094</code> in the protocol with
+<code>0..n</code> <code>at0063</code> codes. Mapping that correctly would mean matching the corresponding paths
+like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "category"
+    with:
+      fhir: "$resource.category" # 0..n
+      openehr: "$archetype/protocol[at0004]/items[at0094]" # 0..n
+    followedBy:
+      - name: "category"
+        with:
+          fhir: "text" # 0..n
+          openehr: "/items[at0063]" # 0..n</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "category": [
+    {
+      "text": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "text": [
+        "3",
+        "4"
+      ]
+    }
+  ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would result in this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "at0094": [
+    {
+      "at0063": ["1", "2"]
+    },
+    {
+      "at0063": ["3", "4"]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incorrect-mapping-2"><a class="anchor" href="#incorrect-mapping-2"></a>Incorrect Mapping</h3>
+<div class="paragraph">
+<p>This mapping would iterate one time through all the <code>text</code> contained, resulting in
+four entries of text being mapped into openEHR. These entries are now mapped to a path
+with two <code>0..n</code>, since we always append to <code>0..n</code>, this would resolve in 4 single entries
+inside <code>at0094</code>. This would be the same case when mapping from openEHR to FHIR.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: "category"
+    with:
+      fhir: "$resource.category.text" # 0..n
+      openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">  "category": [
+    {
+      "text": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "text": [
+        "3",
+        "4"
+      ]
+    }
+  ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>would result in this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "at0094": [
+    {
+      "at0063": ["1"]
+    },
+    {
+      "at0063": ["2"]
+    },
+    {
+      "at0063": ["3"]
+    },
+    {
+      "at0063": ["4"]
+    }
+  ]
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="Conditions.html">Condition</a></span>
-  <span class="next"><a href="path_operators.html">path operators</a></span>
+  <span class="prev"><a href="TransformingList.html">Transforming a list</a></span>
+  <span class="next"><a href="../types-of-mapping-files/main.html">Types of mapping files</a></span>
 </nav>
 </article>
   </div>

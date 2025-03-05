@@ -86,9 +86,6 @@
     <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../basics/Recurrence.html">Recurrence</a>
-  </li>
-  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../basics/path_operators.html">path operators</a>
   </li>
 </ul>
@@ -242,6 +239,24 @@
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
@@ -280,7 +295,7 @@
     <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../engine/cardinality.html">Cardinalities</a>
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../engine/bundles.html">Bundles</a>
@@ -331,7 +346,7 @@
     <li><a href="TemplateAgnostic.html">Template Agnostic</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/TemplateAgnostic.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/TemplateAgnostic.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -350,7 +365,7 @@ A recent <a href="https://pubmed.ncbi.nlm.nih.gov/37128432/">publication</a> sho
 contained in an implementation guide are extensions.
 When converting back and forth between FHIR datasets, these fields can either be missing on
 one side or provided in another profile, or they may be modeled differently.
-This makes the transformation between FHIR initiatives lackluster, as an integration process has to deal with different representations and missing data that was not modeled.</p>
+This makes the transformation between FHIR initiatives difficult, as the integration process has to deal with different representations and missing data that was not modeled.</p>
 </div>
 </div>
 </div>
@@ -370,8 +385,9 @@ This makes the transformation between FHIR initiatives lackluster, as an integra
 between FHIR profiles, a new profile that captures all three fields would need to be modeled.
 This profile would then be extended for each new field introduced by a each FHIR initiative.
 If these fields are modeled differently between initiatives, it results in even more integration processes.
-There are other problems like the releases (FHIR has 6 versions as of now)
-and missing standardization of composer, etc. pp.</p>
+There are other problems like differences between releases (FHIR has <a href="https://hl7.org/fhir/history.html">6 versions as of now</a>)
+and missing standardization of composer, etc. pp. See the <a href="https://build.fhir.org/fivews.html">fiveWs</a> page
+for an analysis on the semantics of different resource attributes.</p>
 </div>
 </div>
 </div>
@@ -395,16 +411,16 @@ The extension mapping may change how some paths of the archetype are mapped to P
 but this is independent of the template and relates to the profile.
 Therefore, once we write a mapping for Profile 1, each archetype in an openEHR CDR can be mapped
 to that specific profile (if no mandatory field is missing).
-The downside here is that FHIR initiatives are modeled in smaller scopes for exchange, and the data
-contained in archetypes is often not modeled, leading to data loss.</p>
+The downside here is that FHIR initiatives are modeled in smaller scopes for exchange purposes, and parts of the data
+contained in archetypes definition are often not modeled in the FHIR profiles, leading to data loss.</p>
 </div>
 <div class="paragraph">
 <p>In regard to FHIR releases, currently FHIRconnect was designed to map R4.
-Adapting other releases like R6 could only require editing the paths of the mappings files
-and marking them with R6 in the header. Yet, it was not reviewed.</p>
+Adapting other releases like R5 could only require editing the paths of the mappings files
+and marking them with R5 in the header. This has not been reviewed extensively, so problems may arise.</p>
 </div>
 <div class="paragraph">
-<p>This provides the possibility to convert data between different FHIR projects in an easy manner, e.g. transforming
+<p>This provides the possibility to convert data between different FHIR projects in an easy manner by using openEHR as a cannonical model, e.g. transforming
 data from the german-core dataset (KDS) to the EEHRxF FHIR-profiles and back.</p>
 </div>
 </div>
@@ -417,7 +433,7 @@ data from the german-core dataset (KDS) to the EEHRxF FHIR-profiles and back.</p
 FHIR profiles are mostly designed for exchange and not for recording clinical data inside institutions.
 Therefore, a split between data-capture and FHIR templates is sometimes recommended to
 avoid infringing on the primary data-capture templates.
-Hereby, it is important that the 1..1 fields are contained otherwise the mapping cannot be executed.
+Hereby, the mandatory fields (1..1) should be contained otherwise the mapping can not be executed.
 Yet, it is not always mandatory.</p>
 </div>
 </div>
