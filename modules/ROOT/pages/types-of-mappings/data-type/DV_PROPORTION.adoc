@@ -1,17 +1,33 @@
 = DV_PROPORTION
 
+== Ratio
+
+https://build.fhir.org/datatypes.html#Ratio[Ratio]
+to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class[DV_PROPORTION].
+
 [cols="^1,^1,^1,^2", options="header"]
 |===
 | FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+|  numerator.value   |         | numerator       |
+|  denominator.value  |         | denominator |
+| (should be calculated)     |         | type               |
+|    |         | precision                     |
+|  |      | normal_range                         |
+| -         |         | other_reference_range            |
+|===
+
+== Quantity
+
+https://build.fhir.org/datatypes.html#Quantity[Quantity]
+to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class[DV_PROPORTION].
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                  | Comment
+|     |         | numerator       |
+|    |         | denominator |
+|      |         | type               |
+|    |         | precision                     |
+|  |      | normal_range                         |
+| -         |         | other_reference_range            |
 |===

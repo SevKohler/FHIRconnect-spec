@@ -1,17 +1,26 @@
 = DV_IDENTIFIER
 
+== Identifier
+
+https://build.fhir.org/datatypes.html#Identifier[Identifier]
+to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER].
+
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| FHIRpath  | Comment  | openEHR                   | Comment
+| value    |          | value                    |
+| assigner   |          | assigner                  |
+| value     |          | id                        | this is a mandatory field in openEHR, whereas it is not in FHIR
+| type.coding.code   |          | type                      |
+|===
+
+== String or Code
+
+https://build.fhir.org/datatypes.html#string[String] or https://build.fhir.org/datatypes.html#code[code]
+to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER].
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                   | Comment
+| value    |          | value                    |
 |===
