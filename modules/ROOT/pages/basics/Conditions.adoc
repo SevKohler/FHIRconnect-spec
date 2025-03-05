@@ -66,7 +66,7 @@ Meanwhile, for the following example, the condition method would try to filter o
 
 == targetAttribute
 
-The `targetAttribute` is used to specify the path the filter is applied to. The example above in FHIRPath would be
+The `targetAttribute` is used to specify the path the filter is applied to. The example below in FHIRPath would be
 written as `$resource.identifier.where(type.coding.code="room")`, therefore checking for the code `type` and returning
 the identifier entries that match. These are the ones that are mapped in the `with:` method.
 [source,yaml]

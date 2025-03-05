@@ -90,7 +90,7 @@ Another typical use case would be to hardcode, extension urls in FHIR.
 
 == ConceptMaps
 In general manual mappings are simple in nature, but require maintenance.
-To mitigate this the use of https://build.fhir.org/conceptmap.html[FHIRconceptMaps] is recommended.
+To mitigate this the use of https://build.fhir.org/conceptmap.html[FHIR ConceptMaps] is recommended.
 These can be used in the FHIRconnect spec using the `conceptmap:` key, that points to the conceptMap Url.
 
 [source,yaml]
@@ -127,3 +127,7 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
   conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
 ----
+
+How FHIR Connect engine resolves this concept map and does the translation of codes is outside the domain of this
+FHIR Connect specification. It is, however advised that https://build.fhir.org/terminology-service.html[FHIR Terminology Service Implementation Guide]
+is followed and translation is done following the https://build.fhir.org/conceptmap-operation-translate.html[$translate] operation description.
