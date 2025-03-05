@@ -1,21 +1,21 @@
 = Extension methods
 
-An extension always inherits all the mappings contained in the model-mapping. It can interact with these existing
+An extension always inherits all the mappings contained in the model mapping. It can interact with these existing
 mappings by starting a mapping method and adding the `extends` key. Depending on the key different logic is executed.
 
 [width="100%",cols="18%,82%",options="header",]
 |===
 |types |Description
-|`add` | adds a mapping to the model-mapping, always added to the button of the file
+|`add` | adds a mapping to the model mapping, always added to the bottom of the file
 
-|`append` | appends mapping logic to a path inside the model-mapping
+|`append` | appends mapping logic to a path inside the model mapping
 
 |`overwrite` | overwrites the mapping method with the same name
 |===
 
 == Add
-This extension method adds a mapping method to the model-mapping. It is always added at the button of them
-model-mapping file. So it could also overwrite prior methods to the same path.
+This extension method adds a mapping method to the model mapping. It is always added at the bottom of the
+model mapping file. Add methods can also overwrite prior methods to the same path.
 
 Example:
 [source,yaml]
@@ -29,7 +29,7 @@ Example:
 
 ----
 
-This impacts the model mapping file, via runtime, in the following way:
+This impacts the model mapping file at runtime in the following way:
 [source,yaml]
 ----
 mappings:
@@ -48,10 +48,10 @@ mappings:
 
 == Append
 The append extension method appends a followedBy to a method. The method where it is to be appended to
-is referenced with the key `appendTo`. The value used is the name of the mapping method.  This can be also
-the child method. The path would be then `appendTo: parent.child`
+is referenced with the key `appendTo`. The value used is the name of the mapping method. This can be also
+the child method. The path then would be `appendTo: parent.child`
 
-Example of an append extension method.
+Example of an append extension method:
 [source,yaml]
 ----
 
@@ -66,7 +66,7 @@ Example of an append extension method.
             openehr: "$archetype/items[at0142]"
 ----
 
-This would impact a model-mapping file, via runtime, in the following way:
+This would impact a model mapping file at runtime in the following way:
 
 [source,yaml]
 ----
@@ -93,12 +93,12 @@ mappings:
             openehr: "$archetype/items[at0142]"
 ----
 
-To maintain readability the append is only transformed into a followedBy. If more logic is to be altered, the
-overwrite method is to be used.
+To maintain readability the append is transformed into a followedBy. If more logic needs to be altered, the
+overwrite method must be used instead.
 
 == Overwrite
-To overwrite, overwrite an existing method contained in the model mapping. The name of the mapping method,
-is the name of the method in the model-mapping that is overwritten.
+This method allows to overwrite an existing method contained in the model mapping. The name of the mapping method
+is the name of the method in the model mapping that will be overwritten.
 
 Example:
 [source,yaml]
@@ -136,7 +136,7 @@ Example:
             openehr: "data[at0001]/items[at0077]"
 
 ----
-Prior to extension use
+Prior to extension use:
 
 [source,yaml]
 ----
@@ -152,7 +152,7 @@ mappings:
       openehr: "$archetype/data[at0001]/items[at0077]"
 ----
 
-After the extension, the model-mapping would look like this via runtime:
+After the extension, the model mapping would look like this at runtime:
 [source,yaml]
 ----
 mappings:
