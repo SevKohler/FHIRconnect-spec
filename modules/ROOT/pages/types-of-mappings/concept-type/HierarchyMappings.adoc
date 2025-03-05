@@ -26,7 +26,6 @@ As an example:
 
 [source,yaml]
 ----
-...
   openEhrConfig:
     archetype: openEHR-EHR-OBSERVATION.laboratory_test_result.v1
     revision: 1.2.5
@@ -100,11 +99,14 @@ preprocessor:
     split:
       fhir:
         create: "resource"
-        unique: "['data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]']"
+        unique:
+          - "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
       openEHR:
         create: "event"
         path: "$archetype/data[at0001]/events[at0002]"
-        unique: "[route, timing.event]" # If the route value differs per dosage slice, create a new event
+        unique:
+          - "route"
+          - "timing.event" # If the route value differs per dosage slice, create a new event
 ----
 
 To summarize:

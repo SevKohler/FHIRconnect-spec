@@ -1,0 +1,12 @@
+= When to fail a mapping
+:navtitle: When to fail a mapping
+
+It is recommended that the engine enforces strict rules when mapping elements.
+Since the mapped data is clinical data, maintaining maximum semantics and data coverage is a top priority.
+
+For example, if we have a parent node with a `1..1` cardinality and a child node with a `1..1` cardinality,
+the mapping should fail if the child is not provided.
+
+A more tolerant approach would be to map only the parent, ensuring that at least some data is transformed.
+However, since we cannot determine what data is missing, either all data should be mapped,
+or the mapping should fail.

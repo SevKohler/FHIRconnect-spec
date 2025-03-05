@@ -1,0 +1,31 @@
+= Overwriting
+
+Overwrites happen if we write twice in a path that is `0..1`. Sometimes this is done, because an e.g. archetype
+could have two paths for one in FHIR. Here we have to choose which one we prefer.
+As an example:
+
+[source,yaml]
+----
+mappings: # starts mappings
+  - name: "dateTime" # name of the mapping
+    with:
+      fhir: "$resource.onset" # 0..1
+      openehr: "$archetype/data[at0001]/items[at0077]" # 0..1
+
+  - name: "muchCoolerDateTime" # overwrites at0077
+    with:
+      fhir: "$resource.onset" # 0..1
+      openehr: "$archetype/data[at0001]/items[at0078]" # 0..1
+----
+Here both elements map the onset. If the `at0078` exists in the archetype, we would rather have
+this one populated, instead of the `at0077`. Therfore, we write the latter one afterwards.
+It will overwrite the first one, since it adresses the same path. When mapping back also `at0078` will
+be populated to the onset.
+
+Result:
+----
+onset: "12:00"
+----
+----
+at0078: "12:00"
+----

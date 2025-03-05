@@ -1,0 +1,292 @@
+= Transforming child elements in a list
+:navtitle: Transforming child elements in a list
+
+To map two lists against each other that contain a set of child items we need to iterate
+both of these lists. When iterating each of their appearances each of the corresponding
+paths need to be mapped.
+
+== Example
+[source,yaml]
+----
+  - name: "collection"
+    with:
+      fhir: "$resource.collection" # 0..n
+      openehr: "$archetype/data[at0001]" # 0..n
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "collected"
+          with:
+            fhir: "collected"
+            openehr: "items[at0015]"
+
+        - name: "collector"
+          with:
+            fhir: "collector"
+            openehr: "items[at0070]"
+----
+
+In the pseudocode example above, both `collection` and `$archetype/data[at0001]` are recurring
+elements. Therefore, they are specified on the same level in the mapping. All mappings of a specific
+occurrence of `collection` are within `followedBy`, each of which maps in the `followedBy` the elements
+of the cluster.
+Therefore, these lists would be transformed into each other.
+
+[source,json]
+----
+  "collection": [
+    {
+      "collected": "12:00",
+      "collector": "13"
+    },
+    {
+      "collected": "13:00",
+      "collector": "14"
+    }
+  ]
+----
+
+to
+
+[source,json]
+----
+  "at0001": [
+    {
+      "at0015": "12:00",
+      "at0070": "13"
+    },
+    {
+      "at0015": "13:00",
+      "at0070": "14"
+    }
+  ]
+----
+
+=== Wrong mapping
+In this example, the `data[0001]`, which has a cardinality of `0..n`, is contained
+as part of the parent mapping paths. FHIRconnect always appends to a `0..n` path if it's
+not iterated. The below example would append a new entry in `data[0001]` for each
+occurrence of `collection`.
+
+[source,yaml]
+----
+  - name: "collection"
+    with:
+      fhir: "$resource.collection" # 0..n
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "collected"
+          with:
+            fhir: "collected"
+            openehr: "data[at0001]/items[at0015]"
+
+        - name: "collector"
+          with:
+            fhir: "collector"
+            openehr: "data[at0001]/items[at0070]"
+----
+
+[source,json]
+----
+  "collection": [
+    {
+      "collected": "12:00",
+      "collector": "13"
+    },
+    {
+      "collected": "13:00",
+      "collector": "14"
+    }
+  ]
+----
+
+would result in this:
+
+[source,json]
+----
+{
+  "at0001": [
+    {
+      "at0015": "12:00"
+    },
+    {
+      "at0070": "13"
+    },
+    {
+      "at0015": "13:00"
+    },
+    {
+      "at0070": "14"
+    }
+  ]
+}
+----
+
+== Example with Slot
+In this example, both `ServiceRequest.specimen` as well
+as `$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]` are recurring
+elements, therefore they are specified on the same level in the mapping. All mappings of a specific
+occurrence of `specimen` are within `followedBy`. For each specimen, one cluster is created.
+Each of which maps in the `followedBy` the `identifier`.
+
+[source,yaml]
+----
+  - name: "specimen"
+    with:
+      fhir: "$resource.specimen" #0..n
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenRecurring"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/activities[at0001]
+/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"   #0..n
+          slotArchetype: "CLUSTER.specimen.v1"
+          followedBy:
+            mappings:
+              - name: "specimenIdentifier"
+                with:
+                  fhir: "identifier"
+                  openehr: "items[at0001]"
+----
+
+=== Incorrect Mapping
+
+If, on the contrary, this would create two `specimen` clusters—one with the slot and one with only an
+identifier.
+
+[source,yaml]
+----
+  - name: "specimen"
+    with:
+      fhir: "$resource.specimen"
+      openehr: "$reference"
+      type: "NONE"
+    reference:
+      resourceType: "Specimen"
+      mappings:
+        - name: "specimenRecurring"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+          slotArchetype: "CLUSTER.specimen.v1"
+        - name: "specimenIdentifier"
+          with:
+            fhir: "identifier"
+            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]"
+----
+
+== Example of double nesting
+Imagine the following example. We have a `category` in FHIR with `0..n` elements, and this
+category has `0..n` text elements. The same goes in openEHR, where you have one `at0094` in the protocol with
+`0..n` `at0063` codes. Mapping that correctly would mean matching the corresponding paths
+like this:
+
+[source,yaml]
+----
+mappings:
+  - name: "category"
+    with:
+      fhir: "$resource.category" # 0..n
+      openehr: "$archetype/protocol[at0004]/items[at0094]" # 0..n
+    followedBy:
+      - name: "category"
+        with:
+          fhir: "text" # 0..n
+          openehr: "/items[at0063]" # 0..n
+----
+
+[source,json]
+----
+  "category": [
+    {
+      "text": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "text": [
+        "3",
+        "4"
+      ]
+    }
+  ]
+----
+
+would result in this:
+
+[source,json]
+----
+{
+  "at0094": [
+    {
+      "at0063": ["1", "2"]
+    },
+    {
+      "at0063": ["3", "4"]
+    }
+  ]
+}
+----
+
+=== Incorrect Mapping
+
+This mapping would iterate one time through all the `text` contained, resulting in
+four entries of text being mapped into openEHR. These entries are now mapped to a path
+with two `0..n`, since we always append to `0..n`, this would resolve in 4 single entries
+inside `at0094`. This would be the same case when mapping from openEHR to FHIR.
+
+[source,yaml]
+----
+mappings:
+  - name: "category"
+    with:
+      fhir: "$resource.category.text" # 0..n
+      openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]"
+----
+
+[source,json]
+----
+  "category": [
+    {
+      "text": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "text": [
+        "3",
+        "4"
+      ]
+    }
+  ]
+----
+
+would result in this:
+
+[source,json]
+----
+{
+  "at0094": [
+    {
+      "at0063": ["1"]
+    },
+    {
+      "at0063": ["2"]
+    },
+    {
+      "at0063": ["3"]
+    },
+    {
+      "at0063": ["4"]
+    }
+  ]
+}
+----
