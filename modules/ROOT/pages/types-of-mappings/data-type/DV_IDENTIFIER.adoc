@@ -5,22 +5,18 @@
 https://build.fhir.org/datatypes.html#Identifier[Identifier]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER].
 
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR                   | Comment
-| value    |          | value                    |
-| assigner   |          | assigner                  |
-| value     |          | id                        | this is a mandatory field in openEHR, whereas it is not in FHIR
-| type.coding.code   |          | type                      |
-|===
-
-== String or Code
-
-https://build.fhir.org/datatypes.html#string[String] or https://build.fhir.org/datatypes.html#code[code]
-to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER].
+This has several problems. The `type` is a `coding` in FHIR and the `assigner` a `reference` to an
+Organization. In openEHR the mapped fields are `string`. To capture some of the FHIR logic,
+the `type.codings` first `code` should be transformed as described in <<types-of-mappings/data-type/CODE_PHRASE.adoc#string, Coding to String>>.
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                   | Comment
-| value    |          | value                    |
+| FHIRpath           | Comment | openEHR  |
+| use                |         | -        |
+| period             |         | -        |
+| assigner           |         | assigner |  see <<types-of-mappings/data-type/String.adoc#references, String to Reference>>
+| value              |         | id       | This is a mandatory field in openEHR, whereas it is not in FHIR.
+| type.coding        |         | type     | see <<types-of-mappings/data-type/CODE_PHRASE.adoc#string, Coding to String>>
+| -                  |         | issuer   |
 |===
+

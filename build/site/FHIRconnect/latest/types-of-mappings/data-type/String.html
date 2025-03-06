@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DV_DURATION :: FHIRconnect</title>
-    <link rel="prev" href="DV_DATE_TIME.html">
-    <link rel="next" href="DV_MULTIMEDIA.html">
+    <title>String :: FHIRconnect</title>
+    <link rel="prev" href="../main.html">
+    <link rel="next" href="DV_IDENTIFIER.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -105,7 +105,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Foundation types</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="5">
+  <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="String.html">String</a>
   </li>
 </ul>
@@ -183,7 +183,7 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_DATE_TIME.html">DV_DATE_TIME</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="5">
+  <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_DURATION.html">DV_DURATION</a>
   </li>
 </ul>
@@ -353,18 +353,25 @@
     <li>Grammar</li>
     <li>Types of Mappings</li>
     <li>Data-type mappings</li>
-    <li>Date Time Package</li>
-    <li><a href="DV_DURATION.html">DV_DURATION</a></li>
+    <li>Foundation types</li>
+    <li><a href="String.html">String</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_DURATION.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/String.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DV_DURATION</h1>
+<h1 class="page">String</h1>
+<div class="sect1">
+<h2 id="coding"><a class="anchor" href="#coding"></a>Coding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class">String</a> to
+<a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/82771">Coding</a></p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 20%;">
@@ -382,76 +389,172 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>system::value</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">terminology_id/name</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">version</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">terminology_id/version_id</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">code_string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">userSelected</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">preferred_term</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The transformation into a string is lacklustre when coming from a coded value. To
+maintain some of the content the coding should be parsed into the String and back as
+<code>system::value</code>, e.g. <code><a href="http://loinc.org::LP74849-8" class="bare">http://loinc.org::LP74849-8</a></code>, that way the
+most important fields are contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text. When converting back,
+this may cause problems, providers need to make sure that the freetext elements do
+not contain a :: or even skip a back-transformation from a coding to a string.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references"><a class="anchor" href="#references"></a>References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><mark>This wont work for references due to identifier we should use another encoding here maybe copying the entire
+reference identifier as is</mark>
+<mark>maybe copyin the entire identifier over, better than loosing data</mark></p>
+</div>
+<div class="paragraph">
+<p><a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class">String</a> to
+<a href="https://build.fhir.org/references.html#Reference">Reference</a></p>
+</div>
+<div class="paragraph">
+<p>The transformation into a string is lacklustre when coming from a reference. To
+maintain some information the identifier of the reference or the resource should be
+contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text, similar to above. When converting back,
+this may cause problems, providers need to make sure that the identifier elements do
+not contain a :: or even skip a back-transformation from a reference to a string.</p>
+</div>
+<div class="sect2">
+<h3 id="with"><a class="anchor" href="#with"></a>With <code>::</code></h3>
+<div class="paragraph">
+<p>It is recommended to use the <code>::</code> to maintain as much of the data as possible</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>identifier.system::identifier.value</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In case of containing the reference containg a resource</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reference.identifier.system::reference.identifier.value</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>identifier.system::identifier.value</code> mapping should be always used as the transformation
+output from a String to a reference, if <code>::</code> is present in the string. Instead of
+<code>reference.identifier.system::reference.identifier.value</code> since the transformation does not maintain which resource this was.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="without"><a class="anchor" href="#without"></a>Without ::</h3>
+<div class="paragraph">
+<p>In case of the string backward mapping having no <code>::</code>, or the vendor deciding against the
+<code>::</code></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>identifier.value</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>identifier.value</code> should be always used as the transformation output.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reference.identifier.value</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>identifier.value</code> should be always used as the transformation output.</p>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_DATE_TIME.html">DV_DATE_TIME</a></span>
-  <span class="next"><a href="DV_MULTIMEDIA.html">DV_MULTIMEDIA</a></span>
+  <span class="prev"><a href="../main.html">Mapping types</a></span>
+  <span class="next"><a href="DV_IDENTIFIER.html">DV_IDENTIFIER</a></span>
 </nav>
 </article>
   </div>

@@ -103,6 +103,15 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Foundation types</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="String.html">String</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Basic Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
@@ -357,8 +366,11 @@
 <article class="doc">
 <h1 class="page">DV_TEXT</h1>
 <div class="sect1">
-<h2 id="string-to-dv_text"><a class="anchor" href="#string-to-dv_text"></a><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888">String</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></h2>
+<h2 id="string"><a class="anchor" href="#string"></a>String</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888">String</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
+</div>
 <div class="paragraph">
 <p>The transformation is lacking here a good mapping to FHIR.
 String is the one that comes closest.</p>
@@ -402,6 +414,138 @@ String is the one that comes closest.</p>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
 <td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="coding"><a class="anchor" href="#coding"></a>Coding</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979">Coding</a> to
+<a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a>
+In openEHR each <code>DV_TEXT</code> can be annotated with codings using mappings. This we can use to
+faithfully transform the FHIR <code>codings</code> bidirectionally.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">opeEHR</th>
+<th class="tableblock halign-center valign-top">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="TERM_MAPPING.html#term_mapping" class="xref page">TERM_MAPPING</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="codeableconcept"><a class="anchor" href="#codeableconcept"></a>CodeableConcept</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://build.fhir.org/datatypes.html#codeableconcept">CodeableConcept</a> to
+<a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
+</div>
+<div class="paragraph">
+<p>In openEHR each <code>DV_TEXT</code> can be annotated with codings using mappings.
+This we can use to faithfully transform the FHIR <code>CodeableConcept</code> bidirectionally.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">opeEHR</th>
+<th class="tableblock halign-center valign-top">comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="TERM_MAPPING.html#term_mapping" class="xref page">TERM_MAPPING</a>, is also 0..n therfore, can store all codings</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>

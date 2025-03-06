@@ -103,6 +103,15 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="4">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Foundation types</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="String.html">String</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Basic Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
@@ -356,6 +365,9 @@
 </aside>
 <article class="doc">
 <h1 class="page">CODE_PHRASE</h1>
+<div class="sect1">
+<h2 id="coding"><a class="anchor" href="#coding"></a>Coding</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979">Coding</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class">CODE_PHRASE</a></p>
 </div>
@@ -472,6 +484,50 @@
     "display": "Fever"
   }
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="string"><a class="anchor" href="#string"></a>String</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class">CODE_PHRASE</a>
+to <a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888">String</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">terminology_id/name :: code_string</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The transformation into a string is lacklustre when coming from a coded value. To
+maintain some of the content the coding should be parsed into the String and back as
+<code>terminology_id/value::code_string</code>, e.g. <code><a href="http://loinc.org::LP74849-8" class="bare">http://loinc.org::LP74849-8</a></code>, that way the
+most important fields are contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text. When converting back,
+this may cause problems, providers need to make sure that the freetext elements do
+not contain a :: or even skip a back-transformation from a coding to a string.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">

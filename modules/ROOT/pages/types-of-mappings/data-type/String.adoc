@@ -1,0 +1,79 @@
+= String
+
+== Coding
+https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String] to
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/82771[Coding]
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR   | Comment
+| `system::value`     |           | string     |
+
+|===
+
+The transformation into a string is lacklustre when coming from a coded value. To
+maintain some of the content the coding should be parsed into the String and back as
+`system::value`, e.g. `http://loinc.org::LP74849-8`, that way the
+most important fields are contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text. When converting back,
+this may cause problems, providers need to make sure that the freetext elements do
+not contain a :: or even skip a back-transformation from a coding to a string.
+
+== References
+#This wont work for references due to identifier we should use another encoding here maybe copying the entire
+reference identifier as is#
+#maybe copyin the entire identifier over, better than loosing data#
+
+https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String] to
+https://build.fhir.org/references.html#Reference[Reference]
+
+The transformation into a string is lacklustre when coming from a reference. To
+maintain some information the identifier of the reference or the resource should be
+contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text, similar to above. When converting back,
+this may cause problems, providers need to make sure that the identifier elements do
+not contain a :: or even skip a back-transformation from a reference to a string.
+
+=== With `::`
+It is recommended to use the `::` to maintain as much of the data as possible
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR   | Comment
+| `identifier.system::identifier.value`     |           | string     |
+|===
+
+In case of containing the reference containg a resource
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR   | Comment
+| `reference.identifier.system::reference.identifier.value`     |           | string     |
+
+|===
+
+
+The `identifier.system::identifier.value` mapping should be always used as the transformation
+output from a String to a reference, if `::` is present in the string. Instead of
+`reference.identifier.system::reference.identifier.value` since the transformation does not maintain which resource this was.
+
+=== Without ::
+In case of the string backward mapping having no `::`, or the vendor deciding against the
+`::`
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR   | Comment
+| `identifier.value`     |           | string     |
+|===
+The `identifier.value` should be always used as the transformation output.
+
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR   | Comment
+| `reference.identifier.value`     |           | string     |
+
+|===
+
+
+The `identifier.value` should be always used as the transformation output.
+
+

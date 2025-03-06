@@ -1,6 +1,10 @@
 = Mapping types
 :navtitle: Mapping types
 
-There are different types of mappings. Data-type mappings are autoresolved by the engine and transform https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_clas[data-types in openEHR] and  https://www.hl7.org/fhir/R4/datatypes.html[FHIR data
--types]. Second one are the category of concept types that are used for transformations of more complex types.
+There are different types of mappings. Data-type mappings are autoresolved
+by the engine and transform https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_clas[data-types in openEHR]
+and  https://www.hl7.org/fhir/R4/datatypes.html[FHIR data-types]. Primitive types like
+integers, strings etc. are left out due to being a straight forward conversion.
+Second one are the category of concept types that are used for
+transformations of more complex types.
 

@@ -1,5 +1,7 @@
 = CODE_PHRASE
 
+== Coding
+
 https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
 [cols="^1,^1,^1,^2", options="header"]
 |===
@@ -43,3 +45,22 @@ To:
   }
 }
 ----
+
+== String
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
+to https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String]
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Comment  | openEHR                  | Comment
+| string    |         | terminology_id/name :: code_string       |
+
+|===
+
+The transformation into a string is lacklustre when coming from a coded value. To
+maintain some of the content the coding should be parsed into the String and back as
+`terminology_id/value::code_string`, e.g. `http://loinc.org::LP74849-8`, that way the
+most important fields are contained. The double : are introduced since they represent a
+unique combination that usually does rarely appear in text. When converting back,
+this may cause problems, providers need to make sure that the freetext elements do
+not contain a :: or even skip a back-transformation from a coding to a string.
