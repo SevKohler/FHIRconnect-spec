@@ -4,7 +4,7 @@
 |===
 | FHIRpath  | Comment  | openEHR                  | Comment
 | system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
+| version   |         | terminology_id/version_id | populate with emtpy string if not provided
 | value     |         | code_string               |
 | display   |         | value                     |
 | userSelected |      | -                         |

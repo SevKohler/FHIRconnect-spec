@@ -6,19 +6,22 @@ As an example if a period is provided FHIRconnect maps this period to an interva
 path in openEHR, if it's a valid data type.
 
 If no valid data-type is provided these could be transformed into another element e.g. the period start into a
-DV_DATE_TIME. This is up to vendors how strict or relaxed they want to design their engine.
+DV_DATE_TIME. This is up to providers how strict or relaxed they want to design their engine.
 
-This includes only non abstract data-types of openEHR, also some of the inheritance is solved in the child object, since the parent
-object has no representation in FHIR without its child.
+This includes only non abstract data-types of openEHR.
 
 There is also some mappings from the https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_overview[Common Information Model] contained
 like a PARTY_IDENTIFIED mapping.
 
+[IMPORTANT]
+====
+Primitive mappings like integers to integers, strings to string etc. are left out due to being straight forward.
+If a section exists (like for String) these addresses more complex matters and not the basic string-to-string
+mapping.
+====
 
+.https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703[openEHR specification]
 image::uml_types_openEHR.svg[]
-taken from https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703[openEHR specification]
-
-
 
 == Deprecated
 This is the old way (v0.9) of mapping using static types, since the information is derivable from

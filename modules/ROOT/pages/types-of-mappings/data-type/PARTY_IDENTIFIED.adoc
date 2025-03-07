@@ -1,24 +1,23 @@
 = PARTY_IDENTIFIER
 
-`DV_IDENTIFIER`: type, type system `+` `::` `+` value, value assigner, assigner ?
+https://specifications.openehr.org/releases/RM/latest/common.html#_party_identified_class[PARTY_IDENTIFIED] to
+https://build.fhir.org/references.html#Reference[Reference]
+
+[NOTE]
+====
+As up-to-date all of the PARTY_IDENTIFIED mappings found where references between a PARTY_IDENTIFIED and non-clinical
+FHIR-data (organizations etc. ). It is recommended to resolve non-clinical data
+references using the demographics see
+<<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>
+.
+====
+
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| FHIRpath   | Comment  | openEHR                   | Comment
+| reference  |          |                           |
+| type       |          | identifiers               |
+| identifier |          | identifiers               |
+| display    |          | name                      |
 |===
-
-
-It is recommended to resolve non-clinical data
-references using the demographics see
-<<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>

@@ -6,6 +6,7 @@ at the same level. Otherwise, recurring elements may not function correctly, lea
 data overwriting instead of properly mapping all occurrences.
 
 There are three types of how recurrences are dealt with.
+
 1. Overwriting a path
 2. Populating an child of an `0..n` element
 3. Appending to a `0..n`
