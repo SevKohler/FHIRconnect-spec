@@ -1,19 +1,2 @@
 = DV_ORDERED
 
-https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordered_class
-
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
-|===
