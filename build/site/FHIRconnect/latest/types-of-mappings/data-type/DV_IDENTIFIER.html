@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DV_IDENTIFIER :: FHIRconnect</title>
     <link rel="prev" href="String.html">
-    <link rel="next" href="DV_BOOLEAN.html">
+    <link rel="next" href="DV_TEXT.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -116,9 +116,6 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="DV_IDENTIFIER.html">DV_IDENTIFIER</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_BOOLEAN.html">DV_BOOLEAN</a>
   </li>
 </ul>
   </li>
@@ -357,7 +354,7 @@
     <li><a href="DV_IDENTIFIER.html">DV_IDENTIFIER</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_IDENTIFIER.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_IDENTIFIER.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -370,7 +367,7 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://build.fhir.org/datatypes.html#Identifier">Identifier</a>
-to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class">DV_IDENTIFIER</a>.</p>
+to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class">DV_IDENTIFIER</a></p>
 </div>
 <div class="paragraph">
 <p>This has several problems. The <code>type</code> is a <code>coding</code> in FHIR and the <code>assigner</code> a <code>reference</code> to an
@@ -379,54 +376,70 @@ the <code>type.codings</code> first <code>code</code> should be transformed as d
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top"></th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">use</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">period</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">assigner</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">assigner</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="String.html#references" class="xref page">String to Reference</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">This is a mandatory field in openEHR, whereas it is not in FHIR.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">type.coding</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">take first appearance</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="CODE_PHRASE.html#string" class="xref page">Coding to String</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">issuer</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -435,7 +448,7 @@ the <code>type.codings</code> first <code>code</code> should be transformed as d
 </div>
 <nav class="pagination">
   <span class="prev"><a href="String.html">String</a></span>
-  <span class="next"><a href="DV_BOOLEAN.html">DV_BOOLEAN</a></span>
+  <span class="next"><a href="DV_TEXT.html">DV_TEXT</a></span>
 </nav>
 </article>
   </div>

@@ -3,9 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DV_URI :: FHIRconnect</title>
-    <link rel="prev" href="DV_PARSABLE.html">
-    <link rel="next" href="DV_EHR_URI.html">
+    <title>FHIR References :: FHIRconnect</title>
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -201,7 +199,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Uri Package</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="5">
+  <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_URI.html">DV_URI</a>
   </li>
   <li class="nav-item" data-depth="5">
@@ -347,26 +345,159 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../index.html">FHIRconnect</a></li>
-    <li>Grammar</li>
-    <li>Types of Mappings</li>
-    <li>Data-type mappings</li>
-    <li>Uri Package</li>
-    <li><a href="DV_URI.html">DV_URI</a></li>
+    <li><a href="FHIRReference.html">FHIR References</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_URI.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/FHIRReference.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DV_URI</h1>
-
-<nav class="pagination">
-  <span class="prev"><a href="DV_PARSABLE.html">DV_PARSABLE</a></span>
-  <span class="next"><a href="DV_EHR_URI.html">DV_EHR_URI</a></span>
-</nav>
+<h1 class="page">FHIR References</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>References are a concept that is mixed in openEHR depending on the element. There are two types of data in openEHR:
+clinical data and operational data (non-clinical data). openEHR splits this data into demographics for operational data
+and EHR for clinical data.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Given the delicate nature of resolving references, this chapter is a <strong>recommendation</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="references-on-clinical-data"><a class="anchor" href="#references-on-clinical-data"></a>References on Clinical Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If a reference that we map pertains to clinical data and is not contained in the composition but appears in another template,
+a linked mapping should be used. This can be either:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Containing some of the information but not all of it.</p>
+</li>
+<li>
+<p>No field provided as part of the archetype.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Both cases are relevant to ensure that back transformation into FHIR remains as close as possible.</p>
+</div>
+<div class="sect2">
+<h3 id="dedicated-node"><a class="anchor" href="#dedicated-node"></a>Dedicated Node</h3>
+<div class="paragraph">
+<p>Typically, the important entry of a dataset is usually contained within the reference. For example, in breast cancer treatment,
+the diagnosis code is referenced as a reason, but the full diagnosis itself is not included. In FHIR, this would be represented
+as a link to the diagnosis. In openEHR, it is usually stored as part of the encounter or episode-of-care for breast cancer.</p>
+</div>
+<div class="paragraph">
+<p>In this case, the diagnosis should be mapped to the reason. Additionally, a
+<a href="../concept-type/concept-mappings.html#LinkedMappings" class="xref page">linked mapping</a> should be attached to map the
+diagnosis generally. Links only function if a corresponding profile or template mapping is available. This ensures that
+the reason is resolved while maintaining the linkage to the full diagnosis, making back transformation into FHIR easier.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Mapping</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "reason"
+    extension: "add"
+    with:
+      fhir: "$resource.diagnosis.reference"
+      openehr: "$reference"
+    reference: #type None
+      resourceType: "Condition"
+      mappings:
+        - name: "condition"
+          with:
+            fhir: "$fhirRoot.code"
+            openehr: "$archetype/item[at0021]" # reason
+        - name: "conditionMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openehrRoot/links"
+            openehrLink:
+              meaning: "the diagnosis of the reason"
+              type: "diagnosis"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="no-node"><a class="anchor" href="#no-node"></a>No Node</h3>
+<div class="paragraph">
+<p>If the template does not contain a node pointing to the referenced resource, a link should be created in the composition
+to maintain the reference and enable back transformation. Links only function if a corresponding profile or template mapping
+is available. This ensures that the reason is resolved while linking the full diagnosis, making back transformation into
+FHIR more straightforward.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Mapping</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "reason"
+    extension: "add"
+    with:
+      fhir: "$resource.diagnosis.reference"
+      openehr: "$composition"
+    reference: #type None
+      resourceType: "Condition"
+      mappings:
+        - name: "conditionMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$composition/links"
+            openehrLink:
+              meaning: "the diagnosis linked to this composition"
+              type: "diagnosis"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This works because references in the <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_locatable_class">LOCATABLE</a>
+class are a list.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ReferencesDemographics"><a class="anchor" href="#ReferencesDemographics"></a>References on Operational Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Operational data is typically mapped into the demographics server of openEHR. There are three ways this data is mapped:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>PARTY_IDENTIFIER</code></p>
+</li>
+<li>
+<p><code>DV_IDENTIFIER</code></p>
+</li>
+<li>
+<p>As a String (in the worst case)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>All identifiers should be sent to the demographics server and resolved using the demographics system as described in
+<a href="../../engine/demographics.html" class="xref page">Demographics</a>. The provider must decide which types of resources are filtered and resolved using demographics.
+Typically, all clinical <a href="https://hl7.org/fhir/R5/resourcelist.html">resources</a> are mapped to the openEHR platform.</p>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>

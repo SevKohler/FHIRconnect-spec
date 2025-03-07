@@ -117,9 +117,6 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_BOOLEAN.html">DV_BOOLEAN</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -357,7 +354,7 @@
     <li><a href="String.html">String</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/String.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/String.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -372,182 +369,315 @@
 <p><a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class">String</a> to
 <a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/82771">Coding</a></p>
 </div>
+<div class="paragraph">
+<p>The transformation into a string is lackluster when coming from a coded value. To maintain some of the content, the
+coding should be parsed into the String and back as <code>system::code</code>, e.g., <code><a href="http://loinc.org::LP74849-8" class="bare">http://loinc.org::LP74849-8</a></code>. This way,
+the most important fields are contained. The double colon (::) is introduced since it represents a unique combination
+that rarely appears in text.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When converting back, this may cause problems. Providers need to ensure that the freetext
+elements do not contain a <code>::</code> or even skip the back-transformation of <code>::</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>system::value</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">openEHR&#8594;FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>system::code</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">FHIR&#8594;openEHR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">openEHR&#8594; FHIR if contains <code>::</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">userSelected</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>The transformation into a string is lacklustre when coming from a coded value. To
-maintain some of the content the coding should be parsed into the String and back as
-<code>system::value</code>, e.g. <code><a href="http://loinc.org::LP74849-8" class="bare">http://loinc.org::LP74849-8</a></code>, that way the
-most important fields are contained. The double : are introduced since they represent a
-unique combination that usually does rarely appear in text. When converting back,
-this may cause problems, providers need to make sure that the freetext elements do
-not contain a :: or even skip a back-transformation from a coding to a string.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="Identifier"><a class="anchor" href="#Identifier"></a>Identifier</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://build.fhir.org/datatypes.html#Identifier">Identifier</a> to
+<a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class">String</a></p>
+</div>
+<div class="paragraph">
+<p>The transformation into a string is lackluster when coming from an identifier. To maintain some information, the identifier
+uses a double colon (::) since it represents a unique combination that rarely appears in text, similar to the above.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When converting back, this may cause problems. Providers need to ensure that the identifier elements do not contain a
+:: or even skip the back-transformation of <code>::</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">identifier.value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">openEHR&#8594;FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">identifier</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">FHIR&#8594;openEHR encoded as identifier.system:: identifier.value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">openEHR&#8594; FHIR if contains <code>::</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">use</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">period</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
 <h2 id="references"><a class="anchor" href="#references"></a>References</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><mark>This wont work for references due to identifier we should use another encoding here maybe copying the entire
-reference identifier as is</mark>
-<mark>maybe copyin the entire identifier over, better than loosing data</mark></p>
-</div>
-<div class="paragraph">
 <p><a href="https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class">String</a> to
 <a href="https://build.fhir.org/references.html#Reference">Reference</a></p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>The transformation into a string is lacklustre when coming from a reference. To
-maintain some information the identifier of the reference or the resource should be
-contained. The double : are introduced since they represent a
-unique combination that usually does rarely appear in text, similar to above. When converting back,
-this may cause problems, providers need to make sure that the identifier elements do
-not contain a :: or even skip a back-transformation from a reference to a string.</p>
+<p>It is recommended to resolve non-clinical data
+references using the demographics see
+<a href="FHIRReference.html#ReferencesDemographics" class="xref page">FHIRReferences</a>
+.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The transformation into a string is lackluster when coming from a reference. The reference has three ways of representation in FHIR,
+listed below.</p>
 </div>
 <div class="sect2">
-<h3 id="with"><a class="anchor" href="#with"></a>With <code>::</code></h3>
+<h3 id="identifier-contained"><a class="anchor" href="#identifier-contained"></a>Identifier contained</h3>
 <div class="paragraph">
-<p>It is recommended to use the <code>::</code> to maintain as much of the data as possible</p>
+<p>In case the FHIR reference contains a direct identifier, see <a href="#Identifier">Identifier</a>.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-<th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>identifier.system::identifier.value</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
 <div class="paragraph">
-<p>In case of containing the reference containg a resource</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-<th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reference.identifier.system::reference.identifier.value</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>The <code>identifier.system::identifier.value</code> mapping should be always used as the transformation
-output from a String to a reference, if <code>::</code> is present in the string. Instead of
-<code>reference.identifier.system::reference.identifier.value</code> since the transformation does not maintain which resource this was.</p>
+<p>This is the transformation to be used for reference as a <strong>default</strong> if other fields are provided in the FHIR reference
+or when transforming from openEHR to FHIR.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="without"><a class="anchor" href="#without"></a>Without ::</h3>
+<h3 id="reference-contained"><a class="anchor" href="#reference-contained"></a>Reference contained</h3>
 <div class="paragraph">
-<p>In case of the string backward mapping having no <code>::</code>, or the vendor deciding against the
-<code>::</code></p>
+<p>In case the reference URL is contained, but no identifier is provided, nor is the reference resolvable as part of
+the Bundle or via a GET to the FHIR server sending it. Copying over the reference string is better than copying over nothing.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Providers have to decide if they accept this sort of encoding as part of their platform.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>identifier.value</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">reference</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">identifier</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>The <code>identifier.value</code> should be always used as the transformation output.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-<th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reference.identifier.value</code></p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
+<div class="sect2">
+<h3 id="reference-contained-and-resolvable"><a class="anchor" href="#reference-contained-and-resolvable"></a>Reference contained and resolvable</h3>
 <div class="paragraph">
-<p>The <code>identifier.value</code> should be always used as the transformation output.</p>
+<p>In case the reference URL is contained and resolvable due to it being contained in the Bundle or via GET. The
+identifier is to be accessed as part of this reference, therefore being a <a href="#Identifier">Identifier to String</a> transformation.</p>
 </div>
 </div>
 </div>

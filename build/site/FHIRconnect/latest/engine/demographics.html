@@ -117,9 +117,6 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="../types-of-mappings/data-type/DV_BOOLEAN.html">DV_BOOLEAN</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -354,7 +351,7 @@
     <li><a href="demographics.html">Demographics</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/engine/demographics.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/engine/demographics.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -387,7 +384,7 @@ and also can be used to re-retrieve the fhir resource for tranforming it back.</
 <div class="paragraph">
 <p>This process involves mapping resources to RM paths that reference demographic data.
 If the referenced resource is included in the Bundle, it is sent to the demographics service,
-and the returned ID is stored in the <code>PARTY_IDENTIFIED</code> field.
+and the returned ID is stored in the <code>PARTY_IDENTIFIED</code> (or <code>DV_IDENTIFIER</code>) field.
 Otherwise, the resource&#8217;s identifier is directly linked inside the RM field, since there is
 nothing to transform. FHIRconnect performs this operation for each path containing a <code>PARTY_IDENTIFIED</code> field.
 When extracting FHIR data, the ID is requested from the demographics service and the resource received back,

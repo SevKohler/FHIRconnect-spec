@@ -115,9 +115,6 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_IDENTIFIER.html">DV_IDENTIFIER</a>
   </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_BOOLEAN.html">DV_BOOLEAN</a>
-  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="4">
@@ -351,7 +348,7 @@
     <li><a href="data-mappings.html">Data mapping types</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/data-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/data-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -368,23 +365,36 @@ path in openEHR, if it&#8217;s a valid data type.</p>
 </div>
 <div class="paragraph">
 <p>If no valid data-type is provided these could be transformed into another element e.g. the period start into a
-DV_DATE_TIME. This is up to vendors how strict or relaxed they want to design their engine.</p>
+DV_DATE_TIME. This is up to providers how strict or relaxed they want to design their engine.</p>
 </div>
 <div class="paragraph">
-<p>This includes only non abstract data-types of openEHR, also some of the inheritance is solved in the child object, since the parent
-object has no representation in FHIR without its child.</p>
+<p>This also includes some of the abstract types if they correlate to a FHIR data-type.</p>
 </div>
 <div class="paragraph">
 <p>There is also some mappings from the <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_overview">Common Information Model</a> contained
 like a PARTY_IDENTIFIED mapping.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Primitive mappings like integers to integers, strings to string etc. are left out due to being straight forward.
+If a section exists (like for String) these addresses more complex matters and not the basic string-to-string
+mapping.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="../../_images/uml_types_openEHR.svg" alt="uml types openEHR">
 </div>
-</div>
-<div class="paragraph">
-<p>taken from <a href="https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703">openEHR specification</a></p>
+<div class="title">Figure 1. <a href="https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703">openEHR specification</a></div>
 </div>
 </div>
 </div>
