@@ -1,30 +1,35 @@
 = DV_COUNT
 
-== Integer (or primitive of other kind, i.e. string)
+== Primitive
+Example with Integer:
 
-https://build.fhir.org/datatypes.html#integer[Integer]
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79042[Integer]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| value    |         | magnitude       |
-| -         |         | normal_range                 |
-| -         |         | other_reference_ranges                |
+| FHIRpath  | Cardinality | Comment                | openEHR                  | Cardinality  | Comment
+| value    | 0..1               |                        | magnitude                | 1..1                  |
+| -         | -                  |                        | normal_range             | 0..n                  |
+| -         | -                  |                        | other_reference_ranges   | 0..n                  |
 |===
+
 
 == Quantity
 
 https://build.fhir.org/datatypes.html#Quantity[Quantity]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| value    |         | magnitude       | Is a mandatory field in openEHR, whereas not in FHIR.
-| code (if exists, else unit)    |         |                |
-| system   |         |                      |
-| system         |         |             |
-| -         |         | normal_range                 |
-| -         |         | other_reference_ranges                |
+| FHIRpath  | Cardinality (FHIR) | Comment                                      | openEHR                  | Cardinality (openEHR) | Comment
+| value     | 0..1               |                                              | magnitude                | 1..1                  |
+| code      | 0..1               |                                              | -                        | -                     |
+| system    | 0..1               |                                              | -                        | -                     |
+| system    | 0..1               |                                              | -                        | -                     |
+| -         | -                  |                                              | normal_range             | 0..n                  |
+| -         | -                  |                                              | other_reference_ranges   | 0..n                  |
 |===
+
+
+#COUNT mapping#

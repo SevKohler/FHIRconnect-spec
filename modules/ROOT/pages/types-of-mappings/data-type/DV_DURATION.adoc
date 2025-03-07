@@ -1,17 +1,35 @@
 = DV_DURATION
 
-[cols="^1,^1,^1,^2", options="header"]
+
+https://build.fhir.org/datatypes.html#Duration[Duration] to
+https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_duration_class[DV_DURATION]
+
+Problem openEHR uses the ISO duration meanwhile, FHIR uses UCUM codes.
+Therefore, the mapping needs to transform FHIRs representation using UCUM codes to https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_iso8601_duration_class[iso8601]
+
+Mapping https://build.fhir.org/valueset-duration-units.html[CommonUCUMCodesForDuration] into the iso standard of P[nnY][nnM][nnW][nnD][T[nnH][nnM][nnS]].
+The UCUM codes are stored in `code` of the Duration, along with the value.
+
+[cols="3,3,5", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| **Unit** | **ISO 8601 Format** | **Description**
+
+| ms       | T[00H]00M[00S]        | Milliseconds (can be represented as fraction of a second)
+| s        | T00H00M00S            | Seconds
+| min      | T00H00M               | Minutes
+| h        | T00H                  | Hours
+| d        | P00DT00H00M00S        | Days
+| wk       | P00Y00M00W            | Weeks
+| mo       | P00Y00M               | Months
+| a        | P00Y                  | Years
+|===
+
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
+|===
+| FHIRpath    | Cardinality (FHIR) | Comment   | openEHR  | Cardinality (openEHR) | Comment
+| value       | 0..1               |   combined with code, see description above | value    | 1..1                  |
+| comparator  | 0..1               |           | -        |                       |
+| unit        | 0..1               |           |  -       |                       |
+| code        | 0..1               |           |  -       |                       |
+| system      | 0..1               |           |  -       |                       |
 |===

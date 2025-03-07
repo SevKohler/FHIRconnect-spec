@@ -8,7 +8,7 @@ path in openEHR, if it's a valid data type.
 If no valid data-type is provided these could be transformed into another element e.g. the period start into a
 DV_DATE_TIME. This is up to providers how strict or relaxed they want to design their engine.
 
-This includes only non abstract data-types of openEHR.
+This also includes some of the abstract types if they correlate to a FHIR data-type.
 
 There is also some mappings from the https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_overview[Common Information Model] contained
 like a PARTY_IDENTIFIED mapping.

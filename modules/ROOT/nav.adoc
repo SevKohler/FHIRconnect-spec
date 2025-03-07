@@ -17,7 +17,6 @@
 
 **** Basic Package
 ***** xref:types-of-mappings/data-type/DV_IDENTIFIER.adoc[]
-***** xref:types-of-mappings/data-type/DV_BOOLEAN.adoc[]
 
 **** Text Package
 ***** xref:types-of-mappings/data-type/DV_TEXT.adoc[]

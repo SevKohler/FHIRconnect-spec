@@ -1,17 +1,11 @@
 = DV_DATE
 
-[cols="^1,^1,^1,^2", options="header"]
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79679[Date] to
+ https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_class[DV_DATE].
+
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| FHIRpath  | Cardinality | Comment       | openEHR         | Cardinality  | Comment
+| date      | 0..1        |               | value           | 1..1                  |
+| -         | -           |               | accuracy        | 0..1                  |
 |===

@@ -1,17 +1,27 @@
 = DV_DATE_TIME
 
-[cols="^1,^1,^1,^2", options="header"]
+
+== DateTime
+
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81730[dateTime] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
+
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
+| FHIRpath  | Cardinality | Comment       | openEHR                          | Cardinality  | Comment
+| dateTime    | 0..1               |         | value                      | 1..1                  |
+| -         | -                  |        | accuracy                 | 0..1                  |
+|===
+
+== Period
+
+https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81271[Period] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
+
+Sometimes the DateTime is necessary, but only a Period is provided. Providers can decide the transform this data anyhow.
+
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
+|===
+| FHIRpath      | Cardinality (FHIR) | Comment                   | openEHR            | Cardinality (openEHR) | Comment
+| period.start  | 0..1               | if `end` is not provided    | value             | 1..1                  |
+| period.end    | 0..1               |                           | value             | 1..1                  | openEHR->FHIR
+| -             | -                  |                           | accuracy          | 0..1                  |
 |===
