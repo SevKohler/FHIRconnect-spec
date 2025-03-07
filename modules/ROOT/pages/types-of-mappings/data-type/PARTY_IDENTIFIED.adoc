@@ -17,3 +17,8 @@
 | -         |         | language                  |
 | -         |         | encoding                  |
 |===
+
+
+It is recommended to resolve non-clinical data
+references using the demographics see
+<<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>

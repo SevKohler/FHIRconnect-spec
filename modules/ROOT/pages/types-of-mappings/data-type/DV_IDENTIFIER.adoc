@@ -3,7 +3,7 @@
 == Identifier
 
 https://build.fhir.org/datatypes.html#Identifier[Identifier]
-to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER].
+to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER]
 
 This has several problems. The `type` is a `coding` in FHIR and the `assigner` a `reference` to an
 Organization. In openEHR the mapped fields are `string`. To capture some of the FHIR logic,
@@ -19,4 +19,9 @@ the `type.codings` first `code` should be transformed as described in <<types-of
 | type.coding        |         | type     | see <<types-of-mappings/data-type/CODE_PHRASE.adoc#string, Coding to String>>
 | -                  |         | issuer   |
 |===
+
+== Reference
+
+
+
 

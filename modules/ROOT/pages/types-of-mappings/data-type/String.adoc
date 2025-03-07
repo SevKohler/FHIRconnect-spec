@@ -8,72 +8,56 @@ https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/82771[Coding]
 |===
 | FHIRpath  | Comment  | openEHR   | Comment
 | `system::value`     |           | string     |
-
 |===
 
-The transformation into a string is lacklustre when coming from a coded value. To
-maintain some of the content the coding should be parsed into the String and back as
-`system::value`, e.g. `http://loinc.org::LP74849-8`, that way the
-most important fields are contained. The double : are introduced since they represent a
-unique combination that usually does rarely appear in text. When converting back,
-this may cause problems, providers need to make sure that the freetext elements do
-not contain a :: or even skip a back-transformation from a coding to a string.
+The transformation into a string is lackluster when coming from a coded value. To maintain some of the content, the
+coding should be parsed into the String and back as `system::value`, e.g., `http://loinc.org::LP74849-8`. This way,
+the most important fields are contained. The double colon (::) is introduced since it represents a unique combination
+that rarely appears in text. When converting back, this may cause problems. Providers need to ensure that the freetext
+elements do not contain a :: or even skip the back-transformation from a coding to a string.
+
+[[Identifier]]
+== Identifier
+https://build.fhir.org/datatypes.html#Identifier[Identifier] to
+https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String]
+
+The transformation into a string is lackluster when coming from an identifier. To maintain some information, the identifier
+uses a double colon (::) since it represents a unique combination that rarely appears in text, similar to the above.
+
+When converting back, this may cause problems. Providers need to ensure that the identifier elements do not contain a
+:: or even skip the back-transformation of `::`.
+
+[cols="^1,^1,^1,^2", options="header"]
+|===
+| FHIRpath      | Comment  | openEHR   | Comment
+| identifier    | encoded as `identifier.system`:: `identifier.value` | string    | back transformation of ::
+| identifier.value |          | string    | alternative back transformation if :: is not possible
+|===
 
 == References
-#This wont work for references due to identifier we should use another encoding here maybe copying the entire
-reference identifier as is#
-#maybe copyin the entire identifier over, better than loosing data#
-
 https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String] to
 https://build.fhir.org/references.html#Reference[Reference]
 
-The transformation into a string is lacklustre when coming from a reference. To
-maintain some information the identifier of the reference or the resource should be
-contained. The double : are introduced since they represent a
-unique combination that usually does rarely appear in text, similar to above. When converting back,
-this may cause problems, providers need to make sure that the identifier elements do
-not contain a :: or even skip a back-transformation from a reference to a string.
+The transformation into a string is lackluster when coming from a reference. It is recommended to resolve non-clinical data
+references using the demographics see
+<<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>
+. The reference has three ways of representation in FHIR, listed below.
 
-=== With `::`
-It is recommended to use the `::` to maintain as much of the data as possible
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR   | Comment
-| `identifier.system::identifier.value`     |           | string     |
-|===
+=== Identifier Contained
+In case the FHIR reference contains a direct identifier, see <<Identifier>>. This is the transformation to be used
+for reference as a *default* if other fields are provided in the FHIR reference or when transforming from openEHR to FHIR.
 
-In case of containing the reference containg a resource
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR   | Comment
-| `reference.identifier.system::reference.identifier.value`     |           | string     |
-
-|===
-
-
-The `identifier.system::identifier.value` mapping should be always used as the transformation
-output from a String to a reference, if `::` is present in the string. Instead of
-`reference.identifier.system::reference.identifier.value` since the transformation does not maintain which resource this was.
-
-=== Without ::
-In case of the string backward mapping having no `::`, or the vendor deciding against the
-`::`
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR   | Comment
-| `identifier.value`     |           | string     |
-|===
-The `identifier.value` should be always used as the transformation output.
-
+=== Reference Contained
+In case the reference URL is contained, but no identifier is provided, nor is the reference resolvable as part of
+the Bundle or via a GET to the FHIR server sending it. Copying over the reference string is better than copying over nothing.
+Providers have to decide if they accept this sort of encoding as part of their platform.
 
 [cols="^1,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR   | Comment
-| `reference.identifier.value`     |           | string     |
-
+| FHIRpath   | Comment  | openEHR   | Comment
+| reference  |          | string    |
 |===
 
-
-The `identifier.value` should be always used as the transformation output.
-
-
+=== Reference Contained and Resolvable
+In case the reference URL is contained and resolvable due to it being contained in the Bundle or via GET. The
+identifier is to be accessed as part of this reference, therefore being a <<Identifier, Identifier to String>> transformation.

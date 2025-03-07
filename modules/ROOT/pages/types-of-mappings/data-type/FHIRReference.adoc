@@ -1,0 +1,85 @@
+= FHIR References
+
+##recommendation ##
+
+References are a concept that is mixed in openEHR depending on the element.
+There are two types of data in openEHR, one is the clinical data and the operational data (non-clinical data).
+OpenEHR splits this data into a demographics for operational data and a EHR for clinical data. iven the delicate nature
+of resolving references this chapter is a *recommendation*.
+
+== References on clinical data
+If a reference that we map is clinical-data, and not contained in the composition, but e.g. in another template
+a linked mapping is to be used. This can be either 1. containing some of the information and not all of it, 2. no field
+provided as part of the archetype. Both cases are relevant to make a back transformation into FHIR as close as possible.
+
+=== Dedicated node
+Typically, the important entry of this data set is usually contained. As an example the breast cancer treatment states
+as a reason the breast cancer diagnosis code, but not the diagnosis itself. In FHIR this would be contained as a link to
+the diagnosis, in openEHR this is usually stored part of the encounter or episode-of-care of the breast cancer. In this
+case the diagnosis is to be mapped to the reason. Apart from that a <<types-of-mappings/concept-type/concept-mappings.adoc#LinkedMappings, linked mapping>>
+is to be attached that maps this diagnosis in general. Links only function if there
+is a corresponding profile or template mapping available. Doing so we achieve to resolve the reason, but also link the
+entire diagnose as part of the reason, making it easier back transformable into FHIR.
+
+As an example
+[source,yaml]
+----
+  - name: "reason"
+    extension: "add"
+    with:
+      fhir: "$resource.diagnosis.reference"
+      openehr: "$reference"
+    reference: #type None
+      resourceType: "Condition"
+      mappings:
+        - name: "condition"
+          with:
+            fhir: "$fhirRoot.code"
+            openehr: "$archetype/item[at0021]" # reason
+        - name: "conditionMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$openehrRoot/links"
+            openehrLink:
+              meaning: "the diagnosis of the reason"
+              type: "diagnosis"
+----
+
+
+=== No node
+The template does not contain a node that points to the resource contained in the reference. To maintain some of the
+link and to make it back transformable, the resource is to be linked in the composition. Links only function if there
+is a corresponding profile or template mapping available. Doing so we achieve to resolve the reason we link the
+entire diagnose, making it easier back transformable into FHIR.
+
+
+As an example
+[source,yaml]
+----
+  - name: "reason"
+    extension: "add"
+    with:
+      fhir: "$resource.diagnosis.reference"
+      openehr: "$composition"
+    reference: #type None
+      resourceType: "Condition"
+      mappings:
+        - name: "conditionMapping"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$composition/links"
+            openehrLink:
+              meaning: "the diagnosis linked to this composition"
+              type: "diagnosis"
+----
+This works, since the references of https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_locatable_class[LOCATABLE]
+are a list.
+
+[[ReferencesDemographics]]
+== References on operational data
+Typically, these are mapped into the demographics server of openEHR. There are three ways this data is mapped, either to
+PARTY_IDENTIFIER, to DV_IDENTIFIER or in the worst case to a String. Important is that all of
+which should be send to the demographics and resolve their identifier over the demographics
+as described in xref:engine/demographics.adoc[]. The provider has to decide which type of resources are filtered here
+when mapping and to be resolved using the demographics. Typically, all the clinical
+https://hl7.org/fhir/R5/resourcelist.html[resources] are mapped to the openEHR platform.
