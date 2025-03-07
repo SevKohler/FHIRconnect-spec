@@ -21,7 +21,7 @@ and also can be used to re-retrieve the fhir resource for tranforming it back.
 
 This process involves mapping resources to RM paths that reference demographic data.
 If the referenced resource is included in the Bundle, it is sent to the demographics service,
-and the returned ID is stored in the `PARTY_IDENTIFIED` field.
+and the returned ID is stored in the `PARTY_IDENTIFIED` (or `DV_IDENTIFIER`) field.
 Otherwise, the resource's identifier is directly linked inside the RM field, since there is
 nothing to transform. FHIRconnect performs this operation for each path containing a `PARTY_IDENTIFIED` field.
 When extracting FHIR data, the ID is requested from the demographics service and the resource received back,

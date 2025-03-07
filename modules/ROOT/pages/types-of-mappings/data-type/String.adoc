@@ -17,25 +17,14 @@ elements do not contain a `::` or even skip the back-transformation of `::`.
 
 [cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath        | Cardinality | Comment              | openEHR   | Cardinality | Comment
-| `system::code`  | 0..1               | crafted combination  | string   | 1..1                  |
-| version         | 0..1               |                      | -        | -                     |
-| display         | 0..1               |                      | -        | -                     |
-| userSelected    | 0..1               |                      | -        | -                     |
+| FHIRpath        | Cardinality | Comment                      | openEHR   | Cardinality       | Comment
+| code            | 0..1|               | string   | 1..1                  | openEHR->FHIR
+| `system::code`  | 0..1 |   FHIR->openEHR | string   | 1..1                 |  openEHR-> FHIR if contains `::`
+| version         | 0..1|                      | -        | -                     |
+| display         | 0..1|                      | -        | -                     |
+| userSelected    | 0..1|                      | -        | -                     |
 |===
 
-
-Mapping from openEHR string to code without `::`
-
-[cols="^1,^1,^2,^1,^1,^2", options="header"]
-|===
-| FHIRpath        | Cardinality | Comment              | openEHR   | Cardinality | Comment
-| system          | 0..1               |                      | -        | -                     |
-| value           | 0..1               |                      | string   | 1..1                  | back transformation if :: is not possible
-| version         | 0..1               |                      | -        | -                     |
-| display         | 0..1               |                      | -        | -                     |
-| userSelected    | 0..1               |                      | -        | -                     |
-|===
 
 [[Identifier]]
 == Identifier
@@ -54,14 +43,16 @@ When converting back, this may cause problems. Providers need to ensure that the
 [cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
 | FHIRpath         | Cardinality | Comment                                             | openEHR   | Cardinality | Comment
-| identifier       | 0..1               | encoded as identifier.system:: identifier.value    | string    | 1..1                  | back transformation of ::
-| identifier.value | 0..1               |                                                  | string    | 1..1                  | alternative back transformation if :: is not possible
+| identifier.value | 0..1               |                                                  | string    | 1..1                  | openEHR->FHIR
+| identifier       | 0..1               |  FHIR->openEHR encoded as identifier.system:: identifier.value    | string    | 1..1    | openEHR-> FHIR if contains `::`
 | use              | 0..1               |                                                  | -        | -                     |
 | type             | 0..1               |                                                  | -        | -                     |
 | system           | 0..1               |                                                  | -        | -                     |
 | value            | 0..1               |                                                  | -        | -                     |
 | period           | 0..1               |                                                  | -        | -                     |
 |===
+
+
 
 
 == References

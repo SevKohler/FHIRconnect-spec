@@ -1,5 +1,7 @@
 = CODE_PHRASE
 
+
+
 == Coding
 
 https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
@@ -63,17 +65,23 @@ When converting back, this may cause problems, providers need to make sure that 
 not contain a :: or even skip a back-transformation or even skip the back-transformation of `::`.
 ====
 
+[IMPORTANT]
+====
+A transformation from a string that does not use `::` into a `CODE_PHRASE` is not possible due ot missing `TERMINOLOGY_ID` which is
+mandatory in openEHR.
+====
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| string    |         | terminology_id/name :: code_string       |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
-| -         |         |                      |
+| FHIRpath  | Cardinality (FHIR) | Comment                 | openEHR                  | Cardinality (openEHR) | Comment
+| string    | 0..1               |   FHIR->openEHR if contains `::`  | terminology_id/name :: code_string | 1..1                  |  openEHR->FHIR
+| string    | 0..1               |                         | code_string | 1..1                  | openEHR->FHIR
+| -         | -                  |                         | preferred_term            | 0..1                  |
+| -         | -                  |                         | hyperlink                 | 0..1                  |
+| -         | -                  |                         | formatting                | 0..1                  |
+| -         | -                  |                         | mappings                  | 0..1                  |
+| -         | -                  |                         | language                  | 0..1                  |
+| -         | -                  |                         | encoding                  | 0..1                  |
+| -         | -                  |                         | -                         | -                     |
 |===
 

@@ -26,7 +26,7 @@ Alternatively the coding.code can be used if a term server is not an option for 
 |===
 | FHIRpath        | Cardinality | Comment                                                 | openEHR              | Cardinality | Comment
 | coding          | 0..n               | either first one or the one with the same terminology_system | defining_code    | 1..1                 | see xref:types-of-mappings/data-type/CODE_PHRASE.adoc[]
-| coding.display  | 0..1               | Display of coding of first row, resolve via term server recommended             | defining_code/preferred_term | 0..1               |
+| coding.display  | 0..1               | `display` of `coding` of first row, resolve via term server recommended             | defining_code/preferred_term | 0..1               |
 | text            | 0..1               |                                                         | value                | 1..1                 |
 |__ coding.display __ | 0..1                | if `text` emtpy take first appearance, resolve via term server recommended                                         | value                | 1..1                 | not for openEHR->FHIR
 |__ coding.code __ | 0..1                   | if `display` emtpy take first appearance                                         | value                | 1..1                 | not for openEHR->FHIR
