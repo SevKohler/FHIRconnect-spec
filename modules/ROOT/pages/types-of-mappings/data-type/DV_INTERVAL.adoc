@@ -1,4 +1,25 @@
 = DV_INTERVAL
 
-https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class
+== Range
+https://build.fhir.org/datatypes.html#Range[Range] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class[DV_INTERVAL]
+
+
+[IMPORTANT]
+====
+DV_INTERVAL is always a interval of something <T>. Therefore, the range mapping has to take into account to
+what the range is applied. In the openEHR data, this has to be combined with e.g. an DV_Quantity containing e.g.
+the max value of the measurement.
+====
+
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath         | Cardinality | Comment                             | Attributes          | Cardinality | Comment
+| low              | 0..1        |                                    | lower              | 0..1        |
+| high             | 0..1        |                                    | upper              | 0..1        |
+| -                | 0..1        |                                    | lower_unbounded    | 1..1        | false, since not infinite
+| -                | 0..1        |                                    | upper_unbounded    | 1..1        | false, since not infinite
+| -                | 0..1        |                                    | lower_included     | 1..1        | true
+| -                | -           |                                    | upper_included     | 1..1        | true
+|===
 

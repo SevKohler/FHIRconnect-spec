@@ -31,3 +31,7 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_pro
 |  |      | normal_range                         |
 | -         |         | other_reference_range            |
 |===
+
+
+
+https://build.fhir.org/datatypes.html#RatioRange

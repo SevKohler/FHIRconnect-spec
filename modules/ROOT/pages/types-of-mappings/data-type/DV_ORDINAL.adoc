@@ -1,2 +1,66 @@
 = DV_ORDINAL
 
+
+[IMPORTANT]
+====
+There is no transformation into FHIR directly, DV_ORDINAL describes:
+
+A data type that represents integral score values, e.g. pain, Apgar values, etc, where there is:
+
+a) implied ordering, b) no implication that the distance between each value is constant, and c) the total number of values is finite; d) integer values only.
+
+====
+
+== CodeableConcept
+https://build.fhir.org/datatypes.html#CodeableConcept[CodeableConcept] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordinal_class[DV_ORDINAL
+]
+
+An option is to use Coding here. However, the mapping requires context information, such as the value of the coding,
+which is not provided by the Coding itself.
+Therefore, the mapping relies on the model representing the same, with the value coded as part of the ordinal.
+
+[cols="^1,^1,^2,^1,^1,^2",options="header"]
+|===
+| FHIRpath        | Cardinality | Comment                                                 | openEHR              | Cardinality | Comment
+| coding          | 0..n               |  | symbol    | 1..1                 | see xref:types-of-mappings/data-type/DV_CODED_TEXT.adoc[]
+| -               |                     | | value    | 1..1                 | has to be maintained by the archetype itself
+|===
+
+This is delicate, since the archetype has to be modeled to contain the same `code_string` for the code.
+Another option recommended is, that the compositions carry the `term_mapping` with it, therefore, this logic could be either
+transformed directly from the `symbol`, if not contained the `term_mapping` of symbol is to be checked.
+If it contains code, map these to coding.
+
+Example
+[source, json]
+----
+{
+     "coding": [
+       {
+         "system": "https://somecoding.com",
+         "code": "resp4",
+         "display": "Respiratory system SOFA score 4"
+       }
+     ],
+     "text": "PaO₂/FiO₂ 300-399 mmHg"
+   }
+----
+
+
+[source, json]
+----
+ "_type" : "DV_ORDINAL",
+              "symbol" : {
+                "_type" : "DV_CODED_TEXT",
+                "value" : "PaO₂/FiO₂ 300-399 mmHg",
+                "defining_code" : {
+                  "_type" : "CODE_PHRASE",
+                  "terminology_id" : {
+                    "_type" : "TERMINOLOGY_ID",
+                    "value" : "local"
+                  },
+                  "code_string" : "resp4"
+                }
+              },
+              "value" : 4 # part of the archetype
+----

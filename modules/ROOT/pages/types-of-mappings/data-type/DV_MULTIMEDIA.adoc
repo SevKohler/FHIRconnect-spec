@@ -1,2 +1,31 @@
 = DV_MULTIMEDIA
 
+
+== Attachement
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_multimedia_class[DV_MULTIMEDIA] to https://build.fhir.org/datatypes.html#attachment[Attachment]
+
+[IMPORTANT]
+====
+The compression algorithm is missing, which may cause problems in transforming data if contained.
+====
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath       | Cardinality | Comment | openEHR                 | Cardinality | Comment
+| -             | -            |         | alternate_text           | 0..1       |
+| url           | 0..1        |         | uri                      | 0..1       |
+| data          | 0..1        |         | data                     | 0..1       |
+| content_type  | 0..1        |         | media_type               | 1..1       |
+| -             | -           |         | compression_algorithm    | 0..1       |
+| hash          | 0..1        |         | integrity_check          | 0..1       | if integrity_check_algorithm = hash
+| hash          | 0..1        |         | integrity_check_algorithm | 0..1      | set to sha-1, if hash in FHIR exists
+| -             |-            |         | thumbnail                | 0..1       |
+| size          | 0..1        |         | size                     | 1..1       |
+| creation      | 0..1        |         | -                        | -          |
+| height        | 0..1        |         | -                        | -          |
+| width         | 0..1        |         | -                        | -          |
+| frames        | 0..1        |         | -                        | -          |
+| duration      | 0..1        |         | -                        | -          |
+| pages         | 0..1        |         | -                        | -          |
+| language      | 0..1        |         | language                 | -          |
+|===

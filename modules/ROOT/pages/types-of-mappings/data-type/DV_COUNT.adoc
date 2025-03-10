@@ -32,4 +32,17 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_cou
 |===
 
 
-#COUNT mapping#
+== Count
+
+https://build.fhir.org/datatypes.html#Count[Count] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
+
+[cols="^1,^1,^2, ^1, ^1,^2", options="header"]
+|===
+| FHIRpath  | Cardinality (FHIR) | Comment                                      | openEHR                  | Cardinality (openEHR) | Comment
+| value     | 0..1               |                                              | magnitude                | 1..1                  |
+| code      | 0..1               |  for Count code = 1                          | -                        | -                     |
+| system    | 0..1               |                                              | -                        | -                     |
+| system    | 0..1               |                                              | -                        | -                     |
+| -         | -                  |                                              | normal_range             | 0..n                  |
+| -         | -                  |                                              | other_reference_ranges   | 0..n                  |
+|===

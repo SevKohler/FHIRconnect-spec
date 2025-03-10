@@ -1,17 +1,14 @@
 = DV_EHR_URI
 
-[cols="^1,^1,^1,^2", options="header"]
-|===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| system    |         | terminology_id/name       |
-| version   |         | terminology_id/version_id |
-| value     |         | code_string               |
-| display   |         | value                     |
-| userSelected |      | -                         |
-| -         |         | preferred_term            |
-| -         |         | hyperlink                 |
-| -         |         | formatting                |
-| -         |         | mappings                  |
-| -         |         | language                  |
-| -         |         | encoding                  |
-|===
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ehr_uri_class[DV_EHR_URI] to https://build.fhir.org/references.html#Reference[Reference]
+
+Relates to `linked` mappings (see xref:types-of-mappings/concept-type/concept-mappings.adoc#LinkedMappings[])
+
+For FHIR->openEHR, the openEHR platform must resolve the composition that the `DV_EHR_URI` points to.
+If it is a composition and a mapping exists for it, the mapping should be triggered, and the corresponding resource returned.
+If it is a bundle, it refers to the one from which the mapping was triggered, specified by the `start:` in the context.
+This resource should then be attached to the bundle and included in the `reference` string.
+
+For openEHR->FHIR, the profile mapping is resolved, if exists, and the resulting composition is referenced in the `DV_EHR_URI` value.
+
+If there is no mapping provided for the profile or composition, the mapping is not executed.

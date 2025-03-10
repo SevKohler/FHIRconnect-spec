@@ -1,5 +1,8 @@
 = DV_QUANTITY
 
+
+#General comment to Quantity data types.#
+
 == Quantity
 
 https://build.fhir.org/datatypes.html#Quantity[Quantity]
