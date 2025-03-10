@@ -5,7 +5,7 @@
 
 == Quantity
 
-https://build.fhir.org/datatypes.html#Quantity[Quantity]
+https://hl7.org/fhir/R4/datatypes.html#Quantity[Quantity]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
 [cols="^1,^1,^1,^2", options="header"]
@@ -22,7 +22,7 @@ to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#
 
 == Integer (or primitive of other kind, i.e. string)
 
-https://build.fhir.org/datatypes.html#integer[Integer]
+https://hl7.org/fhir/R4/datatypes.html#integer[Integer]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
 [cols="^1,^1,^1,^2", options="header"]
@@ -39,14 +39,14 @@ to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#
 
 == Ratio
 
-https://build.fhir.org/datatypes.html#Ratio[Ratio]
+https://hl7.org/fhir/R4/datatypes.html#Ratio[Ratio]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
 `Ratio.numerator` should be used and then it's a Quantity to DV_QUANTITY mapping described above.
 
 == Range
 
-https://build.fhir.org/datatypes.html#Range[Range]
+https://hl7.org/fhir/R4/datatypes.html#Range[Range]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
 As range has a 'low' and a 'high' in FHIR, data mappings should pin-point exactly which limit should be

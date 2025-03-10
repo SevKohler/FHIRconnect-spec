@@ -1,6 +1,6 @@
 = DV_EHR_URI
 
-https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ehr_uri_class[DV_EHR_URI] to https://build.fhir.org/references.html#Reference[Reference]
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ehr_uri_class[DV_EHR_URI] to https://hl7.org/fhir/R4/references.html#Reference[Reference]
 
 Relates to `linked` mappings (see xref:types-of-mappings/concept-type/concept-mappings.adoc#LinkedMappings[])
 

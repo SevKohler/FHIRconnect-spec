@@ -3,7 +3,7 @@
 == Primitive
 Example with Integer:
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/79042[Integer]
+https://hl7.org/fhir/R4/datatypes.html#integer[Integer]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
 
 [cols="^1,^1,^2, ^1, ^1,^2", options="header"]
@@ -17,7 +17,7 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_cou
 
 == Quantity
 
-https://build.fhir.org/datatypes.html#Quantity[Quantity]
+https://hl7.org/fhir/R4/datatypes.html#Quantity[Quantity]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
 
 [cols="^1,^1,^2, ^1, ^1,^2", options="header"]
@@ -34,7 +34,7 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_cou
 
 == Count
 
-https://build.fhir.org/datatypes.html#Count[Count] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
+https://hl7.org/fhir/R4/datatypes.html#Count[Count] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_count_class[DV_COUNT].
 
 [cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===

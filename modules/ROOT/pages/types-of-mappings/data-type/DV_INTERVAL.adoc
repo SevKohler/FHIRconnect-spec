@@ -1,7 +1,7 @@
 = DV_INTERVAL
 
 == Range
-https://build.fhir.org/datatypes.html#Range[Range] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class[DV_INTERVAL]
+https://hl7.org/fhir/R4/datatypes.html#Range[Range] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class[DV_INTERVAL]
 
 
 [IMPORTANT]

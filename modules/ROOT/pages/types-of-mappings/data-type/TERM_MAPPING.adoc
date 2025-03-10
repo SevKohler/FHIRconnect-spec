@@ -4,7 +4,7 @@ For context see xref:types-of-mappings/data-type/DV_CODED_TEXT.adoc[]
 
 
 https://specifications.openehr.org/releases/RM/latest/data_types.html#_term_mapping_class[TERM_MAPPING] to
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding]
+https://hl7.org/fhir/R4/datatypes.html#Coding[Coding]
 
 [cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===

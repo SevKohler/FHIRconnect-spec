@@ -1,7 +1,7 @@
 = DV_TEXT
 
 == String
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class[DV_TEXT]
+https://hl7.org/fhir/R4/datatypes.html#string[String] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class[DV_TEXT]
 
 The transformation is lacking here a good mapping to FHIR.
 String is the one that comes closest.
@@ -36,7 +36,7 @@ faithfully transform the FHIR `codings` bidirectionally.
 |===
 
 == CodeableConcept
-https://build.fhir.org/datatypes.html#codeableconcept[CodeableConcept] to
+https://hl7.org/fhir/R4/datatypes.html#codeableconcept[CodeableConcept] to
 https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class[DV_TEXT]
 
 In openEHR each `DV_TEXT` can be annotated with codings using mappings.

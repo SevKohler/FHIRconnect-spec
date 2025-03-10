@@ -2,7 +2,7 @@
 
 == Ratio
 
-https://build.fhir.org/datatypes.html#Ratio[Ratio]
+https://hl7.org/fhir/R4/datatypes.html#Ratio[Ratio]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class[DV_PROPORTION].
 
 [cols="^1,^1,^1,^2", options="header"]
@@ -18,7 +18,7 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_pro
 
 == Quantity
 
-https://build.fhir.org/datatypes.html#Quantity[Quantity]
+https://hl7.org/fhir/R4/datatypes.html#Quantity[Quantity]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class[DV_PROPORTION].
 
 [cols="^1,^1,^1,^2", options="header"]
@@ -34,4 +34,3 @@ to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_pro
 
 
 
-https://build.fhir.org/datatypes.html#RatioRange

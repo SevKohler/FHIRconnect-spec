@@ -12,7 +12,7 @@ a) implied ordering, b) no implication that the distance between each value is c
 ====
 
 == CodeableConcept
-https://build.fhir.org/datatypes.html#CodeableConcept[CodeableConcept] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordinal_class[DV_ORDINAL
+https://hl7.org/fhir/R4/datatypes.html#CodeableConcept[CodeableConcept] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordinal_class[DV_ORDINAL
 ]
 
 An option is to use Coding here. However, the mapping requires context information, such as the value of the coding,
@@ -30,6 +30,8 @@ This is delicate, since the archetype has to be modeled to contain the same `cod
 Another option recommended is, that the compositions carry the `term_mapping` with it, therefore, this logic could be either
 transformed directly from the `symbol`, if not contained the `term_mapping` of symbol is to be checked.
 If it contains code, map these to coding.
+#CAnt be since the term_mapping or on the father of symbols not on each symbol itself ?#
+#IM MIXING HERE#
 
 Example
 [source, json]

@@ -1,7 +1,7 @@
 = PARTY_IDENTIFIER
 
 https://specifications.openehr.org/releases/RM/latest/common.html#_party_identified_class[PARTY_IDENTIFIED] to
-https://build.fhir.org/references.html#Reference[Reference]
+https://hl7.org/fhir/R4/references.html#Reference[Reference]
 
 [NOTE]
 ====

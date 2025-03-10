@@ -3,7 +3,7 @@
 
 == DateTime
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81730[dateTime] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
+https://hl7.org/fhir/R4/datatypes.html#dateTime[dateTime] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
 
 [cols="^1,^1,^2, ^1, ^1,^2", options="header"]
 |===
@@ -14,7 +14,7 @@ https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81730[dateTime] to 
 
 == Period
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81271[Period] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
+https://hl7.org/fhir/R4/datatypes.html#Period[Period] to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_date_time_class[DV_DATE_TIME]
 
 Sometimes the DateTime is necessary, but only a Period is provided. Providers can decide the transform this data anyhow.
 

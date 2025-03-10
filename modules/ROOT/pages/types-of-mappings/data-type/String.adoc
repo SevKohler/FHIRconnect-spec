@@ -2,7 +2,7 @@
 
 == Coding
 https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String] to
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/82771[Coding]
+https://hl7.org/fhir/R4/datatypes.html#Coding[Coding]
 
 The transformation into a string is lackluster when coming from a coded value. To maintain some of the content, the
 coding should be parsed into the String and back as `system::code`, e.g., `http://loinc.org::LP74849-8`. This way,
@@ -28,7 +28,7 @@ elements do not contain a `::` or even skip the back-transformation of `::`.
 
 [[Identifier]]
 == Identifier
-https://build.fhir.org/datatypes.html#Identifier[Identifier] to
+https://hl7.org/fhir/R4/datatypes.html#Identifier[Identifier] to
 https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String]
 
 The transformation into a string is lackluster when coming from an identifier. To maintain some information, the identifier
@@ -57,7 +57,7 @@ When converting back, this may cause problems. Providers need to ensure that the
 
 == References
 https://specifications.openehr.org/releases/BASE/latest/foundation_types.html#_string_class[String] to
-https://build.fhir.org/references.html#Reference[Reference]
+https://hl7.org/fhir/R4/references.html#Reference[Reference]
 
 [NOTE]
 ====

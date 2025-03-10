@@ -2,7 +2,8 @@
 
 
 == Attachement
-https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_multimedia_class[DV_MULTIMEDIA] to https://build.fhir.org/datatypes.html#attachment[Attachment]
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_multimedia_class[DV_MULTIMEDIA] to
+https://hl7.org/fhir/R4/datatypes.html##attachment[Attachment]
 
 [IMPORTANT]
 ====

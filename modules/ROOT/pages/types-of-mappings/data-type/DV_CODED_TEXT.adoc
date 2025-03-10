@@ -4,7 +4,7 @@ Inherits from DV_TEXT.
 
 == CodeableConcept
 
-https://build.fhir.org/datatypes.html#codeableconcept[CodeableConcept]
+https://hl7.org/fhir/R4/datatypes.html#codeableconcept[CodeableConcept]
 to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
 
 FHIRconnect engine checks, if the defining_code requires a specific terminology like e.g. SNOMED-CT that is also contained in the coding.
@@ -99,7 +99,7 @@ To:
 
 == Coding
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
+https://hl7.org/fhir/R4/datatypes.html#Coding[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT].
 
 [IMPORTANT]
 ====
@@ -158,6 +158,6 @@ To:
 
 == STRING
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String] to  https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT]
+https://hl7.org/fhir/R4/datatypes.html#string[String] to  https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_coded_text_class[DV_CODED_TEXT]
 
 A transformation from FHIR string to openEHR CODABLE_CONCEPT is not possible,

@@ -2,7 +2,7 @@
 
 == Identifier
 
-https://build.fhir.org/datatypes.html#Identifier[Identifier]
+https://hl7.org/fhir/R4/datatypes.html#Duration[Identifier]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_identifier_class[DV_IDENTIFIER]
 
 This has several problems. The `type` is a `coding` in FHIR and the `assigner` a `reference` to an

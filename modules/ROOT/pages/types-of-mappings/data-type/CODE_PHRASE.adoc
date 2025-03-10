@@ -4,7 +4,7 @@
 
 == Coding
 
-https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
+https://hl7.org/fhir/R4/datatypes.html#Coding[Coding] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
 [cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
 | FHIRpath        | Cardinality (FHIR) | Comment              | openEHR                  | Cardinality (openEHR) | Comment
@@ -51,7 +51,7 @@ To:
 
 == String
 https://specifications.openehr.org/releases/RM/latest/data_types.html#_code_phrase_class[CODE_PHRASE]
-to https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888[String]
+to https://hl7.org/fhir/R4/datatypes.html#string[String]
 
 The transformation into a string is lacklustre when coming from a coded value. To
 maintain some of the content the coding should be parsed into the String and back as

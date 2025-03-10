@@ -1,7 +1,7 @@
 = DV_DURATION
 
 
-https://build.fhir.org/datatypes.html#Duration[Duration] to
+https://hl7.org/fhir/R4/datatypes.html#Duration[Duration] to
 https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_duration_class[DV_DURATION]
 
 Problem openEHR uses the ISO duration meanwhile, FHIR uses UCUM codes.
