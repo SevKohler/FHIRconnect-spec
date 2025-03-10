@@ -3,7 +3,7 @@
 
 There are different types of mappings. Data-type mappings are autoresolved
 by the engine and transform https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_clas[data-types in openEHR]
-and  https://www.hl7.org/fhir/R4/datatypes.html[FHIR data-types].
+and  https://hl7.org/fhir/R4/datatypes.html[FHIR data-types].
 Second one are the category of concept types that are used for
 transformations of more complex types.
 
