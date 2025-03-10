@@ -14,8 +14,8 @@ references using the demographics see
 
 [cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath   | Cardinality (FHIR)  | Comment  | openEHR     | Cardinality (openEHR)  | Comment
-| reference  | 0..1                |  Add to demographics, see <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>         | identifiers  | -                      | resolve <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>> add to bundle, add resource identifier here.
+| FHIRpath   | Cardinality          | Comment  | openEHR     | Cardinality  | Comment
+| reference  | 0..1                |  Add to demographics, see <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>         | identifiers  |  0..*                      | resolve <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>> add to bundle, add resource identifier here.
 
 | type       | 0..1                |          | -           | -                      |
 | identifier | 0..1                |   other identifiers        | identifiers | 0..*                   | add along the identifier of the demographics
