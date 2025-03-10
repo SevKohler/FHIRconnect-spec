@@ -1,6 +1,16 @@
 = Data mapping types
 :navtitle: Data mapping types
 
+
+[IMPORTANT]
+====
+This chapter describes how these data-types are convertable, they are not recommendations
+to how fields should be modeled to fit to each other. The spec covers all types of mappings, also those
+who fit partly. To determine which types match we recommend reading the specification anyhow, since the amount of fields
+mappable between two data-types determine how good these match. If there is consensus, this
+can be also added to the spec as recommendations.
+====
+
 Mappings between two data values are executed depending on the data type of the element.
 As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
 path in openEHR, if it's a valid data type.

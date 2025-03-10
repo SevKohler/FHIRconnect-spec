@@ -1,2 +1,8 @@
 = DV_URI
 
+https://hl7.org/fhir/R4/datatypes.html#url[Url] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_uri_class[DV_URI]
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath              | Cardinality   | Comment                                   | openEHR                  | Cardinality |  Comment
+| url                 | 0..1                 |                                           | value                | 1..1                  |

@@ -25,11 +25,9 @@
 ***** xref:types-of-mappings/data-type/TERM_MAPPING.adoc[]
 
 **** Quantity Package
-***** xref:types-of-mappings/data-type/DV_ORDERED.adoc[]
 ***** xref:types-of-mappings/data-type/DV_INTERVAL.adoc[]
 ***** xref:types-of-mappings/data-type/DV_ORDINAL.adoc[]
 ***** xref:types-of-mappings/data-type/DV_SCALE.adoc[]
-***** xref:types-of-mappings/data-type/DV_QUANTIFIED.adoc[]
 ***** xref:types-of-mappings/data-type/DV_QUANTITY.adoc[]
 ***** xref:types-of-mappings/data-type/DV_COUNT.adoc[]
 ***** xref:types-of-mappings/data-type/DV_PROPORTION.adoc[]

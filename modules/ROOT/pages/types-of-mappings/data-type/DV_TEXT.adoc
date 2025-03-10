@@ -6,17 +6,17 @@ https://hl7.org/fhir/R4/datatypes.html#string[String] to https://specifications.
 The transformation is lacking here a good mapping to FHIR.
 String is the one that comes closest.
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | comment  | opeEHR | comment
-| value |    |  value |
-| -  |    |  hyperlink |
-| -  |    |  formatting |
-| -  |    |  mappings |
-| -  |    |  language |
-| -  |   |  encoding |
+| FHIRpath  | Cardinality | Comment  | openEHR  | Cardinality  | Comment
+| value     | 0..1                |          | value     | 1..1                   |
+| -         | -                   |          | hyperlink | 0..1                   |
+| -         | -                   |          | formatting | 0..1                   |
+| -         | -                   |          | mappings   | 0..1                   |
+| -         | -                   |          | language   | 0..1                   |
+| -         | -                   |          | encoding   | 0..1                   |
+|===
 
-|===
 
 == Coding
 https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81979[Coding] to
@@ -24,15 +24,15 @@ https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_c
 In openEHR each `DV_TEXT` can be annotated with codings using mappings. This we can use to
 faithfully transform the FHIR `codings` bidirectionally.
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | comment  | opeEHR | comment
-| display   |      |  value     |
-| -         |      |  hyperlink  |
-| -         |      |  formatting|
-| coding    |      |  mappings | see <<types-of-mappings/data-type/TERM_MAPPING.adoc#term_mapping, TERM_MAPPING>>
-| -         |      |  language |
-| -         |      |  encoding |
+| FHIRpath  | Cardinality  | Comment  | openEHR  | Cardinality   | Comment
+| display   | 0..1                |          | value     | 1..1                   |
+| -         | -                   |          | hyperlink | 0..1                   |
+| -         | -                   |          | formatting | 0..1                   |
+| coding    | 0..*                |          | mappings  | 0..*                   | see <<types-of-mappings/data-type/TERM_MAPPING.adoc#term_mapping, TERM_MAPPING>>
+| -         | -                   |          | language  | 0..1                   |
+| -         | -                   |          | encoding  | 0..1                   |
 |===
 
 == CodeableConcept
@@ -42,13 +42,13 @@ https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_c
 In openEHR each `DV_TEXT` can be annotated with codings using mappings.
 This we can use to faithfully transform the FHIR `CodeableConcept` bidirectionally.
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | comment  | opeEHR | comment
-| text      |      |  value     |
-| -         |      |  hyperlink  |
-| -         |      |  formatting|
-| coding    |      |  mappings | see <<types-of-mappings/data-type/TERM_MAPPING.adoc#term_mapping, TERM_MAPPING>>, is also 0..n therfore, can store all codings
-| -         |      |  language |
-| -         |      |  encoding |
+| FHIRpath  | Cardinality   | Comment  | openEHR  | Cardinality  | Comment
+| text      | 0..1                |          | value     | 1..1                   |
+| -         | -                   |          | hyperlink | 0..1                   |
+| -         | -                   |          | formatting | 0..1                   |
+| coding    | 0..*                |          | mappings  | 0..*                   | see <<types-of-mappings/data-type/TERM_MAPPING.adoc#term_mapping, TERM_MAPPING>>, is also 0..n therefore, can store all codings
+| -         | -                   |          | language  | 0..1                   |
+| -         | -                   |          | encoding  | 0..1                   |
 |===

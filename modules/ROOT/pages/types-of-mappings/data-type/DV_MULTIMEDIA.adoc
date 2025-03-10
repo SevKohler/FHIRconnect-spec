@@ -7,7 +7,7 @@ https://hl7.org/fhir/R4/datatypes.html##attachment[Attachment]
 
 [IMPORTANT]
 ====
-The compression algorithm is missing, which may cause problems in transforming data if contained.
+The compression algorithm has no field in FHIR, which may cause problems in transforming data if contained.
 ====
 
 [cols="^1,^1,^2,^1,^1,^2", options="header"]

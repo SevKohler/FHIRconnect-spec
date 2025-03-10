@@ -1,4 +1,4 @@
-= DV_INTERVAL
+= DV_INTERVAL<T>
 
 == Range
 https://hl7.org/fhir/R4/datatypes.html#Range[Range] to https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class[DV_INTERVAL]
@@ -7,9 +7,13 @@ https://hl7.org/fhir/R4/datatypes.html#Range[Range] to https://specifications.op
 [IMPORTANT]
 ====
 DV_INTERVAL is always a interval of something <T>. Therefore, the range mapping has to take into account to
-what the range is applied. In the openEHR data, this has to be combined with e.g. an DV_Quantity containing e.g.
-the max value of the measurement.
+what the range is applied. In the openEHR data, this has to be combined with e.g. an DV_Quantity.
+
+From the openEHR specification:
+Generic class defining an interval (i.e. range) of a comparable type. An interval is a contiguous subrange of a comparable base type. Used to define intervals of dates, times, quantities (whose units match) and so on. The type parameter, T, must be a descendant of the type DV_ORDERED, which is necessary (but not sufficient) for instances to be compared (strictly_comparable is also needed).
+
 ====
+
 
 
 [cols="^1,^1,^2,^1,^1,^2", options="header"]

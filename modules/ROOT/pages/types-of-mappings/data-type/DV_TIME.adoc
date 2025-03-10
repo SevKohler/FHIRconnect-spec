@@ -1,1 +1,13 @@
 = DV_TIME
+
+https://hl7.org/fhir/R4/datatypes.html#time[time] to
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_class[DV_TIME]
+
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath  | Cardinality | Comment                                       | openEHR  | Cardinality | Comment
+| `value`   | 0..1        | `hh:mm:ss`, must be transformed to ISO 8601 time | `value`   | 1..1        | Must be transformed to `hh:mm:ss`
+| -         | -           |                                               | `ACCURACY` | 0..1       |
+|===
+

@@ -5,19 +5,22 @@ https://hl7.org/fhir/R4/references.html#Reference[Reference]
 
 [NOTE]
 ====
-As up-to-date all of the PARTY_IDENTIFIED mappings found where references between a PARTY_IDENTIFIED and non-clinical
+As up-to-date all the PARTY_IDENTIFIED mappings found where references between a PARTY_IDENTIFIED and non-clinical
 FHIR-data (organizations etc. ). It is recommended to resolve non-clinical data
 references using the demographics see
 <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>
 .
 ====
 
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath   | Cardinality (FHIR)  | Comment  | openEHR     | Cardinality (openEHR)  | Comment
+| reference  | 0..1                |  Add to demographics, see <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>>         | identifiers  | -                      | resolve <<types-of-mappings/data-type/FHIRReference.adoc#ReferencesDemographics, FHIRReferences>> add to bundle, add resource identifier here.
 
-[cols="^1,^1,^1,^2", options="header"]
+| type       | 0..1                |          | -           | -                      |
+| identifier | 0..1                |   other identifiers        | identifiers | 0..*                   | add along the identifier of the demographics
+| display    | 0..1                |          | name        | 0..1                   |
 |===
-| FHIRpath   | Comment  | openEHR                   | Comment
-| reference  |          |                           |
-| type       |          | identifiers               |
-| identifier |          | identifiers               |
-| display    |          | name                      |
-|===
+
+When mapping from openEHR->FHIR and the demographics contains the FHIR-resource, this resource should be returned as part of the
+bundle and the reference string added.

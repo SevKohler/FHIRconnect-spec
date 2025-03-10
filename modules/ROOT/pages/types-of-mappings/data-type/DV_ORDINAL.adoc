@@ -22,16 +22,11 @@ Therefore, the mapping relies on the model representing the same, with the value
 [cols="^1,^1,^2,^1,^1,^2",options="header"]
 |===
 | FHIRpath        | Cardinality | Comment                                                 | openEHR              | Cardinality | Comment
-| coding          | 0..n               |  | symbol    | 1..1                 | see xref:types-of-mappings/data-type/DV_CODED_TEXT.adoc[]
-| -               |                     | | value    | 1..1                 | has to be maintained by the archetype itself
+| coding.code          | 0..n  |  | symbol    | 1..1                 | requires manual mapping!
+| -               |       | | value    | 1..1                 | has to be maintained by the archetype itself
 |===
 
-This is delicate, since the archetype has to be modeled to contain the same `code_string` for the code.
-Another option recommended is, that the compositions carry the `term_mapping` with it, therefore, this logic could be either
-transformed directly from the `symbol`, if not contained the `term_mapping` of symbol is to be checked.
-If it contains code, map these to coding.
-#CAnt be since the term_mapping or on the father of symbols not on each symbol itself ?#
-#IM MIXING HERE#
+This will require a manual mapping, since DV_ORDINALS are modeled as local term_sets.
 
 Example
 [source, json]
@@ -61,7 +56,7 @@ Example
                     "_type" : "TERMINOLOGY_ID",
                     "value" : "local"
                   },
-                  "code_string" : "resp4"
+                  "code_string" : "at0002"
                 }
               },
               "value" : 4 # part of the archetype

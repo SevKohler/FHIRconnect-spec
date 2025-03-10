@@ -1,2 +1,22 @@
 = DV_PARSABLE
 
+https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_parsable_class[DV_PARSABLE]
+to https://hl7.org/fhir/R4/datatypes.html#Attachment[Attachement]
+
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath       | Cardinality | Comment | openEHR                 | Cardinality | Comment
+| url           | 0..1        |         | -                          |        |
+| data          | 0..1        |         | value                     | 1..1     |
+| content_type  | 0..1        |         | formalism                | 1..1       | should be hardcoded depending on the formalism used and checked against this https://hl7.org/fhir/R4/terminologies-valuesets.html[list]
+| hash          | 0..1        |         |  -                         | -     |
+| size          | 0..1        |         | -                         | -       |
+| creation      | 0..1        |         | -                        | -          |
+| height        | 0..1        |         | -                        | -          |
+| width         | 0..1        |         | -                        | -          |
+| frames        | 0..1        |         | -                        | -          |
+| duration      | 0..1        |         | -                        | -          |
+| pages         | 0..1        |         | -                        | -          |
+| language      | 0..1        |         | language                 | -          |
+|===

@@ -1,1 +1,3 @@
 = DV_SCALE
+
+There is currently, not a single usage in the openEHR CKM of DV_Scale, therefore we no mapping specification is defined.

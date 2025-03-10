@@ -1,54 +1,73 @@
 = DV_QUANTITY
 
 
-#General comment to Quantity data types.#
-
 == Quantity
 
 https://hl7.org/fhir/R4/datatypes.html#Quantity[Quantity]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
-[cols="^1,^1,^1,^2", options="header"]
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| value    |         | magnitude       | Is a mandatory field in openEHR, whereas not in FHIR.
-|    |         | precision |
-| code (if exists, else unit)    |         | units               | Is a mandatory field in openEHR, whereas not in FHIR.
-| system   |         | units_system                     |
-| system         |         | units_display_name            |
-| -         |         | normal_range                 |
-| -         |         | other_reference_ranges                |
+| FHIRpath              | Cardinality    | Comment              | openEHR              | Cardinality | Comment
+| value                 | 0..1   |                            | magnitude                | 1..1  |
+|   -                   |-       |                            | precision                | 0..1  |
+| code                  | 0..1   |   if exists                | units                    | 1..1  | both code and unit are populated openEHR -> FHIR
+| unit                  | 0..1   |   if code not exists       | units                    | 1..1  | both code and unit are populated openEHR -> FHIR
+| system                | 0..1   |                            | units_system             | 0..1  |
+| system                | 0..1   |                            | units_display_name       | 0..1  |
+| -                     | -      |                            | normal_range             | 0..1  |
+| -                     | -      |                            | other_reference_ranges   | 0..1  |
+| -                     | -      |                            | accuracy                 | 0..1  |
+| -                     | -      |                            | accuracy_is_percent      | 0..1  |
+| comparator            | 0..1   |                            | magnitude_status         | 0..1  |
+
 |===
 
-== Integer (or primitive of other kind, i.e. string)
+
+== Primitives
 
 https://hl7.org/fhir/R4/datatypes.html#integer[Integer]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
 
-[cols="^1,^1,^1,^2", options="header"]
+Here using the example of an Integer.
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
 |===
-| FHIRpath  | Comment  | openEHR                  | Comment
-| value    |         | magnitude       |
-|    |         | precision |
-|      |         | units               | as its required in openEHR, this needs to be hardcoded to "1" when mapping from FHIR->openEHR
-|    |         | units_system                     |
-| -         |         | units_display_name            |
-| -         |         | normal_range                 |
-| -         |         | other_reference_ranges                |
+| FHIRpath              | Cardinality   | Comment                                   | openEHR                  | Cardinality |  Comment
+| value                 | 0..1                 |                                           | magnitude                | 1..1                  |
+| -                     | -                    |                                           | precision                | 0..1                  |
+| -                     | -                    |                                           | units                    | 1..1                  | hardcoded as 1, due to being required
+| -                     | -                    |                                           | units_system             | 0..1                  |
+| -                     | -                    |                                           | units_display_name       | 0..1                  |
+| -                     | -                    |                                           | normal_range             | 0..1                  |
+| -                     | -                    |                                           | other_reference_ranges   | 0..1                  |
+| -                     | -                    |                                           | accuracy                 | 0..1                  |
+| -                     | -                    |                                           | accuracy_is_percent      | 0..1                  |
+| -                     | -                    |                                           | magnitude_status         | 0..1                  |
 |===
 
-== Ratio
 
-https://hl7.org/fhir/R4/datatypes.html#Ratio[Ratio]
-to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
+== Age, Count, Duration, SimpleQuantity
 
-`Ratio.numerator` should be used and then it's a Quantity to DV_QUANTITY mapping described above.
+Each of which, is a descendant of https://hl7.org/fhir/R4/datatypes.html#Quantity[Quantity] and determined by their terminology.
+Therefore, translating the terminology to openEHR is sufficient. There are other DataTypes that better match like DV_DURATION,
+DV_COUNT etc. pp in regards of modeling.
 
 == Range
 
 https://hl7.org/fhir/R4/datatypes.html#Range[Range]
 to https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class[DV_QUANTITY].
+This depends what this range is for. If the range indicates the normal_range of an Quantity contained in FHIR, this needs to be mapped
+against the `normal_range` inside the `DV_QUANTITY`. Otherwise, if these are related ranges
 
-As range has a 'low' and a 'high' in FHIR, data mappings should pin-point exactly which limit should be
-mapped to DV_QUANTITY. If mapping doesn't pin-point to the exact data element, nothing should be mapped to prevent
-wrong mapping.
+Example:
+
+.Normal Range
+* Normal Range: 70–100 mg/dL (for a healthy adult)
+
+.Other Reference Ranges
+* For pregnant women: 80–120 mg/dL
+* For children: 60–90 mg/dL
+* For diabetics: 80–130 mg/dL
+
+If both are not true see xref:types-of-mappings/data-type/DV_INTERVAL.adoc[]
