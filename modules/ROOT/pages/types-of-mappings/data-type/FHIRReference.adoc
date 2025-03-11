@@ -49,9 +49,9 @@ the reason is resolved while maintaining the linkage to the full diagnosis, maki
           with:
             fhir: "$fhirRoot"
             openehr: "$openehrRoot/links"
-            openehrLink:
-              meaning: "the diagnosis of the reason"
-              type: "diagnosis"
+          link:
+            meaning: "the diagnosis of the reason"
+            type: "diagnosis"
 ----
 
 === No Node
@@ -76,9 +76,9 @@ FHIR more straightforward.
           with:
             fhir: "$fhirRoot"
             openehr: "$composition/links"
-            openehrLink:
-              meaning: "the diagnosis linked to this composition"
-              type: "diagnosis"
+          link:
+            meaning: "the diagnosis linked to this composition"
+            type: "diagnosis"
 ----
 
 This works because references in the https://specifications.openehr.org/releases/RM/Release-1.1.0/common.html#_locatable_class[LOCATABLE]

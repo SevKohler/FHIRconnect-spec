@@ -213,6 +213,12 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
   </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="NULL_FLAVOUR.html">NULL_FLAVOUR</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="EVENT.html">EVENT</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -430,9 +436,9 @@ the reason is resolved while maintaining the linkage to the full diagnosis, maki
           with:
             fhir: "$fhirRoot"
             openehr: "$openehrRoot/links"
-            openehrLink:
-              meaning: "the diagnosis of the reason"
-              type: "diagnosis"</code></pre>
+          link:
+            meaning: "the diagnosis of the reason"
+            type: "diagnosis"</code></pre>
 </div>
 </div>
 </div>
@@ -459,9 +465,9 @@ FHIR more straightforward.</p>
           with:
             fhir: "$fhirRoot"
             openehr: "$composition/links"
-            openehrLink:
-              meaning: "the diagnosis linked to this composition"
-              type: "diagnosis"</code></pre>
+          link:
+            meaning: "the diagnosis linked to this composition"
+            type: "diagnosis"</code></pre>
 </div>
 </div>
 <div class="paragraph">

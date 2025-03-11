@@ -48,6 +48,9 @@
 
 **** Common Information Model
 ***** xref:types-of-mappings/data-type/PARTY_IDENTIFIED.adoc[]
+***** xref:types-of-mappings/data-type/NULL_FLAVOUR.adoc[]
+***** xref:types-of-mappings/data-type/EVENT.adoc[]
+// ***** xref:types-of-mappings/data-type/HISTORY.adoc[] WIP
 
 
 *** Concept-type mappings

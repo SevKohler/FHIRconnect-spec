@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DV_TIME :: FHIRconnect</title>
-    <link rel="prev" href="DV_DATE.html">
-    <link rel="next" href="DV_DATE_TIME.html">
+    <title>NULL_FLAVOUR :: FHIRconnect</title>
+    <link rel="prev" href="PARTY_IDENTIFIED.html">
+    <link rel="next" href="EVENT.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -173,7 +173,7 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_DATE.html">DV_DATE</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="5">
+  <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_TIME.html">DV_TIME</a>
   </li>
   <li class="nav-item" data-depth="5">
@@ -215,7 +215,7 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
   </li>
-  <li class="nav-item" data-depth="5">
+  <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="NULL_FLAVOUR.html">NULL_FLAVOUR</a>
   </li>
   <li class="nav-item" data-depth="5">
@@ -355,21 +355,150 @@
     <li>Grammar</li>
     <li>Types of Mappings</li>
     <li>Data-type mappings</li>
-    <li>Date Time Package</li>
-    <li><a href="DV_TIME.html">DV_TIME</a></li>
+    <li>Common Information Model</li>
+    <li><a href="NULL_FLAVOUR.html">NULL_FLAVOUR</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TIME.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/NULL_FLAVOUR.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DV_TIME</h1>
+<h1 class="page">NULL_FLAVOUR</h1>
+<div class="sect1">
+<h2 id="data-absent"><a class="anchor" href="#data-absent"></a>Data absent</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://hl7.org/fhir/R4/datatypes.html#time">time</a> to
-<a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_class">DV_TIME</a></p>
+<p><a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_element_class">Element</a> null_flavour to
+<a href="https://www.hl7.org/fhir/R4/extension-data-absent-reason.html">Data Absent reason</a></p>
+</div>
+<div class="paragraph">
+<p>Element contains a field NULL_FLAVOUR to represent missing information. FHIR does this
+as extension data absent reason.</p>
+</div>
+<div class="paragraph">
+<p>Hereby the null_flavour <a href="https://github.com/openEHR/specifications-TERM/tree/master/computable/XML">codes</a> of openEHR has to be mapped to the <a href="https://www.hl7.org/fhir/R4/valueset-data-absent-reason.html">data-absent-reason-valueset</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 33.3335%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIR code</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">openEHR code</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">271</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Default for openEHR&#8594;FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">asked-unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">temp-unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not-asked</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">asked-declined</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">masked</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">masked</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">272</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Default for openEHR&#8594;FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not-applicable</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not applicable</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">273</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Default for openEHR&#8594;FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unsupported</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">as-text</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">error</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not-a-number</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">negative-infinity</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">positive-infinity</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not-performed</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">not-permitted</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">no information</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">253</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Default for openEHR&#8594;FHIR</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>null_reason</code> is to mapped from code along with the <code>null_flavour</code>.
+If the <code>null_reason</code> contains a string that matches the codings of the valueset, use if for
+openEHR&#8594;FHIR.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -392,26 +521,28 @@
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>hh:mm:ss</code>, must be transformed to ISO 8601 time</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Must be transformed to <code>hh:mm:ss</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">null_flavour</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>ACCURACY</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">FHIR&#8594;openEHR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">null_reason</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">if exists and matches fhir code, use for openEHR&#8594;FHIR</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_DATE.html">DV_DATE</a></span>
-  <span class="next"><a href="DV_DATE_TIME.html">DV_DATE_TIME</a></span>
+  <span class="prev"><a href="PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a></span>
+  <span class="next"><a href="EVENT.html">EVENT</a></span>
 </nav>
 </article>
   </div>

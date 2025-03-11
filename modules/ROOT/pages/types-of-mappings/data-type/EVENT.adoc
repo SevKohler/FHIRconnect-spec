@@ -1,0 +1,10 @@
+= EVENT
+
+Recurring events are transformed by xref:types-of-mappings/concept-type/HierarchyMappings.adoc[].
+Recurrence is done by nesting under the event path.
+
+== POINT_EVENT and INTERVAL_EVENT
+The time that maps to the event time in FHIRconnect, determines if the `EVENT` is an https://specifications.openehr.org/releases/RM/development/data_structures.html#_point_event_class[POINT_EVENT]
+or https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class[INTERVAL_EVENT].
+This is in most cases a period for `INTERVAL_EVENT` and a dateTime to `POINT_EVENT`.
+The FHIRconnect engine, has to generate the EVENT as the corresponding class.

@@ -1,0 +1,43 @@
+= NULL_FLAVOUR
+
+== Data absent
+https://specifications.openehr.org/releases/RM/Release-1.1.0/data_structures.html#_element_class[Element] null_flavour to
+https://www.hl7.org/fhir/R4/extension-data-absent-reason.html[Data Absent reason]
+
+Element contains a field NULL_FLAVOUR to represent missing information. FHIR does this
+as extension data absent reason.
+
+
+Hereby the null_flavour https://github.com/openEHR/specifications-TERM/tree/master/computable/XML[codes] of openEHR has to be mapped to the https://www.hl7.org/fhir/R4/valueset-data-absent-reason.html[data-absent-reason-valueset].
+
+[cols="^1,^2,^1,^2", options="header"]
+|===
+| FHIR code         | openEHR            | openEHR code  | Comment
+| unknown           | unknown            | 271           | Default for openEHR->FHIR
+| asked-unknown     | unknown            | 253           |
+| temp-unknown      | unknown            | 253           |
+| not-asked         | unknown            | 253           |
+| asked-declined    | unknown            | 253           |
+| masked           | masked             | 272           | Default for openEHR->FHIR
+| not-applicable   | not applicable     | 273           | Default for openEHR->FHIR
+| unsupported      | unknown            | 253           |
+| as-text           | unknown             | 253           |
+| error             | unknown             | 253           |
+| not-a-number      | unknown             | 253           |
+| negative-infinity | unknown           | 253           |
+| positive-infinity | unknown           | 253           |
+| not-performed   | unknown             | 253           |
+| not-permitted   | unknown             | 253           |
+| unknown         | no information      | 253           | Default for openEHR->FHIR
+|===
+The `null_reason` is to mapped from code along with the `null_flavour`.
+If the `null_reason` contains a string that matches the codings of the valueset, use if for
+openEHR->FHIR.
+
+[cols="^1,^1,^2,^1,^1,^2", options="header"]
+|===
+| FHIRpath           | Cardinality | Comment  | openEHR        | Cardinality     | Comment
+| code               | 0..1        |          | null_flavour   | 0..1             |
+| code              | 0..1        |   FHIR->openEHR    | null_reason    | 0..1             | if exists and matches fhir code, use for openEHR->FHIR
+|===
+
