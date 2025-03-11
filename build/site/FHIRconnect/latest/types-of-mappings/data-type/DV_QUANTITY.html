@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>DV_QUANTITY :: FHIRconnect</title>
-    <link rel="prev" href="DV_QUANTIFIED.html">
+    <link rel="prev" href="DV_SCALE.html">
     <link rel="next" href="DV_COUNT.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
@@ -142,19 +142,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -354,7 +348,7 @@
     <li><a href="DV_QUANTITY.html">DV_QUANTITY</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_QUANTITY.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_QUANTITY.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -366,65 +360,115 @@
 <h2 id="quantity"><a class="anchor" href="#quantity"></a>Quantity</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#Quantity">Quantity</a>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#Quantity">Quantity</a>
 to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class">DV_QUANTITY</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">magnitude</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Is a mandatory field in openEHR, whereas not in FHIR.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">precision</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">code (if exists, else unit)</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">if exists</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Is a mandatory field in openEHR, whereas not in FHIR.</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">both code and unit are populated openEHR &#8594; FHIR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">unit</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">if code not exists</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">units</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">both code and unit are populated openEHR &#8594; FHIR</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units_system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units_display_name</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">normal_range</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">other_reference_ranges</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">accuracy</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">accuracy_is_percent</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">comparator</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">magnitude_status</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -432,68 +476,113 @@ to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_ty
 </div>
 </div>
 <div class="sect1">
-<h2 id="integer-or-primitive-of-other-kind-i-e-string"><a class="anchor" href="#integer-or-primitive-of-other-kind-i-e-string"></a>Integer (or primitive of other kind, i.e. string)</h2>
+<h2 id="primitives"><a class="anchor" href="#primitives"></a>Primitives</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#integer">Integer</a>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#integer">Integer</a>
 to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class">DV_QUANTITY</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here using the example of an Integer.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">magnitude</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">precision</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">as its required in openEHR, this needs to be hardcoded to "1" when mapping from FHIR&#8594;openEHR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">hardcoded as 1, due to being required</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units_system</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">units_display_name</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">normal_range</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">other_reference_ranges</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">accuracy</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">accuracy_is_percent</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">magnitude_status</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -501,14 +590,12 @@ to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_ty
 </div>
 </div>
 <div class="sect1">
-<h2 id="ratio"><a class="anchor" href="#ratio"></a>Ratio</h2>
+<h2 id="age-count-duration-simplequantity"><a class="anchor" href="#age-count-duration-simplequantity"></a>Age, Count, Duration, SimpleQuantity</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#Ratio">Ratio</a>
-to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class">DV_QUANTITY</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>Ratio.numerator</code> should be used and then it&#8217;s a Quantity to DV_QUANTITY mapping described above.</p>
+<p>Each of which, is a descendant of <a href="https://hl7.org/fhir/R4/datatypes.html#Quantity">Quantity</a> and determined by their terminology.
+Therefore, translating the terminology to openEHR is sufficient. There are other DataTypes that better match like DV_DURATION,
+DV_COUNT etc. pp in regards of modeling.</p>
 </div>
 </div>
 </div>
@@ -516,18 +603,43 @@ to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_ty
 <h2 id="range"><a class="anchor" href="#range"></a>Range</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#Range">Range</a>
-to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class">DV_QUANTITY</a>.</p>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#Range">Range</a>
+to <a href="https://specifications.openehr.org/releases/RM/Release-1.1.0/data_types.html#_dv_quantity_class">DV_QUANTITY</a>.
+This depends what this range is for. If the range indicates the normal_range of an Quantity contained in FHIR, this needs to be mapped
+against the <code>normal_range</code> inside the <code>DV_QUANTITY</code>. Otherwise, if these are related ranges</p>
 </div>
 <div class="paragraph">
-<p>As range has a 'low' and a 'high' in FHIR, data mappings should pin-point exactly which limit should be
-mapped to DV_QUANTITY. If mapping doesn&#8217;t pin-point to the exact data element, nothing should be mapped to prevent
-wrong mapping.</p>
+<p>Example:</p>
+</div>
+<div class="ulist">
+<div class="title">Normal Range</div>
+<ul>
+<li>
+<p>Normal Range: 70–100 mg/dL (for a healthy adult)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Other Reference Ranges</div>
+<ul>
+<li>
+<p>For pregnant women: 80–120 mg/dL</p>
+</li>
+<li>
+<p>For children: 60–90 mg/dL</p>
+</li>
+<li>
+<p>For diabetics: 80–130 mg/dL</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If both are not true see <a href="DV_INTERVAL.html" class="xref page">DV_INTERVAL&lt;T&gt;</a></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_QUANTIFIED.html">DV_QUANTIFIED</a></span>
+  <span class="prev"><a href="DV_SCALE.html">DV_SCALE</a></span>
   <span class="next"><a href="DV_COUNT.html">DV_COUNT</a></span>
 </nav>
 </article>

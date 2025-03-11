@@ -33,6 +33,16 @@ mapping.
 .https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703[openEHR specification]
 image::uml_types_openEHR.svg[]
 
+
+== Dosage and Timing
+Both https://hl7.org/fhir/R4/dosage.html#Dosage[dosage] and https://hl7.org/fhir/R4/datatypes.html#Timing[timing]
+have no 1-to-1 data type in openEHR. Dosage relates to an https://ckm.openehr.org/ckm/archetypes/1013.1.5948[Dosage].
+Timing relates to several object including https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_specification_class[DV_TIME_SPECIFICATION],
+https://ckm.openehr.org/ckm/archetypes/1013.1.2245[Timing-daily] and https://ckm.openehr.org/ckm/archetypes/1013.1.2246[Timing non-daily].
+As of now, this was covered with a `PROGRAMMED_MAPPING`, but both should be covered in more detail
+as part of the next version of FHIRconnect.
+
+
 == Deprecated
 This is the old way (v0.9) of mapping using static types, since the information is derivable from
 the instances of FHIR and openEHR this static typing is deprecated. It  creates more mapping

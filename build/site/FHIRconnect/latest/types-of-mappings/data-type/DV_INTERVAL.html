@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DV_INTERVAL :: FHIRconnect</title>
-    <link rel="prev" href="DV_ORDERED.html">
+    <title>DV_INTERVAL&lt;T&gt; :: FHIRconnect</title>
+    <link rel="prev" href="TERM_MAPPING.html">
     <link rel="next" href="DV_ORDINAL.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
@@ -141,20 +141,14 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
   <li class="nav-item is-current-page" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -351,22 +345,116 @@
     <li>Types of Mappings</li>
     <li>Data-type mappings</li>
     <li>Quantity Package</li>
-    <li><a href="DV_INTERVAL.html">DV_INTERVAL</a></li>
+    <li><a href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_INTERVAL.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_INTERVAL.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DV_INTERVAL</h1>
+<h1 class="page">DV_INTERVAL&lt;T&gt;</h1>
+<div class="sect1">
+<h2 id="range"><a class="anchor" href="#range"></a>Range</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class" class="bare">https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class</a></p>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#Range">Range</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_interval_class">DV_INTERVAL</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>DV_INTERVAL is always a interval of something &lt;T&gt;. Therefore, the range mapping has to take into account to
+what the range is applied. In the openEHR data, this has to be combined with e.g. an DV_Quantity.</p>
+</div>
+<div class="paragraph">
+<p>From the openEHR specification:
+Generic class defining an interval (i.e. range) of a comparable type. An interval is a contiguous subrange of a comparable base type. Used to define intervals of dates, times, quantities (whose units match) and so on. The type parameter, T, must be a descendant of the type DV_ORDERED, which is necessary (but not sufficient) for instances to be compared (strictly_comparable is also needed).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">Attributes</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">low</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">lower</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">high</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">upper</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">lower_unbounded</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">false, since not infinite</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">upper_unbounded</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">false, since not infinite</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">lower_included</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">upper_included</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">true</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_ORDERED.html">DV_ORDERED</a></span>
+  <span class="prev"><a href="TERM_MAPPING.html">TERM_MAPPING</a></span>
   <span class="next"><a href="DV_ORDINAL.html">DV_ORDINAL</a></span>
 </nav>
 </article>

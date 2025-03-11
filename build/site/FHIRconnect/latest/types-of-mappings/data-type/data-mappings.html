@@ -140,19 +140,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -348,7 +342,7 @@
     <li><a href="data-mappings.html">Data mapping types</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/data-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/data-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -358,6 +352,24 @@
 <h1 class="page">Data mapping types</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This chapter describes how these data-types are convertable, they are not recommendations
+to how fields should be modeled to fit to each other. The spec covers all types of mappings, also those
+who fit partly. To determine which types match we recommend reading the specification anyhow, since the amount of fields
+mappable between two data-types determine how good these match. If there is consensus, this
+can be also added to the spec as recommendations.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Mappings between two data values are executed depending on the data type of the element.
 As an example if a period is provided FHIRconnect maps this period to an interval in the corresponding
@@ -395,6 +407,19 @@ mapping.</p>
 <img src="../../_images/uml_types_openEHR.svg" alt="uml types openEHR">
 </div>
 <div class="title">Figure 1. <a href="https://specifications.openehr.org/releases/UML/development/index.html#Diagrams___18_1_83e026d_1433773265129_527432_8703">openEHR specification</a></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dosage-and-timing"><a class="anchor" href="#dosage-and-timing"></a>Dosage and Timing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Both <a href="https://hl7.org/fhir/R4/dosage.html#Dosage">dosage</a> and <a href="https://hl7.org/fhir/R4/datatypes.html#Timing">timing</a>
+have no 1-to-1 data type in openEHR. Dosage relates to an <a href="https://ckm.openehr.org/ckm/archetypes/1013.1.5948">Dosage</a>.
+Timing relates to several object including <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_specification_class">DV_TIME_SPECIFICATION</a>,
+<a href="https://ckm.openehr.org/ckm/archetypes/1013.1.2245">Timing-daily</a> and <a href="https://ckm.openehr.org/ckm/archetypes/1013.1.2246">Timing non-daily</a>.
+As of now, this was covered with a <code>PROGRAMMED_MAPPING</code>, but both should be covered in more detail
+as part of the next version of FHIRconnect.</p>
 </div>
 </div>
 </div>

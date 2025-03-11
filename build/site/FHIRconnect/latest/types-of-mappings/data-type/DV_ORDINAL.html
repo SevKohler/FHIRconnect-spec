@@ -142,19 +142,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -354,7 +348,7 @@
     <li><a href="DV_ORDINAL.html">DV_ORDINAL</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_ORDINAL.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_ORDINAL.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -362,9 +356,122 @@
 </aside>
 <article class="doc">
 <h1 class="page">DV_ORDINAL</h1>
-
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There is no transformation into FHIR directly, DV_ORDINAL describes:</p>
+</div>
+<div class="paragraph">
+<p>A data type that represents integral score values, e.g. pain, Apgar values, etc, where there is:</p>
+</div>
+<div class="paragraph">
+<p>a) implied ordering, b) no implication that the distance between each value is constant, and c) the total number of values is finite; d) integer values only.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="codeableconcept"><a class="anchor" href="#codeableconcept"></a>CodeableConcept</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#CodeableConcept">CodeableConcept</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_ordinal_class">DV_ORDINAL
+</a></p>
+</div>
+<div class="paragraph">
+<p>An option is to use Coding here. However, the mapping requires context information, such as the value of the coding,
+which is not provided by the Coding itself.
+Therefore, the mapping relies on the model representing the same, with the value coded as part of the ordinal.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">coding.code</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..n</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">symbol</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">requires manual mapping!</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">has to be maintained by the archetype itself</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This will require a manual mapping, since DV_ORDINALS are modeled as local term_sets.</p>
+</div>
+<div class="paragraph">
+<p>Example</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+     "coding": [
+       {
+         "system": "https://somecoding.com",
+         "code": "resp4",
+         "display": "Respiratory system SOFA score 4"
+       }
+     ],
+     "text": "PaO₂/FiO₂ 300-399 mmHg"
+   }</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json"> "_type" : "DV_ORDINAL",
+              "symbol" : {
+                "_type" : "DV_CODED_TEXT",
+                "value" : "PaO₂/FiO₂ 300-399 mmHg",
+                "defining_code" : {
+                  "_type" : "CODE_PHRASE",
+                  "terminology_id" : {
+                    "_type" : "TERMINOLOGY_ID",
+                    "value" : "local"
+                  },
+                  "code_string" : "at0002"
+                }
+              },
+              "value" : 4 # part of the archetype</code></pre>
+</div>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_INTERVAL.html">DV_INTERVAL</a></span>
+  <span class="prev"><a href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a></span>
   <span class="next"><a href="DV_SCALE.html">DV_SCALE</a></span>
 </nav>
 </article>

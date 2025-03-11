@@ -142,19 +142,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -354,7 +348,7 @@
     <li><a href="DV_TIME.html">DV_TIME</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TIME.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TIME.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -362,7 +356,48 @@
 </aside>
 <article class="doc">
 <h1 class="page">DV_TIME</h1>
-
+<div class="paragraph">
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#time">time</a> to
+<a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_class">DV_TIME</a></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>hh:mm:ss</code>, must be transformed to ISO 8601 time</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Must be transformed to <code>hh:mm:ss</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>ACCURACY</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+</tbody>
+</table>
 <nav class="pagination">
   <span class="prev"><a href="DV_DATE.html">DV_DATE</a></span>
   <span class="next"><a href="DV_DATE_TIME.html">DV_DATE_TIME</a></span>

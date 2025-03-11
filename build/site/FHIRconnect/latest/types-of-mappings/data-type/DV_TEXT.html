@@ -142,19 +142,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -354,7 +348,7 @@
     <li><a href="DV_TEXT.html">DV_TEXT</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TEXT.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TEXT.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -366,7 +360,7 @@
 <h2 id="string"><a class="anchor" href="#string"></a>String</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://simplifier.net/packages/hl7.fhir.r4.core/4.0.1/files/81888">String</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#string">String</a> to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
 </div>
 <div class="paragraph">
 <p>The transformation is lacking here a good mapping to FHIR.
@@ -374,54 +368,70 @@ String is the one that comes closest.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">comment</th>
-<th class="tableblock halign-center valign-top">opeEHR</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -439,54 +449,70 @@ faithfully transform the FHIR <code>codings</code> bidirectionally.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">comment</th>
-<th class="tableblock halign-center valign-top">opeEHR</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">display</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..*</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..*</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="TERM_MAPPING.html#term_mapping" class="xref page">TERM_MAPPING</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
@@ -497,7 +523,7 @@ faithfully transform the FHIR <code>codings</code> bidirectionally.</p>
 <h2 id="codeableconcept"><a class="anchor" href="#codeableconcept"></a>CodeableConcept</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#codeableconcept">CodeableConcept</a> to
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#codeableconcept">CodeableConcept</a> to
 <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_text_class">DV_TEXT</a></p>
 </div>
 <div class="paragraph">
@@ -506,54 +532,70 @@ This we can use to faithfully transform the FHIR <code>CodeableConcept</code> bi
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">comment</th>
-<th class="tableblock halign-center valign-top">opeEHR</th>
-<th class="tableblock halign-center valign-top">comment</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
+<th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality</th>
+<th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">text</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">hyperlink</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">formatting</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">coding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..*</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">mappings</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="TERM_MAPPING.html#term_mapping" class="xref page">TERM_MAPPING</a>, is also 0..n therfore, can store all codings</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..*</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">see <a href="TERM_MAPPING.html#term_mapping" class="xref page">TERM_MAPPING</a>, is also 0..n therefore, can store all codings</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>

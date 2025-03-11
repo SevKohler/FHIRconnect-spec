@@ -6,3 +6,4 @@ https://hl7.org/fhir/R4/datatypes.html#url[Url] to https://specifications.openeh
 |===
 | FHIRpath              | Cardinality   | Comment                                   | openEHR                  | Cardinality |  Comment
 | url                 | 0..1                 |                                           | value                | 1..1                  |
+|===

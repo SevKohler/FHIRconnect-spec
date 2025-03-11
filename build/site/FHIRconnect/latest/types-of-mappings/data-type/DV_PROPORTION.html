@@ -142,19 +142,13 @@
     <span class="nav-text">Quantity Package</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_ORDERED.html">DV_ORDERED</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL</a>
+    <a class="nav-link" href="DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_ORDINAL.html">DV_ORDINAL</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_SCALE.html">DV_SCALE</a>
-  </li>
-  <li class="nav-item" data-depth="5">
-    <a class="nav-link" href="DV_QUANTIFIED.html">DV_QUANTIFIED</a>
   </li>
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_QUANTITY.html">DV_QUANTITY</a>
@@ -354,7 +348,7 @@
     <li><a href="DV_PROPORTION.html">DV_PROPORTION</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_PROPORTION.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_PROPORTION.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -366,126 +360,82 @@
 <h2 id="ratio"><a class="anchor" href="#ratio"></a>Ratio</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#Ratio">Ratio</a>
+<p><a href="https://hl7.org/fhir/R4/datatypes.html#Ratio">Ratio</a>
 to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class">DV_PROPORTION</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-center valign-top">FHIRpath</th>
+<th class="tableblock halign-center valign-top">Cardinality (FHIR)</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 <th class="tableblock halign-center valign-top">openEHR</th>
+<th class="tableblock halign-center valign-top">Cardinality (openEHR)</th>
 <th class="tableblock halign-center valign-top">Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">numerator.value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">numerator</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">denominator.value</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">denominator</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">(should be calculated)</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">type</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">manual mapping should cover this</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">precision</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">normal_range</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">other_reference_range</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="quantity"><a class="anchor" href="#quantity"></a>Quantity</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://build.fhir.org/datatypes.html#Quantity">Quantity</a>
-to <a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_proportion_class">DV_PROPORTION</a>.</p>
+<p>To map a ratio faithfully two <code>DV_QUANTITY</code> fields should be preferred. Since FHIR allows here e.g. 5mg/100ml.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-<th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">numerator</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">denominator</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">type</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">precision</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">normal_range</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">other_reference_range</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <nav class="pagination">
