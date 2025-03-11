@@ -1,3 +1,7 @@
+antora:
+  extensions:
+    - '@antora/lunr-extension'
+
 site:
   title: FHIRconnect
   start_page: project-name::index.adoc
