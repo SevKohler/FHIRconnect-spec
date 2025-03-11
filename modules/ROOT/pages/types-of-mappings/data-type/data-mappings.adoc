@@ -37,7 +37,7 @@ image::uml_types_openEHR.svg[]
 == Dosage and Timing
 Both https://hl7.org/fhir/R4/dosage.html#Dosage[dosage] and https://hl7.org/fhir/R4/datatypes.html#Timing[timing]
 have no 1-to-1 data type in openEHR. Dosage relates to an https://ckm.openehr.org/ckm/archetypes/1013.1.5948[Dosage].
-Timing relates to several object including https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_specification_class[DV_TIME_SPECIFICATION],
+Timing relates to several object including https://specifications.openehr.org/releases/RM/development/data_structures.html#_history_class[HISTORY],
 https://ckm.openehr.org/ckm/archetypes/1013.1.2245[Timing-daily] and https://ckm.openehr.org/ckm/archetypes/1013.1.2246[Timing non-daily].
 As of now, this was covered with a `PROGRAMMED_MAPPING`, but both should be covered in more detail
 as part of the next version of FHIRconnect.

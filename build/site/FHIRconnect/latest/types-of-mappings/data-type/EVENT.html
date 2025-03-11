@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DV_TIME :: FHIRconnect</title>
-    <link rel="prev" href="DV_DATE.html">
-    <link rel="next" href="DV_DATE_TIME.html">
+    <title>EVENT :: FHIRconnect</title>
+    <link rel="prev" href="NULL_FLAVOUR.html">
+    <link rel="next" href="../concept-type/concept-mappings.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../../_/css/site.css">
   </head>
@@ -173,7 +173,7 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_DATE.html">DV_DATE</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="5">
+  <li class="nav-item" data-depth="5">
     <a class="nav-link" href="DV_TIME.html">DV_TIME</a>
   </li>
   <li class="nav-item" data-depth="5">
@@ -218,7 +218,7 @@
   <li class="nav-item" data-depth="5">
     <a class="nav-link" href="NULL_FLAVOUR.html">NULL_FLAVOUR</a>
   </li>
-  <li class="nav-item" data-depth="5">
+  <li class="nav-item is-current-page" data-depth="5">
     <a class="nav-link" href="EVENT.html">EVENT</a>
   </li>
 </ul>
@@ -355,63 +355,40 @@
     <li>Grammar</li>
     <li>Types of Mappings</li>
     <li>Data-type mappings</li>
-    <li>Date Time Package</li>
-    <li><a href="DV_TIME.html">DV_TIME</a></li>
+    <li>Common Information Model</li>
+    <li><a href="EVENT.html">EVENT</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/DV_TIME.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/data-type/EVENT.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">DV_TIME</h1>
+<h1 class="page">EVENT</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://hl7.org/fhir/R4/datatypes.html#time">time</a> to
-<a href="https://specifications.openehr.org/releases/RM/latest/data_types.html#_dv_time_class">DV_TIME</a></p>
+<p>Recurring events are transformed by <a href="../concept-type/HierarchyMappings.html" class="xref page">Hierarchy Mappings</a>.
+Recurrence is done by nesting under the event path.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top">FHIRpath</th>
-<th class="tableblock halign-center valign-top">Cardinality</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-<th class="tableblock halign-center valign-top">openEHR</th>
-<th class="tableblock halign-center valign-top">Cardinality</th>
-<th class="tableblock halign-center valign-top">Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>hh:mm:ss</code>, must be transformed to ISO 8601 time</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>value</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">1..1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Must be transformed to <code>hh:mm:ss</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>ACCURACY</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0..1</p></td>
-<td class="tableblock halign-center valign-top"></td>
-</tr>
-</tbody>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="point_event-and-interval_event"><a class="anchor" href="#point_event-and-interval_event"></a>POINT_EVENT and INTERVAL_EVENT</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The time that maps to the event time in FHIRconnect, determines if the <code>EVENT</code> is an <a href="https://specifications.openehr.org/releases/RM/development/data_structures.html#_point_event_class">POINT_EVENT</a>
+or <a href="https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class">INTERVAL_EVENT</a>.
+This is in most cases a period for <code>INTERVAL_EVENT</code> and a dateTime to <code>POINT_EVENT</code>.
+The FHIRconnect engine, has to generate the EVENT as the corresponding class.</p>
+</div>
+</div>
+</div>
 <nav class="pagination">
-  <span class="prev"><a href="DV_DATE.html">DV_DATE</a></span>
-  <span class="next"><a href="DV_DATE_TIME.html">DV_DATE_TIME</a></span>
+  <span class="prev"><a href="NULL_FLAVOUR.html">NULL_FLAVOUR</a></span>
+  <span class="next"><a href="../concept-type/concept-mappings.html">Concept type mappings</a></span>
 </nav>
 </article>
   </div>

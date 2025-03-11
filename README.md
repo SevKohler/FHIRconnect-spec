@@ -19,6 +19,7 @@ The official mapping library of FHIRconnect is maintained
 To build and run locally:
 1. To build install antora
 https://docs.antora.org/antora/latest/install/install-antora/
+2. and install https://gitlab.com/antora/antora-lunr-extension
 
-2. run inside the main folder:
+3. run inside the main folder:
 npx antora antora-playbook.yml

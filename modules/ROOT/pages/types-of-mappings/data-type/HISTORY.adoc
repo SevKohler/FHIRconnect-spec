@@ -1,0 +1,8 @@
+= HISTORY
+
+== TIMING
+WIP
+
+https://hl7.org/fhir/R4/datatypes.html#Timing
+
+https://specifications.openehr.org/releases/RM/development/data_structures.html#_history_class

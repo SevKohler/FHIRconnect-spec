@@ -22,6 +22,6 @@ Most of the time, reference comes in combination with a `slotArchetype`, as in t
         - name: "specimenReference"
           with:
             fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0001]/events[at0002]/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
+            openehr: "/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
           slotArchetype: "CLUSTER.specimen.v1"
 ----
