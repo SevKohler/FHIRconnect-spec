@@ -380,10 +380,31 @@ Recurrence is done by nesting under the event path.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The time that maps to the event time in FHIRconnect, determines if the <code>EVENT</code> is an <a href="https://specifications.openehr.org/releases/RM/development/data_structures.html#_point_event_class">POINT_EVENT</a>
-or <a href="https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class">INTERVAL_EVENT</a>.
-This is in most cases a period for <code>INTERVAL_EVENT</code> and a dateTime to <code>POINT_EVENT</code>.
-The FHIRconnect engine, has to generate the EVENT as the corresponding class.</p>
+or <a href="https://specifications.openehr.org/releases/RM/development/data_structures.html#_interval_event_class">INTERVAL_EVENT</a>.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">FHIR</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">openEHR</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://hl7.org/fhir/R4/datatypes.html#time">time</a>,
+<a href="https://hl7.org/fhir/R4/datatypes.html#date">date</a>,
+<a href="https://hl7.org/fhir/R4/datatypes.html#dateTime">dateTime</a>,
+<a href="https://hl7.org/fhir/R4/datatypes.html#instant">instant</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">POINT_EVENT</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://hl7.org/fhir/R4/datatypes.html#Period">period</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">INTERVAL_EVENT</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <nav class="pagination">
