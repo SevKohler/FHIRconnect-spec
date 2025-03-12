@@ -1,0 +1,61 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="index.html">{{site.title}}</a>
+      {{#if env.SITE_SEARCH_PROVIDER}}
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs"{{#if page.home}} autofocus{{/if}}>
+        </div>
+      </div>
+      {{/if}}
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+           <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="#">Specifications</a>
+            <div class="navbar-dropdown">
+              <div class="navbar-item">
+                <strong>FHIR</strong>
+              </div>
+               <a class="navbar-item" href="https://build.fhir.org/" target="_blank" rel="noopener noreferrer">FHIR specification</a>
+              <div class="navbar-item">
+                <strong>openEHR</strong>
+              </div>
+              <a class="navbar-item" href="https://specifications.openehr.org/" target="_blank" rel="noopener noreferrer">openEHR specification</a>
+              <a class="navbar-item" href="https://specifications.openehr.org/releases/UML/development/index.html" target="_blank" rel="noopener noreferrer">openEHR portal</a>
+              <a class="navbar-item" href="https://ckm.openehr.org/ckm/" target="_blank" rel="noopener noreferrer">openEHR CKM</a>
+            </div>
+          </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown">
+              <div class="navbar-item">
+                <strong>FHIRconnect-spec</strong>
+              </div>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-spec" target="_blank" rel="noopener noreferrer">repository</a>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-spec/issues" target="_blank" rel="noopener noreferrer">Issue tracker</a>
+            <div class="navbar-item">
+                <strong>FHIRconnect mapping library</strong>
+            </div>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-mapping-lib" target="_blank" rel="noopener noreferrer">repository</a>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-mapping-lib/issues" target="_blank" rel="noopener noreferrer">Issue tracker</a>
+          </div>
+        </div>
+           <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="#">Community</a>
+            <div class="navbar-dropdown">
+              <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="https://discourse.openehr.org/" target="_blank" rel="noopener noreferrer">Chat</a>
+              <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-specc/blob/main/CODE_OF_CONDUCT.adoc" target="_blank" rel="noopener noreferrer">Code of Conduct</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </nav>
+</header>

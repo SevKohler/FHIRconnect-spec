@@ -1,5 +1,5 @@
 = Path operators
-:navtitle: path operators
+:navtitle: Path operators
 
 Given the sequencing pattern to follow a path in FHIRconnect, sometimes it is necessary to access elements back in the path.
 For this, we introduced the `../` and `^` notations.

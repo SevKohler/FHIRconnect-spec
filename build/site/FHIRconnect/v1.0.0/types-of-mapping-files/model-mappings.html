@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Model Mappings :: FHIRconnect</title>
+    <link rel="prev" href="main.html">
+    <link rel="next" href="extension-mappings.html">
+    <meta name="generator" content="Antora 3.1.10">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="index.html">FHIRconnect</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+           <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="#">Specifications</a>
+            <div class="navbar-dropdown">
+              <div class="navbar-item">
+                <strong>FHIR</strong>
+              </div>
+               <a class="navbar-item" href="https://build.fhir.org/" target="_blank" rel="noopener noreferrer">FHIR specification</a>
+              <div class="navbar-item">
+                <strong>openEHR</strong>
+              </div>
+              <a class="navbar-item" href="https://specifications.openehr.org/" target="_blank" rel="noopener noreferrer">openEHR specification</a>
+              <a class="navbar-item" href="https://specifications.openehr.org/releases/UML/development/index.html" target="_blank" rel="noopener noreferrer">openEHR portal</a>
+              <a class="navbar-item" href="https://ckm.openehr.org/ckm/" target="_blank" rel="noopener noreferrer">openEHR CKM</a>
+            </div>
+          </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown">
+              <div class="navbar-item">
+                <strong>FHIRconnect-spec</strong>
+              </div>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-spec" target="_blank" rel="noopener noreferrer">repository</a>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-spec/issues" target="_blank" rel="noopener noreferrer">Issue tracker</a>
+            <div class="navbar-item">
+                <strong>FHIRconnect mapping library</strong>
+            </div>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-mapping-lib" target="_blank" rel="noopener noreferrer">repository</a>
+            <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-mapping-lib/issues" target="_blank" rel="noopener noreferrer">Issue tracker</a>
+          </div>
+        </div>
+           <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="#">Community</a>
+            <div class="navbar-dropdown">
+              <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="https://discourse.openehr.org/" target="_blank" rel="noopener noreferrer">Chat</a>
+              <a class="navbar-item" href="https://github.com/SevKohler/FHIRconnect-specc/blob/main/CODE_OF_CONDUCT.adoc" target="_blank" rel="noopener noreferrer">Code of Conduct</a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="FHIRconnect" data-version="v1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">FHIRconnect</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Grammar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basics</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/main.html">Header</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/body.html">Body</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/preprocessor.html">Preprocessor</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Variables.html">Variables</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/Conditions.html">Condition</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/FollowedBy.html">FollowedBy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../basics/path_operators.html">Path operators</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Types of Mappings</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mappings/main.html">Mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Data-type mappings</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/data-type/data-mappings.html">Data mapping types</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Foundation types</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/String.html">String</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Basic Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_IDENTIFIER.html">DV_IDENTIFIER</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Text Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_TEXT.html">DV_TEXT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_CODED_TEXT.html">DV_CODED_TEXT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/CODE_PHRASE.html">CODE_PHRASE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/TERM_MAPPING.html">TERM_MAPPING</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Quantity Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_INTERVAL.html">DV_INTERVAL&lt;T&gt;</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_ORDINAL.html">DV_ORDINAL</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_SCALE.html">DV_SCALE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_QUANTITY.html">DV_QUANTITY</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_COUNT.html">DV_COUNT</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_PROPORTION.html">DV_PROPORTION</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Date Time Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_DATE.html">DV_DATE</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_TIME.html">DV_TIME</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_DATE_TIME.html">DV_DATE_TIME</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_DURATION.html">DV_DURATION</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Encapsulated Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_MULTIMEDIA.html">DV_MULTIMEDIA</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_PARSABLE.html">DV_PARSABLE</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Uri Package</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_URI.html">DV_URI</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/DV_EHR_URI.html">DV_EHR_URI</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Common Information Model</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/PARTY_IDENTIFIED.html">PARTY_IDENTIFIER</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/NULL_FLAVOUR.html">NULL_FLAVOUR</a>
+  </li>
+  <li class="nav-item" data-depth="5">
+    <a class="nav-link" href="../types-of-mappings/data-type/EVENT.html">EVENT</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Concept-type mappings</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/concept-type/concept-mappings.html">Concept type mappings</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/concept-type/SlotArchetypes.html">SlotArchetypes</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/concept-type/Reference.html">Reference</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/concept-type/manual.html">Manual mappings</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="../types-of-mappings/concept-type/HierarchyMappings.html">Hierarchy Mappings</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Recurrence</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/main.html">Recurrence</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/Overwriting.html">Overwriting</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/TransformingList.html">Transforming a list</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../recurrence/PopulatingAnEntry.html">Transforming child elements in a list</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Types of Mapping files</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="main.html">Types of mapping files</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="extension-methods.html">Extension methods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="composition-element.html">Mapping composition elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Engine</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">FHIRconnect</span>
+    <span class="version">v1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="../index.html">FHIRconnect</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">v1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">FHIRconnect</a></li>
+    <li>Grammar</li>
+    <li>Types of Mapping files</li>
+    <li><a href="model-mappings.html">Model Mappings</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/model-mappings.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Model Mappings</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first layer of mappings are the model mappings.
+These serve as a reusable base for FHIR-to-openEHR mappings and form the core of FHIRconnect.
+Each of these mappings connects either a FHIR
+<a href="https://www.hl7.org/fhir/R4/domainresource.html">DomainResource</a> or
+a <a href="https://www.hl7.org/fhir/R4/backboneelement.html">BackboneElement</a> to an openEHR archetype.</p>
+</div>
+<div class="paragraph">
+<p>FHIRConnect is designed with the vision of creating a generically valid library of archetype-to-FHIR
+mappings. This library is the core strength of FHIRconnect. The goal is for this library to be
+maintained by the community, with everyone contributing their basic mappings, correcting existing ones,
+and adding new ones. In this way, the library will grow over time, containing an ever-increasing
+number of refined archetype mappings.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="header"><a class="anchor" href="#header"></a>Header</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The model mapping header was already introduced in the first chapter under <a href="../basics/main.html" class="xref page">Header</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this file
+type: model  # The type of mapping: model, extension, or context
+metadata:
+  name: ACTION.informed_consent.v0  # The name of the mapping
+  version: 1.0.0  # The version of this particular mapping
+spec:  # Schema specific to the FHIRConnect v0.0.1 engine
+  system: FHIR  # Specifies what is being mapped
+  version: R4
+  openEhrConfig:
+    archetype: ACTION.informed_consent.v0  # The openEHR archetype being mapped in this model mapping
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent  # The FHIR StructureDefinition to which this is mapped</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="folders-and-namespaces"><a class="anchor" href="#folders-and-namespaces"></a>Folders and Namespaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In general the folder structure of each FHIRconnect project is up to the provider. The official <a href="https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main">library</a> follows
+the pattern described here. Each of these model mappings aims to be as generically valid as possible. They can be found in
+the <code>mapping/model</code> folder. Here, the models are organized based on their openEHR archetype type.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/ModelFolder.png" alt="ModelFolder">
+</div>
+</div>
+<div class="paragraph">
+<p>OpenEHR has several model libraries, being the <a href="https://ckm.openehr.org/ckm/">international CKM</a> the most
+important one. This contains the international models used by openEHR platforms. Model mappings for
+these can be found under the folder <code>org.openehr</code>, which indicates the namespace of an archetype.
+Sometimes, local models are created to meet national requirements. For example, the models
+from <a href="https://ckm.highmed.org/ckm/">HiGHmed</a> are located under <code>org.highmed</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/ModelFolder2.png" alt="ModelFolder2">
+</div>
+</div>
+<div class="paragraph">
+<p>Inside these folders, the model mappings are stored.
+Occasionally, there will be more than one model mapping for the same archetype that differ in their FHIR output.
+For example, the dosage archetype has two mappings: one for dosage-to-dosage and another for
+dosage-to-backboneElement. The dosage-to-dosage mapping is treated as the default, so its name is
+simply <code>dosage.v2</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/DifferentDosage.png" alt="DifferentDosage">
+</div>
+</div>
+<div class="paragraph">
+<p>This naming convention was chosen because the dosage-to-dosage mapping is naturally more
+comprehensive compared to the backboneElement mapping. For processing, these files are called by
+their <code>metadata.name</code>, making them distinguishable. The name of a model mapping file always starts
+with the name of the archetype (excluding the <code>openEHR-EHR-TYPE</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-mapping-examples"><a class="anchor" href="#model-mapping-examples"></a>Model Mapping Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To illustrate the explained methods, here is an example of a mapping between the <code>problem_diagnosis</code>
+archetype and the FHIR <code>Condition</code> resource.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">engine: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: EVALUATION.problem_diagnosis.v1
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-EVALUATION.problem_diagnosis.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
+
+mappings:
+
+  - name: "contextStartTime"
+    with:
+      fhir: "$resource.recordedDate"
+      openehr: "$composition/context/start_time"
+
+  - name: "participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$composition/context/participations"
+    participationsFunction: "asserter"
+
+  - name: "composer"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$composition/composer"
+
+  - name: "other_participations"
+    with:
+      fhir: "$resource.asserter"
+      openehr: "$archetype/other_participations"
+    participationsFunction: "asserter"
+
+  - name: "provider"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$archetype/provider"  # Often required, so the simplified mapping engine resolves Reference -&gt; Participations
+
+  - name: "problemDiagnose"
+    with:
+      fhir: "$resource.code"
+      openehr: "$archetype"
+      type: "NONE"
+    followedBy:
+      mappings:
+        - name: "problemDiagnoseName"
+          with:
+            fhir: "coding"
+            openehr: "data[at0001]/items[at0002]"
+        - name: "problemDiagnoseText"
+          with:
+            fhir: "text"
+            openehr: "data[at0001]/items[at0009]"
+
+  - name: "note"
+    with:
+      fhir: "$resource.note.text"
+      openehr: "$archetype/data[at0001]/items[at0069]"
+
+  - name: "dateTime"
+    with:
+      fhir: "$resource.onset"
+      openehr: "$archetype/data[at0001]/items[at0077]"
+
+  - name: "bodySite"
+    with:
+      fhir: "$resource.bodySite"
+      openehr: "$archetype/data[at0012]"
+
+  - name: "bodySiteCluster"
+    with:
+      fhir: "$resource"
+      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+    slotArchetype: "CLUSTER.anatomical_location.v1"
+
+  - name: "severity"
+    with:
+      fhir: "$resource.severity"
+      openehr: "$archetype/data[at0005]"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mapping-0-0-fields"><a class="anchor" href="#mapping-0-0-fields"></a>Mapping 0..0 fields</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since model mappings should include all archetype to resource mappings, these will contain
+some mappings that are not part of the corresponding Profile/Templates, as they have (0..0) occurrences.
+These are ignored and not executed.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="main.html">Types of mapping files</a></span>
+  <span class="next"><a href="extension-mappings.html">Extension mappings</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
