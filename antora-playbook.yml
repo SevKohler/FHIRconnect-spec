@@ -9,7 +9,6 @@ content:
   sources:
     - url: .
       branches: HEAD
-      edit_url: 'https://github.com/SevKohler/FHIRconnect-spec'
 
 asciidoc:
   attributes:
