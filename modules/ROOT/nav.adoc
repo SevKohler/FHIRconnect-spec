@@ -12,6 +12,8 @@
 ** Types of Mappings
 *** xref:types-of-mappings/main.adoc[]
 *** Data-type mappings
+**** xref:types-of-mappings/data-type/data-mappings.adoc[]
+
 **** Foundation types
 ***** xref:types-of-mappings/data-type/String.adoc[]
 
