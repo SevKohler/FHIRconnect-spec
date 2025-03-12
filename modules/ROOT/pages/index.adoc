@@ -26,7 +26,7 @@ Even if vendors do not implement FHIRconnect, they will still have documentation
 on how data should be transformed.
 This is particularly important for maintaining consistency when mapping both standards across different institutions.
 
-The initial draft of https://github.com/better-care/FHIRconnect[FHIRconnect] was done by https://www.better.care[Better]
+The initial draft of https://github.com/better-care/fhir-connect-mapping-spec[FHIRconnect] was done by https://www.better.care[Better]
 , this version is a major overhaul.
 
 The official mapping library of FHIRconnect is maintained
