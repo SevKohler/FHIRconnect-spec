@@ -83,6 +83,7 @@
 ** xref:engine/defaults-for-fields.adoc[]
 ** xref:engine/Fail.adoc[]
 ** xref:engine/bundles.adoc[]
+** xref:engine/id-management.adoc[]
 ** xref:engine/demographics.adoc[]
 ** xref:engine/references.adoc[]
 ** xref:engine/fhirsearch-and-aql.adoc[]

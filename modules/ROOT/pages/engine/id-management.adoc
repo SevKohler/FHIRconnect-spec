@@ -23,6 +23,7 @@ As an example, this issue could otherwise cause a conflict:
 image::IDProblem.drawio.png[]
 
 Keeping the external ID has advantages:
+
 - It allows the engine to process a `PUT` request.
 - It enables the engine to retrieve already mapped Compositions by resolving the ID,
 instead of creating duplicates.
