@@ -78,6 +78,9 @@
 *** xref:types-of-mapping-files/context-mappings.adoc[]
 *** xref:types-of-mapping-files/TemplateAgnostic.adoc[]
 
+** Syntax
+*** xref:schema/schema.adoc[]
+
 * Engine
 ** xref:engine/introduction.adoc[]
 ** xref:engine/defaults-for-fields.adoc[]
