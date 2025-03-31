@@ -312,6 +312,15 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Syntax</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../schema/schema.html">Schema</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
@@ -380,7 +389,7 @@
     <li><a href="HierarchyMappings.html">Hierarchy Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/HierarchyMappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/gandrejc/development/tibaran/FHIRConnect/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/HierarchyMappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -431,7 +440,7 @@ preprocessor:
   hierarchy:
     with:
       fhir: "$resource"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
+      openehr: "$archetype/data[at0001]/events[at0002]"
     split:
       fhir:
         create: "resource"</code></pre>
@@ -503,14 +512,14 @@ It is rather used as an indicator, as explained above.</p>
   hierarchy:
     with:
       fhir: "$resource.dosage"
-      openEHR: "$archetype/data[at0001]/events[at0002]"
+      openehr: "$archetype/data[at0001]/events[at0002]"
     #    type: "HIERARCHY" # Not necessary since hierarchy is a unique key for hierarchy mappings
     split:
       fhir:
         create: "resource"
         unique:
           - "data[at0003]/items[openEHR-EHR-CLUSTER.medication.v2]/items[at0132]"
-      openEHR:
+      openehr:
         create: "event"
         path: "$archetype/data[at0001]/events[at0002]"
         unique:
