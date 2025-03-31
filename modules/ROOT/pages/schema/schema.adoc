@@ -1,0 +1,14 @@
+= Schema
+:navtitle: Schema
+
+== JSON Schemas
+The following JSON Schemas serve as invaluable tools for both validation and the simplification of creating mappings that are compliant with the FHIR Connect standard.
+
+Download the model schema here:
+link:{attachmentsdir}/model-mapping.schema.json[Download JSON]
+
+Download the context schema here:
+link:{attachmentsdir}/contextual-mapping.schema.json[Download JSON]
+
+== IntelliJ Plugin
+Furthermore, for developers working within any of the IntelliJ IDEs, the FHIR Connect Plugin provides substantial assistance in both writing and navigating FHIR Connect mappings. This plugin streamlines the process by offering features specifically designed to support the creation and validation of FHIR Connect mappings. https://plugins.jetbrains.com/plugin/26927-fhirconnect/edit
