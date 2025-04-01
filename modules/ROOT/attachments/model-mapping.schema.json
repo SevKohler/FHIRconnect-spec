@@ -161,6 +161,59 @@
               ]
             }
           ]
+        },
+        "hierarchy": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "with": {
+              "type": "object",
+              "properties": {
+                "fhir": {
+                  "type": "string"
+                },
+                "openehr": {
+                  "type": "string"
+                }
+              }
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "fhir": {
+                  "type": "object",
+                  "properties": {
+                    "create": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "unique": {
+                      "type": "array"
+                    }
+                  }
+                }
+              },
+              "openehr": {
+                "type": "object",
+                "properties": {
+                  "create": {
+                    "type": "string"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "unique": {
+                    "type": "array"
+                  }
+                }
+              }
+            }
+          },
+          "additionalProperties": false
         }
       }
     }
