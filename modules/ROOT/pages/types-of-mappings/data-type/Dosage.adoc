@@ -1,0 +1,57 @@
+= Dosage and Timing
+
+This is a rather exceptional mapping, since it relates to several archetypes and
+has to be seen as that.
+
+== Dosage to Dosage cluster
+
+[options="header"]
+
+
+|===
+| openEHR Field (with Cluster Path) | FHIR Field(s) | Notes
+
+| `/items[at0144]` Dosage quantity
+| `doseQuantity.value`, `doseQuantity.unit` OR `doseRange.low`, `doseRange.high`
+| **Combined**: If `doseRange` exists, format as `low-high mg`, otherwise use `doseQuantity` as a single value.
+
+| `/items[at0134]` Administration rate
+| `rateRatio.numerator.value`, `rateRatio.numerator.unit`, `rateRatio.denominator.value`, `rateRatio.denominator.unit`
+| Numerator divided Denominator samegoes for the unit, **Combined** to form `600 mg/h` or similar.
+
+| `[openEHR-EHR-CLUSTER.timing_daily.v1]/items[at0004]` Specific time
+| `timing.repeat.timeOfDay[0]`
+| Uses the first occurrence of `timeOfDay`.
+
+| `[openEHR-EHR-CLUSTER.timing_daily.v1]/items[at0003]` Frequency
+| `timing.repeat.frequency`, `timing.repeat.frequencyMax`
+| **Combined**: If `frequencyMax` exists, format as `frequency - frequencyMax times per [periodUnit]`.
+
+| `[openEHR-EHR-CLUSTER.timing_daily.v1]/items[at0014]` Interval
+| `timing.repeat.period`, `timing.repeat.periodMax`, `timing.repeat.periodUnit`
+| **Combined**: If `periodMax` exists, format as `every period - periodMax [unit]`.
+
+| `/items[at0164]` Dosage sequence
+| `timing.repeat.count`
+| Direct mapping.
+
+| `/items[at0102]` Administration duration
+| `timing.repeat.duration`, `timing.repeat.durationMax`
+| **Combined**: If `durationMax` exists, format as `duration - durationMax`.
+|===
+
+=== Notes
+- If both `doseQuantity` and `doseRange` are present, `doseRange` takes priority for `[at0144]`.
+- Allowed `periodUnit` values: `d`, `h`, `min`, `s`. Any other values (e.g., weeks) should be mapped to a `non_dailyCluster`.
+- `period = 1` is expected when `periodUnit = d`, explicitly stated in the code.
+
+=== Implementation Guidelines
+- Ensure period normalization (e.g., mapping `hours` properly into the `Interval` field).
+- Use range notation (`low-high`) wherever applicable.
+- Default to `1` when mapping daily dosages unless specified otherwise.
+
+=== Validation Rules
+- Ensure no conflicting time units.
+- Verify frequency aligns with period constraints.
+- Convert units as needed while preserving accuracy.
+
