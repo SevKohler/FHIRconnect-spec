@@ -18,7 +18,7 @@ The model mapping header was already introduced in the first chapter under xref:
 
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this file
+grammar: FHIRConnect/v0.0.1  # Specifies the grammar and version used in this file
 type: model  # The type of mapping: model, extension, or context
 metadata:
   name: ACTION.informed_consent.v0  # The name of the mapping
@@ -67,7 +67,7 @@ archetype and the FHIR `Condition` resource.
 
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1
+grammar: FHIRConnect/v0.0.1
 type: model
 metadata:
   name: EVALUATION.problem_diagnosis.v1

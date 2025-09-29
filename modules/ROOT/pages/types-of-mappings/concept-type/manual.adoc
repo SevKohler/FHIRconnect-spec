@@ -113,7 +113,7 @@ conceptmap will be transformed using the conceptmap, if it appears in the mappin
 
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1
+grammar: FHIRConnect/v0.0.1
 type: model
 metadata:
   name:  CLUSTER.problem_qualifier.v2
