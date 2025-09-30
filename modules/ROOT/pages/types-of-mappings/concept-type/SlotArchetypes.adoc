@@ -10,7 +10,7 @@ As previous examples:
 
 [source,yaml]
 ----
-engine: FHIRConnect/v0.0.1
+grammar: FHIRConnect/v0.0.1
 type: model
 metadata:
   name: CLUSTER.lebensphase.v0
