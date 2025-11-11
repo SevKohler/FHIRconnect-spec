@@ -1,6 +1,6 @@
-<div style="text-align: center;">
-  <img src="modules/ROOT/assets/images/FHIRconnect-logo.png" alt="FHIRconnect logo" width="250"/>
-</div>
+<p align="center">
+    <img src="modules/ROOT/assets/images/FHIRconnect-logo.png" alt="FHIRconnect logo" width="250"/>
+</p>
 
 ## DISCLAIMER!
 FHIRconnect is the result of a research project. To support our research,
