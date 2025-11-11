@@ -1,4 +1,8 @@
-## DISCLAIMER
+<div style="text-align: center;">
+  <img src="modules/ROOT/assets/images/FHIRconnect-logo.png" alt="FHIRconnect logo" width="250"/>
+</div>
+
+## DISCLAIMER!
 FHIRconnect is the result of a research project. To support our research,
 please cite one of our papers instead of referencing our github in scientific 
 articles. You can find an overview of papers about FHIRconnect here. If you 
@@ -8,7 +12,7 @@ WIP
 
 Thanks!
 
-# FHIRconnect
+# Description
 [FHIRconnect](https://sevkohler.github.io/FHIRconnect-spec/) is a YAML-based mapping language designed to bidirectionally transform data between openEHR and FHIR. It aims to be comprehensive, easy to use, and serves as both a transformation tool and documentation to ensure consistency across institutions. Even if vendors do not implement FHIRconnect, they can still refer to its specifications to understand how the transformation should be performed.
 
 The official mapping library of FHIRconnect is maintained 
