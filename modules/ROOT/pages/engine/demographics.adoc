@@ -17,14 +17,14 @@ Vendors typically manage demographic data using either a FHIR server or an openE
 FHIRconnect logic sends individual FHIR resources to a demographics endpoint and links them accordingly.
 This endpoint, located outside FHIRconnect, can either transform these resources or use FHIR directly.
 The key requirement is that it returns an external identifier, which is then linked in the openEHR files
-and also can be used to re-retrieve the fhir resource for tranforming it back.
+and can also be used to re-retrieve the FHIR resource for transforming it back.
 
 This process involves mapping resources to RM paths that reference demographic data.
 If the referenced resource is included in the Bundle, it is sent to the demographics service,
 and the returned ID is stored in the `PARTY_IDENTIFIED` (or `DV_IDENTIFIER`) field.
 Otherwise, the resource's identifier is directly linked inside the RM field, since there is
 nothing to transform. FHIRconnect performs this operation for each path containing a `PARTY_IDENTIFIED` field.
-When extracting FHIR data, the ID is requested from the demographics service and the resource received back,
+When extracting FHIR data, the ID is requested from the demographics service, and the resource received back is
 returned.
 
 Example
@@ -45,4 +45,4 @@ Flow from openEHR to FHIR
 image::demographics2.drawio.png[]
 
 If a demographics service is not implemented, a FHIRconnect engine should use the IDs maintained
-by the FHIRconnect engines FHIR-server.
+by the FHIRconnect engine's FHIR-server.

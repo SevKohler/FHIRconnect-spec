@@ -3,11 +3,11 @@
 
 == EHR ID and Patient
 
-The engine should maintain a table that relates an patient id in FHIR to a openEHR EHR id.
+The engine should maintain a table that relates a patient ID in FHIR to an openEHR EHR ID.
 
 == Resource IDs
 
-FHIR requires that resource IDs must be unique within a FHIR server.
+FHIR requires that resource IDs be unique within a FHIR server.
 This creates several challenges.
 
 The FHIRconnect engine must:
