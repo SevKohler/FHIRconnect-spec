@@ -2,6 +2,7 @@
 :navtitle:  References
 
 When a reference is provided in a resource and not contained in the Bundle, the engine should attempt to
-GET it form the sending site. If not possible, the engine proceed with the mapping. To prevent circular
-dependencies in FHIR, the mapping engine should either stop at a given level of references or keep track
-which ones where already resolved.
+GET it from the sending site. If not possible, the engine proceeds with the mapping. 
+
+To prevent circular dependencies in FHIR, the mapping engine should either stop at a given level of references or keep track
+of which ones are already resolved.
