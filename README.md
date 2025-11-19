@@ -8,7 +8,7 @@ please cite one of our papers instead of referencing our github in scientific
 articles. You can find an overview of papers about FHIRconnect here. If you 
 are not sure which paper to cite, we recommend this one:
 
-WIP
+[preprint](https://arxiv.org/abs/2511.14618)
 
 Thanks!
 
