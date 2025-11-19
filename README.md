@@ -8,7 +8,7 @@ please cite one of our papers instead of referencing our github in scientific
 articles. You can find an overview of papers about FHIRconnect here. If you 
 are not sure which paper to cite, we recommend this one:
 
-[preprint](https://arxiv.org/abs/2511.14618)
+[Kohler, S., Piera Jiménez, J., Anywar, M., Fuhrmann, L., Leslie, H., Meixner, M., Saß, J., Kärcher, F., Boscá, D., Haarbrandt, B., Marschollek, M., & Eils, R. (2025). FHIRconnect: Towards a seamless integration of openEHR and FHIR. arXiv:2511.14618. https://arxiv.org/abs/2511.14618](https://arxiv.org/abs/2511.14618)
 
 Thanks!
 
