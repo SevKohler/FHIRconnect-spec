@@ -514,7 +514,7 @@ the child method. The path then would be <code>appendTo: parent.child</code></p>
       mappings:
         - name: "ingredient"
           with:
-            fhir: "item.as(CodeableConcept)"
+            fhir: "item.ofType(CodeableConcept)"
             openehr: "items[at0142]"
   #----------- Append -----------------------------------
         - name: "wirkstofftypExtended"
@@ -551,7 +551,7 @@ is the name of the method in the model mapping that will be overwritten.</p>
       mappings:
         - name: "period"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$archetype"
             type: "DATETIME"
           followedBy:
@@ -570,7 +570,7 @@ is the name of the method in the model mapping that will be overwritten.</p>
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTime)"
+            fhir: "onset.ofType(DateTime)"
             openehr: "data[at0001]/items[at0077]"</code></pre>
 </div>
 </div>
@@ -612,7 +612,7 @@ is the name of the method in the model mapping that will be overwritten.</p>
       mappings:
         - name: "period"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$archetype"
           followedBy:
             mappings:
@@ -629,7 +629,7 @@ is the name of the method in the model mapping that will be overwritten.</p>
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTime)"
+            fhir: "onset.ofType(DateTime)"
             openehr: "data[at0001]/items[at0077]"</code></pre>
 </div>
 </div>

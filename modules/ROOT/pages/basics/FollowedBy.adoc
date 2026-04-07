@@ -17,7 +17,7 @@ they will overwrite each other since both address the same root path.
 mappings:
   - name: "period"
     with:
-      fhir: "$resource.onset.as(Period)"
+      fhir: "$resource.onset.ofType(Period)"
       openehr: "$archetype"
       type: "NONE"
     followedBy:
@@ -46,12 +46,12 @@ overwrite the `"start"` mapping since it maps the same path.
 mappings:
   - name: "start"
     with:
-      fhir: "$resource.onset.as(Period).start"
+      fhir: "$resource.onset.ofType(Period).start"
       openehr: "$archetype/data[at0001]items[at0077]"
 
   - name: "lebensphaseCluster"
     with:
-      fhir: "$resource.onset.as(Period)" # same path onset, overwrites start
+      fhir: "$resource.onset.ofType(Period)" # same path onset, overwrites start
       openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
     slotArchetype: "CLUSTER.lebensphase.v0"
 ----
@@ -62,7 +62,7 @@ xref:recurrence/main.adoc[]
 == Path construction
 
 All followedBy mappings start with parent's path. In the example above, resolved path used for actual mapping
-of `- name: "start"` would be `$resource.onset.as(Period).start`. First part being from the parent and
+of `- name: "start"` would be `$resource.onset.ofType(Period).start`. First part being from the parent and
 the `start` being from the followedBy mapping. In the same manner, openEHR paths are concatenated.
 
 In case you do not want a followedBy mapping to include another path, you can reference `$openehrRoot`, `$archetype`,

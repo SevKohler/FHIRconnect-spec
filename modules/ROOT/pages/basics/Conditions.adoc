@@ -212,7 +212,7 @@ Examples:
   mappings:
     - name: "period"
       with:
-        fhir: "$resource.onset.as(Period)"
+        fhir: "$resource.onset.ofType(Period)"
         openehr: "$archetype/data[at0001]"
         type: "NONE"
       openehrCondition:
@@ -268,7 +268,7 @@ preprocessor:
 mappings:
   - name: "period"
     with:
-      fhir: "$resource.onset.as(Period)"
+      fhir: "$resource.onset.ofType(Period)"
       openehr: "$archetype/data[at0001]"
       type: "NONE"
     openehrCondition:
