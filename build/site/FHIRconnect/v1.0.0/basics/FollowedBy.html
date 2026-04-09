@@ -416,7 +416,7 @@ they will overwrite each other since both address the same root path.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
   - name: "period"
     with:
-      fhir: "$resource.onset.as(Period)"
+      fhir: "$resource.onset.ofType(Period)"
       openehr: "$archetype"
       type: "NONE"
     followedBy:
@@ -447,12 +447,12 @@ overwrite the <code>"start"</code> mapping since it maps the same path.</p>
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
   - name: "start"
     with:
-      fhir: "$resource.onset.as(Period).start"
+      fhir: "$resource.onset.ofType(Period).start"
       openehr: "$archetype/data[at0001]items[at0077]"
 
   - name: "lebensphaseCluster"
     with:
-      fhir: "$resource.onset.as(Period)" # same path onset, overwrites start
+      fhir: "$resource.onset.ofType(Period)" # same path onset, overwrites start
       openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
     slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
 </div>
@@ -468,7 +468,7 @@ overwrite the <code>"start"</code> mapping since it maps the same path.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>All followedBy mappings start with parent&#8217;s path. In the example above, resolved path used for actual mapping
-of <code>- name: "start"</code> would be <code>$resource.onset.as(Period).start</code>. First part being from the parent and
+of <code>- name: "start"</code> would be <code>$resource.onset.ofType(Period).start</code>. First part being from the parent and
 the <code>start</code> being from the followedBy mapping. In the same manner, openEHR paths are concatenated.</p>
 </div>
 <div class="paragraph">

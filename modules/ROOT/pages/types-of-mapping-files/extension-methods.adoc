@@ -84,7 +84,7 @@ mappings:
       mappings:
         - name: "ingredient"
           with:
-            fhir: "item.as(CodeableConcept)"
+            fhir: "item.ofType(CodeableConcept)"
             openehr: "items[at0142]"
   #----------- Append -----------------------------------
         - name: "wirkstofftypExtended"
@@ -113,7 +113,7 @@ Example:
       mappings:
         - name: "period"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$archetype"
             type: "DATETIME"
           followedBy:
@@ -132,7 +132,7 @@ Example:
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTime)"
+            fhir: "onset.ofType(DateTime)"
             openehr: "data[at0001]/items[at0077]"
 
 ----
@@ -171,7 +171,7 @@ mappings:
       mappings:
         - name: "period"
           with:
-            fhir: "onset.as(Period)"
+            fhir: "onset.ofType(Period)"
             openehr: "$archetype"
           followedBy:
             mappings:
@@ -188,6 +188,6 @@ mappings:
 
         - name: "dateTime"
           with:
-            fhir: "onset.as(DateTime)"
+            fhir: "onset.ofType(DateTime)"
             openehr: "data[at0001]/items[at0077]"
 ----
