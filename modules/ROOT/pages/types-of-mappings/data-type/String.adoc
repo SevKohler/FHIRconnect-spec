@@ -50,6 +50,7 @@ When converting back, this may cause problems. Providers need to ensure that the
 | system           | 0..1               |                                                  | -        | -                     |
 | value            | 0..1               |                                                  | -        | -                     |
 | period           | 0..1               |                                                  | -        | -                     |
+| assigner         | 0..1               |  Reference to Organization                       | -        | -                     |
 |===
 
 
