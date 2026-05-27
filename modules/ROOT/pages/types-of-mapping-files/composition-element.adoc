@@ -1,7 +1,40 @@
 = Mapping composition elements
 :navtitle: Mapping composition elements
 
-Composition mappings are not an own layer of mapping. The concept of a Composition as it exists in openEHR
-has no exact copy in FHIR. Fields contained in the Composition are contained in the resource instance. Therefore,
-their mapping has to be contained there. Each project based mapping has to check, which composition level
-mappings it inherits by the model mappings and has to overwrite those which it does not want.
+A Composition as it exists in openEHR has no direct equivalent in FHIR. The fields it
+carries — `date`, `author`, `status`, participations, identifiers — end up on the target
+resource instance, not in a Composition of their own. A composition is therefore *not* a
+mapping file layer of its own.
+
+Instead, the composition-level mappings are provided as a reusable composition mapping that
+you *include* in your extension with `extends`. From there you either use its fields as they
+are, or `overwrite` the ones you do not want.
+
+== Including a composition
+The extension `extends` the composition mapping by its `metadata.name`. All composition-level
+mappings it defines are pulled in.
+
+[source,yaml]
+----
+type: extension
+metadata:
+  name: my_report
+spec:
+  system: FHIR
+  version: R4
+  extends: COMPOSITION.report-result.v1.Composition  # include the composition mapping
+----
+
+== Changing or using its fields
+Fields you do not touch are used as-is. To change one, `overwrite` it; to add to the
+composition, `add` a new mapping.
+
+[source,yaml]
+----
+mappings:
+  - name: "date"
+    extension: "overwrite"   # replace the inherited date mapping
+    with:
+      fhir: "$resource.date"
+      openehr: "$composition/context/start_time"
+----
