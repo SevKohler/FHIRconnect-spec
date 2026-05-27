@@ -8,6 +8,8 @@ from which source, when, and by whom — but operational mappings are not bound 
 
 Unlike a model mapping, an operational mapping is not derived from an archetype.
 
+They live under `model/operational`, one folder per mapping (e.g. `model/operational/provenance`).
+
 == Header
 The header is a `type: model` without an `openEhrConfig` — the missing archetype is what
 marks the mapping as operational. Direction can be set once at the model level; the
