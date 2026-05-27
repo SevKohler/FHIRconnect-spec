@@ -33,6 +33,12 @@ The initial draft of https://github.com/better-care/fhir-connect-mapping-spec[FH
 The official mapping library of FHIRconnect is maintained
 https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[here].
 
+== Architecture decisions
+
+The reasoning behind the design — why things are the way they are — is documented as architecture
+decision records (arc42 §9) in the xref:architecture-decisions/architecture-decisions.adoc[Architecture Decisions]
+chapter, and linked from the pages where a decision applies.
+
 == Current Issues and Example Mappings
 
 You can find current issues related to the specification in the
