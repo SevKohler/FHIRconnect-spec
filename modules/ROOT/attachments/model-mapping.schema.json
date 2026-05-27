@@ -47,6 +47,9 @@
         "extends": {
           "type": "string"
         },
+        "unidirectional": {
+          "type": "string"
+        },
         "openEhrConfig": {
           "type": "object",
           "properties": {
