@@ -125,5 +125,5 @@ metadata:
 spec:
   system: FHIR
   version: R4
-  extends: provenance  # operational model by name, not an archetype
+  extends: provenance 
 ----
