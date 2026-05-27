@@ -18,6 +18,8 @@ reusable paths.
 |`$composition` |Path of the root composition
 
 |`$reference` |Helper to indicate a skipped path, due to resolving a reference
+
+|`$context` |Values passed in on the REST call (operational mappings only)
 |===
 
 == `$archetype` and `$resource`
@@ -105,4 +107,25 @@ Example:
             fhir: "$fhirRoot"
             openehr: "$archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
           slotArchetype: "CLUSTER.specimen.v1"
+----
+
+== `$context`
+
+`$context` holds values passed in on the REST call. It is used in
+xref:types-of-mapping-files/operational-mappings.adoc[operational mappings] only, and
+only for values that are not in the composition. A context value is referenced from a
+`manual` `value`.
+
+Example:
+
+[source,yaml]
+----
+  - name: "agentWho"
+    with:
+      fhir: "$resource.agent.who"
+    manual:
+      - name: "who"
+        fhir:
+          - path: "$fhirRoot"
+            value: "$context.who" # dynamic value from the REST call, not a literal
 ----
