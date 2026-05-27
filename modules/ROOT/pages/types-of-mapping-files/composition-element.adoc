@@ -2,39 +2,76 @@
 :navtitle: Mapping composition elements
 
 A Composition as it exists in openEHR has no direct equivalent in FHIR. The fields it
-carries — `date`, `author`, `status`, participations, identifiers — end up on the target
-resource instance, not in a Composition of their own. A composition is therefore *not* a
-mapping file layer of its own.
+carries — `date`, `author`, `status`, participations, identifiers — are not a resource of
+their own; they end up on the target resource instance.
 
-Instead, the composition-level mappings are provided as a reusable composition mapping that
-you *include* in your extension with `extends`. From there you either use its fields as they
-are, or `overwrite` the ones you do not want.
+These composition-level fields recur for every resource built from a composition. Rather than
+re-mapping them in each project, they are modelled once as a single reusable composition model
+mapping (under `model/medical/composition`) that a project uses as-is, or specialises through
+an extension when it needs to.
 
-== Including a composition
-The extension `extends` the composition mapping by its `metadata.name`. All composition-level
-mappings it defines are pulled in.
+Because the same composition archetype maps to
+different FHIR resources, there is one composition model per target resource, named
+`COMPOSITION.<archetype>.<FhirResource>` — e.g. `COMPOSITION.report_result.v1.DiagnosticReport`
+and `COMPOSITION.report.v1.Condition`.
+
+image::CompositionFolder.png[]
+
+A composition is therefore not consumed as a layer of its own: a project includes the one it
+needs and uses or changes its fields.
+
+== Example
+Say we have the following composition model mapping for mappings to the `Procedure` resource.
+It maps the composition-level fields composer.
 
 [source,yaml]
 ----
-type: extension
+grammar: FHIRConnect/v1.0.0
+type: model
 metadata:
-  name: my_report
+  name: COMPOSITION.report.v1.Procedure
+  version: 0.0.1-alpha
 spec:
   system: FHIR
   version: R4
-  extends: COMPOSITION.report-result.v1.Composition  # include the composition mapping
+  openEhrConfig:
+    archetype: openEHR-EHR-COMPOSITION.report.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Procedure
+
+mappings:
+  - name: "composer"
+    with:
+      fhir: "$resource.recorder"
+      openehr: "$composition/composer"
 ----
 
-== Changing or using its fields
-Fields you do not touch are used as-is. To change one, `overwrite` it; to add to the
-composition, `add` a new mapping.
+== Triggering the composition
+Composition mappings are extended and used like any other model mapping — through extensions
+and the context. To run one, the `start` mapping slots it in via `slotArchetype`. If the
+`start` does not already do this, extend it and `add` the mapping:
 
 [source,yaml]
 ----
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  KDS_procedure.v1
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: ACTION.procedure.v1
+
 mappings:
-  - name: "date"
-    extension: "overwrite"   # replace the inherited date mapping
+  - name: "compositionMapping"
+    extension: "add"
     with:
-      fhir: "$resource.date"
-      openehr: "$composition/context/start_time"
+      fhir: "$resource"
+      openehr: "$composition"
+    slotArchetype: "COMPOSITION.report.v1.Procedure"
 ----
+
+This is the single point that triggers the composition mapping — no magic, just model mappings
+and extensions as everywhere else. Doing it is mandatory since every openEHR representation is
+contained in a composition, so the `start` always has to pull one in.
