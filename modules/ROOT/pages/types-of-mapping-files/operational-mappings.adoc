@@ -125,5 +125,9 @@ metadata:
 spec:
   system: FHIR
   version: R4
-  extends: provenance 
+  extends: provenance
 ----
+
+'''
+
+xref:architecture-decisions/provenance.adoc[See architecture decisions]

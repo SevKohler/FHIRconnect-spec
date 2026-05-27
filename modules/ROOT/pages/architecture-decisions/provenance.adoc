@@ -1,0 +1,148 @@
+= Provenance Operational Model — Architecture Decisions
+:navtitle: Provenance operational model
+
+Purely documentation (arc42 §9). Decision records for the `Provenance` operational model. Each
+record: context, decision, consequences. Status: Accepted unless noted.
+
+== ADR-1 — Provenance is an engine-generated operational model
+*Context.* Every other FHIRconnect model is derived 1:1 from an openEHR archetype: the
+composition drives the mapping and the YAML is the full truth. Provenance is different — it
+describes the _transformation itself_ (what was produced, from what, when, by whom), not clinical
+content. None of that lives in an archetype.
+
+*Decision.* Treat Provenance as a new model class — _operational_ — with no `openEhrConfig`. The
+engine generates one Provenance as a side-effect of every composition-to-FHIR run.
+
+*Consequences.* The YAML cannot, and should not, express the whole resource; much of it is engine
+runtime state. This is expected for a meta resource and does not weaken the transparency of
+normal archetype mappings.
+
+== ADR-2 — Field sources are classified into engine / defaulted / context
+*Context.* A meta resource mixes run-time facts, fixed constants, and a few caller-specific
+values. Leaving the split implicit makes it unclear where each field comes from.
+
+*Decision.* Every field belongs to exactly one bucket:
+
+* *Engine* — run-intrinsic values that cannot exist before the run (`target[]`, `recorded`, `id`,
+  `entity[]` iteration, `identifier.value`).
+* *Defaulted* — constants pinned in the YAML via `manual` literals (`policy`, `reason`,
+  `activity`, `agent.type`, `entity.role`, `identifier.system`, `entity.what.display`).
+* *Context* — optional caller input from the REST call (`agent.who`, `agent.onBehalfOf`).
+
+There is no data-driven bucket: Provenance maps no clinical content from the composition body.
+
+*Consequences.* The YAML reads as literals only; the engine and context buckets are documented
+but largely invisible in the file. Accepted trade-off.
+
+== ADR-3 — `$context` is the per-call REST payload, scoped to operational models
+*Context.* `$context` is data passed into a mapping from outside (the REST call). Exposing it
+spec-wide risks authors routing source data through context instead of mapping it ("context
+everything").
+
+*Decision.* Allow `$context` for *operational models only* for now. It is *per-call* input —
+there is no "set once" config tier inside it. Keep its footprint minimal: source-derivable data
+must still come from the source.
+
+*Consequences.* Reversible and low-risk; archetype mappings stay pure. Can be widened later if a
+concrete need appears.
+
+== ADR-4 — Keep runtime values engine-owned to avoid bloating REST calls
+*Context.* Anything modelled as `$context` must be passed on every call that produces a
+Provenance. Over-using it bloats every request.
+
+*Decision.* Default to engine ownership for runtime values. Use `$context` only for genuine
+per-call _overrides_ (see ADR-5). A normal composition call passes *no* extra context.
+
+*Consequences.* Lean calls; the engine carries the burden. Some fields are "hidden" in the
+engine, but only mechanism and run-intrinsic values — never caller inputs, which stay named in
+context.
+
+== ADR-5 — `agent.who` is engine-defaulted with an optional context override; institution is `onBehalfOf`
+*Context.* `agent.who` is 1..1 and polymorphic (Practitioner | Device | Organization | …). It can
+originate anywhere, so it cannot be static config. Institution ("Charité") also needed a home; it
+had been mis-placed on `entity.what.identifier.system`.
+
+*Decision.*
+
+* `agent.who` defaults to the engine's own `Device` reference; a caller may force a specific
+  participant via `$context.who`. (Deriving `who` from the REST call's auth identity is the
+  preferred long-term option — open, see below.)
+* Institution maps to `agent.onBehalfOf` as `Reference(Organization)`, optional, context-supplied
+  when present. It does *not* go on the entity identifier.
+
+*Consequences.* The mandatory `who` is always satisfied without forcing payload on every call;
+`entity.what.identifier.system` stays the openEHR ObjectLocation NamingSystem.
+
+*Open.* Whether to derive `who` from REST auth instead of an explicit context field.
+
+== ADR-6 — Iteration is openEHR-driven; `target[]` and `entity[]` are symmetric engine collections
+*Context.* Provenance must support N source compositions -> one output (e.g. IPS), so `entity[]`
+repeats. FHIRconnect iteration is normally driven by openEHR repeating elements, never by context.
+
+*Decision.* The engine drives `entity[]` iteration over the *set of source compositions* (openEHR
+data) — never over a context collection. `target[]` (produced) and `entity[]` (consumed) are
+treated as a symmetric pair, both engine-owned. Context is read as _scalars inside_ the loop,
+never iterated.
+
+*Consequences.* No new "iterate context" engine capability is needed. `identifier.value` is
+engine-built per entity (full resolvable ObjectLocation = server base URL + EHR id + composition
+uid), which also keeps the per-call payload empty.
+
+== ADR-7 — Coding and literal choices
+*Context.* Several fields are fixed for every run.
+
+*Decision.*
+
+* `activity.coding` = `http://hl7.org/fhir/w3c-provenance-activity-type`, code `Derivation`,
+  display `wasDerivedFrom` (verified against the R4 code system; openEHR -> FHIR is a PROV
+  "Derivation").
+* `agent.type.coding` = `provenance-participant-type` / `assembler`.
+* `policy` and `reason.text` kept as static literals for now; revisit via extension if they need
+  to vary.
+* `entity.what.display` is a static default (`"International Patient Summary"`), overridable
+  downstream via extension.
+
+*Consequences.* Stable, valid codings.
+
+*Open.* Confirm the canonical openEHR ObjectLocation NamingSystem URI (currently a placeholder),
+and the engine convention for writing a literal into list fields (`policy[0]` / `reason[0].text`
+vs the list).
+
+== ADR-8 — Provenance is triggered via the context, extended via `extends`
+*Context.* A context binds `archetypes`, `extensions`, `template`, `profile`, `start`. Provenance
+has no archetype and is not a fragment of another resource, so neither `archetypes` nor
+`extensions` fits for _generating_ it.
+
+*Decision.*
+
+* *Trigger* Provenance from the context with a dedicated `operational` list (a generation root,
+  parallel to `archetypes`), resolved by `metadata.name`: `operational: [provenance]`.
+* *Extend* the generated Provenance with normal `type: extension` files whose `extends` names the
+  operational model (`extends: provenance`), listed under the existing `extensions`. This is where
+  deferred fields ride (policy variants, `agent.onBehalfOf` / institution, vendor data).
+
+*Consequences.* Trigger (`operational`) and extend (`extensions`) stay separate jobs; collapsing
+the trigger into `extensions` would force the engine to special-case a base masquerading as a
+fragment.
+
+*Open.* `extends` historically points at archetype names; referencing an operational model by
+`metadata.name` is a new convention to confirm.
+
+== ADR-9 — `$context` is referenced from `manual` values; operational direction is set at model level
+*Context.* Setting `agent.who` from the REST call's `$context.who` could be a new first-class
+`context:` source (parallel to `fhir:`/`openehr:`) — but that forces the engine to define a new
+namespace and its directionality.
+
+*Decision.*
+
+* Reference `$context.*` from inside a `manual` value (e.g. `value: "$context.who"`) rather than
+  introducing a `context:` source. `manual` is already the openEHR-free channel, so the FHIR <->
+  openEHR roundtrip is untouched; the only new capability is "a `manual` value may be a
+  `$context.*` reference".
+* Operational models may run either direction; they are not inherently generate-only.
+  Unidirectional is *suggested* (and our only example so far, provenance, is `openehr->fhir`).
+  When a model is one-way, declare `unidirectional: "openehr->fhir"` once at the model level (in
+  the header) instead of per rule.
+
+*Consequences.* Minimal grammar change, no bidirectional breakage. A first-class `context:` source
+is deferred until context needs conditions, references, or roundtrip behavior.

@@ -1,0 +1,54 @@
+= Engine Interface and Scope — Architecture Decisions
+:navtitle: Engine interface and scope
+
+Purely documentation (arc42 §9). It records the decisions behind the engine's REST input and the
+boundary between the engine and the surrounding deployment. Each record: context, decision,
+consequences. Status: Accepted unless noted.
+
+== ADR-1 — The engine is called with a FHIR `Parameters` resource carrying resolved patient and EHR id
+*Context.* In real deployments a FHIR façade already resolves the FHIR Patient to the openEHR EHR
+id (e.g. via an MPI). Earlier we expected the engine to resolve this itself.
+
+*Decision.* The engine is invoked with a FHIR `Parameters` resource that carries the
+`composition`, the `ehr_id`, the `patient` reference, and a `provenance` part (e.g. policy). The
+caller supplies the already-resolved `ehr_id` and `patient`; the engine does not resolve them.
+
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    { "name": "composition", "valueString": "<stringified openEHR Composition JSON>" },
+    { "name": "ehr_id", "valueString": "53d89df2-5501-4455-9a65-565a5d1ddb7c" },
+    { "name": "patient", "valueReference": { "reference": "Patient/123" } },
+    {
+      "name": "provenance",
+      "part": [
+        { "name": "policy", "valueUri": "http://example.org/policy/data-sharing" }
+      ]
+    }
+  ]
+}
+----
+
+*Consequences.* The engine stays simple and deployment-agnostic; identifier resolution lives in
+the façade. The `Parameters` resource is the call contract.
+
+== ADR-2 — Façade behaviour is out of scope
+*Context.* Patient resolution, MPI lookups and similar are deployment concerns, handled by a FHIR
+façade in front of the engine.
+
+*Decision.* Anything that is façade behaviour — an MPI being the typical example — is not
+specified by FHIRconnect. Implementers may provide it, but the spec does not define it.
+
+*Consequences.* A clear boundary: the spec covers mapping and the core engine; façade concerns
+stay pluggable and deployment-specific.
+
+== ADR-3 — Composition deduplication and bundle splitting are engine responsibilities
+*Context.* A run can yield duplicate compositions, and bundles that must be broken into
+consumable parts.
+
+*Decision.* Deduplication of compositions and splitting bundles into consumable bits must be part
+of the FHIRconnect engine — they are crucial to correct operation, not façade or optional concerns.
+
+*Consequences.* Every conformant engine provides them as core features.

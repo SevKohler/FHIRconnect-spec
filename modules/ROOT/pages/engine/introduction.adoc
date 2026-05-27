@@ -8,3 +8,7 @@ the potential problems are identified and suggestions on how an engine should so
 ====
 These are recommendations.
 ====
+
+'''
+
+xref:architecture-decisions/engine-interface.adoc[See architecture decisions]

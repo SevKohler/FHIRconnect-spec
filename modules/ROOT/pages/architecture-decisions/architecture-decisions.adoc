@@ -1,0 +1,8 @@
+= Architecture Decisions
+:navtitle: Architecture Decisions
+
+This chapter is purely documentation. It records the architecture decisions (arc42 §9) behind the
+mappings and the engine — the reasoning, not normative grammar.
+
+* xref:architecture-decisions/provenance.adoc[Provenance operational model]
+* xref:architecture-decisions/engine-interface.adoc[Engine interface and scope]

@@ -91,3 +91,7 @@
 ** xref:engine/demographics.adoc[]
 ** xref:engine/references.adoc[]
 ** xref:engine/fhirsearch-and-aql.adoc[]
+
+* xref:architecture-decisions/architecture-decisions.adoc[Architecture Decisions]
+** xref:architecture-decisions/provenance.adoc[Provenance operational model]
+** xref:architecture-decisions/engine-interface.adoc[Engine interface and scope]
