@@ -61,6 +61,24 @@ The `openEHRCondig.revision` states what revision of the archetype this mapping 
 The `fhirConfig.structureDefintion` contains the information about which FHIR StructureDefinition is mapped.
 This is just information for the user and has no impact on the mapping.
 
+== Direction
+By default a mapping file runs both ways (openEHR -> FHIR and FHIR -> openEHR). If a file should
+only ever run one way, `unidirectional` can be set in the `spec` with `"openehr->fhir"` or
+`"fhir->openehr"`. The whole file is then executed in that direction only. The same key can also
+be set per mapping, see xref:basics/body.adoc[].
+
+[source,yaml]
+----
+spec:
+  system: FHIR
+  version: R4
+  unidirectional: "openehr->fhir"  # the whole file runs one way only
+  openEhrConfig:
+    archetype: openEHR-EHR-ACTION.informed_consent.v0
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent
+----
+
 == Naming convention
 
 Naming conventions are as follows: Names of model mappings always start with the type of openEHR
