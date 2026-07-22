@@ -84,6 +84,7 @@
 
 * Engine
 ** xref:engine/introduction.adoc[]
+** xref:engine/rest-api.adoc[]
 ** xref:engine/defaults-for-fields.adoc[]
 ** xref:engine/Fail.adoc[]
 ** xref:engine/bundles.adoc[]

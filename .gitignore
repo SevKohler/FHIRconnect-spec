@@ -30,3 +30,12 @@ replay_pid*
 node_modules/
 
 .claude/
+
+.nimbalyst/
+
+# FHIR IG generated artifacts (SUSHI + IG Publisher output)
+rest/output/
+rest/fsh-generated/
+rest/input-cache/
+rest/temp/
+rest/template/

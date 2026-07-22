@@ -1,0 +1,203 @@
+= REST API
+:navtitle: REST API
+
+A FHIRconnect engine is typically invoked from a FHIR facade rather than being one itself. The facade
+handles the FHIR-facing concerns of the surrounding system, and delegates the actual openEHR ↔ FHIR
+transformation to the FHIRconnect engine. The engine models its own API on FHIR — inputs and outputs are
+FHIR resources — so that a facade can integrate with it using the FHIR SDKs it most likely already has,
+rather than a bespoke wire format. This chapter defines that API.
+
+
+Two operations are defined, one for each mapping direction. Both follow the
+https://hl7.org/fhir/R4/operations.html[FHIR Operations framework (R4)] and MUST be invoked with `POST`
+against the service base.
+
+[width="100%", options="header"]
+|===
+| Operation | Endpoint | Direction
+| `$tofhir` | `POST [base]/$tofhir` | openEHR Composition -> FHIR Bundle
+| `$toopenehr` | `POST [base]/$toopenehr` | FHIR Bundle -> openEHR Composition
+|===
+
+The two directions are intentionally asymmetric. Because openEHR has no native FHIR resource
+representation, the Composition MUST be carried as a JSON string (`valueString`) inside a `Parameters`
+resource rather than as a nested resource. This keeps the payload compatible with FHIR SDKs, which cannot
+parse a Composition as a FHIR type. On the FHIR side the data is a first-class `Bundle` and is sent as-is.
+
+Neither operation changes server state on its own; both describe a pure transformation.
+How the resulting resources are persisted — if at all — is out of scope for these operations, and is
+covered by xref:engine/id-management.adoc[] and xref:engine/bundles.adoc[].
+
+== Media types
+
+The request and response bodies of both operations are FHIR resources (`Parameters`, `Bundle`), and are
+exchanged as `application/fhir+json` — the standard FHIR JSON media type. The `Content-Type` and `Accept`
+headers on the operation endpoints therefore refer to the FHIR envelope, not to the openEHR payload it
+carries.
+
+Within that envelope, the openEHR Composition is carried as an opaque JSON string (`composition.valueString`),
+so FHIR alone gives no signal about what that string contains. This specification defines the media type
+**`application/openehr+json`** to identify a payload as openEHR canonical JSON — a serialized openEHR
+Composition (or other Reference Model instance). The suffix ordering follows
+https://www.rfc-editor.org/rfc/rfc6839#section-4[RFC 6839 §4] (structured syntax suffixes), which places
+the underlying serialization last, exactly as FHIR does with `application/fhir+json`; `application/json+openehr`
+is **not** valid.
+
+`application/openehr+json` is used to label the openEHR content itself, in two situations:
+
+- As documentation of what the wrapped `composition.valueString` holds — the HTTP `Content-Type` remains
+  `application/fhir+json` because the body is still a FHIR resource.
+- As the actual HTTP `Content-Type` when an engine exposes a Composition **unwrapped** — outside the
+  FHIR-enveloped `$tofhir`/`$toopenehr` flow — rather than embedded in a `Parameters` resource.
+
+== $tofhir
+
+Converts an openEHR Composition to one or more FHIR resources using a FHIRconnect mapping.
+
+=== Input
+
+The operation MUST accept a FHIR `Parameters` resource. The Composition MUST be passed as a stringified
+JSON `valueString` in the top-level `composition` parameter. The context fields that the engine needs but
+that are not part of the Composition itself — such as the patient reference or the EHR ID — MUST be grouped
+as nested parts under a single `context` parameter.
+
+The `context` parameter carries only genuine per-call input and per-call overrides. It is expected to be
+minimal: a normal composition call passes no context at all, and each field is supplied only when the caller
+needs to override an engine default. Data that can be derived from the source Composition MUST be mapped from
+the source rather than routed through `context`.
+
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "<stringified openEHR Composition JSON>"
+    },
+    {
+      "name": "context",
+      "part": [
+        {
+          "name": "ehr_id",
+          "valueString": "53d89df2-5501-4455-9a65-565a5d1ddb7c"
+        },
+        {
+          "name": "patient",
+          "valueReference": { "reference": "Patient/123" }
+        },
+        {
+          "name": "who",
+          "valueReference": { "reference": "Practitioner/456" }
+        },
+        {
+          "name": "onBehalfOf",
+          "valueReference": { "reference": "Organization/charite" }
+        },
+        {
+          "name": "policy",
+          "valueUri": "http://example.org/policy/data-sharing"
+        }
+      ]
+    }
+  ]
+}
+----
+
+[width="100%", options="header"]
+|===
+| Name | Required | Type | Description
+| `composition` | yes | string | The openEHR Composition serialized as a JSON string (openEHR canonical JSON, i.e. `application/openehr+json`).
+| `context` | no | — | Groups the context fields below as nested parts. Omitted when no context is supplied.
+| `context.ehr_id` | no | string | The openEHR EHR identifier associated with the Composition.
+| `context.patient` | no | Reference(Patient) | The FHIR Patient that is the subject of the Composition, used to populate subject/patient references in the mapped resources.
+| `context.who` | no | Reference(Practitioner \| Device \| Organization) | Overrides the Provenance `agent.who`. When omitted the engine defaults to its own Device reference.
+| `context.onBehalfOf` | no | Reference(Organization) | The institution the agent acts for, mapped to Provenance `agent.onBehalfOf`.
+| `context.policy` | no | uri | Provenance policy URI. Only the policy is supplied by the caller; the engine resolves the remaining provenance data.
+|===
+
+=== Output
+
+The response MUST be a FHIR `Bundle` containing the mapped resources. The Bundle type
+(`collection`, `searchset`, `document`, …) is **not constrained** by this specification; an engine MAY
+select it according to how the resulting resources are used. See xref:engine/bundles.adoc[] for how
+Bundles are composed and split. An `OperationOutcome` MAY be included as an entry to convey warnings or
+partial mapping failures.
+
+The engine generates a `Provenance` resource as a side-effect of every run, describing the transformation
+itself (what was produced, from what, when, and by whom), and includes it in the Bundle. The `context`
+fields above (`who`, `onBehalfOf`, `policy`) feed this Provenance; when they are omitted the
+engine supplies its own defaults.
+
+== $toopenehr
+
+Converts a FHIR Bundle to an openEHR Composition using a FHIRconnect mapping.
+
+=== Input
+
+The request body MUST be a FHIR `Bundle` containing the resources to be converted. Because the FHIR side
+is already a native resource, no wrapping `Parameters` is needed on input.
+
+=== Output
+
+The response MUST be a FHIR `Parameters` resource. On full success it contains only the `composition`
+parameter, again carried as a stringified JSON `valueString`.
+
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"_type\": \"COMPOSITION\", \"name\": {\"_type\": \"DV_TEXT\", \"value\": \"International Patient Summary\"}, ...}"
+    }
+  ]
+}
+----
+
+[width="100%", options="header"]
+|===
+| Name | Required | Type | Description
+| `composition` | yes | string | The resulting openEHR Composition serialized as a JSON string (openEHR canonical JSON, i.e. `application/openehr+json`).
+| `outcome` | no | OperationOutcome | Present when mapping issues occurred; describes elements that could not be mapped or partial failures.
+|===
+
+=== Reporting partial results with OperationOutcome
+
+When a mapping issue occurs — for example a source element could not be mapped, a required field was
+absent, or only a partial result could be produced — an additional `outcome` parameter carrying an
+`OperationOutcome` SHOULD be returned alongside `composition`.
+
+The presence of an `OperationOutcome` does **not** imply the Composition is absent. A partial result MAY
+be returned together with issues describing what could not be mapped. Where an engine returns a partial
+result rather than failing outright — see the strictness rules in xref:engine/Fail.adoc[] — those gaps
+MUST be made explicit through the `OperationOutcome` rather than silently dropping data.
+
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"_type\": \"COMPOSITION\", \"name\": {\"_type\": \"DV_TEXT\", \"value\": \"International Patient Summary\"}, ...}"
+    },
+    {
+      "name": "outcome",
+      "resource": {
+        "resourceType": "OperationOutcome",
+        "issue": [
+          {
+            "severity": "warning",
+            "code": "incomplete",
+            "details": {
+              "text": "Element Observation.effectivePeriod could not be mapped; no corresponding openEHR archetype path found."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+----
