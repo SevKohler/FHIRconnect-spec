@@ -35,7 +35,14 @@ spec:  # Schema specific to the FHIRConnect v0.0.1 engine
 == Folders and Namespaces
 In general the folder structure of each FHIRconnect project is up to the provider. The official https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[library] follows
 the pattern described here. Each of these model mappings aims to be as generically valid as possible. They can be found in
-the `mapping/model` folder. Here, the models are organized based on their openEHR archetype type.
+the `model` folder, split by the kind of model:
+
+* `model/medical` holds the archetype-derived model mappings, organized by openEHR archetype type.
+* `model/operational` holds xref:types-of-mapping-files/operational-mappings.adoc[operational models]
+  (no archetype), one folder per mapping.
+
+The remainder of this section describes `model/medical`, where the models are organized based on
+their openEHR archetype type.
 
 image::ModelFolder.png[]
 

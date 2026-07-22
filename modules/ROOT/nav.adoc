@@ -76,6 +76,7 @@
 *** xref:types-of-mapping-files/extension-methods.adoc[]
 *** xref:types-of-mapping-files/composition-element.adoc[]
 *** xref:types-of-mapping-files/context-mappings.adoc[]
+*** xref:types-of-mapping-files/operational-mappings.adoc[]
 *** xref:types-of-mapping-files/TemplateAgnostic.adoc[]
 
 ** Syntax

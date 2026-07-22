@@ -86,6 +86,12 @@
             "type": "string"
           }
         },
+        "operational": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "start": {
           "type": "string"
         }

@@ -1,0 +1,129 @@
+= Operational Mappings
+:navtitle: Operational Mappings
+
+Operational mappings describe a resource that the engine produces as a *side-effect*
+of a run, rather than from clinical data. The current example targets FHIR —
+https://www.hl7.org/fhir/R4/provenance.html[Provenance], which records what was produced,
+from which source, when, and by whom — but operational mappings are not bound to FHIR.
+
+Unlike a model mapping, an operational mapping is not derived from an archetype.
+
+They live under `model/operational`, one folder per mapping (e.g. `model/operational/provenance`).
+
+== Header
+The header is a `type: model` without an `openEhrConfig` — the missing archetype is what
+marks the mapping as operational. Direction can be set once at the model level; the
+Provenance example is `openehr->fhir`.
+
+[source,yaml]
+----
+grammar: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: provenance
+  version: 1.0.0
+spec:
+  system: FHIR
+  version: R4
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Provenance
+  unidirectional: "openehr->fhir"  # set once for the whole model (this example)
+----
+
+== Field sources
+The fields of an operational resource come from four places:
+
+[width="100%",cols="22%,78%",options="header",]
+|===
+|Source |Description
+|Engine |Run-time values the engine owns and cannot be written in YAML, e.g. `target`, `id`, `recorded`, and list iteration.
+|Defaulted |Constants pinned in the mapping via `manual`.
+|Context |Optional values passed in on the REST call, see `$context` below.
+|===
+
+== Mappings
+Defaulted fields use `manual` exactly as in any other mapping. The engine fills the
+run-time fields (`target`, `recorded`, iteration) on its own, so they are absent here.
+
+[source,yaml]
+----
+mappings:
+  - name: "activity"
+    with:
+      fhir: "$resource.activity.coding"
+    manual:
+      - name: "activityCoding"
+        fhir:
+          - path: "system"
+            value: "http://hl7.org/fhir/w3c-provenance-activity-type"
+          - path: "code"
+            value: "Derivation"
+
+  - name: "sourceEntity"  # engine emits one entity per source composition
+    with:
+      fhir: "$resource.entity"
+    followedBy:
+      mappings:
+        - name: "sourceEntityRole"
+          with:
+            fhir: "role"
+          manual:
+            - name: "role"
+              fhir:
+                - path: "$fhirRoot"
+                  value: "source"
+----
+
+== `$context`
+`$context` holds values supplied by the caller on the REST request. It is used only in
+operational mappings, and only for values that are not in the composition. A context value
+is referenced from a `manual` `value`, so the FHIR <-> openEHR roundtrip stays untouched.
+
+In the example below `agent.who` is set from the request when supplied; otherwise the
+engine defaults to its own `Device`.
+
+[source,yaml]
+----
+  - name: "agentWho"
+    with:
+      fhir: "$resource.agent.who"
+    manual:
+      - name: "who"
+        fhir:
+          - path: "$fhirRoot"
+            value: "$context.who"  # dynamic value from the REST call, not a literal
+----
+
+== Triggering and extending
+An operational model is not referenced under `archetypes` or `extensions`. A context
+*triggers* it with the `operational` key, resolved by `metadata.name`.
+
+[source,yaml]
+----
+context:
+  profile:
+    url: "http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab"
+    version: "0.1.1"
+  archetypes:
+    - "OBSERVATION.laboratory_test_result.v1"
+  extensions:
+    - provenance_who_context  # extends provenance, see below
+  start: "OBSERVATION.laboratory_test_result.v1"
+  operational:
+    - "provenance"
+----
+
+To add fields to the generated resource (e.g. `agent.who`, a policy, or an institution),
+write a `type: extension` whose `extends` names the operational model, and list it under
+`extensions` as usual.
+
+[source,yaml]
+----
+type: extension
+metadata:
+  name: provenance_who_context
+spec:
+  system: FHIR
+  version: R4
+  extends: provenance 
+----
