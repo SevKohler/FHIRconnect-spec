@@ -93,10 +93,6 @@ the source rather than routed through `context`.
         {
           "name": "onBehalfOf",
           "valueReference": { "reference": "Organization/charite" }
-        },
-        {
-          "name": "policy",
-          "valueUri": "http://example.org/policy/data-sharing"
         }
       ]
     }
