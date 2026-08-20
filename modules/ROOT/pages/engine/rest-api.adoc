@@ -1,0 +1,485 @@
+= REST API
+:navtitle: REST API
+
+A FHIRconnect engine is typically invoked from a FHIR facade rather than being one itself. The facade
+handles the FHIR-facing concerns of the surrounding system, and delegates the actual openEHR ↔ FHIR
+transformation to the FHIRconnect engine. The engine models its own API on FHIR - inputs and outputs are
+FHIR resources - so that a facade can integrate with it using the FHIR SDKs it most likely already has,
+rather than a bespoke wire format. This chapter defines that API.
+
+
+Two operations are defined, one for each mapping direction. Both follow the
+https://hl7.org/fhir/R4/operations.html[FHIR Operations framework (R4)] and MUST be invoked with `POST`
+against the service base.
+
+[width="100%", options="header"]
+|===
+| Operation | Endpoint | Direction
+| `$tofhir` | `POST [base]/$tofhir` | openEHR Composition -> FHIR Bundle
+| `$toopenehr` | `POST [base]/$toopenehr` | FHIR Bundle -> openEHR Composition
+|===
+
+The two directions are intentionally asymmetric. Because openEHR has no native FHIR resource
+representation, the Composition MUST be carried as a JSON string (`valueString`) inside a `Parameters`
+resource rather than as a nested resource. This keeps the payload compatible with FHIR SDKs, which cannot
+parse a Composition as a FHIR type. On the FHIR side the data is a first-class `Bundle` and is sent as-is.
+
+Neither operation changes server state on its own; both describe a pure transformation.
+How the resulting resources are persisted - if at all - is out of scope for these operations, and is
+covered by xref:engine/id-management.adoc[] and xref:engine/bundles.adoc[].
+
+== Media types
+
+The request and response bodies of both operations are FHIR resources (`Parameters`, `Bundle`), and are
+exchanged as `application/fhir+json` - the standard FHIR JSON media type. The `Content-Type` and `Accept`
+headers on the operation endpoints therefore refer to the FHIR envelope, not to the openEHR payload it
+carries.
+
+Within that envelope, the openEHR Composition is carried as an opaque JSON string (`composition.valueString`),
+so FHIR alone gives no signal about what that string contains. This specification defines the media type
+**`application/openehr+json`** to identify a payload as openEHR canonical JSON - a serialized openEHR
+Composition (or other Reference Model instance). The suffix ordering follows
+https://www.rfc-editor.org/rfc/rfc6839#section-4[RFC 6839 §4] (structured syntax suffixes), which places
+the underlying serialization last, exactly as FHIR does with `application/fhir+json`; `application/json+openehr`
+is **not** valid.
+
+`application/openehr+json` is used to label the openEHR content itself, in two situations:
+
+- As documentation of what the wrapped `composition.valueString` holds - the HTTP `Content-Type` remains
+  `application/fhir+json` because the body is still a FHIR resource.
+- As the actual HTTP `Content-Type` when an engine exposes a Composition **unwrapped** - outside the
+  FHIR-enveloped `$tofhir`/`$toopenehr` flow - rather than embedded in a `Parameters` resource.
+
+== Composition formats: flat and canonical
+
+openEHR Compositions are exchanged in two interchangeable JSON serializations, and an engine MUST accept
+both wherever a Composition is supplied.
+
+**Canonical** is the openEHR Reference Model structure: nested objects carrying an explicit `_type` on
+every node.
+
+[source,json]
+----
+{
+  "_type": "COMPOSITION",
+  "name": { "_type": "DV_TEXT", "value": "KDS_Fall_einfach" },
+  "archetype_details": {
+    "archetype_id": { "value": "openEHR-EHR-COMPOSITION.fall.v1" },
+    "template_id": { "value": "KDS_Fall_einfach" },
+    "rm_version": "1.0.4"
+  },
+  "language": {
+    "_type": "CODE_PHRASE",
+    "terminology_id": { "_type": "TERMINOLOGY_ID", "value": "ISO_639-1" },
+    "code_string": "de"
+  },
+  "category": {
+    "_type": "DV_CODED_TEXT",
+    "value": "event",
+    "defining_code": {
+      "_type": "CODE_PHRASE",
+      "terminology_id": { "_type": "TERMINOLOGY_ID", "value": "openehr" },
+      "code_string": "433"
+    }
+  }
+}
+----
+
+**Flat** (simSDT) is a single-level object whose keys are template paths, with `|` separating a path from
+an attribute of the value at that path, and `:n` marking repetitions.
+
+[source,json]
+----
+{
+  "blood_pressure/category|code": "433",
+  "blood_pressure/category|value": "event",
+  "blood_pressure/category|terminology": "openehr",
+  "blood_pressure/context/start_time": "2022-02-03T04:05:06",
+  "blood_pressure/context/setting|code": "225",
+  "blood_pressure/context/setting|value": "home",
+  "blood_pressure/blood_pressure/any_event:0/systolic|magnitude": 120,
+  "blood_pressure/blood_pressure/any_event:0/systolic|unit": "mm[Hg]"
+}
+----
+
+The distinction matters for template resolution. A canonical Composition carries its template inline at
+`archetype_details.template_id`, so the engine can determine the template from the payload alone. A flat
+Composition has no such field - the template is only implied by the leading path segment - so the template
+MUST be supplied out of band via the `templateId` query parameter (see <<Query parameters>>) when a flat
+Composition is submitted.
+
+== Query parameters
+
+No query parameter is required. The following MAY be supported on both operations.
+
+[width="100%", options="header"]
+|===
+| Name | Applies to | Description
+| `templateId` | both | Pins the mapping to a specific openEHR template.
+| `format` | `$toopenehr` | Serialization of the returned Composition: `canonical` (default) or `flat`.
+|===
+
+`templateId` is the escape hatch for template resolution. It is particularly relevant when several context
+mappings exist for the same profile or template and the engine would otherwise have to guess: supplying
+`templateId` pin-points exactly which context mapping to apply. It is also **required** when submitting a
+flat Composition to `$tofhir`, because a flat payload does not carry its template inline.
+
+In addition, context fields MAY be passed as query parameters instead of as `Parameters` parts, provided
+their values are short enough to stay within URL length limits. The two forms are equivalent:
+
+[source,http]
+----
+POST [base]/$tofhir?templateId=KDS_Fall_einfach&ehr_id=53d89df2-5501-4455-9a65-565a5d1ddb7c
+----
+
+An engine MUST NOT require the query-parameter form. Values that are structured or long - a full
+`Reference` such as `who` or `onBehalfOf` - belong in the `Parameters` body; short scalars such as `ehr_id`
+or `templateId` are the natural candidates for the URL. Where the same field is supplied both in the body
+and as a query parameter, the body takes precedence.
+
+== Direct payload invocation
+
+The FHIR-enveloped form above is the interoperable contract. When no context is needed, an engine MAY also
+accept the payload **directly** as the request body, with no `Parameters` wrapper:
+
+Here the Composition is the body itself, so no escaping is involved. With a canonical payload the template
+is read from `archetype_details.template_id`:
+
+.Canonical Composition, sent directly
+[source,http]
+----
+POST [base]/tofhir
+Content-Type: application/openehr+json
+
+{
+  "_type": "COMPOSITION",
+  "name": { "_type": "DV_TEXT", "value": "KDS_Fall_einfach" },
+  "archetype_details": {
+    "archetype_id": { "value": "openEHR-EHR-COMPOSITION.fall.v1" },
+    "template_id": { "value": "KDS_Fall_einfach" },
+    "rm_version": "1.0.4"
+  },
+  "category": {
+    "_type": "DV_CODED_TEXT",
+    "value": "event",
+    "defining_code": {
+      "_type": "CODE_PHRASE",
+      "terminology_id": { "_type": "TERMINOLOGY_ID", "value": "openehr" },
+      "code_string": "433"
+    }
+  },
+  "composer": { "_type": "PARTY_SELF" }
+}
+----
+
+With a flat payload the template must be pinned with `templateId`:
+
+.Flat Composition, sent directly
+[source,http]
+----
+POST [base]/tofhir?templateId=Blood%20Pressure
+Content-Type: application/openehr+json
+
+{
+  "blood_pressure/category|code": "433",
+  "blood_pressure/category|value": "event",
+  "blood_pressure/context/start_time": "2022-02-03T04:05:06",
+  "blood_pressure/blood_pressure/any_event:0/systolic|magnitude": 120,
+  "blood_pressure/blood_pressure/any_event:0/systolic|unit": "mm[Hg]"
+}
+----
+
+The other direction takes the FHIR resource as the body, with `format` selecting the serialization of the
+returned Composition (`canonical` when omitted):
+
+[source,http]
+----
+POST [base]/toopenehr?format=flat
+Content-Type: application/fhir+json
+
+<FHIR Bundle or single resource>
+----
+
+The response is the mapped resource itself - a FHIR Bundle, or a Composition in the requested format —
+rather than a `Parameters` resource.
+
+Which form to use is a question of what the caller already has. The FHIR-enveloped operations are the right
+choice when context must travel with the payload (`who`, `onBehalfOf`, or a `patient` the engine
+cannot resolve on its own), when the caller is a FHIR facade already constructing FHIR resources with a FHIR
+SDK, or when conformance to the FHIR Operations framework matters. The direct form is the pragmatic choice
+when none of that applies: trying a mapping out by hand, a `curl` call during development, a test fixture, or
+a pipeline that simply holds a Composition and wants a Bundle back. Wrapping a Composition in a `Parameters`
+resource purely to satisfy the envelope adds friction with no benefit when there is no context to carry.
+
+[NOTE]
+====
+Direct payload invocation is a deliberate deviation from the FHIR Operations framework: the request body is
+not a FHIR resource and the response is not a `Parameters` resource. It is therefore specified here, in the
+FHIRconnect specification, and is intentionally **not** part of the FHIRconnect FHIR Implementation Guide,
+which describes only the conformant `$tofhir` / `$toopenehr` operations.
+====
+
+== $tofhir
+
+Converts an openEHR Composition to one or more FHIR resources using a FHIRconnect mapping.
+
+=== Input
+
+The operation MUST accept a FHIR `Parameters` resource. The Composition MUST be passed as a stringified
+JSON `valueString` in the top-level `composition` parameter, in either the flat or the canonical
+serialization; when it is flat, `templateId` MUST accompany it. The context fields that the engine needs but
+that are not part of the Composition itself - such as the patient reference or the EHR ID - MUST be grouped
+as nested parts under a single `context` parameter.
+
+The `context` parameter carries only genuine per-call input and per-call overrides. It is expected to be
+minimal: a normal composition call passes no context at all, and each field is supplied only when the caller
+needs to override an engine default. Data that can be derived from the source Composition MUST be mapped from
+the source rather than routed through `context`.
+
+In both examples below the Composition is the same kind of payload - only its serialization differs. Note
+that the Composition is a *string*, so its JSON is escaped inside `valueString`.
+
+.Canonical Composition
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"_type\": \"COMPOSITION\", \"name\": {\"_type\": \"DV_TEXT\", \"value\": \"KDS_Fall_einfach\"}, \"archetype_details\": {\"archetype_id\": {\"value\": \"openEHR-EHR-COMPOSITION.fall.v1\"}, \"template_id\": {\"value\": \"KDS_Fall_einfach\"}, \"rm_version\": \"1.0.4\"}, \"language\": {\"_type\": \"CODE_PHRASE\", \"terminology_id\": {\"_type\": \"TERMINOLOGY_ID\", \"value\": \"ISO_639-1\"}, \"code_string\": \"de\"}, \"category\": {\"_type\": \"DV_CODED_TEXT\", \"value\": \"event\", \"defining_code\": {\"_type\": \"CODE_PHRASE\", \"terminology_id\": {\"_type\": \"TERMINOLOGY_ID\", \"value\": \"openehr\"}, \"code_string\": \"433\"}}, \"composer\": {\"_type\": \"PARTY_SELF\"}}"
+    },
+    {
+      "name": "context",
+      "part": [
+        {
+          "name": "ehr_id",
+          "valueString": "53d89df2-5501-4455-9a65-565a5d1ddb7c"
+        },
+        {
+          "name": "patient",
+          "valueReference": { "reference": "Patient/123" }
+        },
+        {
+          "name": "who",
+          "valueReference": { "reference": "Practitioner/456" }
+        },
+        {
+          "name": "onBehalfOf",
+          "valueReference": { "reference": "Organization/charite" }
+        }
+      ]
+    }
+  ]
+}
+----
+
+No `templateId` is supplied: the canonical payload carries its template inline at
+`archetype_details.template_id`, so the engine resolves it from the Composition itself.
+
+.Flat Composition
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"blood_pressure/category|code\": \"433\", \"blood_pressure/category|value\": \"event\", \"blood_pressure/context/start_time\": \"2022-02-03T04:05:06\", \"blood_pressure/blood_pressure/any_event:0/systolic|magnitude\": 120, \"blood_pressure/blood_pressure/any_event:0/systolic|unit\": \"mm[Hg]\"}"
+    },
+    {
+      "name": "templateId",
+      "valueString": "Blood Pressure"
+    },
+    {
+      "name": "context",
+      "part": [
+        {
+          "name": "ehr_id",
+          "valueString": "53d89df2-5501-4455-9a65-565a5d1ddb7c"
+        }
+      ]
+    }
+  ]
+}
+----
+
+Here `templateId` is mandatory. A flat Composition has no inline template field - the leading `blood_pressure`
+path segment is not a reliable template identifier - so without it the engine cannot select the mapping.
+
+[width="100%", options="header"]
+|===
+| Name | Required | Type | Description
+| `composition` | yes | string | The openEHR Composition serialized as a JSON string (`application/openehr+json`), in either the flat or the canonical serialization.
+| `templateId` | no | string | Pins the mapping to a specific openEHR template. Required when `composition` is flat.
+| `context` | no | - | Groups the context fields below as nested parts. Omitted when no context is supplied.
+| `context.ehr_id` | no | string | The openEHR EHR identifier associated with the Composition.
+| `context.patient` | no | Reference(Patient) | The FHIR Patient that is the subject of the Composition, used to populate subject/patient references in the mapped resources. A fallback for when the engine cannot resolve the subject itself - see <<Resolving the patient>>.
+| `context.who` | no | Reference(Practitioner \| Device \| Organization) | Overrides the Provenance `agent.who`. When omitted the engine defaults to its own Device reference.
+| `context.onBehalfOf` | no | Reference(Organization) | The institution the agent acts for, mapped to Provenance `agent.onBehalfOf`.
+|===
+
+=== Resolving the patient
+
+Almost every mapped resource needs a subject. FHIR resources carry a `subject` or `patient` reference, while
+an openEHR Composition identifies the patient only indirectly - the EHR itself belongs to a patient, and the
+Composition belongs to the EHR. Bridging the two therefore means resolving an EHR ID to a patient identity,
+and that correspondence is not something either payload carries.
+
+Resolving that correspondence is properly the job of a dedicated service. The preferred
+arrangement is for the engine to integrate with whatever authority already owns patient identity in the
+deployment: a **Master Patient Index**, a national patient or person registry, a regional identity service,
+or the demographics service described in xref:engine/demographics.adoc[]. The engine passes the EHR ID to that service 
+and receives the patient identity in return.
+
+This is the arrangement to aim for. It keeps identity resolution in one place, lets it be audited and
+governed like any other identity lookup, keeps callers from having to know the mapping, and means the answer
+stays correct as patient records are merged, corrected, or re-linked over time. Where the engine maintains its
+own EHR-ID-to-patient table - see xref:engine/id-management.adoc[] - that table serves the same purpose
+locally.
+
+In practice such integration is not always available. There may be no MPI in the deployment at all; the
+service may exist but be unreachable from where the engine runs, for network or security reasons; access may
+be blocked by procurement, data-protection, or governance constraints rather than technical ones; the engine
+may run in a test, migration, or offline batch context where the real registry is deliberately out of scope;
+or the caller may simply already hold the answer and a lookup would be redundant.
+
+`context.patient` exists for exactly those cases. It lets the caller state the subject directly, so a mapping
+can still be performed when the engine cannot resolve it. It is a fallback, and the specification treats it as
+one:
+
+* An engine MUST NOT require `context.patient`. A call that omits it MUST still succeed wherever the engine can
+  resolve the subject by other means.
+* When the engine can resolve the subject itself and `context.patient` is also supplied, the supplied value
+  takes precedence - the caller is stating something the engine is not in a position to contradict.
+* Supplying `context.patient` does not relieve an engine of resolving the subject for calls that omit it.
+
+[NOTE]
+====
+Because `context.patient` bypasses the identity service, correctness rests entirely with the caller. A wrong
+reference here attaches clinical data to the wrong patient, and nothing downstream will catch it. Deployments
+that can integrate with an MPI or equivalent should do so and treat this parameter as a stopgap.
+====
+
+=== Output
+
+The response MUST be a FHIR `Bundle` containing the mapped resources. The Bundle type
+(`collection`, `searchset`, `document`, …) is **not constrained** by this specification; an engine MAY
+select it according to how the resulting resources are used. See xref:engine/bundles.adoc[] for how
+Bundles are composed and split. An `OperationOutcome` MAY be included as an entry to convey warnings or
+partial mapping failures.
+
+The engine generates a `Provenance` resource as a side-effect of every run, describing the transformation
+itself (what was produced, from what, when, and by whom), and includes it in the Bundle. The `context`
+fields above (`who`, `onBehalfOf`) feed this Provenance; when they are omitted the
+engine supplies its own defaults.
+
+== $toopenehr
+
+Converts a FHIR Bundle to an openEHR Composition using a FHIRconnect mapping.
+
+=== Input
+
+The request body MUST be a FHIR `Bundle` containing the resources to be converted. Because the FHIR side
+is already a native resource, no wrapping `Parameters` is needed on input.
+
+[width="100%", options="header"]
+|===
+| Name | Required | Type | Description
+| `bundle` | yes | Bundle | The FHIR resources to be converted.
+| `templateId` | no | string | Pins the mapping to a specific openEHR template, forcing a particular context mapping. When omitted, the engine selects a context mapping by matching the incoming resources against the context profile URLs.
+| `format` | no | code | The serialization of the returned Composition: `canonical` or `flat`. Defaults to `canonical`.
+|===
+
+Like `templateId`, both parameters MAY be supplied as query parameters instead of `Parameters` parts, since
+they are short scalars:
+
+[source,http]
+----
+POST [base]/$toopenehr?format=flat
+----
+
+=== Output
+
+The response MUST be a FHIR `Parameters` resource. On full success it contains only the `composition`
+parameter, again carried as a stringified JSON `valueString`.
+
+The `format` input parameter selects the serialization of that Composition. The default is `canonical`,
+because that is the form openEHR CDRs expect when a Composition is committed; `flat` is the convenient form
+for inspection, diffing, or feeding a simplified template-driven client. An engine MUST support both, and the
+returned Composition is the same content either way - only its serialization differs. See
+<<Composition formats: flat and canonical>>.
+
+.`format=canonical` (default)
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"_type\": \"COMPOSITION\", \"name\": {\"_type\": \"DV_TEXT\", \"value\": \"International Patient Summary\"}, ...}"
+    }
+  ]
+}
+----
+
+.`format=flat`
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"international_patient_summary/category|code\": \"433\", \"international_patient_summary/category|value\": \"event\", \"international_patient_summary/context/start_time\": \"2022-02-03T04:05:06\", \"international_patient_summary/context/setting|code\": \"225\"}"
+    }
+  ]
+}
+----
+
+[width="100%", options="header"]
+|===
+| Name | Required | Type | Description
+| `composition` | yes | string | The resulting openEHR Composition serialized as a JSON string (`application/openehr+json`), in the serialization selected by the `format` input parameter.
+| `outcome` | no | OperationOutcome | Present when mapping issues occurred; describes elements that could not be mapped or partial failures.
+|===
+
+=== Reporting partial results with OperationOutcome
+
+When a mapping issue occurs - for example a source element could not be mapped, a required field was
+absent, or only a partial result could be produced - an additional `outcome` parameter carrying an
+`OperationOutcome` SHOULD be returned alongside `composition`.
+
+The presence of an `OperationOutcome` does **not** imply the Composition is absent. A partial result MAY
+be returned together with issues describing what could not be mapped. Where an engine returns a partial
+result rather than failing outright - see the strictness rules in xref:engine/Fail.adoc[] - those gaps
+MUST be made explicit through the `OperationOutcome` rather than silently dropping data.
+
+[source,json]
+----
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "composition",
+      "valueString": "{\"_type\": \"COMPOSITION\", \"name\": {\"_type\": \"DV_TEXT\", \"value\": \"International Patient Summary\"}, ...}"
+    },
+    {
+      "name": "outcome",
+      "resource": {
+        "resourceType": "OperationOutcome",
+        "issue": [
+          {
+            "severity": "warning",
+            "code": "incomplete",
+            "details": {
+              "text": "Element Observation.effectivePeriod could not be mapped; no corresponding openEHR archetype path found."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+----
