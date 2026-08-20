@@ -9,7 +9,7 @@ Usage: #definition
 Converts an openEHR Composition to one or more FHIR resources using a FHIRConnect mapping.
 
 The operation accepts a FHIR Parameters resource containing the serialized openEHR Composition
-and optional context fields (patient reference, EHR ID, provenance policy). It returns a FHIR Bundle
+and optional context fields (patient reference, EHR ID, provenance agent). It returns a FHIR Bundle
 containing the mapped resources. The Bundle type is implementation-dependent
 (collection, searchset, or document) and is not fixed by this specification.
 
@@ -28,7 +28,15 @@ An OperationOutcome MAY be included in the returned Bundle to convey warnings or
   * use = #in
   * min = 1
   * max = "1"
-  * documentation = "The openEHR Composition serialized as a JSON string. Passed as valueString rather than resource to maintain FHIR SDK compatibility."
+  * documentation = "The openEHR Composition serialized as a JSON string, in either the flat (simSDT) or the canonical serialization. Passed as valueString rather than resource to maintain FHIR SDK compatibility."
+  * type = #string
+
+* parameter[+]
+  * name = #templateId
+  * use = #in
+  * min = 0
+  * max = "1"
+  * documentation = "Pins the mapping to a specific openEHR template. Particularly relevant when several context mappings exist for the same template or profile. Required when the composition is supplied in the flat serialization, which does not carry its template inline."
   * type = #string
 
 * parameter[+]
@@ -36,7 +44,7 @@ An OperationOutcome MAY be included in the returned Bundle to convey warnings or
   * use = #in
   * min = 0
   * max = "1"
-  * documentation = "Groups the context fields the engine needs but that are not part of the Composition itself (EHR ID, patient reference, provenance policy)."
+  * documentation = "Groups the context fields the engine needs but that are not part of the Composition itself (EHR ID, patient reference, provenance agent)."
   * part[+]
     * name = #ehr_id
     * use = #in
@@ -70,13 +78,6 @@ An OperationOutcome MAY be included in the returned Bundle to convey warnings or
     * documentation = "The institution the agent acts for, mapped to Provenance agent.onBehalfOf."
     * type = #Reference
     * targetProfile = Canonical(http://hl7.org/fhir/StructureDefinition/Organization)
-  * part[+]
-    * name = #policy
-    * use = #in
-    * min = 0
-    * max = "*"
-    * documentation = "URI identifying the provenance policy. The engine resolves the remaining provenance data; only the policy is supplied by the caller."
-    * type = #uri
 
 // ---- output parameters ----
 

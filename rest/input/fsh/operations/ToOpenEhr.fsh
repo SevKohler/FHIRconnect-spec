@@ -63,6 +63,22 @@ Example response with OperationOutcome:
   * documentation = "The FHIR Bundle containing the resources to be converted to an openEHR Composition."
   * type = #Bundle
 
+* parameter[+]
+  * name = #templateId
+  * use = #in
+  * min = 0
+  * max = "1"
+  * documentation = "Pins the mapping to a specific openEHR template, forcing a particular context mapping. When omitted, the engine selects a context mapping by matching the incoming resources against the context profile URLs."
+  * type = #string
+
+* parameter[+]
+  * name = #format
+  * use = #in
+  * min = 0
+  * max = "1"
+  * documentation = "The serialization of the returned openEHR Composition: 'canonical' or 'flat'. Defaults to 'canonical', which is the form openEHR CDRs expect when a Composition is committed."
+  * type = #code
+
 // ---- output parameters ----
 
 * parameter[+]
@@ -70,7 +86,7 @@ Example response with OperationOutcome:
   * use = #out
   * min = 1
   * max = "1"
-  * documentation = "The resulting openEHR Composition serialized as a JSON string."
+  * documentation = "The resulting openEHR Composition serialized as a JSON string, in the serialization selected by the 'format' input parameter (canonical by default)."
   * type = #string
 
 * parameter[+]

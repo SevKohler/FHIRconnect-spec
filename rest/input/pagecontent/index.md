@@ -19,6 +19,6 @@ Both operations follow the [FHIR Operations framework (R4)](https://hl7.org/fhir
 
 - **Parameters in, Bundle out** for `$tofhir`; **Bundle in, Parameters out** for `$toopenehr`.
 - The openEHR Composition is always carried as a JSON string (`valueString`) rather than a nested resource, for FHIR SDK compatibility.
-- Context fields (patient reference, EHR ID, provenance policy) are passed alongside the composition as named Parameters entries.
+- Context fields (patient reference, EHR ID, provenance agent) are passed alongside the composition as named Parameters entries.
 - The output Bundle type (`collection`, `searchset`, `document`) is **not fixed** by this IG — it is context-dependent and left to the implementation.
 - `OperationOutcome` entries MAY be included in the Bundle to convey warnings or partial mapping failures.
