@@ -52,6 +52,15 @@
     "context": {
       "type": "object",
       "properties": {
+        "scope": {
+          "type": "string",
+          "enum": [
+            "root",
+            "sub"
+          ],
+          "default": "root",
+          "description": "sub: only entered via slotContext, never splits bundles, must not slot a composition model."
+        },
         "profile": {
           "type": "object",
           "properties": {
@@ -81,6 +90,12 @@
           }
         },
         "extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contexts": {
           "type": "array",
           "items": {
             "type": "string"

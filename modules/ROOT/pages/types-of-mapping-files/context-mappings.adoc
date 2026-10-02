@@ -7,6 +7,8 @@ On the other hand, context mappings act as imports.
 
 == Header
 The header is of the `type: context`. It does not contain an openEHR or FHIR-specific part.
+A context that is only entered from another context via `slotContext` sets `scope: sub` in its `context` block,
+see xref:types-of-mapping-files/sub-contexts.adoc[].
 
 [source,yaml]
 ----
@@ -61,6 +63,25 @@ context:
     - "CLUSTER.case_identification.v0"
   extensions:
     - "KDS_procedure.v1"
+----
+
+== Contexts
+The `contexts` key lists sub-contexts that this context enters via `slotContext`, for example the entry
+profiles of a patient summary composition. A sub-context maps into the parent composition; its `template.id` is the section template embedded there. It uses its own extensions. See xref:types-of-mapping-files/sub-contexts.adoc[].
+
+[source,yaml]
+----
+context:
+  template:
+    id: "International Patient Summary"
+  archetypes:
+    - "COMPOSITION.health_summary.v1"
+  extensions:
+    - "IPS_composition"
+  contexts:
+    - "IPS_problem.context"
+    - "IPS_allergy.context"
+  start: "COMPOSITION.health_summary.v1"
 ----
 
 == Start
