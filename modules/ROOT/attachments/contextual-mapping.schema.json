@@ -86,6 +86,12 @@
             "type": "string"
           }
         },
+        "slotExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "operational": {
           "type": "array",
           "items": {

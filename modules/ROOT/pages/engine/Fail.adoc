@@ -10,3 +10,9 @@ the mapping should fail if the child is not provided.
 A more tolerant approach would be to map only the parent, ensuring that at least some data is transformed.
 However, since we cannot determine what data is missing, either all data should be mapped,
 or the mapping should fail.
+
+== Failing at load time
+The same principle applies before any data is mapped. A context whose mapping files are inconsistent, for
+example an ambiguous slot as described in xref:types-of-mapping-files/slot-extensions.adoc[], must be rejected
+by the validator and by the engine when loading the context. It must not be loaded with a warning, since the
+resulting output would be incomplete without any runtime signal.

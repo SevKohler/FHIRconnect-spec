@@ -441,11 +441,21 @@
             "string",
             "null"
           ]
+        },
+        "slotExtension": {
+          "type": "string",
+          "description": "Name of an extension mapping applied only at this slot. Only valid in extension mappings; mutually exclusive with slotArchetype."
         }
       },
       "required": [
         "name"
       ],
+      "not": {
+        "required": [
+          "slotArchetype",
+          "slotExtension"
+        ]
+      },
       "title": "Model Mapping"
     }
   },

@@ -12,7 +12,9 @@ add coding values etc. They do not extend the existing models, only constraint a
 
 Both Templates and Profiles are designed to be project specific. Therefore, for each project that is mapped, we need to
 introduce a set of changes and extensions to our model-mappings. This is done in the `extension` mappings.
-An extension mapping always relates 1-to-1 to a model-mapping.
+An extension mapping always extends exactly one model mapping. The reverse is not true: a model mapping may be
+extended by several extensions within one context, either globally or per slot
+(see xref:types-of-mapping-files/slot-extensions.adoc[]).
 
 == File structure
 In general the folder structure of each FHIRconnect project is up to the provider.
@@ -32,7 +34,7 @@ image::ExtensionContextFolder3.PNG[]
 
 The `type` of header needs to be set to `extension`. Since it extends a existing mapping it does not need
 to reference the archetype or other metadata again. The key `extends` is used to reference the model-mapping. Hereby,
-the name of the model mapping is used.
+the name of the model mapping is used. `extends` always names a model mapping, never another extension.
 
 [source,yaml]
 ----

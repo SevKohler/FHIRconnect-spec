@@ -45,6 +45,8 @@ An extension is not always required. Each time a model mapping is called as part
 and it has an extension, the extension is applied.
 For example, if model mapping A references (`slotArchetype`) another model mapping B,
 and B has an extension C, then extension C is applied.
+Several extensions may be listed for the same model mapping. They are applied in the order listed;
+if two of them `overwrite` the same mapping name, the later one wins.
 
 [source,yaml]
 ----
@@ -61,6 +63,29 @@ context:
     - "CLUSTER.case_identification.v0"
   extensions:
     - "KDS_procedure.v1"
+----
+
+== Slot extensions
+The `slotExtensions` key lists extensions that are *not* applied globally but only at the slot that
+references them with `slotExtension`. This is needed when a template uses the same archetype in several
+slots with different meaning, for example several `SECTION.adhoc.v1` sections in a patient summary.
+An extension must be listed either under `extensions` or under `slotExtensions`, never under both.
+See xref:types-of-mapping-files/slot-extensions.adoc[] for the rules and the validation errors.
+
+[source,yaml]
+----
+context:
+  template:
+    id: "International Patient Summary"
+  archetypes:
+    - "COMPOSITION.health_summary.v1"
+    - "SECTION.adhoc.v1"
+  extensions:
+    - "IPS_composition"
+  slotExtensions:
+    - "IPS_problem_list"
+    - "IPS_adverse_reaction_list"
+  start: "COMPOSITION.health_summary.v1"
 ----
 
 == Start

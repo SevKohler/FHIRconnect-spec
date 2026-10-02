@@ -1,0 +1,191 @@
+= Slot-scoped extensions
+:navtitle: Slot-scoped extensions
+
+== Problem
+
+An extension listed in the context applies everywhere its model mapping is used.
+That fails when one template uses the same archetype in several slots with different meaning.
+
+Example: the International Patient Summary template has four `SECTION.adhoc.v1` sections
+(Problem List, Allergies and Intolerances, Medication list, Medical Devices).
+Each has its own FHIR section code, title and entry resource. One global extension cannot express this.
+
+These are template mappings, not archetype mappings. They live in the project, never in the model library.
+
+== Two scopes
+
+[width="100%",cols="20%,80%",options="header",]
+|===
+|Scope |Behaviour
+|global |Listed under `extensions`. Applied wherever the model mapping is used.
+|slot-scoped |Listed under `slotExtensions`. Applied only at the slot that references it with `slotExtension`.
+|===
+
+An extension is listed in one of the two, never both.
+
+== `slotExtension`
+
+Replaces `slotArchetype`. Names an extension mapping. The base model mapping is taken from its `extends`.
+
+[source,yaml]
+----
+  - name: "sectionActiveProblems"
+    extension: "add"
+    with:
+      fhir: "$resource.section"
+      openehr: "$composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Problem List']"
+    slotExtension: "IPS_problem_list"
+    fhirCondition:
+      targetRoot: "$resource.section"
+      targetAttribute: "code.coding.code"
+      operator: "one of"
+      criteria: "11450-4"
+----
+
+Resolution at the slot: base model mapping, then its global extensions, then the slot-scoped extension.
+
+Rules:
+
+* Only valid in extension mappings. A model mapping never carries `slotExtension`.
+* `slotArchetype` and `slotExtension` are mutually exclusive on one mapping.
+* The referenced extension must be listed under `slotExtensions` in the context.
+* `extends` of the referenced extension names a model mapping. Extending an extension is not supported.
+* Slots inside a slot-scoped extension follow the same rules and may use `slotExtension` themselves.
+
+Several extensions may extend the same model mapping. Global ones apply in listed order; a later `overwrite` wins.
+
+== Ambiguous slots
+
+If a model mapping contains `slotArchetype: X` and the context lists slot-scoped extensions for `X`,
+the slot is ambiguous. The engine must not fall back to the generic mapping, see xref:engine/Fail.adoc[].
+
+[NOTE]
+====
+For every archetype with slot-scoped extensions in the context, each `slotArchetype` pointing at it must be
+overwritten by a project extension: either with `slotExtension: <name>`, or by restating `slotArchetype`
+to keep the generic mapping on purpose.
+====
+
+Other slots are not affected.
+
+[source,yaml]
+----
+  - name: "measurementSite"
+    extension: "overwrite"
+    with:
+      fhir: "$resource.bodySite"
+      openehr: "$archetype/protocol[at0004]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
+    slotArchetype: "CLUSTER.anatomical_location.v1"   # stays generic, stated explicitly
+----
+
+Slot mapping names in a model mapping are therefore part of its contract. Renaming one is a breaking change.
+
+== Validation errors
+
+Reported by the validator. The engine refuses to load the context.
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Condition |Error
+|`slotExtension` in a `type: model` file |only valid in extension mappings
+|`slotArchetype` and `slotExtension` on one mapping |mutually exclusive
+|`slotExtension` not listed under `slotExtensions` |undeclared slot-scoped extension
+|extension listed under `extensions` and `slotExtensions` |global or slot-scoped, not both
+|base archetype differs from the archetype in the slot `openehr` path |slot archetype mismatch
+|unresolved ambiguous slot |overwrite the slot and set `slotExtension` or restate `slotArchetype`
+|===
+
+== Context
+
+[source,yaml]
+----
+context:
+  template:
+    id: "International Patient Summary"
+  archetypes:
+    - "COMPOSITION.health_summary.v1"
+    - "SECTION.adhoc.v1"
+    - "EVALUATION.problem_diagnosis.v1"
+  extensions:
+    - "IPS_composition"
+  slotExtensions:
+    - "IPS_problem_list"
+    - "IPS_adverse_reaction_list"
+    - "IPS_medication_list"
+    - "IPS_medical_devices"
+  start: "COMPOSITION.health_summary.v1"
+----
+
+== Example
+
+Library model mapping, archetype-generic:
+
+[source,yaml]
+----
+grammar: FHIRConnect/v1.0.0
+type: model
+metadata:
+  name: SECTION.adhoc.v1
+  version: 1.0.0
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-SECTION.adhoc.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/BackboneElement
+
+mappings:
+  - name: "emptyReason"
+    with:
+      fhir: "emptyReason"
+      openehr: "$archetype/items[openEHR-EHR-EVALUATION.absence.v2]"
+    slotArchetype: "EVALUATION.absence.v2"
+----
+
+Slot-scoped extension in the IPS project:
+
+[source,yaml]
+----
+grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name: IPS_problem_list
+  version: 1.0.0
+spec:
+  system: FHIR
+  version: R4
+  extends: SECTION.adhoc.v1
+
+mappings:
+  - name: "code"
+    extension: "add"
+    with:
+      fhir: "code.coding"
+      openehr: "$archetype"
+    manual:
+      - name: "manualSystem"
+        fhir:
+          - path: "system"
+            value: "http://loinc.org"
+      - name: "manualCode"
+        fhir:
+          - path: "code"
+            value: "11450-4"
+
+  - name: "entry"
+    extension: "add"
+    with:
+      fhir: "entry"
+      openehr: "$reference/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+    reference:
+      resourceType: "Condition"
+      mappings:
+        - name: "problemDiagnosis"
+          with:
+            fhir: "$fhirRoot"
+            openehr: "$archetype/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
+          slotArchetype: "EVALUATION.problem_diagnosis.v1"
+----
+
+A section used once and not shared can instead be written inline with `followedBy`.
