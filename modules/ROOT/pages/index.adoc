@@ -33,6 +33,29 @@ The initial draft of https://github.com/better-care/fhir-connect-mapping-spec[FH
 The official mapping library of FHIRconnect is maintained
 https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main[here].
 
+== Implementations and Tooling
+
+Engines that execute FHIRconnect mappings:
+
+* https://github.com/openfhir/openfhir[openFHIR], Java. Reference engine, bidirectional, REST API,
+  Docker image and a public sandbox.
+* https://github.com/GinoCanessa/dotnet-fhirconnect[dotnet-fhirconnect], .NET. Pre-alpha, currently
+  covers the `EVALUATION.vital_status.v1` mapping.
+
+Engines implement the specification and can diverge from it. Where an engine and this
+specification disagree, the specification is authoritative; please report the case as an issue in the
+engine's repository.
+
+Tooling for writing and checking mappings is collected in
+https://github.com/SevKohler/FHIRconnectTools[FHIRconnectTools]:
+
+* an IntelliJ plugin that shows the resolved openEHR and FHIR path of the mapping method under the
+  cursor, with inspections and path completion (beta, download from the
+  https://github.com/SevKohler/FHIRconnectTools/releases[releases page]);
+* Claude Code skills for writing, editing and reviewing mapping files (beta), for drafting the
+  openEHR/FHIR alignment table before any YAML is written (alpha), and for running test instances
+  through an engine and iterating on the mapping (alpha).
+
 == Current Issues and Example Mappings
 
 You can find current issues related to the specification in the
