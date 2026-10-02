@@ -30,6 +30,26 @@ and returns. The two keys are mutually exclusive on one mapping.
                 slotContext: "IPS_problem.context"
 ----
 
+== `type: subcontext`
+
+A sub-context is marked in its header. It is never a root: it does not split bundles and is only entered
+via `slotContext`.
+
+[source,yaml]
+----
+grammar: FHIRConnect/v1.0.0
+type: subcontext
+metadata:
+  name: IPS_problem.context
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+----
+
+A root context (`type: context`) may also be referenced via `slotContext`. Then it works standalone and nested;
+nested, its composition slot is skipped.
+
 == `contexts`
 
 The referencing context lists the sub-contexts it uses.
@@ -52,7 +72,7 @@ context:
   start: "COMPOSITION.health_summary.v1"
 ----
 
-A sub-context is an ordinary context file. By convention it lives in a subfolder of the project.
+By convention a sub-context lives in a subfolder of the project.
 
 == Rules
 
@@ -61,8 +81,9 @@ A sub-context is an ordinary context file. By convention it lives in a subfolder
   A sub-context never creates a composition of its own.
 * Parent and sub-context must have the same `template.id`.
 * The `start` archetype of the sub-context must match the archetype in the slot's `openehr` path.
-* If the `start` of the sub-context slots a composition model (see xref:types-of-mapping-files/composition-element.adoc[]),
-  that mapping is skipped when entered via `slotContext`.
+* The `start` of a `type: subcontext` must not slot a composition model. If a root context is entered via `slotContext`,
+  its composition slot is skipped (see xref:types-of-mapping-files/composition-element.adoc[]).
+* Every `type: subcontext` must be listed under `contexts` of at least one context.
 * References must be acyclic.
 * A resource consumed through `slotContext` is marked as resolved. The engine does not process it again as a root,
   even if its profile matches the sub-context on its own (see xref:engine/bundles.adoc[]).
@@ -83,6 +104,8 @@ Reported by the validator. The engine refuses to load the context.
 |`template.id` differs |template mismatch
 |`start` archetype differs from the archetype in the slot `openehr` path |start archetype mismatch
 |cycle in `contexts` |cyclic context reference
+|`type: subcontext` whose `start` slots a composition model |sub-context must not create a composition
+|`type: subcontext` not listed under any `contexts` |unreferenced sub-context
 |`slotContext` with `openehr: $reference` |sub-context would create a separate composition, not supported
 |===
 
@@ -109,6 +132,7 @@ Sub-context `problem/IPS_problem.context.yml`:
 
 [source,yaml]
 ----
+type: subcontext
 context:
   profile:
     url: "http://hl7.org/fhir/uv/ips/StructureDefinition/Condition-uv-ips"

@@ -10,7 +10,8 @@
     "type": {
       "type": "string",
       "enum": [
-        "context"
+        "context",
+        "subcontext"
       ]
     },
     "metadata": {

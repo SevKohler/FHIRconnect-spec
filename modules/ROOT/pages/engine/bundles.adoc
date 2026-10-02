@@ -11,6 +11,7 @@ The FHIRconnect engine needs to split these Bundles into smaller collections to 
 
 The context mapping files contain a list of profile URLs.
 Using this list, the engine must divide the Bundle into manageable parts.
+Only root contexts (`type: context`) take part in this. A `type: subcontext` is entered via `slotContext` only.
 
 In this example, two context files are provided: one for Diagnoses and one for Procedures.
 The engine splits the Bundle into two separate ones for processing.

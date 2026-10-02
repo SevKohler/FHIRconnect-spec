@@ -7,6 +7,8 @@ On the other hand, context mappings act as imports.
 
 == Header
 The header is of the `type: context`. It does not contain an openEHR or FHIR-specific part.
+A context that is only entered from another context via `slotContext` uses `type: subcontext` instead,
+see xref:types-of-mapping-files/sub-contexts.adoc[].
 
 [source,yaml]
 ----
