@@ -33,3 +33,5 @@ would also trigger the Encounter mapping.
 A resource that a parent context pulls in via `slotContext` is marked as resolved. The engine does not
 process it again as a root, even if its profile URL matches the sub-context on its own.
 Resources nothing consumes are still processed as roots. See xref:types-of-mapping-files/sub-contexts.adoc[].
+Whether contexts should drive bundle resolution instead of this preprocess is open, see
+https://github.com/SevKohler/FHIRconnect-spec/issues/99[#99].

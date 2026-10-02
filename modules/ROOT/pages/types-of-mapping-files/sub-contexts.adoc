@@ -68,7 +68,8 @@ A sub-context is an ordinary context file. By convention it lives in a subfolder
   even if its profile matches the sub-context on its own (see xref:engine/bundles.adoc[]).
 
 Creating a separate composition through `slotContext` (e.g. a summary linking to a lab report composition)
-is not supported. Use `link` for that.
+is not supported. A `slotContext` mapping with `openehr: $reference` is a validation error. Use `link` to relate
+compositions. The option is recorded in https://github.com/SevKohler/FHIRconnect-spec/issues/98[#98].
 
 == Validation errors
 
@@ -82,6 +83,7 @@ Reported by the validator. The engine refuses to load the context.
 |`template.id` differs |template mismatch
 |`start` archetype differs from the archetype in the slot `openehr` path |start archetype mismatch
 |cycle in `contexts` |cyclic context reference
+|`slotContext` with `openehr: $reference` |sub-context would create a separate composition, not supported
 |===
 
 == Example: IPS
