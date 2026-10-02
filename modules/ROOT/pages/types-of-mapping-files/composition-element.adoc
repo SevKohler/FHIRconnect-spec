@@ -40,10 +40,10 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Procedure
 
 mappings:
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      fhir: $resource.recorder
+      openehr: $composition/composer
 ----
 
 == Triggering the composition
@@ -64,12 +64,12 @@ spec:
   extends: ACTION.procedure.v1
 
 mappings:
-  - name: "compositionMapping"
-    extension: "add"
+  - name: compositionMapping
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$composition"
-    slotArchetype: "COMPOSITION.report.v1.Procedure"
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.Procedure
 ----
 
 This is the single point that triggers the composition mapping — no magic, just model mappings

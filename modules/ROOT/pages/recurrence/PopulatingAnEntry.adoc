@@ -8,22 +8,22 @@ paths need to be mapped.
 == Example
 [source,yaml]
 ----
-  - name: "collection"
+  - name: collection
     with:
-      fhir: "$resource.collection" # 0..n
-      openehr: "$archetype/data[at0001]" # 0..n
-      type: "NONE"
+      fhir: $resource.collection # 0..n
+      openehr: $archetype/data[at0001] # 0..n
+      type: NONE
     followedBy:
       mappings:
-        - name: "collected"
+        - name: collected
           with:
-            fhir: "collected"
-            openehr: "items[at0015]"
+            fhir: collected
+            openehr: items[at0015]
 
-        - name: "collector"
+        - name: collector
           with:
-            fhir: "collector"
-            openehr: "items[at0070]"
+            fhir: collector
+            openehr: items[at0070]
 ----
 
 In the pseudocode example above, both `collection` and `$archetype/data[at0001]` are recurring
@@ -70,22 +70,22 @@ occurrence of `collection`.
 
 [source,yaml]
 ----
-  - name: "collection"
+  - name: collection
     with:
-      fhir: "$resource.collection" # 0..n
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.collection # 0..n
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "collected"
+        - name: collected
           with:
-            fhir: "collected"
-            openehr: "data[at0001]/items[at0015]"
+            fhir: collected
+            openehr: data[at0001]/items[at0015]
 
-        - name: "collector"
+        - name: collector
           with:
-            fhir: "collector"
-            openehr: "data[at0001]/items[at0070]"
+            fhir: collector
+            openehr: data[at0001]/items[at0070]
 ----
 
 [source,json]
@@ -133,26 +133,25 @@ Each of which maps in the `followedBy` the `identifier`.
 
 [source,yaml]
 ----
-  - name: "specimen"
+  - name: specimen
     with:
-      fhir: "$resource.specimen" #0..n
-      openehr: "$reference"
-      type: "NONE"
+      fhir: $resource.specimen #0..n
+      openehr: $reference
+      type: NONE
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenRecurring"
+        - name: specimenRecurring
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/activities[at0001]
-/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"   #0..n
-          slotArchetype: "CLUSTER.specimen.v1"
+            fhir: $fhirRoot
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]   #0..n
+          slotArchetype: CLUSTER.specimen.v1
           followedBy:
             mappings:
-              - name: "specimenIdentifier"
+              - name: specimenIdentifier
                 with:
-                  fhir: "identifier"
-                  openehr: "items[at0001]"
+                  fhir: identifier
+                  openehr: items[at0001]
 ----
 
 === Incorrect Mapping
@@ -162,23 +161,23 @@ identifier.
 
 [source,yaml]
 ----
-  - name: "specimen"
+  - name: specimen
     with:
-      fhir: "$resource.specimen"
-      openehr: "$reference"
-      type: "NONE"
+      fhir: $resource.specimen
+      openehr: $reference
+      type: NONE
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenRecurring"
+        - name: specimenRecurring
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"
-        - name: "specimenIdentifier"
+            fhir: $fhirRoot
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1
+        - name: specimenIdentifier
           with:
-            fhir: "identifier"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]"
+            fhir: identifier
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]
 ----
 
 == Example of double nesting
@@ -190,15 +189,15 @@ like this:
 [source,yaml]
 ----
 mappings:
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category" # 0..n
-      openehr: "$archetype/protocol[at0004]/items[at0094]" # 0..n
+      fhir: $resource.category # 0..n
+      openehr: $archetype/protocol[at0004]/items[at0094] # 0..n
     followedBy:
-      - name: "category"
+      - name: category
         with:
-          fhir: "text" # 0..n
-          openehr: "/items[at0063]" # 0..n
+          fhir: text # 0..n
+          openehr: /items[at0063] # 0..n
 ----
 
 [source,json]
@@ -245,10 +244,10 @@ inside `at0094`. This would be the same case when mapping from openEHR to FHIR.
 [source,yaml]
 ----
 mappings:
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category.text" # 0..n
-      openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]"
+      fhir: $resource.category.text # 0..n
+      openehr: $archetype/protocol[at0004]/items[at0094]/items[at0063]
 ----
 
 [source,json]

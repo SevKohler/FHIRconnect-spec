@@ -8,29 +8,29 @@ a condition is only executed if the parts in the condition are true. There are t
 Examples:
 [source,yaml]
 ----
-- name: "example"
+- name: example
   with:
-    fhir: "$fhirRoot"
-    openehr: "$archetype"
-  slotArchetype: "EVALUATION.problem_diagnosis.v1"
+    fhir: $fhirRoot
+    openehr: $archetype
+  slotArchetype: EVALUATION.problem_diagnosis.v1
   openehrCondition:
-    targetRoot: "$archetype"
-    targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
-    operator: "one of"
-    criteria: "at0064"
+    targetRoot: $archetype
+    targetAttribute: data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string
+    operator: one of
+    criteria: at0064
 ----
 
 [source,yaml]
 ----
-  - name: "mapIdentifierForRoom"
+  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "room"
+      targetRoot: $resource.identifier
+      targetAttribute: type.coding.code
+      operator: one of
+      criteria: room
 ----
 
 == targetRoot
@@ -40,12 +40,12 @@ not align, FHIRconnect will not be able to filter correctly and the engine shoul
 
 [source,yaml]
 ----
-  - name: "mapIdentifierForRoom"
+  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier" # same path 0..n
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier # same path 0..n
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier" # same path 0..n
+      targetRoot: $resource.identifier # same path 0..n
 ----
 In the `fhirCondition` example, the `$resource.identifier` is the same in both paths. The condition is applied
 to each element in the identifier (0..n), and the `with` method only executes the mapping for those identifiers for which
@@ -56,12 +56,12 @@ Meanwhile, for the following example, the condition method would try to filter o
 
 [source,yaml]
 ----
-  - name: "mapIdentifierForRoom"
+  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier" # same path 0..n
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier # same path 0..n
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier.type" # not the same since references type
+      targetRoot: $resource.identifier.type # not the same since references type
 ----
 
 == targetAttribute
@@ -71,15 +71,15 @@ written as `$resource.identifier.where(type.coding.code="room")`, therefore chec
 the identifier entries that match. These are the ones that are mapped in the `with:` method.
 [source,yaml]
 ----
-  - name: "mapIdentifierForRoom"
+  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "room"
+      targetRoot: $resource.identifier # same except for type
+      targetAttribute: type.coding.code # access child nodes
+      operator: one of
+      criteria: room
 ----
 
 In the following example, only the `encounter-id-1245` would be mapped, since it fits the condition. The `bed` code would be
@@ -129,15 +129,15 @@ they interact with the `with:` method.
 
 [source,yaml]
 ----
-  - name: "room"
+  - name: room
     with:
-      fhir: "$resource.location.identifier.value"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.location.identifier.value
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.some.otherPath"
-      targetAttribute: "coding.code"
-      operator: "one of"
-      criteria: "someValue"
+      targetRoot: $resource.some.otherPath
+      targetAttribute: coding.code
+      operator: one of
+      criteria: someValue
 ----
 
 == operator
@@ -169,81 +169,81 @@ Examples:
 === one of
 [source,yaml]
 ----
-  - name: "mapIdentifierForRoom"
+  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.location.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.location.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.location.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "room"
+      targetRoot: $resource.location.identifier # same except for type
+      targetAttribute: type.coding.code # access child nodes
+      operator: one of
+      criteria: room
 ----
 === not of
 [source,yaml]
 ----
-  - name: "statusCoded"
+  - name: statusCoded
     with:
-      fhir: "$resource.verificationStatus.coding"
-      openehr: "$archetype/items[at0004]/value/defining_code"
+      fhir: $resource.verificationStatus.coding
+      openehr: $archetype/items[at0004]/value/defining_code
     fhirCondition:
-      targetRoot: "$resource.verificationStatus.coding.code"
-      targetAttribute: "value"
-      operator: "not of"
-      criteria: "entered-in-error"
+      targetRoot: $resource.verificationStatus.coding.code
+      targetAttribute: value
+      operator: not of
+      criteria: entered-in-error
 ----
 
 === empty
 [source,yaml]
 ----
-  - name: "bodySiteText"
+  - name: bodySiteText
     with:
-      fhir: "$resource.bodysite.text"
-      openehr: "$archetype/items[at0001]" #Name of body site
+      fhir: $resource.bodysite.text
+      openehr: $archetype/items[at0001] #Name of body site
     fhirCondition:
-      targetRoot: "$resource.bodysite"
-      targetAttribute: "coding"
-      operator: "empty"
+      targetRoot: $resource.bodysite
+      targetAttribute: coding
+      operator: empty
 ----
 
 === not empty
 [source,yaml]
 ----
   mappings:
-    - name: "period"
+    - name: period
       with:
-        fhir: "$resource.onset.ofType(Period)"
-        openehr: "$archetype/data[at0001]"
-        type: "NONE"
+        fhir: $resource.onset.ofType(Period)
+        openehr: $archetype/data[at0001]
+        type: NONE
       openehrCondition:
-        targetRoot: "$archetype/data[at0001]"
-        targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-        operator: "not empty"
+        targetRoot: $archetype/data[at0001]
+        targetAttribute: items[openEHR-EHR-CLUSTER.lebensphase.v0]
+        operator: not empty
 ----
 
 === type
 [source,yaml]
 ----
   # openehrCondition example
-  - name: "bodySiteCoded"
+  - name: bodySiteCoded
     with:
-      fhir: "$resource.bodysite"
-      openehr: "$archetype/items[at0001]" #Name of body site
+      fhir: $resource.bodysite
+      openehr: $archetype/items[at0001] #Name of body site
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0001]"
-      operator: "type"
-      criteria: "DV_CODED_TEXT"
+      targetRoot: $archetype
+      targetAttribute: items[at0001]
+      operator: type
+      criteria: DV_CODED_TEXT
 
   # fhirCondition example
-  - name: "bodySiteCoding"
+  - name: bodySiteCoding
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
+      fhir: $resource
+      openehr: $archetype
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      operator: "type"
-      criteria: "CodeableConcept"
+      targetRoot: $fhirRoot
+      operator: type
+      criteria: CodeableConcept
 ----
 
 There can be more conditions (with AND connectors between them). Notice that the condition is an array.
@@ -260,21 +260,21 @@ Example:
 ----
 preprocessor:
   fhirCondition:
-    targetRoot: "$resource.verificationStatus"
-    targetAttribute: "coding"
-    operator: "not of"
-    criteria: "entered-in-error"
+    targetRoot: $resource.verificationStatus
+    targetAttribute: coding
+    operator: not of
+    criteria: entered-in-error
 
 mappings:
-  - name: "period"
+  - name: period
     with:
-      fhir: "$resource.onset.ofType(Period)"
-      openehr: "$archetype/data[at0001]"
-      type: "NONE"
+      fhir: $resource.onset.ofType(Period)
+      openehr: $archetype/data[at0001]
+      type: NONE
     openehrCondition:
-      targetRoot: "$archetype/data[at0001]"
-      targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-      operator: "not empty"
+      targetRoot: $archetype/data[at0001]
+      targetAttribute: items[openEHR-EHR-CLUSTER.lebensphase.v0]
+      operator: not empty
 ----
 
 Here, The openEHR mapping will only be executed if the `verificationStatus` of the cluster

@@ -15,7 +15,7 @@ This is called a mapping method, and the children contained underneath are calle
 [source,yaml]
 ----
 mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
 ----
 
 Name of the mappings `- name: "dateTime"` is used also when a mapping is being extended
@@ -31,10 +31,10 @@ These two keys indicate the paths that are mapped against each other.
 [source,yaml]
 ----
 mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
 ----
 
 In this example, FHIR path `onset` is mapped to the corresponding openEHR path `at0077`
@@ -57,15 +57,15 @@ further in the xref:basics/FollowedBy.adoc[] and xref:recurrence/main.adoc[] cha
 == Undirectional
 To execute a mapping method unidirectional the `undirectional` key can be added to a `- name:` method. This way
 the mapping contained is only executed in one direction. The allowed values are either
-`"openehr->fhir"` or `"fhir->openehr"` This is also true for all the child method contained
+`openehr->fhir` or `fhir->openehr` This is also true for all the child method contained
 underneath of this `with` method.
 
 [source,yaml]
 ----
 mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
-    unidirectional: "openehr->fhir"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
+    unidirectional: openehr->fhir
 ----

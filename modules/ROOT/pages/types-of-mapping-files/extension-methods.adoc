@@ -20,12 +20,12 @@ model mapping file. Add methods can also overwrite prior methods to the same pat
 Example:
 [source,yaml]
 ----
-  - name: "problemQualifier"
-    extension: "add"
+  - name: problemQualifier
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
-    slotArchetype: "CLUSTER.problem_qualifier.v2"
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]
+    slotArchetype: CLUSTER.problem_qualifier.v2
 
 ----
 
@@ -34,16 +34,16 @@ This impacts the model mapping file at runtime in the following way:
 ----
 mappings:
 
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 #------ added --------
-  - name: "problemQualifier"
+  - name: problemQualifier
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
-    slotArchetype: "CLUSTER.problem_qualifier.v2"
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]
+    slotArchetype: CLUSTER.problem_qualifier.v2
 ----
 
 == Append
@@ -55,15 +55,15 @@ Example of an append extension method:
 [source,yaml]
 ----
 
-  - name: "wirkstofftyp"
-    extension: "append"
-    appendTo: "ingredients"
+  - name: wirkstofftyp
+    extension: append
+    appendTo: ingredients
     followedBy:
       mappings:
-        - name: "wirkstofftypExtended"
+        - name: wirkstofftypExtended
           with:
-            fhir: "$fhirRoot.ingredients.extension.value"
-            openehr: "$archetype/items[at0142]"
+            fhir: $fhirRoot.ingredients.extension.value
+            openehr: $archetype/items[at0142]
 ----
 
 This would impact a model mapping file at runtime in the following way:
@@ -71,26 +71,26 @@ This would impact a model mapping file at runtime in the following way:
 [source,yaml]
 ----
 mappings:
-  - name: "name"
+  - name: name
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code
+      openehr: $archetype/items[at0132]
 
-  - name: "ingredients"
+  - name: ingredients
     with:
-      fhir: "$resource.ingredient"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
+      fhir: $resource.ingredient
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.medication.v2] # cluster in cluster
     followedBy:
       mappings:
-        - name: "ingredient"
+        - name: ingredient
           with:
-            fhir: "item.ofType(CodeableConcept)"
-            openehr: "items[at0142]"
+            fhir: item.ofType(CodeableConcept)
+            openehr: items[at0142]
   #----------- Append -----------------------------------
-        - name: "wirkstofftypExtended"
+        - name: wirkstofftypExtended
           with:
-            fhir: "$fhirRoot.ingredients.extension.value"
-            openehr: "$archetype/items[at0142]"
+            fhir: $fhirRoot.ingredients.extension.value
+            openehr: $archetype/items[at0142]
 ----
 
 To maintain readability the append is transformed into a followedBy. If more logic needs to be altered, the
@@ -103,37 +103,37 @@ is the name of the method in the model mapping that will be overwritten.
 Example:
 [source,yaml]
 ----
-  - name: "dateTime"
-    extension: "overwrite"
+  - name: dateTime
+    extension: overwrite
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "period"
+        - name: period
           with:
-            fhir: "onset.ofType(Period)"
-            openehr: "$archetype"
-            type: "DATETIME"
+            fhir: onset.ofType(Period)
+            openehr: $archetype
+            type: DATETIME
           followedBy:
             mappings:
-              - name: "start"
+              - name: start
                 with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
-                  type: "DATETIME"
+                  fhir: $fhirRoot.start
+                  openehr: data[at0001]/items[at0077]
+                  type: DATETIME
 
-              - name: "lebensphaseCluster"
+              - name: lebensphaseCluster
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-                slotArchetype: "CLUSTER.lebensphase.v0"
+                  fhir: $fhirRoot
+                  openehr: data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+                slotArchetype: CLUSTER.lebensphase.v0
 
-        - name: "dateTime"
+        - name: dateTime
           with:
-            fhir: "onset.ofType(DateTime)"
-            openehr: "data[at0001]/items[at0077]"
+            fhir: onset.ofType(DateTime)
+            openehr: data[at0001]/items[at0077]
 
 ----
 Prior to extension use:
@@ -141,53 +141,53 @@ Prior to extension use:
 [source,yaml]
 ----
 mappings:
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
 ----
 
 After the extension, the model mapping would look like this at runtime:
 [source,yaml]
 ----
 mappings:
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 
 # ---------- Overwrite ---------------------------
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "period"
+        - name: period
           with:
-            fhir: "onset.ofType(Period)"
-            openehr: "$archetype"
+            fhir: onset.ofType(Period)
+            openehr: $archetype
           followedBy:
             mappings:
-              - name: "start"
+              - name: start
                 with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
+                  fhir: $fhirRoot.start
+                  openehr: data[at0001]/items[at0077]
 
-              - name: "lebensphaseCluster"
+              - name: lebensphaseCluster
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-                slotArchetype: "CLUSTER.lebensphase.v0"
+                  fhir: $fhirRoot
+                  openehr: data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+                slotArchetype: CLUSTER.lebensphase.v0
 
-        - name: "dateTime"
+        - name: dateTime
           with:
-            fhir: "onset.ofType(DateTime)"
-            openehr: "data[at0001]/items[at0077]"
+            fhir: onset.ofType(DateTime)
+            openehr: data[at0001]/items[at0077]
 ----

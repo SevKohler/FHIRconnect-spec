@@ -35,11 +35,11 @@ The presence of the `participationsFunction:` indicates this mapping type.
 
 [source,yaml]
 ----
-  - name: "other_participations"
+  - name: other_participations
     with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/other_participations"
-    participationsFunction: "asserter"
+      fhir: $resource.asserter
+      openehr: $archetype/other_participations
+    participationsFunction: asserter
 ----
 
 
@@ -52,12 +52,12 @@ program code.
 
 [source,yaml]
 ----
-  - name: "dosageTiming"
+  - name: dosageTiming
     with:
-      fhir: "$fhirRoot.timing"
-      openehr: "$archetype"
+      fhir: $fhirRoot.timing
+      openehr: $archetype
     # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
-    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax
+    mappingCode: timingToDaily_NonDaily #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax
 ----
 
 [[LinkedMappings]]
@@ -71,13 +71,13 @@ link are set in the `link`.
 
 [source,yaml]
 ----
-  - name: "partOf"
+  - name: partOf
     with:
-      fhir: "$resource.partOf"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.partOf
+      openehr: $archetype/links # will use link
     link:
-      meaning: "Part of referenced event"
-      type: "partOf"
+      meaning: Part of referenced event
+      type: partOf
 ----
 
 == NONE
@@ -86,20 +86,20 @@ Does nothing, usually used to iterate and access nested elements of the path, vi
 [source,yaml]
 ----
 
-  - name: "problemDiagnose"
+  - name: problemDiagnose
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype"
-      type: "NONE" # iterate 0..n codes
+      fhir: $resource.code
+      openehr: $archetype
+      type: NONE # iterate 0..n codes
     followedBy:
       mappings:
-        - name: "problemDiagnoseName"
+        - name: problemDiagnoseName
           with:
-            fhir: "coding"
-            openehr: "data[at0001]/items[at0002]"
-        - name: "problemDiagnoseText"
+            fhir: coding
+            openehr: data[at0001]/items[at0002]
+        - name: problemDiagnoseText
           with:
-            fhir: "text"
-            openehr: "data[at0001]/items[at0009]"
+            fhir: text
+            openehr: data[at0001]/items[at0009]
 
 ----
