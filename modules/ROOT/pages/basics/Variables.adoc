@@ -39,10 +39,10 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
 
 mappings:
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset" # "Condition.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"
+      fhir: $resource.onset # "Condition.onset"
+      openehr: $archetype/data[at0001]/items[at0077]  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"
 ----
 
 == `$composition`
@@ -52,10 +52,10 @@ composition that contains it. Typically, this is used to map elements like the c
 
 [source,yaml]
 ----
-  - name: "composer"
+  - name: composer
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer"
+      fhir: $resource.performer
+      openehr: $composition/composer
 ----
 
 == `$openehrRoot` and `$fhirRoot`
@@ -68,20 +68,20 @@ Example:
 
 [source,yaml]
 ----
-  - name: "status"
+  - name: status
     with:
-      fhir: "$resource"
-      openehr: "$archetype/items[at0073]/value"
+      fhir: $resource
+      openehr: $archetype/items[at0073]/value
     manual:
-      - name: "registered"
+      - name: registered
         fhir:
-          path: "status"
-          value: "registered"
+          path: status
+          value: registered
         openehrCondition:
-          targetRoot: "$openehrRoot/defining_code" # $archetype/items[at0073]/value/defining_code
-          targetAttribute: "code_string"
-          operator: "one of"
-          criteria: "at0107"
+          targetRoot: $openehrRoot/defining_code # $archetype/items[at0073]/value/defining_code
+          targetAttribute: code_string
+          operator: one of
+          criteria: at0107
 ----
 
 == `$reference`
@@ -95,18 +95,18 @@ Example:
 
 [source,yaml]
 ----
-  - name: "specimen"
+  - name: specimen
     with:
-      fhir: "$resource.specimen.reference"
-      openehr: "$reference" # no direct path mapping use $reference
+      fhir: $resource.specimen.reference
+      openehr: $reference # no direct path mapping use $reference
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenReference"
+        - name: specimenReference
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"
+            fhir: $fhirRoot
+            openehr: $archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1
 ----
 
 == `$context`
@@ -120,12 +120,12 @@ Example:
 
 [source,yaml]
 ----
-  - name: "agentWho"
+  - name: agentWho
     with:
-      fhir: "$resource.agent.who"
+      fhir: $resource.agent.who
     manual:
-      - name: "who"
+      - name: who
         fhir:
-          - path: "$fhirRoot"
-            value: "$context.who" # dynamic value from the REST call, not a literal
+          - path: $fhirRoot
+            value: $context.who # dynamic value from the REST call, not a literal
 ----

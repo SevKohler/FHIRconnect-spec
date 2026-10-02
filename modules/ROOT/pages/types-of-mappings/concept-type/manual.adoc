@@ -8,54 +8,54 @@ by a list of paths `- path:` and the value we map `- value:`. Several paths can 
 
 [source,yaml]
 ----
-  - name: "ISMTransition"
+  - name: ISMTransition
     with:
-      fhir: "$resource" #there needs to be a mapping table
-      openehr: "$archetype/ism_transition/current_state"
+      fhir: $resource #there needs to be a mapping table
+      openehr: $archetype/ism_transition/current_state
     manual:
-      - name: "initial"
+      - name: initial
         fhir:
-          - path: "status"
-            value: "unknown"
+          - path: status
+            value: unknown
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "524"
         openehr:
-          - path: "defining_code/terminology_id/value"
-            value: "openehr"
-          - path: "value"
-            value: "Initial"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id/value
+            value: openehr
+          - path: value
+            value: Initial
+          - path: defining_code/code_string
             value: "524"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "unknown"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: unknown
 
-      - name: "planned"
+      - name: planned
         fhir:
-          - path: "status"
-            value: "preparation"
+          - path: status
+            value: preparation
         openehrCondition:
-          targetRoot: "$openehrRoot"
-          targetAttribute: "defining_code/code_string"
-          operator: "one of"
+          targetRoot: $openehrRoot
+          targetAttribute: defining_code/code_string
+          operator: one of
           criteria: "526"
         openehr:
-          - path: "defining_code/terminology_id/value"
-            value: "openehr"
-          - path: "value"
-            value: "Planned"
-          - path: "defining_code/code_string"
+          - path: defining_code/terminology_id/value
+            value: openehr
+          - path: value
+            value: Planned
+          - path: defining_code/code_string
             value: "526"
         fhirCondition:
-          targetRoot: "$fhirRoot"
-          targetAttribute: "status"
-          operator: "one of"
-          criteria: "preparation"
+          targetRoot: $fhirRoot
+          targetAttribute: status
+          operator: one of
+          criteria: preparation
 
 ----
 Inside manual mapping method, paths do not overwrite each other.
@@ -65,27 +65,27 @@ are merged together in the same data element and do not overwrite.
 Another typical use case would be to hardcode, extension urls in FHIR.
 [source,yaml]
 ----
-  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
-    extension: "add"
+  - name: periodOnsetStart  # if append name needs to be the same we are appending to
+    extension: add
     with:
-      fhir: "$fhirRoot.start.extension"
-      openehr: "$archetype/items[at0001]"
-      type: "CODEABLECONCEPT"
+      fhir: $fhirRoot.start.extension
+      openehr: $archetype/items[at0001]
+      type: CODEABLECONCEPT
     fhirCondition:
-      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
-      targetAttribute: "url"
-      operator: "one of"
+      targetRoot: $fhirRoot.start.extension #parent selector from jsonpath-plus its like ..
+      targetAttribute: url
+      operator: one of
       criteria: "[http://fhir.de/StructureDefinition/lebensphase]"
     followedBy:
       mappings:
-        - name: "extension"
+        - name: extension
           with:
-            fhir: "$fhirRoot"
+            fhir: $fhirRoot
           manual:
-            - name: "physicalType"
+            - name: physicalType
               fhir:
-                - path: "url"
-                  value: "http://fhir.de/StructureDefinition/lebensphase"
+                - path: url
+                  value: http://fhir.de/StructureDefinition/lebensphase
 ----
 
 == ConceptMaps
@@ -96,16 +96,16 @@ These can be used in the FHIRconnect spec using the `conceptmap:` key, that poin
 [source,yaml]
 ----
 mappings:
-  - name: "periodOnsetStart"  # if append name needs to be the same we are appending to
+  - name: periodOnsetStart  # if append name needs to be the same we are appending to
     with:
-      fhir: "$fhirRoot.start.extension.value"
-      openehr: "$archetype/items[at0001]"
+      fhir: $fhirRoot.start.extension.value
+      openehr: $archetype/items[at0001]
     fhirCondition:
-      targetRoot: "$fhirRoot.start.extension" #parent selector from jsonpath-plus its like ..
-      targetAttribute: "url"
-      operator: "one of"
-      criteria: "http://fhir.de/StructureDefinition/lebensphase"
-    conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
+      targetRoot: $fhirRoot.start.extension #parent selector from jsonpath-plus its like ..
+      targetAttribute: url
+      operator: one of
+      criteria: http://fhir.de/StructureDefinition/lebensphase
+    conceptmap: http://url-of-the-conceptmap # ConceptMap.url
 ----
 
 The concept map can also be directly attached inside the header, this way all codes contained in the
@@ -125,7 +125,7 @@ spec:
     archetype: openEHR-EHR-CLUSTER.problem_qualifier.v2
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
-  conceptmap: "http://url-of-the-conceptmap" # ConceptMap.url
+  conceptmap: http://url-of-the-conceptmap # ConceptMap.url
 ----
 
 How FHIR Connect engine resolves this concept map and does the translation of codes is outside the domain of this
