@@ -10,8 +10,7 @@
     "type": {
       "type": "string",
       "enum": [
-        "context",
-        "subcontext"
+        "context"
       ]
     },
     "metadata": {
@@ -53,6 +52,15 @@
     "context": {
       "type": "object",
       "properties": {
+        "scope": {
+          "type": "string",
+          "enum": [
+            "root",
+            "sub"
+          ],
+          "default": "root",
+          "description": "sub: only entered via slotContext, never splits bundles, must not slot a composition model."
+        },
         "profile": {
           "type": "object",
           "properties": {
