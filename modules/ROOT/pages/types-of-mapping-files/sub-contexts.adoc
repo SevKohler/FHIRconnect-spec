@@ -80,7 +80,8 @@ By convention a sub-context lives in a subfolder of the project.
 * The sub-context must be listed under `contexts`.
 * The sub-context maps *into the parent composition*. `$composition` is the parent's composition.
   A sub-context never creates a composition of its own.
-* Parent and sub-context must have the same `template.id`.
+* The `template.id` of the sub-context is the template embedded at the slot node of the parent template.
+  In openEHR a section is usually modelled as its own SECTION-rooted template (e.g. `IPS Problem List`) and included in the composition template.
 * The `start` archetype of the sub-context must match the archetype in the slot's `openehr` path.
 * The `start` of a `scope: sub` context must not slot a composition model. If a root context is entered via `slotContext`,
   its composition slot is skipped (see xref:types-of-mapping-files/composition-element.adoc[]).
@@ -102,7 +103,7 @@ Reported by the validator. The engine refuses to load the context.
 |Condition |Error
 |`slotArchetype` and `slotContext` on one mapping |mutually exclusive
 |`slotContext` not listed under `contexts` |undeclared sub-context
-|`template.id` differs |template mismatch
+|`template.id` is not the template embedded at the slot node of the parent template |template mismatch
 |`start` archetype differs from the archetype in the slot `openehr` path |start archetype mismatch
 |cycle in `contexts` |cyclic context reference
 |`slotContext` with `openehr: $reference` |sub-context would create a separate composition, not supported
@@ -140,7 +141,7 @@ context:
   profile:
     url: "http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips"
   template:
-    id: "International Patient Summary"
+    id: "IPS Problem List"          # the SECTION template embedded in the IPS composition template
   archetypes:
     - "SECTION.adhoc.v1"
     - "EVALUATION.absence.v2"

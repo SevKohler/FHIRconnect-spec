@@ -67,8 +67,7 @@ context:
 
 == Contexts
 The `contexts` key lists sub-contexts that this context enters via `slotContext`, for example the entry
-profiles of a patient summary composition. A sub-context maps into the parent composition and shares its
-`template.id`. See xref:types-of-mapping-files/sub-contexts.adoc[].
+profiles of a patient summary composition. A sub-context maps into the parent composition; its `template.id` is the section template embedded there. It uses its own extensions. See xref:types-of-mapping-files/sub-contexts.adoc[].
 
 [source,yaml]
 ----
