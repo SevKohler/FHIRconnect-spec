@@ -28,3 +28,8 @@ See xref:types-of-mappings/concept-type/concept-mappings.adoc[].
 In this case, the Diagnosis mapping would link to the Encounter mapping.
 As a result, in addition to processing its own mapping, the Diagnosis mapping
 would also trigger the Encounter mapping.
+
+== Resources consumed by a sub-context
+A resource that a parent context pulls in via `slotContext` is marked as resolved. The engine does not
+process it again as a root, even if its profile URL matches the sub-context on its own.
+Resources nothing consumes are still processed as roots. See xref:types-of-mapping-files/sub-contexts.adoc[].

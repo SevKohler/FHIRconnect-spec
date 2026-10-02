@@ -25,3 +25,7 @@ Most of the time, reference comes in combination with a `slotArchetype`, as in t
             openehr: "/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
           slotArchetype: "CLUSTER.specimen.v1"
 ----
+
+Inside a `reference`, `slotContext` can be used instead of `slotArchetype` when the referenced resource is
+mapped by its own context, e.g. the entries of a patient summary section.
+See xref:types-of-mapping-files/sub-contexts.adoc[].

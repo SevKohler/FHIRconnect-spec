@@ -44,3 +44,8 @@ This will redirect the mapping to the mapping file that contains the mapping def
 there. The path to which this mapping is transformed is specified in the openehr attribute (`openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"` in the example).
 The paths contained in the `with:` are not automatically transformed as they would normally do, since this logic is contained
 in the slotArchetype.
+
+== Slot context
+`slotContext` works like `slotArchetype` but names a context mapping. The engine maps from the `start` of that
+context with its own extensions and returns. The two keys are mutually exclusive on one mapping.
+See xref:types-of-mapping-files/sub-contexts.adoc[].
