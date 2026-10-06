@@ -73,15 +73,15 @@ profiles of a patient summary composition. A sub-context maps into the parent co
 ----
 context:
   template:
-    id: "International Patient Summary"
+    id: International Patient Summary
   archetypes:
-    - "COMPOSITION.health_summary.v1"
+    - COMPOSITION.health_summary.v1
   extensions:
-    - "IPS_composition"
+    - IPS_composition
   contexts:
-    - "IPS_problem.context"
-    - "IPS_allergy.context"
-  start: "COMPOSITION.health_summary.v1"
+    - IPS_problem.context
+    - IPS_allergy.context
+  start: COMPOSITION.health_summary.v1
 ----
 
 == Start
