@@ -12,16 +12,16 @@ Most of the time, reference comes in combination with a `slotArchetype`, as in t
 
 [source,yaml]
 ----
-  - name: "specimen"
+  - name: specimen
     with:
-      fhir: "$resource.specimen.reference"
-      openehr: "$reference" # no direct path mapping, use $reference
+      fhir: $resource.specimen.reference
+      openehr: $reference # no direct path mapping, use $reference
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenReference"
+        - name: specimenReference
           with:
-            fhir: "$fhirRoot"
-            openehr: "/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"
+            fhir: $fhirRoot
+            openehr: /data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1
 ----

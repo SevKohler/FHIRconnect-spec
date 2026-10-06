@@ -89,41 +89,41 @@ spec:
 
 mappings:
 
-  - name: "provider"
+  - name: provider
     with:
-      fhir: "$resource.recorder"
-      openehr: "$archetype/provider"  # often required therefore simplified mapping engine is to resolve Reference -> Participations
+      fhir: $resource.recorder
+      openehr: $archetype/provider  # often required therefore simplified mapping engine is to resolve Reference -> Participations
 
-  - name: "problemDiagnose"
+  - name: problemDiagnose
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/data[at0001]/items[at0002]"
+      fhir: $resource.code
+      openehr: $archetype/data[at0001]/items[at0002]
 
-  - name: "note"
+  - name: note
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0069]"
+      fhir: $resource.note.text
+      openehr: $archetype/data[at0001]/items[at0069]
 
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
 
-  - name: "bodySite"
+  - name: bodySite
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0012]
 
-  - name: "bodySiteCluster"
+  - name: bodySiteCluster
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1
 
-  - name: "severity"
+  - name: severity
     with:
-      fhir: "$resource.severity"
-      openehr: "$archetype/data[at0001]/items[at0005]"
+      fhir: $resource.severity
+      openehr: $archetype/data[at0001]/items[at0005]
 
 ----
 

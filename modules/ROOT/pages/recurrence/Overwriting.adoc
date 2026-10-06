@@ -7,15 +7,15 @@ As an example:
 [source,yaml]
 ----
 mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset" # 0..1
-      openehr: "$archetype/data[at0001]/items[at0077]" # 0..1
+      fhir: $resource.onset # 0..1
+      openehr: $archetype/data[at0001]/items[at0077] # 0..1
 
-  - name: "muchCoolerDateTime" # overwrites at0077
+  - name: muchCoolerDateTime # overwrites at0077
     with:
-      fhir: "$resource.onset" # 0..1
-      openehr: "$archetype/data[at0001]/items[at0078]" # 0..1
+      fhir: $resource.onset # 0..1
+      openehr: $archetype/data[at0001]/items[at0078] # 0..1
 ----
 Here both elements map the onset. If the `at0078` exists in the archetype, we would rather have
 this one populated, instead of the `at0077`. Therfore, we write the latter one afterwards.

@@ -6,16 +6,16 @@ from a `0..n` to a `0..1` field, only the last entry of `0..n` is mapped.
 
 [source,yaml]
 ----
-  - name: "bodySite"
+  - name: bodySite
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0012]
 
-  - name: "bodySiteCluster"
+  - name: bodySiteCluster
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1
 ----
 In this example, both the cluster and the `at0012` (bodySite openEHR) are mapped to `bodySite` in FHIR.
 Often, openEHR has additional fields to be more granular, like in this case. FHIR only has
