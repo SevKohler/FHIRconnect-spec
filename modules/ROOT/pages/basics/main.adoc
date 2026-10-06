@@ -90,9 +90,7 @@ Quote a value only where YAML would read it as something else:
 * values containing `: ` or ` #`, or ending with `:`;
 * values with escaped characters, such as embedded quotes in markup.
 
-The engine receives the same string either way, so this is a convention for new and edited mappings,
-not a breaking change. In the official library the `org.highmed` mappings already follow it; the
-`org.openehr` ones still quote throughout and have not been migrated yet.
+The engine receives the same string either way.
 
 == Naming convention
 
