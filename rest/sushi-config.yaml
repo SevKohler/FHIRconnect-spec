@@ -1,0 +1,30 @@
+id: org.fhirconnect.restful
+canonical: http://fhirconnect.org/fhir
+name: FHIRConnectRestfulIG
+title: FHIRConnect RESTful Implementation Guide
+description: FHIR Implementation Guide defining the REST API surface for a FHIRConnect engine — the FHIR facade layer for converting between openEHR Compositions and FHIR resources.
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+copyrightYear: 2026+
+releaseLabel: ci-build
+
+publisher:
+  name: FHIRConnect
+  url: https://github.com/SevKohler/FHIRconnect-spec
+
+license: Apache-2.0
+
+parameters:
+  show-inherited-invariants: false
+
+pages:
+  index.md:
+    title: Home
+  operations.md:
+    title: Operations
+
+menu:
+  Home: index.html
+  Operations: operations.html
+  Artifacts: artifacts.html
