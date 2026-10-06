@@ -90,7 +90,7 @@ Quote a value only where YAML would read it as something else:
 * values containing `: ` or ` #`, or ending with `:`;
 * values with escaped characters, such as embedded quotes in markup.
 
-The engine receives the same string either way. The official library follows this rule.
+The engine receives the same string either way.
 
 == Naming convention
 
