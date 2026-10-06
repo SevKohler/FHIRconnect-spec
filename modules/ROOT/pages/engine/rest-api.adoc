@@ -319,34 +319,24 @@ path segment is not a reliable template identifier - so without it the engine ca
 | `context.onBehalfOf` | no | Reference(Organization) | The institution the agent acts for, mapped to Provenance `agent.onBehalfOf`.
 |===
 
+The `context` fields above are a fixed list: this specification defines no others, and an engine MUST
+reject a call that supplies one.
+
 === Resolving the patient
 
 Almost every mapped resource needs a subject. FHIR resources carry a `subject` or `patient` reference, while
-an openEHR Composition identifies the patient only indirectly - the EHR itself belongs to a patient, and the
-Composition belongs to the EHR. Bridging the two therefore means resolving an EHR ID to a patient identity,
-and that correspondence is not something either payload carries.
+an openEHR Composition identifies the patient only indirectly, through the EHR it belongs to. Mapping
+therefore means resolving an EHR ID to a patient identity, and neither payload carries that correspondence.
 
-Resolving that correspondence is properly the job of a dedicated service. The preferred
-arrangement is for the engine to integrate with whatever authority already owns patient identity in the
-deployment: a **Master Patient Index**, a national patient or person registry, a regional identity service,
-or the demographics service described in xref:engine/demographics.adoc[]. The engine passes the EHR ID to that service 
-and receives the patient identity in return.
+Resolving it is properly the job of whatever authority already owns patient identity in the deployment: a
+**Master Patient Index**, a national or regional registry, or the demographics service described in
+xref:engine/demographics.adoc[]. An engine's own EHR-ID-to-patient table serves the same purpose locally, see
+xref:engine/id-management.adoc[]. Keeping resolution in one place keeps the answer correct as patient records
+are merged, corrected, or re-linked.
 
-This is the arrangement to aim for. It keeps identity resolution in one place, lets it be audited and
-governed like any other identity lookup, keeps callers from having to know the mapping, and means the answer
-stays correct as patient records are merged, corrected, or re-linked over time. Where the engine maintains its
-own EHR-ID-to-patient table - see xref:engine/id-management.adoc[] - that table serves the same purpose
-locally.
-
-In practice such integration is not always available. There may be no MPI in the deployment at all; the
-service may exist but be unreachable from where the engine runs, for network or security reasons; access may
-be blocked by procurement, data-protection, or governance constraints rather than technical ones; the engine
-may run in a test, migration, or offline batch context where the real registry is deliberately out of scope;
-or the caller may simply already hold the answer and a lookup would be redundant.
-
-`context.patient` exists for exactly those cases. It lets the caller state the subject directly, so a mapping
-can still be performed when the engine cannot resolve it. It is a fallback, and the specification treats it as
-one:
+Such integration is not always available: there may be no MPI, it may be unreachable or barred by governance,
+or the engine may run in a test, migration, or offline batch context. `context.patient` lets the caller state
+the subject directly, so a mapping can still be performed. It is a fallback:
 
 * An engine MUST NOT require `context.patient`. A call that omits it MUST still succeed wherever the engine can
   resolve the subject by other means.
@@ -356,9 +346,8 @@ one:
 
 [NOTE]
 ====
-Because `context.patient` bypasses the identity service, correctness rests entirely with the caller. A wrong
-reference here attaches clinical data to the wrong patient, and nothing downstream will catch it. Deployments
-that can integrate with an MPI or equivalent should do so and treat this parameter as a stopgap.
+Because `context.patient` bypasses identity resolution, correctness rests entirely with the caller. A wrong
+reference attaches clinical data to the wrong patient, and nothing downstream will catch it.
 ====
 
 === Output
