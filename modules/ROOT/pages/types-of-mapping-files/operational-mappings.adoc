@@ -27,7 +27,7 @@ spec:
   version: R4
   fhirConfig:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Provenance
-  unidirectional: "openehr->fhir"  # set once for the whole model (this example)
+  unidirectional: openehr->fhir  # set once for the whole model (this example)
 ----
 
 == Field sources
@@ -48,30 +48,30 @@ run-time fields (`target`, `recorded`, iteration) on its own, so they are absent
 [source,yaml]
 ----
 mappings:
-  - name: "activity"
+  - name: activity
     with:
-      fhir: "$resource.activity.coding"
+      fhir: $resource.activity.coding
     manual:
-      - name: "activityCoding"
+      - name: activityCoding
         fhir:
-          - path: "system"
-            value: "http://hl7.org/fhir/w3c-provenance-activity-type"
-          - path: "code"
-            value: "Derivation"
+          - path: system
+            value: http://hl7.org/fhir/w3c-provenance-activity-type
+          - path: code
+            value: Derivation
 
-  - name: "sourceEntity"  # engine emits one entity per source composition
+  - name: sourceEntity  # engine emits one entity per source composition
     with:
-      fhir: "$resource.entity"
+      fhir: $resource.entity
     followedBy:
       mappings:
-        - name: "sourceEntityRole"
+        - name: sourceEntityRole
           with:
-            fhir: "role"
+            fhir: role
           manual:
-            - name: "role"
+            - name: role
               fhir:
-                - path: "$fhirRoot"
-                  value: "source"
+                - path: $fhirRoot
+                  value: source
 ----
 
 == `$context`
@@ -84,14 +84,14 @@ engine defaults to its own `Device`.
 
 [source,yaml]
 ----
-  - name: "agentWho"
+  - name: agentWho
     with:
-      fhir: "$resource.agent.who"
+      fhir: $resource.agent.who
     manual:
-      - name: "who"
+      - name: who
         fhir:
-          - path: "$fhirRoot"
-            value: "$context.who"  # dynamic value from the REST call, not a literal
+          - path: $fhirRoot
+            value: $context.who  # dynamic value from the REST call, not a literal
 ----
 
 == Triggering and extending
@@ -102,15 +102,15 @@ An operational model is not referenced under `archetypes` or `extensions`. A con
 ----
 context:
   profile:
-    url: "http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab"
-    version: "0.1.1"
+    url: http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab
+    version: 0.1.1
   archetypes:
-    - "OBSERVATION.laboratory_test_result.v1"
+    - OBSERVATION.laboratory_test_result.v1
   extensions:
     - provenance_who_context  # extends provenance, see below
-  start: "OBSERVATION.laboratory_test_result.v1"
+  start: OBSERVATION.laboratory_test_result.v1
   operational:
-    - "provenance"
+    - provenance
 ----
 
 To add fields to the generated resource (e.g. `agent.who`, a policy, or an institution),

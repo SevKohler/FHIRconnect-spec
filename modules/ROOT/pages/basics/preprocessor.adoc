@@ -8,15 +8,15 @@ are allowed here.
 ----
 preprocessor:
   fhirCondition:
-    targetRoot: "$resource.verificationStatus"
-    targetAttribute: "coding"
-    operator: "not of"
-    criteria: "entered-in-error"
+    targetRoot: $resource.verificationStatus
+    targetAttribute: coding
+    operator: not of
+    criteria: entered-in-error
 
 mappings: # body
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
-    unidirectional: "openehr->fhir"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
+    unidirectional: openehr->fhir
 ----

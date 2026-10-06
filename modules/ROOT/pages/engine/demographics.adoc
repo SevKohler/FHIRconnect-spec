@@ -30,10 +30,10 @@ returned.
 Example
 [source,yaml]
 ----
-  - name: "partyIdentifiedComposer"
+  - name: partyIdentifiedComposer
     with:
-      fhir: "$resourcePath.recorder"
-      openehr: "$composition/composer"
+      fhir: $resourcePath.recorder
+      openehr: $composition/composer
 ----
 
 Flow from FHIR to openEHR

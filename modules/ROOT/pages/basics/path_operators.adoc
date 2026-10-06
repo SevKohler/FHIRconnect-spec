@@ -16,20 +16,20 @@ This is usually necessary when elements are contained at different levels.
 
 [source,yaml]
 ----
-- name: "example"
+- name: example
   with:
-    fhir: "$resource.somePath"
-    openehr: "../data[at0001]/items[at0009]"
+    fhir: $resource.somePath
+    openehr: ../data[at0001]/items[at0009]
 # Goes one element back and accesses /data[at0001]/items[at0009]
 ----
 
 [source,yaml]
 ----
 mappings:
-  - name: "example"
+  - name: example
     with:
-      fhir: "^.code" # Accesses the parent's .code
-      openehr: "data[at0001]/items[at0009]"
+      fhir: ^.code # Accesses the parent's .code
+      openehr: data[at0001]/items[at0009]
 ----
 
 == Recurrence and parent elements
@@ -45,38 +45,38 @@ to reach `diagnosis.use`.
 
 [source,yaml]
 ----
-- name: "problemDiagnosis"
+- name: problemDiagnosis
   with:
-    fhir: "$resource.diagnosis"
-    openehr: "$archetype"
-    type: "NONE"
+    fhir: $resource.diagnosis
+    openehr: $archetype
+    type: NONE
   followedBy:
     mappings:
-      - name: "referencedDiagnose"
+      - name: referencedDiagnose
         with:
-          fhir: "condition.reference"
-          openehr: "$reference"
+          fhir: condition.reference
+          openehr: $reference
         reference:
-          resourceType: "Condition"
+          resourceType: Condition
           mappings:
-            - name: "slot"
+            - name: slot
               with:
-                fhir: "$fhirRoot"
-                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
-              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+                fhir: $fhirRoot
+                openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+              slotArchetype: EVALUATION.problem_diagnosis.v1
               followedBy:
                 mappings:
-                  - name: "diagnosisTyp"
+                  - name: diagnosisTyp
                     with:
-                      fhir: "^^.use.coding"
-                      openehr: "data[at0001]/items[at0009]"
+                      fhir: ^^.use.coding
+                      openehr: data[at0001]/items[at0009]
                     fhirCondition:
-                      targetRoot: "^^.use.coding.code"
-                      targetAttribute: "value"
-                      operator: "one of"
+                      targetRoot: ^^.use.coding.code
+                      targetAttribute: value
+                      operator: one of
                       criteria:
-                        - "referral-diagnosis"
-                        - "treatment-diagnosis"
+                        - referral-diagnosis
+                        - treatment-diagnosis
 ----
 
 === Wrong mapping
@@ -89,35 +89,35 @@ This is both a recurrence problem and a structural one, as the `use` is not cont
 
 [source,yaml]
 ----
-- name: "problemDiagnosis"
+- name: problemDiagnosis
   with:
-    fhir: "$resource.diagnosis"
-    openehr: "$archetype"
-    type: "NONE"
+    fhir: $resource.diagnosis
+    openehr: $archetype
+    type: NONE
   followedBy:
     mappings:
-      - name: "referencedDiagnose"
+      - name: referencedDiagnose
         with:
-          fhir: "condition.reference"
-          openehr: "$reference"
+          fhir: condition.reference
+          openehr: $reference
         reference:
-          resourceType: "Condition"
+          resourceType: Condition
           mappings:
-            - name: "slot"
+            - name: slot
               with:
-                fhir: "$fhirRoot"
-                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
-              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+                fhir: $fhirRoot
+                openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+              slotArchetype: EVALUATION.problem_diagnosis.v1
 
-      - name: "diagnosisTyp"
+      - name: diagnosisTyp
         with:
-          fhir: "use.coding.code"
-          openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]"
+          fhir: use.coding.code
+          openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]
         fhirCondition:
-          targetRoot: "use.coding.code"
-          targetAttribute: "value"
-          operator: "one of"
+          targetRoot: use.coding.code
+          targetAttribute: value
+          operator: one of
           criteria:
-            - "referral-diagnosis"
-            - "treatment-diagnosis"
+            - referral-diagnosis
+            - treatment-diagnosis
 ----
