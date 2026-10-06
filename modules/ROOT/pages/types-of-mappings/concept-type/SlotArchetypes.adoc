@@ -41,6 +41,6 @@ mappings:
 ----
 
 This will redirect the mapping to the mapping file that contains the mapping definition (in the example the lebensphase mapping) and execute the transformation
-there. The path to which this mapping is transformed is specified in the openehr attribute (`openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"` in the example).
+there. The path to which this mapping is transformed is specified in the openehr attribute (`openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]` in the example).
 The paths contained in the `with:` are not automatically transformed as they would normally do, since this logic is contained
 in the slotArchetype.

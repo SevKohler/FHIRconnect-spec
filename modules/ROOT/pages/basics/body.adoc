@@ -9,7 +9,7 @@ one of the models, it must be added to the model in FHIR or openEHR. Otherwise, 
 All mapping files start with the `mappings` key in their body, which is a list containing
 a set of named mappings.
 
-The `mappings:` body is followed by mapping methods, each part starting with `- name: "mappingName"`.
+The `mappings:` body is followed by mapping methods, each part starting with `- name: mappingName`.
 This is called a mapping method, and the children contained underneath are called child methods.
 
 [source,yaml]
@@ -18,7 +18,7 @@ mappings: # starts mappings
   - name: dateTime # name of the mapping
 ----
 
-Name of the mappings `- name: "dateTime"` is used also when a mapping is being extended
+Name of the mappings `- name: dateTime` is used also when a mapping is being extended
 (for `overwrite` or `append`, see: xref:types-of-mapping-files/extension-methods.adoc[]).
 
 It is proposed that camelCase is used when specifying mapping names, otherwise apart from being used when referenced
