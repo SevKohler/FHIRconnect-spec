@@ -308,6 +308,9 @@
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="model-mappings.html">Model Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/model-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/model-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -444,7 +447,22 @@ spec:  # Schema specific to the FHIRConnect v0.0.1 engine
 <div class="paragraph">
 <p>In general the folder structure of each FHIRconnect project is up to the provider. The official <a href="https://github.com/SevKohler/FHIRconnect-mapping-lib/tree/main">library</a> follows
 the pattern described here. Each of these model mappings aims to be as generically valid as possible. They can be found in
-the <code>mapping/model</code> folder. Here, the models are organized based on their openEHR archetype type.</p>
+the <code>model</code> folder, split by the kind of model:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>model/medical</code> holds the archetype-derived model mappings, organized by openEHR archetype type.</p>
+</li>
+<li>
+<p><code>model/operational</code> holds <a href="operational-mappings.html" class="xref page">operational models</a>
+(no archetype), one folder per mapping.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The remainder of this section describes <code>model/medical</code>, where the models are organized based on
+their openEHR archetype type.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -507,74 +525,41 @@ spec:
 
 mappings:
 
-  - name: "contextStartTime"
+  - name: provider
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recorder
+      openehr: $archetype/provider  # often required therefore simplified mapping engine is to resolve Reference -&gt; Participations
 
-  - name: "participations"
+  - name: problemDiagnose
     with:
-      fhir: "$resource.asserter"
-      openehr: "$composition/context/participations"
-    participationsFunction: "asserter"
+      fhir: $resource.code
+      openehr: $archetype/data[at0001]/items[at0002]
 
-  - name: "composer"
+  - name: note
     with:
-      fhir: "$resource.recorder"
-      openehr: "$composition/composer"
+      fhir: $resource.note.text
+      openehr: $archetype/data[at0001]/items[at0069]
 
-  - name: "other_participations"
+  - name: dateTime
     with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/other_participations"
-    participationsFunction: "asserter"
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]
 
-  - name: "provider"
+  - name: bodySite
     with:
-      fhir: "$resource.recorder"
-      openehr: "$archetype/provider"  # Often required, so the simplified mapping engine resolves Reference -&gt; Participations
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0012]
 
-  - name: "problemDiagnose"
+  - name: bodySiteCluster
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype"
-      type: "NONE"
-    followedBy:
-      mappings:
-        - name: "problemDiagnoseName"
-          with:
-            fhir: "coding"
-            openehr: "data[at0001]/items[at0002]"
-        - name: "problemDiagnoseText"
-          with:
-            fhir: "text"
-            openehr: "data[at0001]/items[at0009]"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1
 
-  - name: "note"
+  - name: severity
     with:
-      fhir: "$resource.note.text"
-      openehr: "$archetype/data[at0001]/items[at0069]"
-
-  - name: "dateTime"
-    with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"
-
-  - name: "bodySite"
-    with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
-
-  - name: "bodySiteCluster"
-    with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"
-
-  - name: "severity"
-    with:
-      fhir: "$resource.severity"
-      openehr: "$archetype/data[at0005]"</code></pre>
+      fhir: $resource.severity
+      openehr: $archetype/data[at0001]/items[at0005]</code></pre>
 </div>
 </div>
 </div>

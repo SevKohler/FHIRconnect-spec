@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="Conditions.html">Condition</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Conditions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -408,29 +411,29 @@ a condition is only executed if the parts in the condition are true. There are t
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "example"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: example
   with:
-    fhir: "$fhirRoot"
-    openehr: "$archetype"
-  slotArchetype: "EVALUATION.problem_diagnosis.v1"
+    fhir: $fhirRoot
+    openehr: $archetype
+  slotArchetype: EVALUATION.problem_diagnosis.v1
   openehrCondition:
-    targetRoot: "$archetype"
-    targetAttribute: "data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string"
-    operator: "one of"
-    criteria: "at0064"</code></pre>
+    targetRoot: $archetype
+    targetAttribute: data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]/items[at0063]/defining_code/code_string
+    operator: one of
+    criteria: at0064</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier"
-      targetAttribute: "type.coding.code"
-      operator: "one of"
-      criteria: "room"</code></pre>
+      targetRoot: $resource.identifier
+      targetAttribute: type.coding.code
+      operator: one of
+      criteria: room</code></pre>
 </div>
 </div>
 </div>
@@ -444,12 +447,12 @@ not align, FHIRconnect will not be able to filter correctly and the engine shoul
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier" # same path 0..n
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier # same path 0..n
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier" # same path 0..n</code></pre>
+      targetRoot: $resource.identifier # same path 0..n</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -463,12 +466,12 @@ the condition is true.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier" # same path 0..n
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier # same path 0..n
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier.type" # not the same since references type</code></pre>
+      targetRoot: $resource.identifier.type # not the same since references type</code></pre>
 </div>
 </div>
 </div>
@@ -483,15 +486,15 @@ the identifier entries that match. These are the ones that are mapped in the <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "room"</code></pre>
+      targetRoot: $resource.identifier # same except for type
+      targetAttribute: type.coding.code # access child nodes
+      operator: one of
+      criteria: room</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -545,15 +548,15 @@ they interact with the <code>with:</code> method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "room"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: room
     with:
-      fhir: "$resource.location.identifier.value"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.location.identifier.value
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.some.otherPath"
-      targetAttribute: "coding.code"
-      operator: "one of"
-      criteria: "someValue"</code></pre>
+      targetRoot: $resource.some.otherPath
+      targetAttribute: coding.code
+      operator: one of
+      criteria: someValue</code></pre>
 </div>
 </div>
 </div>
@@ -615,15 +618,15 @@ an operator must also be specified.</p>
 <h3 id="one-of"><a class="anchor" href="#one-of"></a>one of</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "mapIdentifierForRoom"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: mapIdentifierForRoom
     with:
-      fhir: "$resource.location.identifier"
-      openehr: "$archetype/data[at0001]/items[at0018]/items[at0023]"
+      fhir: $resource.location.identifier
+      openehr: $archetype/data[at0001]/items[at0018]/items[at0023]
     fhirCondition:
-      targetRoot: "$resource.location.identifier" # same except for type
-      targetAttribute: "type.coding.code" # access child nodes
-      operator: "one of"
-      criteria: "room"</code></pre>
+      targetRoot: $resource.location.identifier # same except for type
+      targetAttribute: type.coding.code # access child nodes
+      operator: one of
+      criteria: room</code></pre>
 </div>
 </div>
 </div>
@@ -631,15 +634,15 @@ an operator must also be specified.</p>
 <h3 id="not-of"><a class="anchor" href="#not-of"></a>not of</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "statusCoded"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: statusCoded
     with:
-      fhir: "$resource.verificationStatus.coding"
-      openehr: "$archetype/items[at0004]/value/defining_code"
+      fhir: $resource.verificationStatus.coding
+      openehr: $archetype/items[at0004]/value/defining_code
     fhirCondition:
-      targetRoot: "$resource.verificationStatus.coding.code"
-      targetAttribute: "value"
-      operator: "not of"
-      criteria: "entered-in-error"</code></pre>
+      targetRoot: $resource.verificationStatus.coding.code
+      targetAttribute: value
+      operator: not of
+      criteria: entered-in-error</code></pre>
 </div>
 </div>
 </div>
@@ -647,14 +650,14 @@ an operator must also be specified.</p>
 <h3 id="empty"><a class="anchor" href="#empty"></a>empty</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "bodySiteText"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: bodySiteText
     with:
-      fhir: "$resource.bodysite.text"
-      openehr: "$archetype/items[at0001]" #Name of body site
+      fhir: $resource.bodysite.text
+      openehr: $archetype/items[at0001] #Name of body site
     fhirCondition:
-      targetRoot: "$resource.bodysite"
-      targetAttribute: "coding"
-      operator: "empty"</code></pre>
+      targetRoot: $resource.bodysite
+      targetAttribute: coding
+      operator: empty</code></pre>
 </div>
 </div>
 </div>
@@ -663,15 +666,15 @@ an operator must also be specified.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  mappings:
-    - name: "period"
+    - name: period
       with:
-        fhir: "$resource.onset.ofType(Period)"
-        openehr: "$archetype/data[at0001]"
-        type: "NONE"
+        fhir: $resource.onset.ofType(Period)
+        openehr: $archetype/data[at0001]
+        type: NONE
       openehrCondition:
-        targetRoot: "$archetype/data[at0001]"
-        targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-        operator: "not empty"</code></pre>
+        targetRoot: $archetype/data[at0001]
+        targetAttribute: items[openEHR-EHR-CLUSTER.lebensphase.v0]
+        operator: not empty</code></pre>
 </div>
 </div>
 </div>
@@ -680,25 +683,25 @@ an operator must also be specified.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  # openehrCondition example
-  - name: "bodySiteCoded"
+  - name: bodySiteCoded
     with:
-      fhir: "$resource.bodysite"
-      openehr: "$archetype/items[at0001]" #Name of body site
+      fhir: $resource.bodysite
+      openehr: $archetype/items[at0001] #Name of body site
     openehrCondition:
-      targetRoot: "$archetype"
-      targetAttribute: "items[at0001]"
-      operator: "type"
-      criteria: "DV_CODED_TEXT"
+      targetRoot: $archetype
+      targetAttribute: items[at0001]
+      operator: type
+      criteria: DV_CODED_TEXT
 
   # fhirCondition example
-  - name: "bodySiteCoding"
+  - name: bodySiteCoding
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
+      fhir: $resource
+      openehr: $archetype
     fhirCondition:
-      targetRoot: "$fhirRoot"
-      operator: "type"
-      criteria: "CodeableConcept"</code></pre>
+      targetRoot: $fhirRoot
+      operator: type
+      criteria: CodeableConcept</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -723,21 +726,21 @@ The Condition filters the amount of <code>$archetype</code> or <code>resources</
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">preprocessor:
   fhirCondition:
-    targetRoot: "$resource.verificationStatus"
-    targetAttribute: "coding"
-    operator: "not of"
-    criteria: "entered-in-error"
+    targetRoot: $resource.verificationStatus
+    targetAttribute: coding
+    operator: not of
+    criteria: entered-in-error
 
 mappings:
-  - name: "period"
+  - name: period
     with:
-      fhir: "$resource.onset.ofType(Period)"
-      openehr: "$archetype/data[at0001]"
-      type: "NONE"
+      fhir: $resource.onset.ofType(Period)
+      openehr: $archetype/data[at0001]
+      type: NONE
     openehrCondition:
-      targetRoot: "$archetype/data[at0001]"
-      targetAttribute: "items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-      operator: "not empty"</code></pre>
+      targetRoot: $archetype/data[at0001]
+      targetAttribute: items[openEHR-EHR-CLUSTER.lebensphase.v0]
+      operator: not empty</code></pre>
 </div>
 </div>
 <div class="paragraph">

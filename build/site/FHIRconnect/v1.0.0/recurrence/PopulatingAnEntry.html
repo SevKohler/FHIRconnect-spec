@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="PopulatingAnEntry.html">Transforming child elements in a list</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/PopulatingAnEntry.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/PopulatingAnEntry.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -410,22 +413,22 @@ paths need to be mapped.</p>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "collection"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: collection
     with:
-      fhir: "$resource.collection" # 0..n
-      openehr: "$archetype/data[at0001]" # 0..n
-      type: "NONE"
+      fhir: $resource.collection # 0..n
+      openehr: $archetype/data[at0001] # 0..n
+      type: NONE
     followedBy:
       mappings:
-        - name: "collected"
+        - name: collected
           with:
-            fhir: "collected"
-            openehr: "items[at0015]"
+            fhir: collected
+            openehr: items[at0015]
 
-        - name: "collector"
+        - name: collector
           with:
-            fhir: "collector"
-            openehr: "items[at0070]"</code></pre>
+            fhir: collector
+            openehr: items[at0070]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -476,22 +479,22 @@ occurrence of <code>collection</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "collection"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: collection
     with:
-      fhir: "$resource.collection" # 0..n
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.collection # 0..n
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "collected"
+        - name: collected
           with:
-            fhir: "collected"
-            openehr: "data[at0001]/items[at0015]"
+            fhir: collected
+            openehr: data[at0001]/items[at0015]
 
-        - name: "collector"
+        - name: collector
           with:
-            fhir: "collector"
-            openehr: "data[at0001]/items[at0070]"</code></pre>
+            fhir: collector
+            openehr: data[at0001]/items[at0070]</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -546,26 +549,25 @@ Each of which maps in the <code>followedBy</code> the <code>identifier</code>.</
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: specimen
     with:
-      fhir: "$resource.specimen" #0..n
-      openehr: "$reference"
-      type: "NONE"
+      fhir: $resource.specimen #0..n
+      openehr: $reference
+      type: NONE
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenRecurring"
+        - name: specimenRecurring
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/activities[at0001]
-/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"   #0..n
-          slotArchetype: "CLUSTER.specimen.v1"
+            fhir: $fhirRoot
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]   #0..n
+          slotArchetype: CLUSTER.specimen.v1
           followedBy:
             mappings:
-              - name: "specimenIdentifier"
+              - name: specimenIdentifier
                 with:
-                  fhir: "identifier"
-                  openehr: "items[at0001]"</code></pre>
+                  fhir: identifier
+                  openehr: items[at0001]</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -576,23 +578,23 @@ identifier.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: specimen
     with:
-      fhir: "$resource.specimen"
-      openehr: "$reference"
-      type: "NONE"
+      fhir: $resource.specimen
+      openehr: $reference
+      type: NONE
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenRecurring"
+        - name: specimenRecurring
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"
-        - name: "specimenIdentifier"
+            fhir: $fhirRoot
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1
+        - name: specimenIdentifier
           with:
-            fhir: "identifier"
-            openehr: "$archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]"</code></pre>
+            fhir: identifier
+            openehr: $archetype/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.specimen.v1]/items[at0001]</code></pre>
 </div>
 </div>
 </div>
@@ -610,15 +612,15 @@ like this:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category" # 0..n
-      openehr: "$archetype/protocol[at0004]/items[at0094]" # 0..n
+      fhir: $resource.category # 0..n
+      openehr: $archetype/protocol[at0004]/items[at0094] # 0..n
     followedBy:
-      - name: "category"
+      - name: category
         with:
-          fhir: "text" # 0..n
-          openehr: "/items[at0063]" # 0..n</code></pre>
+          fhir: text # 0..n
+          openehr: /items[at0063] # 0..n</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -667,10 +669,10 @@ inside <code>at0094</code>. This would be the same case when mapping from openEH
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "category"
+  - name: category
     with:
-      fhir: "$resource.category.text" # 0..n
-      openehr: "$archetype/protocol[at0004]/items[at0094]/items[at0063]"</code></pre>
+      fhir: $resource.category.text # 0..n
+      openehr: $archetype/protocol[at0004]/items[at0094]/items[at0063]</code></pre>
 </div>
 </div>
 <div class="listingblock">

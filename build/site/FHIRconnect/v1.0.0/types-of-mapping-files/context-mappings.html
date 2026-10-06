@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Context Mappings :: FHIRconnect</title>
     <link rel="prev" href="composition-element.html">
-    <link rel="next" href="TemplateAgnostic.html">
+    <link rel="next" href="operational-mappings.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -308,6 +308,9 @@
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="context-mappings.html">Context Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/context-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/context-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -438,11 +441,11 @@ The <code>template.sem_ver</code> defines what version of the template is mapped
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure
+    version: 2025.0.0
   template:
-    id: "KDS_Prozedur"
-    sem_ver: "10.0.0"</code></pre>
+    id: KDS_Prozedur
+    sem_ver: 10.0.0</code></pre>
 </div>
 </div>
 </div>
@@ -463,16 +466,16 @@ and B has an extension C, then extension C is applied.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure
+    version: 2025.0.0
   template:
-    id: "KDS_Prozedur"
-    sem_ver: "10.0.0"
+    id: KDS_Prozedur
+    sem_ver: 10.0.0
   archetypes:
-    - "ACTION.procedure.v1"
-    - "CLUSTER.case_identification.v0"
+    - ACTION.procedure.v1
+    - CLUSTER.case_identification.v0
   extensions:
-    - "KDS_procedure.v1"</code></pre>
+    - KDS_procedure.v1</code></pre>
 </div>
 </div>
 </div>
@@ -491,24 +494,24 @@ since this extends the <code>ACTION.procedure.v1</code>.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
   profile:
-    url: "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure"
-    version: "2025.0.0"
+    url: https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure
+    version: 2025.0.0
   template:
-    id: "KDS_Prozedur"
-    sem_ver: "10.0.0"
+    id: KDS_Prozedur
+    sem_ver: 10.0.0
   archetypes:
-    - "ACTION.procedure.v1"
-    - "CLUSTER.case_identification.v0"
+    - ACTION.procedure.v1
+    - CLUSTER.case_identification.v0
   extensions:
-    - "KDS_procedure.v1"
-  start: "ACTION.procedure.v1"</code></pre>
+    - KDS_procedure.v1
+  start: ACTION.procedure.v1</code></pre>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="composition-element.html">Mapping composition elements</a></span>
-  <span class="next"><a href="TemplateAgnostic.html">Template Agnostic</a></span>
+  <span class="next"><a href="operational-mappings.html">Operational Mappings</a></span>
 </nav>
 </article>
   </div>

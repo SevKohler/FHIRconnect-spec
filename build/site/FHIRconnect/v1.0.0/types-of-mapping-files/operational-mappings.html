@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Demographics :: FHIRconnect</title>
-    <link rel="prev" href="id-management.html">
-    <link rel="next" href="references.html">
+    <title>Operational Mappings :: FHIRconnect</title>
+    <link rel="prev" href="context-mappings.html">
+    <link rel="next" href="TemplateAgnostic.html">
     <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
   </head>
@@ -290,28 +290,28 @@
     <span class="nav-text">Types of Mapping files</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/main.html">Types of mapping files</a>
+    <a class="nav-link" href="main.html">Types of mapping files</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/model-mappings.html">Model Mappings</a>
+    <a class="nav-link" href="model-mappings.html">Model Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/extension-mappings.html">Extension mappings</a>
+    <a class="nav-link" href="extension-mappings.html">Extension mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/extension-methods.html">Extension methods</a>
+    <a class="nav-link" href="extension-methods.html">Extension methods</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/composition-element.html">Mapping composition elements</a>
+    <a class="nav-link" href="composition-element.html">Mapping composition elements</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
+    <a class="nav-link" href="context-mappings.html">Context Mappings</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="operational-mappings.html">Operational Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
+    <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
   </li>
@@ -331,28 +331,28 @@
     <span class="nav-text">Engine</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="introduction.html">Introduction</a>
+    <a class="nav-link" href="../engine/introduction.html">Introduction</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="defaults-for-fields.html">Defaults for fields</a>
+    <a class="nav-link" href="../engine/defaults-for-fields.html">Defaults for fields</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="Fail.html">When to fail a mapping</a>
+    <a class="nav-link" href="../engine/Fail.html">When to fail a mapping</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="bundles.html">Bundles</a>
+    <a class="nav-link" href="../engine/bundles.html">Bundles</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="id-management.html">ID-Management</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="demographics.html">Demographics</a>
+    <a class="nav-link" href="../engine/id-management.html">ID-Management</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="references.html">References</a>
+    <a class="nav-link" href="../engine/demographics.html">Demographics</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="fhirsearch-and-aql.html">FHIRsearch and AQL</a>
+    <a class="nav-link" href="../engine/references.html">References</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../engine/fhirsearch-and-aql.html">FHIRsearch and AQL</a>
   </li>
 </ul>
   </li>
@@ -386,83 +386,201 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">FHIRconnect</a></li>
-    <li>Engine</li>
-    <li><a href="demographics.html">Demographics</a></li>
+    <li>Grammar</li>
+    <li>Types of Mapping files</li>
+    <li><a href="operational-mappings.html">Operational Mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/engine/demographics.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/operational-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Demographics</h1>
+<h1 class="page">Operational Mappings</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>openEHR distinguishes between a demographic domain and the EHR domain.
-The EHR domain contains clinical EHR data, while the demographics domain usually contains non-clinical data.
-The initial idea behind this separation was to address privacy concerns.
-What constitutes non-clinical data varies between vendors and use cases.</p>
+<p>Operational mappings describe a resource that the engine produces as a <strong>side-effect</strong>
+of a run, rather than from clinical data. The current example targets FHIR —
+<a href="https://www.hl7.org/fhir/R4/provenance.html">Provenance</a>, which records what was produced,
+from which source, when, and by whom — but operational mappings are not bound to FHIR.</p>
 </div>
 <div class="paragraph">
-<p>In the EHR domain, everything relates to a patient&#8217;s EHR, whereas the demographics (or non-clinical CDR)
-usually contains patient demographic data such as full name, address, insurance number, etc.
-There are cases where EHR archetypes contain patient-related data, particularly in research contexts.
-For example, birthdate, gender, and sex are stored.</p>
+<p>Unlike a model mapping, an operational mapping is not derived from an archetype.</p>
 </div>
 <div class="paragraph">
-<p>Vendors typically manage demographic data using either a FHIR server or an openEHR demographics server
-(based on openEHR demographics archetypes). The reference model of the EHR links these external IDs.</p>
+<p>They live under <code>model/operational</code>, one folder per mapping (e.g. <code>model/operational/provenance</code>).</p>
 </div>
-<div class="paragraph">
-<p>FHIRconnect logic sends individual FHIR resources to a demographics endpoint and links them accordingly.
-This endpoint, located outside FHIRconnect, can either transform these resources or use FHIR directly.
-The key requirement is that it returns an external identifier, which is then linked in the openEHR files
-and can also be used to re-retrieve the FHIR resource for transforming it back.</p>
 </div>
-<div class="paragraph">
-<p>This process involves mapping resources to RM paths that reference demographic data.
-If the referenced resource is included in the Bundle, it is sent to the demographics service,
-and the returned ID is stored in the <code>PARTY_IDENTIFIED</code> (or <code>DV_IDENTIFIER</code>) field.
-Otherwise, the resource&#8217;s identifier is directly linked inside the RM field, since there is
-nothing to transform. FHIRconnect performs this operation for each path containing a <code>PARTY_IDENTIFIED</code> field.
-When extracting FHIR data, the ID is requested from the demographics service, and the resource received back is
-returned.</p>
 </div>
+<div class="sect1">
+<h2 id="header"><a class="anchor" href="#header"></a>Header</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Example</p>
+<p>The header is a <code>type: model</code> without an <code>openEhrConfig</code> — the missing archetype is what
+marks the mapping as operational. Direction can be set once at the model level; the
+Provenance example is <code>openehr&#8594;fhir</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: partyIdentifiedComposer
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v0.0.1
+type: model
+metadata:
+  name: provenance
+  version: 1.0.0
+spec:
+  system: FHIR
+  version: R4
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Provenance
+  unidirectional: openehr-&gt;fhir  # set once for the whole model (this example)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="field-sources"><a class="anchor" href="#field-sources"></a>Field sources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The fields of an operational resource come from four places:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 78%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Source</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run-time values the engine owns and cannot be written in YAML, e.g. <code>target</code>, <code>id</code>, <code>recorded</code>, and list iteration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaulted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constants pinned in the mapping via <code>manual</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional values passed in on the REST call, see <code>$context</code> below.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mappings"><a class="anchor" href="#mappings"></a>Mappings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Defaulted fields use <code>manual</code> exactly as in any other mapping. The engine fills the
+run-time fields (<code>target</code>, <code>recorded</code>, iteration) on its own, so they are absent here.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
+  - name: activity
     with:
-      fhir: $resourcePath.recorder
-      openehr: $composition/composer</code></pre>
+      fhir: $resource.activity.coding
+    manual:
+      - name: activityCoding
+        fhir:
+          - path: system
+            value: http://hl7.org/fhir/w3c-provenance-activity-type
+          - path: code
+            value: Derivation
+
+  - name: sourceEntity  # engine emits one entity per source composition
+    with:
+      fhir: $resource.entity
+    followedBy:
+      mappings:
+        - name: sourceEntityRole
+          with:
+            fhir: role
+          manual:
+            - name: role
+              fhir:
+                - path: $fhirRoot
+                  value: source</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="context"><a class="anchor" href="#context"></a><code>$context</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>$context</code> holds values supplied by the caller on the REST request. It is used only in
+operational mappings, and only for values that are not in the composition. A context value
+is referenced from a <code>manual</code> <code>value</code>, so the FHIR &lt;&#8594; openEHR roundtrip stays untouched.</p>
 </div>
 <div class="paragraph">
-<p>Flow from FHIR to openEHR</p>
+<p>In the example below <code>agent.who</code> is set from the request when supplied; otherwise the
+engine defaults to its own <code>Device</code>.</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="../_images/demographics1.drawio.png" alt="demographics1.drawio">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: agentWho
+    with:
+      fhir: $resource.agent.who
+    manual:
+      - name: who
+        fhir:
+          - path: $fhirRoot
+            value: $context.who  # dynamic value from the REST call, not a literal</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="triggering-and-extending"><a class="anchor" href="#triggering-and-extending"></a>Triggering and extending</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Flow from openEHR to FHIR</p>
+<p>An operational model is not referenced under <code>archetypes</code> or <code>extensions</code>. A context
+<strong>triggers</strong> it with the <code>operational</code> key, resolved by <code>metadata.name</code>.</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="../_images/demographics2.drawio.png" alt="demographics2.drawio">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">context:
+  profile:
+    url: http://hl7.eu/fhir/laboratory/StructureDefinition/DiagnosticReport-eu-lab
+    version: 0.1.1
+  archetypes:
+    - OBSERVATION.laboratory_test_result.v1
+  extensions:
+    - provenance_who_context  # extends provenance, see below
+  start: OBSERVATION.laboratory_test_result.v1
+  operational:
+    - provenance</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If a demographics service is not implemented, a FHIRconnect engine should use the IDs maintained
-by the FHIRconnect engine&#8217;s FHIR-server.</p>
+<p>To add fields to the generated resource (e.g. <code>agent.who</code>, a policy, or an institution),
+write a <code>type: extension</code> whose <code>extends</code> names the operational model, and list it under
+<code>extensions</code> as usual.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">type: extension
+metadata:
+  name: provenance_who_context
+spec:
+  system: FHIR
+  version: R4
+  extends: provenance</code></pre>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="id-management.html">ID-Management</a></span>
-  <span class="next"><a href="references.html">References</a></span>
+  <span class="prev"><a href="context-mappings.html">Context Mappings</a></span>
+  <span class="next"><a href="TemplateAgnostic.html">Template Agnostic</a></span>
 </nav>
 </article>
   </div>

@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="main.html">Header</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/main.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -475,6 +478,58 @@ The <code>openEHRCondig.revision</code> states what revision of the archetype th
 <div class="paragraph">
 <p>The <code>fhirConfig.structureDefintion</code> contains the information about which FHIR StructureDefinition is mapped.
 This is just information for the user and has no impact on the mapping.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="direction"><a class="anchor" href="#direction"></a>Direction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default a mapping file runs both ways (openEHR &#8594; FHIR and FHIR &#8594; openEHR). If a file should
+only ever run one way, <code>unidirectional</code> can be set in the <code>spec</code> with <code>openehr&#8594;fhir</code> or
+<code>fhir&#8594;openehr</code>. The whole file is then executed in that direction only. The same key can also
+be set per mapping, see <a href="body.html" class="xref page">Body</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  system: FHIR
+  version: R4
+  unidirectional: openehr-&gt;fhir  # the whole file runs one way only
+  openEhrConfig:
+    archetype: openEHR-EHR-ACTION.informed_consent.v0
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Consent</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="quoting"><a class="anchor" href="#quoting"></a>Quoting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Values are plain YAML scalars and need no quotes: <code>fhir: $resource.onset</code>,
+<code>openehr: $archetype/data[at0001]/items[at0077]</code>, <code>operator: one of</code>, <code>unidirectional: openehr&#8594;fhir</code>.
+Quote a value only where YAML would read it as something else:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>strings that look like numbers, booleans or null, e.g. <code>value: "271"</code>, <code>criteria: "no"</code>;</p>
+</li>
+<li>
+<p>values starting with <code>*</code>, <code>&amp;</code>, <code>!</code>, <code>%</code>, <code>@</code>, <code>[</code>, <code>{</code>, <code>|</code>, <code>&gt;</code>, <code>#</code>, <code>-</code> or <code>?</code>;</p>
+</li>
+<li>
+<p>values containing <code>: ` or ` #</code>, or ending with <code>:</code>;</p>
+</li>
+<li>
+<p>values with escaped characters, such as embedded quotes in markup.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The engine receives the same string either way.</p>
 </div>
 </div>
 </div>

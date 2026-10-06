@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="path_operators.html">Path operators</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/path_operators.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/path_operators.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -420,20 +423,20 @@ Both notations can be combined to access parents further back in the hierarchy.<
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "example"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: example
   with:
-    fhir: "$resource.somePath"
-    openehr: "../data[at0001]/items[at0009]"
+    fhir: $resource.somePath
+    openehr: ../data[at0001]/items[at0009]
 # Goes one element back and accesses /data[at0001]/items[at0009]</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "example"
+  - name: example
     with:
-      fhir: "^.code" # Accesses the parent's .code
-      openehr: "data[at0001]/items[at0009]"</code></pre>
+      fhir: ^.code # Accesses the parent's .code
+      openehr: data[at0001]/items[at0009]</code></pre>
 </div>
 </div>
 </div>
@@ -456,38 +459,38 @@ to reach <code>diagnosis.use</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "problemDiagnosis"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: problemDiagnosis
   with:
-    fhir: "$resource.diagnosis"
-    openehr: "$archetype"
-    type: "NONE"
+    fhir: $resource.diagnosis
+    openehr: $archetype
+    type: NONE
   followedBy:
     mappings:
-      - name: "referencedDiagnose"
+      - name: referencedDiagnose
         with:
-          fhir: "condition.reference"
-          openehr: "$reference"
+          fhir: condition.reference
+          openehr: $reference
         reference:
-          resourceType: "Condition"
+          resourceType: Condition
           mappings:
-            - name: "slot"
+            - name: slot
               with:
-                fhir: "$fhirRoot"
-                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
-              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+                fhir: $fhirRoot
+                openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+              slotArchetype: EVALUATION.problem_diagnosis.v1
               followedBy:
                 mappings:
-                  - name: "diagnosisTyp"
+                  - name: diagnosisTyp
                     with:
-                      fhir: "^^.use.coding"
-                      openehr: "data[at0001]/items[at0009]"
+                      fhir: ^^.use.coding
+                      openehr: data[at0001]/items[at0009]
                     fhirCondition:
-                      targetRoot: "^^.use.coding.code"
-                      targetAttribute: "value"
-                      operator: "one of"
+                      targetRoot: ^^.use.coding.code
+                      targetAttribute: value
+                      operator: one of
                       criteria:
-                        - "referral-diagnosis"
-                        - "treatment-diagnosis"</code></pre>
+                        - referral-diagnosis
+                        - treatment-diagnosis</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -502,37 +505,37 @@ only the <code>use</code> code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: "problemDiagnosis"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: problemDiagnosis
   with:
-    fhir: "$resource.diagnosis"
-    openehr: "$archetype"
-    type: "NONE"
+    fhir: $resource.diagnosis
+    openehr: $archetype
+    type: NONE
   followedBy:
     mappings:
-      - name: "referencedDiagnose"
+      - name: referencedDiagnose
         with:
-          fhir: "condition.reference"
-          openehr: "$reference"
+          fhir: condition.reference
+          openehr: $reference
         reference:
-          resourceType: "Condition"
+          resourceType: Condition
           mappings:
-            - name: "slot"
+            - name: slot
               with:
-                fhir: "$fhirRoot"
-                openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]"
-              slotArchetype: "EVALUATION.problem_diagnosis.v1"
+                fhir: $fhirRoot
+                openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+              slotArchetype: EVALUATION.problem_diagnosis.v1
 
-      - name: "diagnosisTyp"
+      - name: diagnosisTyp
         with:
-          fhir: "use.coding.code"
-          openehr: "items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]"
+          fhir: use.coding.code
+          openehr: items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0009]
         fhirCondition:
-          targetRoot: "use.coding.code"
-          targetAttribute: "value"
-          operator: "one of"
+          targetRoot: use.coding.code
+          targetAttribute: value
+          operator: one of
           criteria:
-            - "referral-diagnosis"
-            - "treatment-diagnosis"</code></pre>
+            - referral-diagnosis
+            - treatment-diagnosis</code></pre>
 </div>
 </div>
 </div>

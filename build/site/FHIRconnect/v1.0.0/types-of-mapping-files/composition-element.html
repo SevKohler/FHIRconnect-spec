@@ -308,6 +308,9 @@
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="composition-element.html">Mapping composition elements</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/composition-element.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/composition-element.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -396,11 +399,102 @@
 </aside>
 <article class="doc">
 <h1 class="page">Mapping composition elements</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>Composition mappings are not an own layer of mapping. The concept of a Composition as it exists in openEHR
-has no exact copy in FHIR. Fields contained in the Composition are contained in the resource instance. Therefore,
-their mapping has to be contained there. Each project based mapping has to check, which composition level
-mappings it inherits by the model mappings and has to overwrite those which it does not want.</p>
+<p>A Composition as it exists in openEHR has no direct equivalent in FHIR. The fields it
+carries — <code>date</code>, <code>author</code>, <code>status</code>, participations, identifiers — are not a resource of
+their own; they end up on the target resource instance.</p>
+</div>
+<div class="paragraph">
+<p>These composition-level fields recur for every resource built from a composition. Rather than
+re-mapping them in each project, they are modelled once as a single reusable composition model
+mapping (under <code>model/medical/composition</code>) that a project uses as-is, or specialises through
+an extension when it needs to.</p>
+</div>
+<div class="paragraph">
+<p>Because the same composition archetype maps to
+different FHIR resources, there is one composition model per target resource, named
+<code>COMPOSITION.&lt;archetype&gt;.&lt;FhirResource&gt;</code> — e.g. <code>COMPOSITION.report_result.v1.DiagnosticReport</code>
+and <code>COMPOSITION.report.v1.Condition</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/CompositionFolder.png" alt="CompositionFolder">
+</div>
+</div>
+<div class="paragraph">
+<p>A composition is therefore not consumed as a layer of its own: a project includes the one it
+needs and uses or changes its fields.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example"><a class="anchor" href="#example"></a>Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Say we have the following composition model mapping for mappings to the <code>Procedure</code> resource.
+It maps the composition-level fields composer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v1.0.0
+type: model
+metadata:
+  name: COMPOSITION.report.v1.Procedure
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  openEhrConfig:
+    archetype: openEHR-EHR-COMPOSITION.report.v1
+  fhirConfig:
+    structureDefinition: http://hl7.org/fhir/StructureDefinition/Procedure
+
+mappings:
+  - name: composer
+    with:
+      fhir: $resource.recorder
+      openehr: $composition/composer</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="triggering-the-composition"><a class="anchor" href="#triggering-the-composition"></a>Triggering the composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Composition mappings are extended and used like any other model mapping — through extensions
+and the context. To run one, the <code>start</code> mapping slots it in via <code>slotArchetype</code>. If the
+<code>start</code> does not already do this, extend it and <code>add</code> the mapping:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">grammar: FHIRConnect/v1.0.0
+type: extension
+metadata:
+  name:  KDS_procedure.v1
+  version: 0.0.1-alpha
+spec:
+  system: FHIR
+  version: R4
+  extends: ACTION.procedure.v1
+
+mappings:
+  - name: compositionMapping
+    extension: add
+    with:
+      fhir: $resource
+      openehr: $composition
+    slotArchetype: COMPOSITION.report.v1.Procedure</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the single point that triggers the composition mapping — no magic, just model mappings
+and extensions as everywhere else. Doing it is mandatory since every openEHR representation is
+contained in a composition, so the <code>start</code> always has to pull one in.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="extension-methods.html">Extension methods</a></span>

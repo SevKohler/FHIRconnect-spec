@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="Overwriting.html">Overwriting</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/Overwriting.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/Overwriting.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -404,15 +407,15 @@ As an example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings: # starts mappings
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset" # 0..1
-      openehr: "$archetype/data[at0001]/items[at0077]" # 0..1
+      fhir: $resource.onset # 0..1
+      openehr: $archetype/data[at0001]/items[at0077] # 0..1
 
-  - name: "muchCoolerDateTime" # overwrites at0077
+  - name: muchCoolerDateTime # overwrites at0077
     with:
-      fhir: "$resource.onset" # 0..1
-      openehr: "$archetype/data[at0001]/items[at0078]" # 0..1</code></pre>
+      fhir: $resource.onset # 0..1
+      openehr: $archetype/data[at0001]/items[at0078] # 0..1</code></pre>
 </div>
 </div>
 <div class="paragraph">

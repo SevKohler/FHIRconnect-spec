@@ -308,6 +308,9 @@
     <a class="nav-link" href="../../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -389,7 +392,7 @@
     <li><a href="Reference.html">Reference</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/Reference.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/Reference.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -410,18 +413,18 @@ Most of the time, reference comes in combination with a <code>slotArchetype</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: specimen
     with:
-      fhir: "$resource.specimen.reference"
-      openehr: "$reference" # no direct path mapping, use $reference
+      fhir: $resource.specimen.reference
+      openehr: $reference # no direct path mapping, use $reference
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenReference"
+        - name: specimenReference
           with:
-            fhir: "$fhirRoot"
-            openehr: "/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"</code></pre>
+            fhir: $fhirRoot
+            openehr: /data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1</code></pre>
 </div>
 </div>
 <nav class="pagination">

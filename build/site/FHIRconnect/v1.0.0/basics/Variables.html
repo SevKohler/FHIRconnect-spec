@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="Variables.html">Variables</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/Variables.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -438,6 +441,10 @@ reusable paths.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>$reference</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Helper to indicate a skipped path, due to resolving a reference</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>$context</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Values passed in on the REST call (operational mappings only)</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -461,10 +468,10 @@ spec:
     structureDefinition: http://hl7.org/fhir/StructureDefinition/Condition
 
 mappings:
-  - name: "dateTime" # name of the mapping
+  - name: dateTime # name of the mapping
     with:
-      fhir: "$resource.onset" # "Condition.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"</code></pre>
+      fhir: $resource.onset # "Condition.onset"
+      openehr: $archetype/data[at0001]/items[at0077]  #"/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0077]"</code></pre>
 </div>
 </div>
 </div>
@@ -478,10 +485,10 @@ composition that contains it. Typically, this is used to map elements like the c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "composer"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: composer
     with:
-      fhir: "$resource.performer"
-      openehr: "$composition/composer"</code></pre>
+      fhir: $resource.performer
+      openehr: $composition/composer</code></pre>
 </div>
 </div>
 </div>
@@ -499,20 +506,20 @@ and adds a new child to it. If you want to point to the parent instead of a chil
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "status"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: status
     with:
-      fhir: "$resource"
-      openehr: "$archetype/items[at0073]/value"
+      fhir: $resource
+      openehr: $archetype/items[at0073]/value
     manual:
-      - name: "registered"
+      - name: registered
         fhir:
-          path: "status"
-          value: "registered"
+          path: status
+          value: registered
         openehrCondition:
-          targetRoot: "$openehrRoot/defining_code" # $archetype/items[at0073]/value/defining_code
-          targetAttribute: "code_string"
-          operator: "one of"
-          criteria: "at0107"</code></pre>
+          targetRoot: $openehrRoot/defining_code # $archetype/items[at0073]/value/defining_code
+          targetAttribute: code_string
+          operator: one of
+          criteria: at0107</code></pre>
 </div>
 </div>
 </div>
@@ -531,18 +538,44 @@ openEHR. Usually, this is handled in the following method.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "specimen"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: specimen
     with:
-      fhir: "$resource.specimen.reference"
-      openehr: "$reference" # no direct path mapping use $reference
+      fhir: $resource.specimen.reference
+      openehr: $reference # no direct path mapping use $reference
     reference:
-      resourceType: "Specimen"
+      resourceType: Specimen
       mappings:
-        - name: "specimenReference"
+        - name: specimenReference
           with:
-            fhir: "$fhirRoot"
-            openehr: "$archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]"
-          slotArchetype: "CLUSTER.specimen.v1"</code></pre>
+            fhir: $fhirRoot
+            openehr: $archetype/data[at0003]/data[at0065]/items[openEHR-EHR-CLUSTER.specimen.v1]
+          slotArchetype: CLUSTER.specimen.v1</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="context"><a class="anchor" href="#context"></a><code>$context</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>$context</code> holds values passed in on the REST call. It is used in
+<a href="../types-of-mapping-files/operational-mappings.html" class="xref page">operational mappings</a> only, and
+only for values that are not in the composition. A context value is referenced from a
+<code>manual</code> <code>value</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: agentWho
+    with:
+      fhir: $resource.agent.who
+    manual:
+      - name: who
+        fhir:
+          - path: $fhirRoot
+            value: $context.who # dynamic value from the REST call, not a literal</code></pre>
 </div>
 </div>
 </div>

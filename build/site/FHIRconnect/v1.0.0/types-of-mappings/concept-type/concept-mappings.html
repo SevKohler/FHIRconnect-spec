@@ -308,6 +308,9 @@
     <a class="nav-link" href="../../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -389,7 +392,7 @@
     <li><a href="concept-mappings.html">Concept type mappings</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/concept-mappings.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/concept-mappings.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -464,11 +467,11 @@ The presence of the <code>participationsFunction:</code> indicates this mapping 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "other_participations"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: other_participations
     with:
-      fhir: "$resource.asserter"
-      openehr: "$archetype/other_participations"
-    participationsFunction: "asserter"</code></pre>
+      fhir: $resource.asserter
+      openehr: $archetype/other_participations
+    participationsFunction: asserter</code></pre>
 </div>
 </div>
 </div>
@@ -485,12 +488,12 @@ program code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "dosageTiming"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: dosageTiming
     with:
-      fhir: "$fhirRoot.timing"
-      openehr: "$archetype"
+      fhir: $fhirRoot.timing
+      openehr: $archetype
     # type: "PROGRAMMED" not necessary, mappingCode is unique for PROGRAMMED_MAPPINGS
-    mappingCode: "timingToDaily_NonDaily" #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax</code></pre>
+    mappingCode: timingToDaily_NonDaily #FHIR and openEHR are here very different, openEHR uses ISO, FHIR uses custom syntax</code></pre>
 </div>
 </div>
 </div>
@@ -508,13 +511,13 @@ link are set in the <code>link</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "partOf"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: partOf
     with:
-      fhir: "$resource.partOf"
-      openehr: "$archetype/links" # will use link
+      fhir: $resource.partOf
+      openehr: $archetype/links # will use link
     link:
-      meaning: "Part of referenced event"
-      type: "partOf"</code></pre>
+      meaning: Part of referenced event
+      type: partOf</code></pre>
 </div>
 </div>
 </div>
@@ -527,21 +530,21 @@ link are set in the <code>link</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "problemDiagnose"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: problemDiagnose
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype"
-      type: "NONE" # iterate 0..n codes
+      fhir: $resource.code
+      openehr: $archetype
+      type: NONE # iterate 0..n codes
     followedBy:
       mappings:
-        - name: "problemDiagnoseName"
+        - name: problemDiagnoseName
           with:
-            fhir: "coding"
-            openehr: "data[at0001]/items[at0002]"
-        - name: "problemDiagnoseText"
+            fhir: coding
+            openehr: data[at0001]/items[at0002]
+        - name: problemDiagnoseText
           with:
-            fhir: "text"
-            openehr: "data[at0001]/items[at0009]"</code></pre>
+            fhir: text
+            openehr: data[at0001]/items[at0009]</code></pre>
 </div>
 </div>
 </div>

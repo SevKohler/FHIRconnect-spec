@@ -308,6 +308,9 @@
     <a class="nav-link" href="context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="extension-methods.html">Extension methods</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/extension-methods.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mapping-files/extension-methods.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -442,12 +445,12 @@ model mapping file. Add methods can also overwrite prior methods to the same pat
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "problemQualifier"
-    extension: "add"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: problemQualifier
+    extension: add
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
-    slotArchetype: "CLUSTER.problem_qualifier.v2"</code></pre>
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]
+    slotArchetype: CLUSTER.problem_qualifier.v2</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -457,16 +460,16 @@ model mapping file. Add methods can also overwrite prior methods to the same pat
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
 
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 #------ added --------
-  - name: "problemQualifier"
+  - name: problemQualifier
     with:
-      fhir: "$resource"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]"
-    slotArchetype: "CLUSTER.problem_qualifier.v2"</code></pre>
+      fhir: $resource
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.problem_qualifier.v2]
+    slotArchetype: CLUSTER.problem_qualifier.v2</code></pre>
 </div>
 </div>
 </div>
@@ -484,15 +487,15 @@ the child method. The path then would be <code>appendTo: parent.child</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "wirkstofftyp"
-    extension: "append"
-    appendTo: "ingredients"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: wirkstofftyp
+    extension: append
+    appendTo: ingredients
     followedBy:
       mappings:
-        - name: "wirkstofftypExtended"
+        - name: wirkstofftypExtended
           with:
-            fhir: "$fhirRoot.ingredients.extension.value"
-            openehr: "$archetype/items[at0142]"</code></pre>
+            fhir: $fhirRoot.ingredients.extension.value
+            openehr: $archetype/items[at0142]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -501,26 +504,26 @@ the child method. The path then would be <code>appendTo: parent.child</code></p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "name"
+  - name: name
     with:
-      fhir: "$resource.code"
-      openehr: "$archetype/items[at0132]"
+      fhir: $resource.code
+      openehr: $archetype/items[at0132]
 
-  - name: "ingredients"
+  - name: ingredients
     with:
-      fhir: "$resource.ingredient"
-      openehr: "$archetype/items[openEHR-EHR-CLUSTER.medication.v2]" # cluster in cluster
+      fhir: $resource.ingredient
+      openehr: $archetype/items[openEHR-EHR-CLUSTER.medication.v2] # cluster in cluster
     followedBy:
       mappings:
-        - name: "ingredient"
+        - name: ingredient
           with:
-            fhir: "item.ofType(CodeableConcept)"
-            openehr: "items[at0142]"
+            fhir: item.ofType(CodeableConcept)
+            openehr: items[at0142]
   #----------- Append -----------------------------------
-        - name: "wirkstofftypExtended"
+        - name: wirkstofftypExtended
           with:
-            fhir: "$fhirRoot.ingredients.extension.value"
-            openehr: "$archetype/items[at0142]"</code></pre>
+            fhir: $fhirRoot.ingredients.extension.value
+            openehr: $archetype/items[at0142]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -541,37 +544,37 @@ is the name of the method in the model mapping that will be overwritten.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "dateTime"
-    extension: "overwrite"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: dateTime
+    extension: overwrite
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "period"
+        - name: period
           with:
-            fhir: "onset.ofType(Period)"
-            openehr: "$archetype"
-            type: "DATETIME"
+            fhir: onset.ofType(Period)
+            openehr: $archetype
+            type: DATETIME
           followedBy:
             mappings:
-              - name: "start"
+              - name: start
                 with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
-                  type: "DATETIME"
+                  fhir: $fhirRoot.start
+                  openehr: data[at0001]/items[at0077]
+                  type: DATETIME
 
-              - name: "lebensphaseCluster"
+              - name: lebensphaseCluster
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-                slotArchetype: "CLUSTER.lebensphase.v0"
+                  fhir: $fhirRoot
+                  openehr: data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+                slotArchetype: CLUSTER.lebensphase.v0
 
-        - name: "dateTime"
+        - name: dateTime
           with:
-            fhir: "onset.ofType(DateTime)"
-            openehr: "data[at0001]/items[at0077]"</code></pre>
+            fhir: onset.ofType(DateTime)
+            openehr: data[at0001]/items[at0077]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -580,15 +583,15 @@ is the name of the method in the model mapping that will be overwritten.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource.onset"
-      openehr: "$archetype/data[at0001]/items[at0077]"</code></pre>
+      fhir: $resource.onset
+      openehr: $archetype/data[at0001]/items[at0077]</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -597,40 +600,40 @@ is the name of the method in the model mapping that will be overwritten.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "contextStartTime"
+  - name: contextStartTime
     with:
-      fhir: "$resource.recordedDate"
-      openehr: "$composition/context/start_time"
+      fhir: $resource.recordedDate
+      openehr: $composition/context/start_time
 
 # ---------- Overwrite ---------------------------
-  - name: "dateTime"
+  - name: dateTime
     with:
-      fhir: "$resource"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "period"
+        - name: period
           with:
-            fhir: "onset.ofType(Period)"
-            openehr: "$archetype"
+            fhir: onset.ofType(Period)
+            openehr: $archetype
           followedBy:
             mappings:
-              - name: "start"
+              - name: start
                 with:
-                  fhir: "$fhirRoot.start"
-                  openehr: "data[at0001]/items[at0077]"
+                  fhir: $fhirRoot.start
+                  openehr: data[at0001]/items[at0077]
 
-              - name: "lebensphaseCluster"
+              - name: lebensphaseCluster
                 with:
-                  fhir: "$fhirRoot"
-                  openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-                slotArchetype: "CLUSTER.lebensphase.v0"
+                  fhir: $fhirRoot
+                  openehr: data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+                slotArchetype: CLUSTER.lebensphase.v0
 
-        - name: "dateTime"
+        - name: dateTime
           with:
-            fhir: "onset.ofType(DateTime)"
-            openehr: "data[at0001]/items[at0077]"</code></pre>
+            fhir: onset.ofType(DateTime)
+            openehr: data[at0001]/items[at0077]</code></pre>
 </div>
 </div>
 </div>

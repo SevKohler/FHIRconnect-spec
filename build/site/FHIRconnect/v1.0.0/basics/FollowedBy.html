@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="FollowedBy.html">FollowedBy</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/basics/FollowedBy.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/basics/FollowedBy.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -414,23 +417,23 @@ they will overwrite each other since both address the same root path.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "period"
+  - name: period
     with:
-      fhir: "$resource.onset.ofType(Period)"
-      openehr: "$archetype"
-      type: "NONE"
+      fhir: $resource.onset.ofType(Period)
+      openehr: $archetype
+      type: NONE
     followedBy:
       mappings:
-        - name: "start"
+        - name: start
           with:
-            fhir: "start"
-            openehr: "data[at0001]/items[at0077]"
+            fhir: start
+            openehr: data[at0001]/items[at0077]
 
-        - name: "lebensphaseCluster"
+        - name: lebensphaseCluster
           with:
-            fhir: "$fhirRoot"
-            openehr: "data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-          slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
+            fhir: $fhirRoot
+            openehr: data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+          slotArchetype: CLUSTER.lebensphase.v0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -440,21 +443,21 @@ Slot archetypes are explained in the next chapter.</p>
 </div>
 <div class="paragraph">
 <p>If it was written as two single <code>with:</code> statements, the cluster mappings would, when converting openEHR to FHIR,
-overwrite the <code>"start"</code> mapping since it maps the same path.</p>
+overwrite the <code>start</code> mapping since it maps the same path.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "start"
+  - name: start
     with:
-      fhir: "$resource.onset.ofType(Period).start"
-      openehr: "$archetype/data[at0001]items[at0077]"
+      fhir: $resource.onset.ofType(Period).start
+      openehr: $archetype/data[at0001]items[at0077]
 
-  - name: "lebensphaseCluster"
+  - name: lebensphaseCluster
     with:
-      fhir: "$resource.onset.ofType(Period)" # same path onset, overwrites start
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-    slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
+      fhir: $resource.onset.ofType(Period) # same path onset, overwrites start
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+    slotArchetype: CLUSTER.lebensphase.v0</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -468,7 +471,7 @@ overwrite the <code>"start"</code> mapping since it maps the same path.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>All followedBy mappings start with parent&#8217;s path. In the example above, resolved path used for actual mapping
-of <code>- name: "start"</code> would be <code>$resource.onset.ofType(Period).start</code>. First part being from the parent and
+of <code>- name: start</code> would be <code>$resource.onset.ofType(Period).start</code>. First part being from the parent and
 the <code>start</code> being from the followedBy mapping. In the same manner, openEHR paths are concatenated.</p>
 </div>
 <div class="paragraph">

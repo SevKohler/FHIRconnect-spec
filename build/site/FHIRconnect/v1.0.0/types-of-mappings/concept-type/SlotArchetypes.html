@@ -308,6 +308,9 @@
     <a class="nav-link" href="../../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -389,7 +392,7 @@
     <li><a href="SlotArchetypes.html">SlotArchetypes</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/SlotArchetypes.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/types-of-mappings/concept-type/SlotArchetypes.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -426,22 +429,22 @@ spec:
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mappings:
-  - name: "period"
+  - name: period
     mappings:
-      - name: "start"
+      - name: start
         with:
-          fhir: "$resource.onset.ofType(Period).start"
-          openehr: "items[at0077]"
-      - name: "lebensphaseCluster"
+          fhir: $resource.onset.ofType(Period).start
+          openehr: items[at0077]
+      - name: lebensphaseCluster
         with:
-          fhir: "$resource.onset.ofType(Period)"
-          openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"
-        slotArchetype: "CLUSTER.lebensphase.v0"</code></pre>
+          fhir: $resource.onset.ofType(Period)
+          openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]
+        slotArchetype: CLUSTER.lebensphase.v0</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This will redirect the mapping to the mapping file that contains the mapping definition (in the example the lebensphase mapping) and execute the transformation
-there. The path to which this mapping is transformed is specified in the openehr attribute (<code>openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]"</code> in the example).
+there. The path to which this mapping is transformed is specified in the openehr attribute (<code>openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.lebensphase.v0]</code> in the example).
 The paths contained in the <code>with:</code> are not automatically transformed as they would normally do, since this logic is contained
 in the slotArchetype.</p>
 </div>

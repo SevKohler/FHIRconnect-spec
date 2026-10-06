@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -388,7 +391,7 @@
     <li><a href="TransformingList.html">Transforming a list</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/TransformingList.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/recurrence/TransformingList.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -404,16 +407,16 @@ from a <code>0..n</code> to a <code>0..1</code> field, only the last entry of <c
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: "bodySite"
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  - name: bodySite
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0012]"
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0012]
 
-  - name: "bodySiteCluster"
+  - name: bodySiteCluster
     with:
-      fhir: "$resource.bodySite"
-      openehr: "$archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]"
-    slotArchetype: "CLUSTER.anatomical_location.v1"</code></pre>
+      fhir: $resource.bodySite
+      openehr: $archetype/data[at0001]/items[openEHR-EHR-CLUSTER.anatomical_location.v1]
+    slotArchetype: CLUSTER.anatomical_location.v1</code></pre>
 </div>
 </div>
 <div class="paragraph">

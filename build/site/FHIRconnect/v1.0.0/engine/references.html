@@ -308,6 +308,9 @@
     <a class="nav-link" href="../types-of-mapping-files/context-mappings.html">Context Mappings</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../types-of-mapping-files/operational-mappings.html">Operational Mappings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../types-of-mapping-files/TemplateAgnostic.html">Template Agnostic</a>
   </li>
 </ul>
@@ -387,7 +390,7 @@
     <li><a href="references.html">References</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="file:///home/severin/repos/FHIRconnect-spec/modules/ROOT/pages/engine/references.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="file:///home/severink/repos/FHIRconnect-spec/modules/ROOT/pages/engine/references.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -397,9 +400,11 @@
 <h1 class="page">References</h1>
 <div class="paragraph">
 <p>When a reference is provided in a resource and not contained in the Bundle, the engine should attempt to
-GET it form the sending site. If not possible, the engine proceed with the mapping. To prevent circular
-dependencies in FHIR, the mapping engine should either stop at a given level of references or keep track
-which ones where already resolved.</p>
+GET it from the sending site. If not possible, the engine proceeds with the mapping.</p>
+</div>
+<div class="paragraph">
+<p>To prevent circular dependencies in FHIR, the mapping engine should either stop at a given level of references or keep track
+of which ones are already resolved.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="demographics.html">Demographics</a></span>
