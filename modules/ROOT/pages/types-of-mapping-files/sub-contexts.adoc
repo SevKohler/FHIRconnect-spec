@@ -1,0 +1,196 @@
+= Sub-contexts
+:navtitle: Sub-contexts
+
+== Problem
+
+One openEHR composition can hold several template nodes that use the same archetype with different meaning.
+The International Patient Summary (IPS) template has four `SECTION.adhoc.v1` sections: Problem List,
+Allergies and Intolerances, Medication list, Medical Devices. Each has its own FHIR section code, title and
+entry profile. Extensions are scoped per context, so each section gets its own context with its own extensions.
+The composition context dispatches to them.
+
+== `slotContext`
+
+Sits where `slotArchetype` sits. Names a context mapping instead of a model mapping.
+The engine enters the referenced context, maps from its `start` with its own `archetypes` and `extensions`,
+and returns. The two keys are mutually exclusive on one mapping.
+
+[source,yaml]
+----
+  - name: sectionActiveProblems
+    extension: add
+    with:
+      fhir: $resource.section
+      openehr: $composition/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Problem List']
+    slotContext: IPS_problem.context
+    fhirCondition:
+      targetRoot: $resource.section
+      targetAttribute: code.coding.code
+      operator: one of
+      criteria: 11450-4
+----
+
+The `fhirCondition` selects the sub-context by what the FHIR section carries, here the LOINC code.
+
+== `scope`
+
+A sub-context is an ordinary `type: context` file with `scope: sub` in its `context` block.
+It is never a root: it does not split bundles and is only entered via `slotContext`.
+`scope` defaults to `root`.
+
+[source,yaml]
+----
+type: context
+context:
+  scope: sub
+  profile:
+    url: http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips
+----
+
+A root context may also be referenced via `slotContext`. Then it works standalone and nested;
+nested, its composition slot is skipped.
+
+== `contexts`
+
+The referencing context lists the sub-contexts it uses.
+
+[source,yaml]
+----
+context:
+  profile:
+    url: http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips
+  template:
+    id: International Patient Summary
+  archetypes:
+    - COMPOSITION.health_summary.v1
+  extensions:
+    - IPS_composition
+  contexts:
+    - IPS_problem.context
+    - IPS_allergy.context
+    - IPS_medication.context
+    - IPS_device.context
+  start: COMPOSITION.health_summary.v1
+----
+
+By convention a sub-context lives in a subfolder of the project.
+
+== Rules
+
+* The sub-context must be listed under `contexts`.
+* The sub-context maps *into the parent composition*. `$composition` is the parent's composition.
+  A sub-context never creates a composition of its own.
+* The `template.id` of the sub-context is the template embedded at the slot node of the parent template.
+  In openEHR a section is usually modelled as its own SECTION-rooted template (e.g. `IPS Problem List`) and included in the composition template.
+* The `start` archetype of the sub-context must match the archetype in the slot's `openehr` path.
+* The `start` of a `scope: sub` context must not slot a composition model. If a root context is entered via `slotContext`,
+  its composition slot is skipped (see xref:types-of-mapping-files/composition-element.adoc[]).
+* Every `scope: sub` context must be listed under `contexts` of at least one context.
+* References must be acyclic.
+* A resource consumed through `slotContext` is marked as resolved. The engine does not process it again as a root,
+  even if its profile matches a root context on its own (see xref:engine/bundles.adoc[]).
+
+Creating a separate composition through `slotContext` (e.g. a summary linking to a lab report composition)
+is not supported. A `slotContext` mapping with `openehr: $reference` is a validation error. Use `link` to relate
+compositions. The option is recorded in https://github.com/SevKohler/FHIRconnect-spec/issues/98[#98].
+
+== Validation errors
+
+Reported by the validator. The engine refuses to load the context.
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Condition |Error
+|`slotArchetype` and `slotContext` on one mapping |mutually exclusive
+|`slotContext` not listed under `contexts` |undeclared sub-context
+|`template.id` is not the template embedded at the slot node of the parent template |template mismatch
+|`start` archetype differs from the archetype in the slot `openehr` path |start archetype mismatch
+|cycle in `contexts` |cyclic context reference
+|`slotContext` with `openehr: $reference` |sub-context would create a separate composition, not supported
+|`scope: sub` whose `start` slots a composition model |sub-context must not create a composition
+|`scope: sub` not listed under any `contexts` |unreferenced sub-context
+|===
+
+== Example: IPS
+
+Project layout:
+
+----
+IPS/
+├── IPS.context.yml              # root, dispatches the sections
+├── IPS_composition.yml
+├── problem/
+│   ├── IPS_problem.context.yml  # scope: sub, start: SECTION.adhoc.v1
+│   ├── IPS_problem_section.yml  # title, code, entry, narrative
+│   ├── IPS_problem_diagnosis.yml
+│   └── IPS_problem_qualifier.yml
+├── allergy/
+├── medication/
+└── device/
+----
+
+The library keeps one generic `SECTION.adhoc.v1` model that only maps `emptyReason`.
+What makes a section the problem list is an extension, loaded by the sub-context alone:
+
+[source,yaml]
+----
+# problem/IPS_problem.context.yml
+type: context
+context:
+  scope: sub
+  profile:
+    url: http://hl7.org/fhir/uv/ips/StructureDefinition/Composition-uv-ips
+  template:
+    id: IPS Problem List          # the SECTION template embedded in the IPS composition template
+  archetypes:
+    - SECTION.adhoc.v1
+    - EVALUATION.absence.v2
+    - EVALUATION.problem_diagnosis.v1
+    - CLUSTER.problem_qualifier.v2
+  extensions:
+    - IPS_problem_section
+    - IPS_problem_diagnose
+    - IPS_problem_qualifier
+  start: SECTION.adhoc.v1
+----
+
+[source,yaml]
+----
+# problem/IPS_problem_section.yml
+type: extension
+spec:
+  extends: SECTION.adhoc.v1
+
+mappings:
+  - name: code
+    extension: add
+    with:
+      fhir: code.coding
+      openehr: $archetype
+    manual:
+      - name: manualSystem
+        fhir:
+          - path: system
+            value: http://loinc.org
+      - name: manualCode
+        fhir:
+          - path: code
+            value: 11450-4
+
+  - name: entry
+    extension: add
+    with:
+      fhir: entry
+      openehr: $reference/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+    reference:
+      resourceType: Condition
+      mappings:
+        - name: problemDiagnosis
+          with:
+            fhir: $fhirRoot
+            openehr: $archetype/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+          slotArchetype: EVALUATION.problem_diagnosis.v1
+----
+
+Inside the sub-context, `EVALUATION.problem_diagnosis.v1` resolves with the extensions of that sub-context only.
+The allergy sub-context loads a different section extension for the same `SECTION.adhoc.v1` without any conflict.

@@ -73,5 +73,10 @@ mappings:
 ----
 
 This is the single point that triggers the composition mapping — no magic, just model mappings
-and extensions as everywhere else. Doing it is mandatory since every openEHR representation is
-contained in a composition, so the `start` always has to pull one in.
+and extensions as everywhere else. Doing it is mandatory for the `start` of a root context, since every
+openEHR representation is contained in a composition. Two cases need no slot:
+
+* The `start` is itself a composition model mapping, e.g. a FHIR `Composition` mapped onto
+  `COMPOSITION.health_summary.v1`.
+* The context is entered as a sub-context via `slotContext`. It maps into the parent composition; if its
+  `start` slots a composition model, that mapping is skipped. See xref:types-of-mapping-files/sub-contexts.adoc[].

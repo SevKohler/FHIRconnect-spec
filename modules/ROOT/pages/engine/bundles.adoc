@@ -11,6 +11,7 @@ The FHIRconnect engine needs to split these Bundles into smaller collections to 
 
 The context mapping files contain a list of profile URLs.
 Using this list, the engine must divide the Bundle into manageable parts.
+Only root contexts (`scope: root`, the default) take part in this. A `scope: sub` context is entered via `slotContext` only.
 
 In this example, two context files are provided: one for Diagnoses and one for Procedures.
 The engine splits the Bundle into two separate ones for processing.
@@ -28,3 +29,10 @@ See xref:types-of-mappings/concept-type/concept-mappings.adoc[].
 In this case, the Diagnosis mapping would link to the Encounter mapping.
 As a result, in addition to processing its own mapping, the Diagnosis mapping
 would also trigger the Encounter mapping.
+
+== Resources consumed by a sub-context
+A resource that a parent context pulls in via `slotContext` is marked as resolved. The engine does not
+process it again as a root, even if its profile URL matches the sub-context on its own.
+Resources nothing consumes are still processed as roots. See xref:types-of-mapping-files/sub-contexts.adoc[].
+Whether contexts should drive bundle resolution instead of this preprocess is open, see
+https://github.com/SevKohler/FHIRconnect-spec/issues/99[#99].
