@@ -45,13 +45,21 @@ Two engines run FHIRconnect mappings:
 If an engine behaves differently from this specification, the specification wins. Open an issue in
 the engine's repository.
 
-Tools for writing mappings are in https://github.com/SevKohler/FHIRconnectTools[FHIRconnectTools]:
+Tooling for writing FHIRconnect mappings:
 
-* IntelliJ plugin: shows the resolved openEHR and FHIR path of the mapping under the cursor, path
-  completion, inspections. Beta. Download from the
-  https://github.com/SevKohler/FHIRconnectTools/releases[releases page].
-* Claude Code skills: writing and reviewing mapping files (beta), drafting the alignment table before
-  writing YAML (alpha), running test data through an engine and fixing the mapping (alpha).
+
+* https://github.com/SevKohler/FHIRconnectTools[FHIRconnectTools]:
+** IntelliJ plugin: shows the resolved openEHR and FHIR path of the mapping under the cursor, path
+   completion, inspections. Beta. Download from the
+   https://github.com/SevKohler/FHIRconnectTools/releases[releases page].
+** Claude Code skills: writing and reviewing mapping files (beta), drafting the alignment table before
+   writing YAML (alpha), running test data through an engine and fixing the mapping (alpha).
+* https://github.com/openFHIR/intellij-fhir-connect[FHIRConnect plugin for IntelliJ] (openFHIR):
+  navigation between mappers (Ctrl+click from `slotArchetype`, `slotContext`, `spec.extends` and
+  `context.*` to the mapper that declares the name), completion of mapper names, find usages and
+  rename across files and more (see official repo). Works in IntelliJ IDEA 2024.2+ and other JetBrains IDEs with the YAML plugin.
+  Install from the https://plugins.jetbrains.com/plugin/26927-fhirconnect[JetBrains Marketplace] or
+  the https://github.com/openFHIR/intellij-fhir-connect/releases[releases page].
 
 == Current Issues and Example Mappings
 
