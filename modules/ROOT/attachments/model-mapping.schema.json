@@ -198,8 +198,7 @@
                       "type": "array"
                     }
                   }
-                }
-              },
+                },
               "openehr": {
                 "type": "object",
                 "properties": {
@@ -213,6 +212,7 @@
                     "type": "array"
                   }
                 }
+              }
               }
             }
           },
