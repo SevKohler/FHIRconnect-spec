@@ -53,6 +53,7 @@ Every time we export a Composition into FHIR, the resource IDs must remain the s
 
 image::deterministicBehavior.drawio.png[]
 
-To ensure deterministic IDs, we recommend generating an ID based on a **hash**
-of the Composition UID and the Entry Path.
+To ensure deterministic IDs, we recommend generating an ID based on the
+**LOCATABLE.uid** of the Composition's Entries (see 
+https://specifications.openehr.org/releases/BASE/latest/architecture_overview.html#_using_a_uid_based_predicate[openEHR specification]).
 This guarantees that the resource ID remains stable across exports.
